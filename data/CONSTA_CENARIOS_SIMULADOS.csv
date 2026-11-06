@@ -1,0 +1,4 @@
+cenario,natureza,horas_recuperadas_mes,custo_hora_brl,capacidade_equivalente_fora_caixa_brl_mes,locacao_evitada_brl_mes,adicionais_emergenciais_evitados_brl_mes,beneficio_bruto_caixa_brl_mes,custo_recorrente_total_brl_mes,beneficio_liquido_caixa_brl_mes,implantacao_brl,saldo_12_meses_brl,roi_12_meses_pct,payback_meses
+Conservador,SIMULACAO_FICTICIA,20,50,1000,300,400,700,1500,-800,6000,-15600,-65,NA
+Central,SIMULACAO_FICTICIA,40,50,2000,1000,1200,2200,1500,700,6000,2400,10,8.571429
+Otimista,SIMULACAO_FICTICIA,70,50,3500,2400,2400,4800,1500,3300,6000,33600,140,1.818182

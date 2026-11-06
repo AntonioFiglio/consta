@@ -1,0 +1,14 @@
+:root {
+  --consta-ice: #D3EFFF;
+  --consta-navy: #154F6F;
+  --consta-black: #000000;
+  --consta-white: #FFFFFF;
+  --consta-font: 'Manrope', sans-serif;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('./fonts/Manrope-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
