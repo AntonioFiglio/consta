@@ -2,6 +2,8 @@
 
 Data: 06/11/2026. Requisitos esclarecidos por Matheus nesta conversa. Pesquisa documental de engenharia; nenhum produto foi comprado, instalado, integrado ou ensaiado. Esta passa a ser a referência do escopo de rastreamento. As notas anteriores de QR e de óptica são histórico de alternativas, não requisitos atuais.
 
+**Nova direção de pesquisa:** Matheus solicitou tecnologia autoral. A [proposta autoral](CONSTA_TECNOLOGIA_AUTORAL_PROPOSTA.md) compara etiqueta óptica passiva e acústica ativa, com [matriz por modalidade](../research/CONSTA_MATRIZ_INTERFERENCIA_POR_MODALIDADE.md). Quuppa permanece referência comercial comparativa; não é produto escolhido nem garantia de segurança.
+
 ## O que estamos propondo
 
 Uma etiqueta ativa em cada equipamento e localizadores fixos distribuídos pelo hospital, com atualização automática no Consta pela rede local. A experiência procurada é semelhante à de um rastreador de objetos: a movimentação é detectada sem ação de um funcionário.

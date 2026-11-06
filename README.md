@@ -8,6 +8,8 @@ Projeto de hackathon no contexto do HCFMUSP. A documentação descreve a propost
 
 ## Rastreamento de equipamentos
 
+**Direção autoral:** [proposta de pesquisa com etiqueta passiva/óptica e alternativa acústica](docs/project/CONSTA_TECNOLOGIA_AUTORAL_PROPOSTA.md), [matriz de mecanismos por modalidade](docs/research/CONSTA_MATRIZ_INTERFERENCIA_POR_MODALIDADE.md) e [autoria, referências e propriedade intelectual](docs/research/CONSTA_AUTORALIDADE_REFERENCIAS_E_PI.md). Nenhuma alternativa foi escolhida como produto clínico validado.
+
 [Proposta atual: etiquetas automáticas, sensores fixos e Consta na rede local sem internet](docs/project/CONSTA_RTLS_AUTOMATICO_LOCAL.md). Sem QR ou escaneamento para acompanhar movimentações.
 
 Pesquisa aprofundada: [produtos comerciais e operação offline](docs/research/CONSTA_RTLS_COMERCIAL_REDE_LOCAL.md), [evidências de compatibilidade](docs/research/CONSTA_RTLS_EVIDENCIA_COMPATIBILIDADE.md) e [alternativa ultrassônica com receptores cabeados](docs/research/CONSTA_RTLS_ULTRASSOM_OPTICA_E_LIMITES.md).
