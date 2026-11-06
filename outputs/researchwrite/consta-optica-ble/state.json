@@ -1,0 +1,31 @@
+{
+  "project": "consta-optica-ble",
+  "mode": "compose",
+  "text_type": "engineering_research_plan",
+  "language": "pt-BR",
+  "target_reader": "Consta hackathon team",
+  "current_round": 0,
+  "scores": [
+    {
+      "stage": "foundation",
+      "subjective_mean": "8.375",
+      "aggregate_tool": "mcp__scimath__statistics"
+    },
+    {
+      "stage": "final",
+      "subjective_mean": "8.5625",
+      "aggregate_tool": "mcp__scimath__statistics"
+    }
+  ],
+  "technical_debts": [
+    "No physical camera/corridor trial",
+    "No BLE hardware/EMC trial",
+    "Optical decoder affine approximation only",
+    "No hospital model inventory or MR approval",
+    "Synthetic corpus is finite"
+  ],
+  "status": "export",
+  "scope_confirmed_by_user": true,
+  "completed_as": "directed_research_and_disposable_synthetic_spike",
+  "review_verdict": "PASS for bounded research delivery, not clinical or hardware approval"
+}

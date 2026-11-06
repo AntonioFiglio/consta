@@ -1,0 +1,1396 @@
+{
+  "synthetic_only": true,
+  "events": [
+    {
+      "frame": 0,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            79.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            639.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            79.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 1,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            97.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            620.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            97.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            115.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            602.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            115.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            133.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            584.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            133.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            151.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            566.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            151.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            169.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            548.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            169.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            187.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            530.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            187.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            205.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            512.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            205.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 8,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            223.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            494.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            223.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 9,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            241.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            476.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            241.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 10,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            259.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            458.5,
+            179.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            259.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 11,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            277.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            277.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 12,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            295.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            295.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 13,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            313.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            313.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 14,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            331.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            331.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 15,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            349.5,
+            279.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            349.5,
+            79.5
+          ],
+          "room": "A"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 16,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            368.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            368.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 17,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            386.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            386.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 18,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            404.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            404.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 19,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            422.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            422.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": true
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 20,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            440.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            277.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            440.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 21,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            458.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            259.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            458.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 22,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            476.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            241.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            476.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 23,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            494.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            223.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            494.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 24,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            512.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            205.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            512.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 25,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            530.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            187.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            530.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 26,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            548.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            169.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            548.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 27,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            566.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            151.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            566.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 28,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            584.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            133.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            584.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 29,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            602.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            115.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            602.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 30,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            620.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            97.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            620.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "frame": 31,
+      "observations": [
+        {
+          "tag_id": "CONSTA-0003",
+          "bit_errors": 0,
+          "center": [
+            639.5,
+            279.5
+          ],
+          "room": "B"
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "bit_errors": 0,
+          "center": [
+            79.5,
+            179.5
+          ],
+          "room": "A"
+        },
+        {
+          "tag_id": "CONSTA-0001",
+          "bit_errors": 0,
+          "center": [
+            639.5,
+            79.5
+          ],
+          "room": "B"
+        }
+      ],
+      "ground_truth_for_audit_only": [
+        {
+          "tag_id": "CONSTA-0001",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0002",
+          "covered": false
+        },
+        {
+          "tag_id": "CONSTA-0003",
+          "covered": false
+        }
+      ]
+    }
+  ]
+}

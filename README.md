@@ -8,6 +8,10 @@ Projeto de hackathon no contexto do HCFMUSP. A documentação descreve a propost
 
 ## Rastreamento de equipamentos
 
+**Pesquisa atual — móveis em corredores e enfermarias:** [relatório comparativo EUA/Europa, identidade óptica e BLE](outputs/researchwrite/consta-optica-ble/exports/proposal_final.md) · [versão DOCX](outputs/researchwrite/consta-optica-ble/exports/proposal_final.docx) · [emulação óptica offline](experiments/optical-tags/index.html) · [prancha de IDs](experiments/optical-tags/overview.png).
+
+A emulação lê pixels de cenas sintéticas, distingue uma família finita de tags circulares e expõe falhas de leitura. É um spike de pesquisa, não validação hospitalar ou implementação de produto aprovada. A recomendação de avaliar BLE/AoA por áreas é proposta, sujeita à seleção e aos ensaios do conjunto.
+
 **Direção autoral:** [proposta de pesquisa com etiqueta passiva/óptica e alternativa acústica](docs/project/CONSTA_TECNOLOGIA_AUTORAL_PROPOSTA.md), [matriz de mecanismos por modalidade](docs/research/CONSTA_MATRIZ_INTERFERENCIA_POR_MODALIDADE.md) e [autoria, referências e propriedade intelectual](docs/research/CONSTA_AUTORALIDADE_REFERENCIAS_E_PI.md). Nenhuma alternativa foi escolhida como produto clínico validado.
 
 [Proposta atual: etiquetas automáticas, sensores fixos e Consta na rede local sem internet](docs/project/CONSTA_RTLS_AUTOMATICO_LOCAL.md). Sem QR ou escaneamento para acompanhar movimentações.
