@@ -121,7 +121,7 @@ Casos essenciais:
 2. Upload de PDF e extração estruturada revisável, com evidência visível.
 3. Confirmação de plano e lista/calendário de próximas manutenções.
 4. Responsável, agendamento, execução e comprovação.
-5. Localização por setor, horário e fonte; tela distinguindo manual, QR, sensor e simulação.
+5. Localização automática por sensores fixos, com setor, horário e fonte; simulação explicitamente identificada durante a demo. Sem QR ou escaneamento operacional. O processamento e a consulta essenciais deverão funcionar pela LAN sem internet.
 6. Painel de vencidas, próximas, sem plano validado e aguardando confirmação.
 7. Indicadores de tempo, cumprimento e despesas; nenhuma economia inventada no painel.
 
@@ -142,13 +142,15 @@ Fora do MVP: marketplace, negociação automática, previsão de falhas por IA, 
 
 ## 8. Localização indoor: decisão técnica
 
-**Aprofundamento em 06/11/2026:** a tarefa atual de dispositivo e compatibilidade foi consolidada em [rastreamento: decisão e pitch](CONSTA_RASTREAMENTO_DECISAO_E_PITCH.md), com estudos originais e proposta de etiqueta óptica/receptores cabeados caso não adicionar rádio seja requisito. A alternativa permanece condicionada a ensaios; não substitui a prioridade de integrar RTLS existente nem autoriza instalação assistencial.
+**Requisito atual de Matheus:** etiquetas automáticas e localizadores fixos nas paredes/tetos, sem QR/escaneamento, atualização próxima do tempo real e funcionamento integral do caminho essencial pela rede local. Consulte [RTLS automático local](CONSTA_RTLS_AUTOMATICO_LOCAL.md), que passa a ser a referência de escopo e aprofunda fornecedores, modo offline e limites de compatibilidade.
+
+**Aprofundamento anterior em 06/11/2026:** a tarefa atual de dispositivo e compatibilidade foi consolidada em [rastreamento: decisão e pitch](CONSTA_RASTREAMENTO_DECISAO_E_PITCH.md), com estudos originais e proposta de etiqueta óptica/receptores cabeados caso não adicionar rádio seja requisito. A alternativa permanece condicionada a ensaios; não substitui a prioridade de integrar RTLS existente nem autoriza instalação assistencial.
 
 **Necessidade funcional:** identificar automaticamente em qual setor/sala o ativo móvel foi detectado, com timestamp e indicação de atualização/qualidade. Histórico de movimento é desejável; coordenadas centimétricas não são requisito inicial demonstrado.
 
 | Opção | Entrega | Limite e decisão |
 |---|---|---|
-| QR/DataMatrix | Identidade e última localização registrada | Não atende sozinho ao requisito de movimento automático; manter como alternativa/manual e vínculo de identidade |
+| QR/DataMatrix | Alternativa anteriormente explorada | Excluída do escopo atual por decisão de Matheus; movimentações devem ser detectadas automaticamente |
 | RFID passivo | Inventário e eventos de passagem por leitores | Leitor transmite RF; evento não prova presença contínua; não assumir leitura perfeita em metal |
 | BLE | Detecção/proximidade ou posicionamento com receptores adequados | Candidato a primeiro piloto automático se rádio permitido e infraestrutura viável; RSSI simples não garante sala correta |
 | UWB | Posicionamento por tags/âncoras | Avaliar só se precisão maior trouxer valor; custo/instalação precisam de orçamento |

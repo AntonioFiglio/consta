@@ -2,7 +2,9 @@
 
 Pesquisa em 06/11/2026. Proposta de engenharia, sem protótipo ou validação clínica realizados. Esta nota aprofunda a seção de localização do projeto; não converte hipóteses anteriores em funcionalidades implementadas.
 
-## Resposta à tarefa atual
+**Atualização de escopo:** a referência atual é [RTLS automático local](CONSTA_RTLS_AUTOMATICO_LOCAL.md). Matheus excluiu QR/escaneamento e definiu sensores fixos com processamento local sem dependência de internet. A hipótese óptica abaixo é uma alternativa histórica, não uma decisão final.
+
+## Resposta à tarefa anterior
 
 Para explicar um dispositivo automático sem adicionar transmissor de rádio ao equipamento, proponho estudar uma **etiqueta óptica ativa infravermelha**, presa externamente ao ativo, com receptores por ambiente e rede cabeada. Ela informa a sala da última detecção; não promete coordenadas contínuas ou precisão centimétrica.
 
@@ -14,7 +16,7 @@ Há um precedente experimental direto: o Active Badge de Cambridge envia uma ide
 
 A etiqueta teria identificação própria, microcontrolador sem rádio, emissor infravermelho, driver de corrente, bateria e invólucro higienizável. Sua fixação e posição seriam aprovadas para cada modelo de ativo. Não se conecta ao circuito da bomba nem altera firmware, configuração ou alimentação do aparelho.
 
-1. No cadastro, vincular a identidade da etiqueta ao patrimônio e à série do equipamento. QR impresso oferece conferência e alternativa manual, sem substituir a detecção automática.
+1. No cadastro, vincular a identidade da etiqueta ao patrimônio e à série do equipamento. Não há leitura visual ou escaneamento no fluxo de localização atual.
 2. A etiqueta transmite pulsos de luz com seu identificador e dados mínimos de integridade/estado. Intervalo, potência, comprimento de onda e duração dos pulsos ficam a definir por ensaio; não são especificações aprovadas.
 3. Receptores ópticos no teto ou parede reconhecem o identificador. Cada receptor tem ambiente cadastrado e conexão cabeada. Mais de um receptor pode ser necessário em um ambiente com obstáculos.
 4. O gateway registra identidade, receptor, instante observado, instante recebido e qualidade da observação. A rede pode usar Ethernet; PoE é opção para alimentar receptores, condicionada à instalação elétrica e de dados aprovada.
@@ -28,7 +30,6 @@ flowchart LR
     B -->|Rede cabeada| C[Gateway autenticado]
     C --> D[Evento com sala, horário e fonte]
     D --> E[Consta: localização e manutenção]
-    F[QR e patrimônio] -->|Conferência humana| E
 ```
 
 O pulso óptico deve ter detecção de erros; retransmissões e tratamento de colisões precisam de projeto. Um código reconhecido não é necessariamente autêntico: avaliar falsificação/replay, autenticar gateways e registrar mudanças de associação. Não transmitir dados de pacientes.

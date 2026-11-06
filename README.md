@@ -8,7 +8,9 @@ Projeto de hackathon no contexto do HCFMUSP. A documentação descreve a propost
 
 ## Rastreamento de equipamentos
 
-[Decisão técnica, funcionamento do dispositivo e fala para o pitch](docs/project/CONSTA_RASTREAMENTO_DECISAO_E_PITCH.md).
+[Proposta atual: etiquetas automáticas, sensores fixos e Consta na rede local sem internet](docs/project/CONSTA_RTLS_AUTOMATICO_LOCAL.md). Sem QR ou escaneamento para acompanhar movimentações.
+
+Pesquisa aprofundada: [produtos comerciais e operação offline](docs/research/CONSTA_RTLS_COMERCIAL_REDE_LOCAL.md), [evidências de compatibilidade](docs/research/CONSTA_RTLS_EVIDENCIA_COMPATIBILIDADE.md) e [alternativa ultrassônica com receptores cabeados](docs/research/CONSTA_RTLS_ULTRASSOM_OPTICA_E_LIMITES.md).
 
 Pesquisa dirigida com artigos originais e fontes oficiais: [tecnologias](docs/research/CONSTA_TECNOLOGIAS_RASTREAMENTO.md), [proposta óptica e componentes candidatos](docs/research/CONSTA_DISPOSITIVO_SEM_RF_PROPOSTA.md) e [interferência, exames e segurança](docs/research/CONSTA_EMC_EXAMES_E_SEGURANCA.md). A proposta não foi construída ou validada; ausência de rádio não comprova ausência de interferência.
 
