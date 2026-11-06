@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1-proposta",
+  "event_id": "observacao-demo-a",
+  "institution_id": "hospital-demo",
+  "receiver_id": "receptor-demo-enfermaria",
+  "tag_id": "tag-demo-bomba",
+  "observed_at": "2026-11-06T14:00:00-03:00",
+  "clock_status": "synchronized",
+  "source": "simulated",
+  "simulated": true,
+  "measurements": {
+    "rssi_dbm": -67
+  }
+}

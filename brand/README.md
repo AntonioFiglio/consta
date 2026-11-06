@@ -39,6 +39,16 @@ Preservar proporção, espaçamento e orientação. Reservar ao redor uma área 
 
 Fonte: [Manrope no repositório Google Fonts](https://github.com/google/fonts/tree/main/ofl/manrope). Licença em [fonts/OFL.txt](fonts/OFL.txt). O nome em curvas preserva o peso escolhido; a fonte é incluída para materiais futuros.
 
-Para reconstruir: instalar `requirements-brand.txt`, ter `rsvg-convert` disponível e executar `python3 scripts/build_brand.py` na raiz. A galeria usa os arquivos locais e funciona sem conexão.
+Os arquivos finais já estão prontos para uso; reconstruí-los é opcional. O gerador e suas dependências ficam nesta pasta, separados do futuro CRM.
+
+Para reconstruir, é preciso Python 3 e `rsvg-convert` disponível no sistema. Na raiz do repositório:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r brand/requirements.txt
+.venv/bin/python brand/scripts/gerar_marca.py
+```
+
+O gerador reescreve os SVGs, PNGs, a prancha e o atalho `consta-logo.svg` na raiz. Confira o diff antes de integrar mudanças. A galeria HTML usa recursos locais e funciona sem conexão; ela é uma entrega estática de consulta da marca. O gerador não implementa nenhuma funcionalidade do CRM.
 
 Esta entrega define a identidade visual inicial. Não representa registro de marca, aprovação institucional ou vínculo com o HCFMUSP.

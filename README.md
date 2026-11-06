@@ -2,43 +2,59 @@
 
 ![Consta](brand/logo/svg/consta-horizontal-on-ice.svg)
 
-Consta transforma documentos de ativos hospitalares em planos de manutenção revisados e tarefas acompanhadas até a conclusão.
+**Gestão de ativos hospitalares: dos documentos à manutenção concluída, com localização automática dos equipamentos móveis.**
 
-Projeto de hackathon no contexto do HCFMUSP. A documentação descreve a proposta; funcionalidades e resultados dependem de implementação e validação. Os cenários de demonstração são fictícios.
+O Consta reúne cadastro de ativos, contratos, planos de manutenção, responsáveis, tarefas e comprovantes. A IA auxilia a extração documental com revisão humana. O rastreamento seguirá com **tags BLE a bateria, receptores fixos e processamento na rede local**, limitado aos equipamentos e às áreas aprovados pelo hospital.
 
-## Rastreamento de equipamentos
+**Estado real:** este repositório contém documentação, identidade visual e dados fictícios. O CRM, o serviço de localização e o hardware ainda serão construídos. A escolha de BLE é uma direção de desenvolvimento; compatibilidade hospitalar, precisão, autonomia e atualização ainda precisam de validação. Consulte o [estado atual](docs/estado-atual.md).
 
-**Desenvolvimento óptico atual — V2:** [abrir demonstração](experiments/optical-tags/v2/index.html) · [método, testes e reprodução](experiments/optical-tags/v2/README.md) · [catálogo de 1.024 identidades](experiments/optical-tags/v2/catalog32.json). A óptica é o caminho principal desta etapa; perspectiva e oclusões parciais delimitadas agora são tratadas pelo detector. A bateria e a validação adversarial preservam também as falhas.
+## Comece por aqui
 
-**Pesquisa atual — móveis em corredores e enfermarias:** [relatório comparativo EUA/Europa, identidade óptica e BLE](outputs/researchwrite/consta-optica-ble/exports/proposal_final.md) · [versão DOCX](outputs/researchwrite/consta-optica-ble/exports/proposal_final.docx) · [emulação óptica offline](experiments/optical-tags/index.html) · [prancha de IDs](experiments/optical-tags/overview.png).
+| Preciso… | Leia |
+| --- | --- |
+| Entender o produto e seu escopo | [Visão do produto](docs/produto/visao.md) e [requisitos](docs/produto/requisitos.md) |
+| Começar a desenvolver com a equipe | [Primeiros passos](docs/desenvolvimento/primeiros-passos.md) e [contribuição](CONTRIBUTING.md) |
+| Trabalhar com uma LLM | [Instruções para agentes](AGENTS.md) |
+| Entender as partes e suas interfaces | [Arquitetura](docs/arquitetura/visao-geral.md) e [contratos de integração](packages/contratos/README.md) |
+| Desenvolver o rastreamento | [Arquitetura BLE](docs/rastreamento/arquitetura-ble.md) e [segurança hospitalar](docs/rastreamento/seguranca-hospitalar.md) |
+| Escolher a próxima entrega | [Backlog](docs/desenvolvimento/backlog.md) |
+| Encontrar uma decisão ou uma fonte | [Índice da documentação](docs/README.md) |
 
-A emulação lê pixels de cenas sintéticas, distingue uma família finita de tags circulares e expõe falhas de leitura. É um spike de pesquisa, não validação hospitalar ou implementação de produto aprovada. A recomendação de avaliar BLE/AoA por áreas é proposta, sujeita à seleção e aos ensaios do conjunto.
+## Organização do repositório
 
-**Direção autoral:** [proposta de pesquisa com etiqueta passiva/óptica e alternativa acústica](docs/project/CONSTA_TECNOLOGIA_AUTORAL_PROPOSTA.md), [matriz de mecanismos por modalidade](docs/research/CONSTA_MATRIZ_INTERFERENCIA_POR_MODALIDADE.md) e [autoria, referências e propriedade intelectual](docs/research/CONSTA_AUTORALIDADE_REFERENCIAS_E_PI.md). Nenhuma alternativa foi escolhida como produto clínico validado.
+```text
+apps/crm/                 Aplicação de gestão — implementação pendente
+services/localizacao/     Recepção e estimativa de localização — implementação pendente
+packages/contratos/       Especificação das interfaces entre software e receptores
+hardware/                 Especificações de tag e receptor — fabricação pendente
+docs/                     Produto, arquitetura, desenvolvimento, fontes e decisões
+brand/                    Marca, fonte licenciada, galeria e gerador
+data/                     Exemplos e cenários exclusivamente fictícios
+scripts/                  Verificação do repositório
+.github/                  Verificação automatizada e modelo de pull request
+```
 
-[Proposta atual: etiquetas automáticas, sensores fixos e Consta na rede local sem internet](docs/project/CONSTA_RTLS_AUTOMATICO_LOCAL.md). Sem QR ou escaneamento para acompanhar movimentações.
+As pastas de aplicação, serviço e hardware têm guias de escopo, não aplicações executáveis. A stack permanece [em decisão](docs/arquitetura/visao-geral.md). O CRM poderá ser desenvolvido e demonstrado com um adaptador de localização simulado, identificado como tal.
 
-Pesquisa aprofundada: [produtos comerciais e operação offline](docs/research/CONSTA_RTLS_COMERCIAL_REDE_LOCAL.md), [evidências de compatibilidade](docs/research/CONSTA_RTLS_EVIDENCIA_COMPATIBILIDADE.md) e [alternativa ultrassônica com receptores cabeados](docs/research/CONSTA_RTLS_ULTRASSOM_OPTICA_E_LIMITES.md).
+## Direção atual
 
-Pesquisa dirigida com artigos originais e fontes oficiais: [tecnologias](docs/research/CONSTA_TECNOLOGIAS_RASTREAMENTO.md), [proposta óptica e componentes candidatos](docs/research/CONSTA_DISPOSITIVO_SEM_RF_PROPOSTA.md) e [interferência, exames e segurança](docs/research/CONSTA_EMC_EXAMES_E_SEGURANCA.md). A proposta não foi construída ou validada; ausência de rádio não comprova ausência de interferência.
+- **CRM:** documentos → extração com evidência → revisão → plano → tarefa → execução → histórico.
+- **Localização:** tag BLE → receptor fixo → rede cabeada → serviço local → CRM. Sem escaneamento operacional ou dependência de celulares pessoais.
+- **Escopo hospitalar:** equipamentos móveis e áreas autorizados; ressonância e outras áreas especiais ficam fora da implantação inicial.
+- **Óptica:** descontinuada e removida da árvore atual. O [registro histórico](docs/historico/optica-descontinuada.md) explica a decisão e como consultar os experimentos anteriores no Git.
+
+## Verificação disponível
+
+Na raiz, com Python 3:
+
+```sh
+python3 scripts/verificar_repositorio.py
+```
+
+O comando verifica referências locais da documentação e recursos da marca. Ainda não existem comandos para executar ou testar o CRM; eles deverão acompanhar sua implementação.
 
 ## Identidade visual
 
-[Galeria local e downloads](brand/index.html) · [Guia da marca](brand/README.md) · [Prancha visual](brand/brand-overview.png)
+[Galeria e downloads](brand/index.html) · [Guia de marca](brand/README.md)
 
-Cores: `#D3EFFF` e `#154F6F`, com preto e branco. Fonte: Manrope. Kit com símbolo, escrita, assinatura horizontal e vertical, em SVG com curvas e PNG.
-
-## Estrutura
-
-| Pasta | Conteúdo |
-| --- | --- |
-| `brand/` | Identidade visual, fonte licenciada, SVGs, PNGs e galeria |
-| `docs/project/` | Projeto consolidado, fontes, notas e instruções de continuidade |
-| `docs/research/` | Pesquisa exploratória e referências |
-| `data/` | Cenários exclusivamente simulados |
-| `scripts/` | Gerador dos arquivos da marca |
-| `archive/` | Pacote original de transferência, preservado localmente |
-
-Comece pelo [projeto consolidado](docs/project/CONSTA_PROJETO_HACKATHON.md) e pelos [limites das alegações](docs/project/CONSTA_FONTES_E_LIMITES.md). Para continuar o trabalho, consulte [COMECE_AQUI_CODEX_CLI.md](docs/project/COMECE_AQUI_CODEX_CLI.md).
-
-O arquivo `consta-logo.svg` na raiz é um atalho compatível com a primeira entrega, atualizado para o azul da identidade.
+Azul profundo `#154F6F`, azul gelo `#D3EFFF`, preto e branco; tipografia Manrope. O [símbolo na raiz](consta-logo.svg) é mantido por compatibilidade com a entrega original. A referência ao hackathon HCFMUSP não representa aprovação institucional ou parceria de implantação.
