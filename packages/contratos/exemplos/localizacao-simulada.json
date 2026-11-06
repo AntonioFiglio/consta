@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1-proposta",
+  "institution_id": "hospital-demo",
+  "asset_id": "ativo-demo-bomba",
+  "location_id": "enfermaria-demo",
+  "observed_at": "2026-11-06T14:00:00-03:00",
+  "received_at": "2026-11-06T14:00:01-03:00",
+  "state": "current",
+  "method": "simulated",
+  "source": "simulated",
+  "simulated": true,
+  "quality": null,
+  "evidence_event_ids": ["observacao-demo-a"]
+}

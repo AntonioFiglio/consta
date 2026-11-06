@@ -4,5 +4,10 @@ __pycache__/
 .env
 .env.*
 !.env.example
-# Original transfer bundle retained locally; organized sources are tracked.
+# Pacote original preservado localmente; não publicar cópia redundante.
 archive/*.zip
+node_modules/
+.next/
+coverage/
+dist/
+*.tsbuildinfo
