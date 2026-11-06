@@ -17,6 +17,14 @@ Se a localização vier de um simulador, a interface e a fala devem identificá-
 - **Benefício:** medir tempo de cadastro/revisão e busca, cumprimento de tarefas e gastos documentados.
 - **Pedido:** parceiro e ambiente autorizado para validar o fluxo e, separadamente, a instalação de rastreamento.
 
+## Abertura com notícias
+
+Uma abertura possível, acompanhada das fontes e datas:
+
+> Equipamento indisponível e manutenção pendente já viraram notícia em hospitais brasileiros. No seu hospital, quem acompanha cada pendência até a execução e a comprovação?
+
+O [dossiê de notícias](../referencias/noticias-para-pitch.md) reúne G1, UOL e outros veículos, com respostas institucionais e limites. O caso de Piracicaba conecta reparo, laudo e retorno ao serviço; o do Hospital de Base contextualiza controle patrimonial. Equipamento fixo ilustra manutenção, não necessidade de BLE. Não prever uma crise em outro hospital nem prometer que o Consta impediria os episódios.
+
 ## Respostas para perguntas recorrentes
 
 | Pergunta | Resposta coerente com a fase atual |

@@ -6,6 +6,7 @@ Registro de pesquisa dirigida, não revisão sistemática, laudo ou verificaçã
 
 - [Catálogo de alegações e limites](alegacoes-e-limites.md): contexto hospitalar brasileiro, manutenção, concorrência e enquadramento. Conserva a identificação das fontes e dos recortes originais.
 - [Descoberta no hackathon](descoberta-hackathon.md): síntese de gravações fornecidas por Matheus. Falas são relatos/sugestões, não validação de mercado ou requisito aprovado automaticamente.
+- [Notícias para o pitch](noticias-para-pitch.md): reportagens do G1, UOL e outros veículos, com datas, contraditório e ligação limitada ao produto. Casos de indisponibilidade não demonstram que software evitaria a falha.
 - [OMS — programa de manutenção](https://www.who.int/publications/i/item/9789241501538): fundamenta manutenção planejada; não demonstra eliminação de falhas.
 - [OMS — sistemas de informação de inventário e manutenção](https://www.who.int/publications/i/item/9789240111257): referência de gestão, não validação do Consta.
 - [Anvisa — RDC 509/2021](https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2020/rdc0509_27_05_2021.pdf): referência do gerenciamento de tecnologias abrangidas. Aplicabilidade e marco vigente precisam ser conferidos na implantação; a norma não exige compra do Consta.

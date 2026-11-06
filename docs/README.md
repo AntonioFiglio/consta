@@ -35,6 +35,7 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 - [ADR 0001 — BLE e descontinuação da óptica](adr/0001-rastreamento-ble.md)
 - [ADR 0002 — Repositório único e fronteiras de desenvolvimento](adr/0002-monorepo.md)
 - [Fontes técnicas e estudos internacionais](referencias/README.md)
+- [Notícias para contextualizar o pitch](referencias/noticias-para-pitch.md) — casos, datas, respostas e limites de interpretação
 - [Contexto hospitalar e limites das alegações](referencias/alegacoes-e-limites.md)
 - [Notas de descoberta do hackathon](referencias/descoberta-hackathon.md) — material de origem, sem precedência sobre o escopo atual
 - [Registro histórico da óptica](historico/optica-descontinuada.md) — descontinuada

@@ -19,6 +19,7 @@ O Consta reúne cadastro de ativos, contratos, planos de manutenção, responsá
 | Desenvolver o rastreamento | [Arquitetura BLE](docs/rastreamento/arquitetura-ble.md) e [segurança hospitalar](docs/rastreamento/seguranca-hospitalar.md) |
 | Escolher a próxima entrega | [Backlog](docs/desenvolvimento/backlog.md) |
 | Encontrar uma decisão ou uma fonte | [Índice da documentação](docs/README.md) |
+| Preparar o problema do pitch com casos reais | [Notícias, respostas dos hospitais e limites](docs/referencias/noticias-para-pitch.md) |
 
 ## Organização do repositório
 
@@ -45,7 +46,7 @@ As pastas de aplicação, serviço e hardware têm guias de escopo, não aplica�
 
 ## Verificação disponível
 
-Na raiz, com Python 3:
+Na raiz, com Python 3.9 ou posterior:
 
 ```sh
 python3 scripts/verificar_repositorio.py
