@@ -142,6 +142,8 @@ Fora do MVP: marketplace, negociação automática, previsão de falhas por IA, 
 
 ## 8. Localização indoor: decisão técnica
 
+**Aprofundamento em 06/11/2026:** a tarefa atual de dispositivo e compatibilidade foi consolidada em [rastreamento: decisão e pitch](CONSTA_RASTREAMENTO_DECISAO_E_PITCH.md), com estudos originais e proposta de etiqueta óptica/receptores cabeados caso não adicionar rádio seja requisito. A alternativa permanece condicionada a ensaios; não substitui a prioridade de integrar RTLS existente nem autoriza instalação assistencial.
+
 **Necessidade funcional:** identificar automaticamente em qual setor/sala o ativo móvel foi detectado, com timestamp e indicação de atualização/qualidade. Histórico de movimento é desejável; coordenadas centimétricas não são requisito inicial demonstrado.
 
 | Opção | Entrega | Limite e decisão |
