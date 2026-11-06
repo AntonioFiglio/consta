@@ -1,5 +1,7 @@
 # Consta — emulação óptica de identidade individual
 
+**Versão anterior preservada. A versão atual é o [protótipo óptico V2](v2/README.md), com [demonstração](v2/index.html), geometria projetiva e catálogo ampliado.**
+
 **Spike descartável autorizado para pesquisa. Não é implementação de produto, câmera física ou validação clínica.** Abra [index.html](index.html) para explorar os resultados sem internet. [overview.png](overview.png) mostra diferentes identidades com a mesma estrutura circular.
 
 ## O que o experimento faz

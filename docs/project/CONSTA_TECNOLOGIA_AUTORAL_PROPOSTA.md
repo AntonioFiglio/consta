@@ -4,6 +4,8 @@
 
 **Aprofundamento posterior:** Matheus delimitou móveis em corredores/enfermarias e solicitou casos EUA/Europa e emulação de identidade. O [relatório comparativo](../../outputs/researchwrite/consta-optica-ble/exports/proposal_final.md) e a [emulação óptica](../../experiments/optical-tags/index.html) registram resultados sintéticos e recomendação operacional condicionada de BLE/AoA, mantendo óptica como P&D. A preferência inicial abaixo é histórico de hipótese; não é seleção definitiva.
 
+**Direção atual após solicitação de Matheus:** continuar a óptica como candidata principal, sem transferi-la para uma linha secundária. O [protótipo V2](../../experiments/optical-tags/v2/README.md) e a [demonstração](../../experiments/optical-tags/v2/index.html) implementam retificação projetiva, redundância, tratamento limitado de oclusão e 1.024 identidades testadas sinteticamente. Preferências anteriores por BLE são histórico de recomendação, não substituem esta decisão de desenvolvimento.
+
 ## O problema de engenharia que vamos resolver
 
 Localizar automaticamente equipamentos móveis com sensores fixos no hospital, sem QR, leitura humana ou registro manual a cada movimento; operar pela LAN mesmo sem internet; preservar aparelhos, exames, pacientes e instalação elétrica. Cadastro inicial e instalação existem, mas não participam da atualização operacional.

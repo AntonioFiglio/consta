@@ -1,0 +1,15 @@
+{
+  "clean": [
+    {
+      "tag_id": "CONSTA-0001",
+      "bit_errors": 0,
+      "center": [
+        127.5,
+        127.5
+      ]
+    }
+  ],
+  "perspective": [],
+  "partial_cover": [],
+  "covered": []
+}

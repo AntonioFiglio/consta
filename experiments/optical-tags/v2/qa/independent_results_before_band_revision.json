@@ -1,0 +1,4611 @@
+{
+  "synthetic_only": true,
+  "independent_harness": true,
+  "same_base_marker_renderer": true,
+  "seed": 91061,
+  "versions": {
+    "opencv": "4.14.0",
+    "numpy": "2.4.6"
+  },
+  "hashes": {
+    "optical.py": "b1b3cc8ecde4d718b1846bf1a6ad613c47ef6699d7db1f31c72a5d60f752374f",
+    "catalog32.json": "ef3637516655cf27db5bfcebddf09883d13e27c100ec36e89c4d73149c671be8",
+    "independent_validation.py": "808d24e54e9be5bd32ebe61931b201d1723ac2869da6a1fd04f8a5fdc5cfd212"
+  },
+  "native_camera_frames": true,
+  "summary_raw_counts": {
+    "native": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "projective_rotated": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "combined": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "partial_payload": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "payload_unobservable": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "mirror": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "mixed_rings": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "negative": {
+      "cases": 8,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    },
+    "multi_mixed_native": {
+      "cases": 4,
+      "missing_ids": 0,
+      "extra_ids": 0,
+      "budget_hits": 0
+    }
+  },
+  "observations": [
+    {
+      "scenario": "native",
+      "sequence": 0,
+      "expected": [
+        "CONSTA-0626"
+      ],
+      "detected": [
+        "CONSTA-0626"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0626",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            466.0,
+            332.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              435.0,
+              329.0
+            ],
+            [
+              469.0,
+              301.0
+            ],
+            [
+              497.0,
+              335.0
+            ],
+            [
+              463.0,
+              363.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.011922542005777359,
+      "render_only_geometry": [
+        [
+          [
+            462.7485046386719,
+            365.7850341796875
+          ],
+          [
+            432.2149658203125,
+            328.7485046386719
+          ],
+          [
+            469.2514953613281,
+            298.2149658203125
+          ],
+          [
+            499.7850341796875,
+            335.2514953613281
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 48,
+        "rotation_render_degrees": -129.50274051782026
+      },
+      "pixel_sha256": "4904e848fee02862478da83fd5f5abd5b516b83ea3f0c51ba51534e3ff016e05",
+      "historical_frame_filename_only": "independent_frames/native-00.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 1,
+      "expected": [
+        "CONSTA-0789"
+      ],
+      "detected": [
+        "CONSTA-0789"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0789",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            345.25,
+            369.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              315.0,
+              340.0
+            ],
+            [
+              375.0,
+              340.0
+            ],
+            [
+              375.0,
+              399.0
+            ],
+            [
+              316.0,
+              400.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.00773945901892148,
+      "render_only_geometry": [
+        [
+          [
+            313.310302734375,
+            402.30731201171875
+          ],
+          [
+            312.69268798828125,
+            338.310302734375
+          ],
+          [
+            376.689697265625,
+            337.69268798828125
+          ],
+          [
+            377.30731201171875,
+            401.689697265625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 64,
+        "rotation_render_degrees": -90.55291522867678
+      },
+      "pixel_sha256": "3d9dfe24f0b8312895184d0075831aa52f2268357651fe5454448881034bb4bc",
+      "historical_frame_filename_only": "independent_frames/native-01.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 2,
+      "expected": [
+        "CONSTA-0634"
+      ],
+      "detected": [
+        "CONSTA-0634"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0634",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            458.25,
+            263.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              401.0,
+              236.0
+            ],
+            [
+              486.0,
+              206.0
+            ],
+            [
+              515.0,
+              291.0
+            ],
+            [
+              431.0,
+              320.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.0071645830175839365,
+      "render_only_geometry": [
+        [
+          [
+            396.8619384765625,
+            233.5019073486328
+          ],
+          [
+            487.4980773925781,
+            201.8619384765625
+          ],
+          [
+            519.1380615234375,
+            292.4980773925781
+          ],
+          [
+            428.5019226074219,
+            324.1380615234375
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 96,
+        "rotation_render_degrees": -19.24346940534168
+      },
+      "pixel_sha256": "94ac5b02118ebc7c8d318c1222bb905f1db21812e5a74e4393bf87020adadbde",
+      "historical_frame_filename_only": "independent_frames/native-02.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 3,
+      "expected": [
+        "CONSTA-0359"
+      ],
+      "detected": [
+        "CONSTA-0359"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0359",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            563.75,
+            235.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              485.0,
+              180.0
+            ],
+            [
+              619.0,
+              157.0
+            ],
+            [
+              642.0,
+              290.0
+            ],
+            [
+              509.0,
+              313.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.008616208011517301,
+      "render_only_geometry": [
+        [
+          [
+            647.4249877929688,
+            293.38043212890625
+          ],
+          [
+            505.61956787109375,
+            318.4249572753906
+          ],
+          [
+            480.5750427246094,
+            176.61956787109375
+          ],
+          [
+            622.3804321289062,
+            151.57504272460938
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 144,
+        "rotation_render_degrees": 169.98416813880127
+      },
+      "pixel_sha256": "8d504d78c8b27c6ee014362161c90af723b91022309aa55503e985f1daf552d9",
+      "historical_frame_filename_only": "independent_frames/native-03.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 4,
+      "expected": [
+        "CONSTA-0237"
+      ],
+      "detected": [
+        "CONSTA-0237"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0237",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            357.5,
+            326.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              327.0,
+              318.0
+            ],
+            [
+              365.0,
+              296.0
+            ],
+            [
+              388.0,
+              333.0
+            ],
+            [
+              350.0,
+              357.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007292541995411739,
+      "render_only_geometry": [
+        [
+          [
+            323.9688415527344,
+            318.1934509277344
+          ],
+          [
+            364.8065490722656,
+            292.9688415527344
+          ],
+          [
+            390.0311584472656,
+            333.8065490722656
+          ],
+          [
+            349.1934509277344,
+            359.0311584472656
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 48,
+        "rotation_render_degrees": -31.702760999519892
+      },
+      "pixel_sha256": "4328815ba414d9985f1d98e2ef460eb9b7144354c4ad0355a08ff3acf21f8010",
+      "historical_frame_filename_only": "independent_frames/native-04.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 5,
+      "expected": [
+        "CONSTA-0218"
+      ],
+      "detected": [
+        "CONSTA-0218"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0218",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            548.0,
+            282.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              544.0,
+              240.0
+            ],
+            [
+              590.0,
+              278.0
+            ],
+            [
+              552.0,
+              324.0
+            ],
+            [
+              506.0,
+              286.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007695458014495671,
+      "render_only_geometry": [
+        [
+          [
+            502.9466857910156,
+            286.2659606933594
+          ],
+          [
+            543.7340087890625,
+            236.94668579101562
+          ],
+          [
+            593.0533447265625,
+            277.7340393066406
+          ],
+          [
+            552.2659912109375,
+            327.0533142089844
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 64,
+        "rotation_render_degrees": -50.40903580705559
+      },
+      "pixel_sha256": "ba7309d34a2b9f96fc16647a12d727529753206d15f5ab255a1d0d76ffef7f74",
+      "historical_frame_filename_only": "independent_frames/native-05.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 6,
+      "expected": [
+        "CONSTA-0283"
+      ],
+      "detected": [
+        "CONSTA-0283"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0283",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            431.75,
+            333.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              391.0,
+              285.0
+            ],
+            [
+              481.0,
+              293.0
+            ],
+            [
+              472.0,
+              383.0
+            ],
+            [
+              383.0,
+              374.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007269708992680535,
+      "render_only_geometry": [
+        [
+          [
+            475.2196350097656,
+            386.3456115722656
+          ],
+          [
+            379.6543884277344,
+            377.2196350097656
+          ],
+          [
+            388.7803649902344,
+            281.6543884277344
+          ],
+          [
+            484.3456115722656,
+            290.7803649902344
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 96,
+        "rotation_render_degrees": -174.54508783827953
+      },
+      "pixel_sha256": "88ac96a3b781d71b8eef95ede74b364e6fcc87c6ab255a0639a5e79f53889371",
+      "historical_frame_filename_only": "independent_frames/native-06.png"
+    },
+    {
+      "scenario": "native",
+      "sequence": 7,
+      "expected": [
+        "CONSTA-0634"
+      ],
+      "detected": [
+        "CONSTA-0634"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0634",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            290.75,
+            362.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              256.0,
+              273.0
+            ],
+            [
+              380.0,
+              328.0
+            ],
+            [
+              325.0,
+              451.0
+            ],
+            [
+              202.0,
+              397.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 3,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007539665995864198,
+      "render_only_geometry": [
+        [
+          [
+            385.9136962890625,
+            325.130126953125
+          ],
+          [
+            327.869873046875,
+            456.9136962890625
+          ],
+          [
+            196.0863037109375,
+            398.869873046875
+          ],
+          [
+            254.13011169433594,
+            267.0863037109375
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 144,
+        "rotation_render_degrees": 113.77099481942177
+      },
+      "pixel_sha256": "7d19a5f1c1bf69cf83347549437154a7fb7cd3776a980ee6a387c74c79eaa207",
+      "historical_frame_filename_only": "independent_frames/native-07.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 0,
+      "expected": [
+        "CONSTA-0722"
+      ],
+      "detected": [
+        "CONSTA-0722"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0722",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            237.25,
+            413.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              154.0,
+              319.0
+            ],
+            [
+              311.0,
+              336.0
+            ],
+            [
+              343.0,
+              490.0
+            ],
+            [
+              141.0,
+              508.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 1,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.0074961249774787575,
+      "render_only_geometry": [
+        [
+          [
+            148.4405059814453,
+            312.9608154296875
+          ],
+          [
+            314.3038635253906,
+            331.8809509277344
+          ],
+          [
+            348.87799072265625,
+            495.0979919433594
+          ],
+          [
+            132.008544921875,
+            516.241455078125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -4.070152852492388
+      },
+      "pixel_sha256": "fbccfd90242765e7a3e2ed25ed1eb4280ff6db01c8fed82ca37ef3e20b039654",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-00.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 1,
+      "expected": [
+        "CONSTA-0243"
+      ],
+      "detected": [
+        "CONSTA-0243"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0243",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            236.25,
+            201.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              97.0,
+              210.0
+            ],
+            [
+              235.0,
+              77.0
+            ],
+            [
+              348.0,
+              189.0
+            ],
+            [
+              265.0,
+              330.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007699833018705249,
+      "render_only_geometry": [
+        [
+          [
+            235.1984405517578,
+            68.83157348632812
+          ],
+          [
+            353.15545654296875,
+            188.1522979736328
+          ],
+          [
+            265.9356994628906,
+            338.69500732421875
+          ],
+          [
+            85.08403015136719,
+            210.22848510742188
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 38.93152626461182
+      },
+      "pixel_sha256": "ee83c31ddfa81fae8933fb7413cb22abc15647e32fce48fae5079a4bf8c13e4f",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-01.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 2,
+      "expected": [
+        "CONSTA-0052"
+      ],
+      "detected": [
+        "CONSTA-0052"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0052",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            468.75,
+            211.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              382.0,
+              115.0
+            ],
+            [
+              583.0,
+              139.0
+            ],
+            [
+              533.0,
+              315.0
+            ],
+            [
+              377.0,
+              275.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.008482458011712879,
+      "render_only_geometry": [
+        [
+          [
+            537.864501953125,
+            321.14984130859375
+          ],
+          [
+            372.91436767578125,
+            278.8407897949219
+          ],
+          [
+            376.7797546386719,
+            108.4443359375
+          ],
+          [
+            593.2318725585938,
+            132.84432983398438
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -171.49796990742638
+      },
+      "pixel_sha256": "727da3ac1006efe413415230362064a8b02cff1fad330dbcd54e2d7466e670ab",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-02.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 3,
+      "expected": [
+        "CONSTA-0562"
+      ],
+      "detected": [
+        "CONSTA-0562"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0562",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            250.5,
+            189.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              131.0,
+              128.0
+            ],
+            [
+              308.0,
+              79.0
+            ],
+            [
+              347.0,
+              237.0
+            ],
+            [
+              216.0,
+              314.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.00782841700129211,
+      "render_only_geometry": [
+        [
+          [
+            311.15533447265625,
+            71.45616912841797
+          ],
+          [
+            351.4009094238281,
+            239.04058837890625
+          ],
+          [
+            213.64683532714844,
+            321.23089599609375
+          ],
+          [
+            120.35942077636719,
+            122.08624267578125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 67.49506237058834
+      },
+      "pixel_sha256": "6001ae3f04b22d624c0d29b85097b024ae1117bd508e83b0530ab7c52be5bc5f",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-03.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 4,
+      "expected": [
+        "CONSTA-0608"
+      ],
+      "detected": [
+        "CONSTA-0608"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0608",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            387.25,
+            316.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              284.0,
+              274.0
+            ],
+            [
+              419.0,
+              193.0
+            ],
+            [
+              515.0,
+              371.0
+            ],
+            [
+              331.0,
+              426.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007572667003842071,
+      "render_only_geometry": [
+        [
+          [
+            328.1405029296875,
+            433.7013244628906
+          ],
+          [
+            278.635986328125,
+            273.1672058105469
+          ],
+          [
+            421.7551574707031,
+            185.2582550048828
+          ],
+          [
+            526.1005249023438,
+            376.2561950683594
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -113.99350297888361
+      },
+      "pixel_sha256": "25f9f0bf03d911adad54058c63c90c1b46588db34380ff27dd6e17e8e00b63c2",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-04.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 5,
+      "expected": [
+        "CONSTA-0696"
+      ],
+      "detected": [
+        "CONSTA-0696"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0696",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            519.0,
+            299.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              391.0,
+              269.0
+            ],
+            [
+              572.0,
+              175.0
+            ],
+            [
+              633.0,
+              351.0
+            ],
+            [
+              480.0,
+              403.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.008512083004461601,
+      "render_only_geometry": [
+        [
+          [
+            640.975341796875,
+            353.91015625
+          ],
+          [
+            478.4088134765625,
+            408.01226806640625
+          ],
+          [
+            382.87249755859375,
+            266.9275207519531
+          ],
+          [
+            577.0790405273438,
+            164.2910919189453
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 153.54360354964479
+      },
+      "pixel_sha256": "0ff7b651875916255c8e9da758cdaafecde3b3256551e31538da7e5d94a5365f",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-05.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 6,
+      "expected": [
+        "CONSTA-0771"
+      ],
+      "detected": [
+        "CONSTA-0771"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0771",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            411.25,
+            237.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              303.0,
+              217.0
+            ],
+            [
+              416.0,
+              105.0
+            ],
+            [
+              544.0,
+              267.0
+            ],
+            [
+              382.0,
+              362.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.008054874982917681,
+      "render_only_geometry": [
+        [
+          [
+            380.8416442871094,
+            370.0343017578125
+          ],
+          [
+            297.6434326171875,
+            216.54257202148438
+          ],
+          [
+            416.7221984863281,
+            97.33973693847656
+          ],
+          [
+            555.5625,
+            270.3349914550781
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -126.49960908237472
+      },
+      "pixel_sha256": "16e64631196351c78bbc048a38f4516951be6a9017cfc8237701f2df33691885",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-06.png"
+    },
+    {
+      "scenario": "projective_rotated",
+      "sequence": 7,
+      "expected": [
+        "CONSTA-0781"
+      ],
+      "detected": [
+        "CONSTA-0781"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0781",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            279.0,
+            345.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              243.0,
+              217.0
+            ],
+            [
+              413.0,
+              328.0
+            ],
+            [
+              291.0,
+              473.0
+            ],
+            [
+              169.0,
+              365.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007972000021254644,
+      "render_only_geometry": [
+        [
+          [
+            291.52862548828125,
+            481.43646240234375
+          ],
+          [
+            163.48611450195312,
+            366.07537841796875
+          ],
+          [
+            242.0670623779297,
+            208.55596923828125
+          ],
+          [
+            424.84124755859375,
+            327.5318603515625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -144.99254373916705
+      },
+      "pixel_sha256": "da7a0de7ffbfc8c04993d3934336afc53f5c0e4a28887bf83f31dc9f917bd709",
+      "historical_frame_filename_only": "independent_frames/projective_rotated-07.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 0,
+      "expected": [
+        "CONSTA-0402"
+      ],
+      "detected": [
+        "CONSTA-0402"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0402",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            245.25,
+            203.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              204.0,
+              80.0
+            ],
+            [
+              351.0,
+              159.0
+            ],
+            [
+              308.0,
+              316.0
+            ],
+            [
+              118.0,
+              258.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.02113333300803788,
+      "render_only_geometry": [
+        [
+          [
+            201.0154571533203,
+            73.25395202636719
+          ],
+          [
+            356.50146484375,
+            158.18362426757812
+          ],
+          [
+            310.6208190917969,
+            321.2834167480469
+          ],
+          [
+            106.72770690917969,
+            260.0050048828125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 21.200944060403888
+      },
+      "pixel_sha256": "4c7e634ba4ae7c75171bfcbaac119e83f9f36c06498c693c881f4819731cbc12",
+      "historical_frame_filename_only": "independent_frames/combined-00.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 1,
+      "expected": [
+        "CONSTA-0642"
+      ],
+      "detected": [
+        "CONSTA-0642"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0642",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            267.25,
+            211.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              216.0,
+              88.0
+            ],
+            [
+              397.0,
+              182.0
+            ],
+            [
+              294.0,
+              336.0
+            ],
+            [
+              162.0,
+              240.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.021819749992573634,
+      "render_only_geometry": [
+        [
+          [
+            296.1277770996094,
+            342.9796142578125
+          ],
+          [
+            156.8446502685547,
+            239.34925842285156
+          ],
+          [
+            213.9221649169922,
+            81.15135192871094
+          ],
+          [
+            408.9124755859375,
+            181.9740753173828
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -151.11762997609253
+      },
+      "pixel_sha256": "6bbe2f6b0a383b3c72edfc61c126b549240add3e6447ec6f0e0781c6299a2b68",
+      "historical_frame_filename_only": "independent_frames/combined-01.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 2,
+      "expected": [
+        "CONSTA-0452"
+      ],
+      "detected": [
+        "CONSTA-0452"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0452",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            314.5,
+            323.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              301.0,
+              190.0
+            ],
+            [
+              440.0,
+              313.0
+            ],
+            [
+              327.0,
+              435.0
+            ],
+            [
+              190.0,
+              357.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.01994708299753256,
+      "render_only_geometry": [
+        [
+          [
+            448.7056884765625,
+            313.5808410644531
+          ],
+          [
+            327.45684814453125,
+            439.26971435546875
+          ],
+          [
+            182.08412170410156,
+            356.0230407714844
+          ],
+          [
+            300.9076843261719,
+            179.62228393554688
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 127.26401150460156
+      },
+      "pixel_sha256": "8e2f1dfd6840ededf5439a9e1ff8a54a84132f53165b53f359a0a3abd0c57c21",
+      "historical_frame_filename_only": "independent_frames/combined-02.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 3,
+      "expected": [
+        "CONSTA-0821"
+      ],
+      "detected": [
+        "CONSTA-0821"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0821",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            222.75,
+            183.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              116.0,
+              94.0
+            ],
+            [
+              310.0,
+              86.0
+            ],
+            [
+              304.0,
+              256.0
+            ],
+            [
+              161.0,
+              299.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.04345654201461002,
+      "render_only_geometry": [
+        [
+          [
+            315.0712890625,
+            79.71929931640625
+          ],
+          [
+            307.929931640625,
+            257.23138427734375
+          ],
+          [
+            156.57394409179688,
+            303.38232421875
+          ],
+          [
+            106.83368682861328,
+            85.96905517578125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 81.57602419762931
+      },
+      "pixel_sha256": "52dba962abf5181d4b5caa133a5eed778481da3c484755a6f2c74acd61818f0c",
+      "historical_frame_filename_only": "independent_frames/combined-03.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 4,
+      "expected": [
+        "CONSTA-0721"
+      ],
+      "detected": [
+        "CONSTA-0721"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0721",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            512.75,
+            393.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              490.0,
+              258.0
+            ],
+            [
+              653.0,
+              396.0
+            ],
+            [
+              505.0,
+              517.0
+            ],
+            [
+              403.0,
+              402.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 1,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.04602808301569894,
+      "render_only_geometry": [
+        [
+          [
+            503.6427917480469,
+            523.5232543945312
+          ],
+          [
+            398.1482238769531,
+            400.1343994140625
+          ],
+          [
+            489.70367431640625,
+            251.25320434570312
+          ],
+          [
+            666.0469970703125,
+            395.848388671875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -137.41812688974292
+      },
+      "pixel_sha256": "c0475e8a7fc35aba4c1da5811c9776e026bdf1b4d2d6eea840815f44bcf3f917",
+      "historical_frame_filename_only": "independent_frames/combined-04.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 5,
+      "expected": [
+        "CONSTA-0592"
+      ],
+      "detected": [
+        "CONSTA-0592"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0592",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            490.25,
+            332.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              471.0,
+              221.0
+            ],
+            [
+              611.0,
+              296.0
+            ],
+            [
+              508.0,
+              470.0
+            ],
+            [
+              371.0,
+              343.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 1,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.029911582998465747,
+      "render_only_geometry": [
+        [
+          [
+            363.84698486328125,
+            342.3283386230469
+          ],
+          [
+            470.2857666015625,
+            217.94534301757812
+          ],
+          [
+            618.5997314453125,
+            296.66766357421875
+          ],
+          [
+            508.96209716796875,
+            480.3983154296875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -54.43955516160769
+      },
+      "pixel_sha256": "fee6b5fa5d7e140611ee368b2153c65cc5e12d8c2bcda5d637b4f5ecc8f5efdb",
+      "historical_frame_filename_only": "independent_frames/combined-05.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 6,
+      "expected": [
+        "CONSTA-0591"
+      ],
+      "detected": [
+        "CONSTA-0591"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0591",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            249.75,
+            382.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              148.0,
+              312.0
+            ],
+            [
+              307.0,
+              285.0
+            ],
+            [
+              369.0,
+              432.0
+            ],
+            [
+              175.0,
+              500.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.032651000015903264,
+      "render_only_geometry": [
+        [
+          [
+            141.12994384765625,
+            310.2239990234375
+          ],
+          [
+            310.116455078125,
+            281.6587219238281
+          ],
+          [
+            375.85833740234375,
+            435.153076171875
+          ],
+          [
+            167.758544921875,
+            508.57550048828125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -14.687207837403061
+      },
+      "pixel_sha256": "dbecdb3c10e35de4400b2e919e63ea6708191e88362c9fd727a2c03b747ffb73",
+      "historical_frame_filename_only": "independent_frames/combined-06.png"
+    },
+    {
+      "scenario": "combined",
+      "sequence": 7,
+      "expected": [
+        "CONSTA-0450"
+      ],
+      "detected": [
+        "CONSTA-0450"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0450",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            235.25,
+            280.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              129.0,
+              211.0
+            ],
+            [
+              331.0,
+              179.0
+            ],
+            [
+              319.0,
+              371.0
+            ],
+            [
+              162.0,
+              361.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 1,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.02135520800948143,
+      "render_only_geometry": [
+        [
+          [
+            324.67730712890625,
+            375.7950439453125
+          ],
+          [
+            158.59214782714844,
+            363.5391845703125
+          ],
+          [
+            123.22521209716797,
+            207.91598510742188
+          ],
+          [
+            340.2739562988281,
+            170.59957885742188
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 175.3044926317476
+      },
+      "pixel_sha256": "325fc1c46bef1c26376e80328fb90c0ffb836d28583eb65b2b1bc9067e3bbb36",
+      "historical_frame_filename_only": "independent_frames/combined-07.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 0,
+      "expected": [
+        "CONSTA-0176"
+      ],
+      "detected": [
+        "CONSTA-0176"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0176",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            335.25,
+            211.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              273.0,
+              87.0
+            ],
+            [
+              460.0,
+              149.0
+            ],
+            [
+              398.0,
+              336.0
+            ],
+            [
+              210.0,
+              274.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.009003458020742983,
+      "render_only_geometry": [
+        [
+          [
+            268.8839111328125,
+            78.03886413574219
+          ],
+          [
+            467.96112060546875,
+            144.88392639160156
+          ],
+          [
+            401.1160888671875,
+            343.96112060546875
+          ],
+          [
+            202.0388641357422,
+            277.1160888671875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 18.560742555951613
+      },
+      "pixel_sha256": "96126848e6907962e8b08e7a123b18a0a43d902c22d8b95a397213b91aff66be",
+      "historical_frame_filename_only": "independent_frames/partial_payload-00.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 1,
+      "expected": [
+        "CONSTA-0359"
+      ],
+      "detected": [
+        "CONSTA-0359"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0359",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            235.0,
+            283.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              100.0,
+              249.0
+            ],
+            [
+              270.0,
+              149.0
+            ],
+            [
+              370.0,
+              318.0
+            ],
+            [
+              200.0,
+              419.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.00873550001415424,
+      "render_only_geometry": [
+        [
+          [
+            271.8617858886719,
+            139.15560913085938
+          ],
+          [
+            378.8443908691406,
+            319.8617858886719
+          ],
+          [
+            198.13821411132812,
+            426.8443908691406
+          ],
+          [
+            91.15560913085938,
+            246.13821411132812
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 59.373398623099725
+      },
+      "pixel_sha256": "aa0d260c3dca2ed0bad4ad35e4bc42aa6410aab449ef69cfab9ae7c38678dc34",
+      "historical_frame_filename_only": "independent_frames/partial_payload-01.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 2,
+      "expected": [
+        "CONSTA-0453"
+      ],
+      "detected": [
+        "CONSTA-0453"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0453",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            305.0,
+            379.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              282.0,
+              242.0
+            ],
+            [
+              443.0,
+              357.0
+            ],
+            [
+              328.0,
+              517.0
+            ],
+            [
+              167.0,
+              402.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.010147666005650535,
+      "render_only_geometry": [
+        [
+          [
+            281.3031311035156,
+            232.41058349609375
+          ],
+          [
+            451.58941650390625,
+            355.3031311035156
+          ],
+          [
+            328.6968688964844,
+            525.5894165039062
+          ],
+          [
+            158.41058349609375,
+            402.6968688964844
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 35.817303929918104
+      },
+      "pixel_sha256": "9d36457e76f14c13cf2fdfd1cba76e2ac62c04031395ca047fb98afc6a544e68",
+      "historical_frame_filename_only": "independent_frames/partial_payload-02.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 3,
+      "expected": [
+        "CONSTA-0599"
+      ],
+      "detected": [
+        "CONSTA-0599"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0599",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            351.5,
+            258.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              275.0,
+              142.0
+            ],
+            [
+              468.0,
+              182.0
+            ],
+            [
+              428.0,
+              376.0
+            ],
+            [
+              235.0,
+              335.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007628415973158553,
+      "render_only_geometry": [
+        [
+          [
+            226.49429321289062,
+            339.9217529296875
+          ],
+          [
+            270.0782470703125,
+            134.49429321289062
+          ],
+          [
+            475.5057067871094,
+            178.07826232910156
+          ],
+          [
+            431.9217529296875,
+            383.5057067871094
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -78.02161227380755
+      },
+      "pixel_sha256": "bc1f1c7d37c3ec0af57fad3e39d6deba6c16cf799b14ace564af56dc57fcb7e7",
+      "historical_frame_filename_only": "independent_frames/partial_payload-03.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 4,
+      "expected": [
+        "CONSTA-0097"
+      ],
+      "detected": [
+        "CONSTA-0097"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0097",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            476.0,
+            266.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              337.0,
+              264.0
+            ],
+            [
+              478.0,
+              127.0
+            ],
+            [
+              616.0,
+              269.0
+            ],
+            [
+              473.0,
+              406.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.010464291990501806,
+      "render_only_geometry": [
+        [
+          [
+            478.34100341796875,
+            117.52603149414062
+          ],
+          [
+            624.4739990234375,
+            268.34100341796875
+          ],
+          [
+            473.65899658203125,
+            414.4739685058594
+          ],
+          [
+            327.5260314941406,
+            263.65899658203125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 45.903315108337026
+      },
+      "pixel_sha256": "259d6b22810dd59e598befd2e1b992b97c552d6cf704a45ba612a5047a75e2bf",
+      "historical_frame_filename_only": "independent_frames/partial_payload-04.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 5,
+      "expected": [
+        "CONSTA-0225"
+      ],
+      "detected": [
+        "CONSTA-0225"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0225",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            382.0,
+            403.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              242.0,
+              403.0
+            ],
+            [
+              383.0,
+              264.0
+            ],
+            [
+              522.0,
+              404.0
+            ],
+            [
+              381.0,
+              543.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.009301042009610683,
+      "render_only_geometry": [
+        [
+          [
+            382.64776611328125,
+            254.5089874267578
+          ],
+          [
+            530.4910278320312,
+            403.64776611328125
+          ],
+          [
+            381.35223388671875,
+            551.4910278320312
+          ],
+          [
+            233.5089874267578,
+            402.35223388671875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 45.24994329813216
+      },
+      "pixel_sha256": "07ef44a28a733ee8024c2053e62c7f1521c6ad64d06570a74abde68d48f63ef6",
+      "historical_frame_filename_only": "independent_frames/partial_payload-05.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 6,
+      "expected": [
+        "CONSTA-0542"
+      ],
+      "detected": [
+        "CONSTA-0542"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0542",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            373.5,
+            347.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              287.0,
+              238.0
+            ],
+            [
+              483.0,
+              261.0
+            ],
+            [
+              460.0,
+              457.0
+            ],
+            [
+              264.0,
+              434.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.010627166979247704,
+      "render_only_geometry": [
+        [
+          [
+            490.83221435546875,
+            255.34722900390625
+          ],
+          [
+            465.65277099609375,
+            463.8322448730469
+          ],
+          [
+            257.16778564453125,
+            438.65277099609375
+          ],
+          [
+            282.34722900390625,
+            230.16775512695312
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 96.88645990488021
+      },
+      "pixel_sha256": "2a7c3ce50ff7eb20b0b859a93a5b971a5c6d0fa7daf2af5cf3aa01a83fd70417",
+      "historical_frame_filename_only": "independent_frames/partial_payload-06.png"
+    },
+    {
+      "scenario": "partial_payload",
+      "sequence": 7,
+      "expected": [
+        "CONSTA-0227"
+      ],
+      "detected": [
+        "CONSTA-0227"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0227",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            372.5,
+            208.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              316.0,
+              81.0
+            ],
+            [
+              500.0,
+              152.0
+            ],
+            [
+              429.0,
+              336.0
+            ],
+            [
+              245.0,
+              265.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 2,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.010499249998247251,
+      "render_only_geometry": [
+        [
+          [
+            432.8352355957031,
+            344.9034423828125
+          ],
+          [
+            237.0965576171875,
+            268.8352355957031
+          ],
+          [
+            313.1647644042969,
+            73.0965576171875
+          ],
+          [
+            508.9034423828125,
+            149.16476440429688
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -158.762814579653
+      },
+      "pixel_sha256": "954fc50d781003366a1949da9ec489d6377b44788ac5184d9b932e31c5b4f258",
+      "historical_frame_filename_only": "independent_frames/partial_payload-07.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 0,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.012738541001453996,
+      "render_only_geometry": [
+        [
+          [
+            382.3613586425781,
+            93.33065795898438
+          ],
+          [
+            353.6693420410156,
+            301.361328125
+          ],
+          [
+            145.63864135742188,
+            272.6693420410156
+          ],
+          [
+            174.33065795898438,
+            64.63865661621094
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 97.85280547629594
+      },
+      "pixel_sha256": "3683fb2b33c4aba8e0fcbbcd39637d33c1b6f6477061ca482f87d0ec784c4953",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-00.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 1,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.01584183401428163,
+      "render_only_geometry": [
+        [
+          [
+            224.31190490722656,
+            63.475250244140625
+          ],
+          [
+            420.5247497558594,
+            138.31190490722656
+          ],
+          [
+            345.6881103515625,
+            334.5247497558594
+          ],
+          [
+            149.47525024414062,
+            259.6881103515625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 20.877124283440978
+      },
+      "pixel_sha256": "b9dfc740a17b511ecf7b87af43193d656a40866565d6e29f19e4cdda05fc8a18",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-01.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 2,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.013866041990695521,
+      "render_only_geometry": [
+        [
+          [
+            236.73631286621094,
+            255.942138671875
+          ],
+          [
+            419.057861328125,
+            151.73631286621094
+          ],
+          [
+            523.263671875,
+            334.057861328125
+          ],
+          [
+            340.942138671875,
+            438.263671875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -29.750115601152345
+      },
+      "pixel_sha256": "ecc86dfd1ab46a1f05ab894691302decbe55a0042562b93382613a1e3a66fac5",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-02.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 3,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.012481500016292557,
+      "render_only_geometry": [
+        [
+          [
+            612.6016845703125,
+            209.4662322998047
+          ],
+          [
+            669.5337524414062,
+            411.6016845703125
+          ],
+          [
+            467.3983154296875,
+            468.53375244140625
+          ],
+          [
+            410.46624755859375,
+            266.3983154296875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 74.26995466596246
+      },
+      "pixel_sha256": "1d2e57b71fdde3128f9b5b4fd1afbdea128e3235184d82e6a22682f57da70454",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-03.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 4,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.009276583004975691,
+      "render_only_geometry": [
+        [
+          [
+            282.1661376953125,
+            267.3242492675781
+          ],
+          [
+            476.6757507324219,
+            188.1661376953125
+          ],
+          [
+            555.8338623046875,
+            382.6757507324219
+          ],
+          [
+            361.3242492675781,
+            461.8338623046875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -22.14447866899075
+      },
+      "pixel_sha256": "78eb236e0fa72d2c64a7455956722f3269c0655127cf01216720c195cb8940cb",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-04.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 5,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.01820824999595061,
+      "render_only_geometry": [
+        [
+          [
+            170.98426818847656,
+            382.37664794921875
+          ],
+          [
+            269.62335205078125,
+            196.98426818847656
+          ],
+          [
+            455.0157470703125,
+            295.62335205078125
+          ],
+          [
+            356.37664794921875,
+            481.0157470703125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -61.984535132930404
+      },
+      "pixel_sha256": "f5a1f858f4c1acd0319025b98e9bfa4bf9fa3b332ee521098999fe1dc085cb43",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-05.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 6,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.00958920901757665,
+      "render_only_geometry": [
+        [
+          [
+            685.034912109375,
+            312.97357177734375
+          ],
+          [
+            650.0264282226562,
+            520.034912109375
+          ],
+          [
+            442.965087890625,
+            485.02642822265625
+          ],
+          [
+            477.97357177734375,
+            277.965087890625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 99.59641846956892
+      },
+      "pixel_sha256": "1631d326e2b47f58a3731cf04bdf4cedbda18a193d4bdd3bf9cb71a7248e3b81",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-06.png"
+    },
+    {
+      "scenario": "payload_unobservable",
+      "sequence": 7,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 5,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.024320041993632913,
+      "render_only_geometry": [
+        [
+          [
+            726.4347534179688,
+            211.691650390625
+          ],
+          [
+            561.308349609375,
+            341.43475341796875
+          ],
+          [
+            431.56524658203125,
+            176.308349609375
+          ],
+          [
+            596.691650390625,
+            46.56524658203125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 141.84257623942037
+      },
+      "pixel_sha256": "a39a078dba23115ef490bb90be70a5792c51386b75be8fbb8dc7b5af5a3c2385",
+      "historical_frame_filename_only": "independent_frames/payload_unobservable-07.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 0,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.023643041989998892,
+      "render_only_geometry": [
+        [
+          [
+            358.1957092285156,
+            327.45343017578125
+          ],
+          [
+            169.54653930664062,
+            235.19570922851562
+          ],
+          [
+            261.8042907714844,
+            46.54655456542969
+          ],
+          [
+            450.4534606933594,
+            138.80429077148438
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -153.9393341266789
+      },
+      "pixel_sha256": "9f8e33fafee883f1963cf3bbcb195579e0a7257836500f1d96c0b2d4c0061994",
+      "historical_frame_filename_only": "independent_frames/mirror-00.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 1,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.023719916003756225,
+      "render_only_geometry": [
+        [
+          [
+            320.8903503417969,
+            213.1375732421875
+          ],
+          [
+            529.8624267578125,
+            233.89035034179688
+          ],
+          [
+            509.1096496582031,
+            442.8624267578125
+          ],
+          [
+            300.1375732421875,
+            422.1096496582031
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 5.6713828258994425
+      },
+      "pixel_sha256": "a05ea2423d8a3a6ae0e4298ddde9b419bbec5b33df7515b75c1726a7d6074f45",
+      "historical_frame_filename_only": "independent_frames/mirror-01.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 2,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.03493662501568906,
+      "render_only_geometry": [
+        [
+          [
+            222.41708374023438,
+            83.08445739746094
+          ],
+          [
+            390.91552734375,
+            208.41708374023438
+          ],
+          [
+            265.5829162597656,
+            376.91552734375
+          ],
+          [
+            97.08445739746094,
+            251.58291625976562
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 36.64263326268301
+      },
+      "pixel_sha256": "cf7635d7cede40d6b6d2a858fc66a150be5b7fbcac29297cb3a31c9bcbb6fbaa",
+      "historical_frame_filename_only": "independent_frames/mirror-02.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 3,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.027264832984656096,
+      "render_only_geometry": [
+        [
+          [
+            660.6368408203125,
+            339.2431640625
+          ],
+          [
+            454.7568359375,
+            380.6368408203125
+          ],
+          [
+            413.3631896972656,
+            174.7568359375
+          ],
+          [
+            619.2431640625,
+            133.36317443847656
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 168.6318313211463
+      },
+      "pixel_sha256": "c84b43b9838236a5357e34d04f5ff6a675cea8b9004c4ef1fde42961b2ab281e",
+      "historical_frame_filename_only": "independent_frames/mirror-03.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 4,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.024469374999171123,
+      "render_only_geometry": [
+        [
+          [
+            360.97613525390625,
+            395.49700927734375
+          ],
+          [
+            153.50299072265625,
+            427.97613525390625
+          ],
+          [
+            121.02385711669922,
+            220.50299072265625
+          ],
+          [
+            328.49700927734375,
+            188.02386474609375
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 171.10277463673694
+      },
+      "pixel_sha256": "01e69d1bbe81e7e38c52c489e9be96a5cd40d6e48fc05639d24b812863263200",
+      "historical_frame_filename_only": "independent_frames/mirror-04.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 5,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 8,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.023252375016454607,
+      "render_only_geometry": [
+        [
+          [
+            403.02044677734375,
+            433.74627685546875
+          ],
+          [
+            194.25372314453125,
+            411.02044677734375
+          ],
+          [
+            216.9795684814453,
+            202.25372314453125
+          ],
+          [
+            425.74627685546875,
+            224.9795684814453
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -173.78738185596484
+      },
+      "pixel_sha256": "2d7ddb7dacd01462cc6fbfb2e0d60062e11d198f7d598818e31a32b07dc95a39",
+      "historical_frame_filename_only": "independent_frames/mirror-05.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 6,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.01478645799215883,
+      "render_only_geometry": [
+        [
+          [
+            359.51324462890625,
+            318.2957763671875
+          ],
+          [
+            506.7042236328125,
+            168.5132293701172
+          ],
+          [
+            656.4867553710938,
+            315.7042236328125
+          ],
+          [
+            509.2957763671875,
+            465.48675537109375
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -45.49997802587956
+      },
+      "pixel_sha256": "3a089083e6f8bdd785e80c7a7cb618ed858f35b4bdd9a1958184fd82c44eba39",
+      "historical_frame_filename_only": "independent_frames/mirror-06.png"
+    },
+    {
+      "scenario": "mirror",
+      "sequence": 7,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 6,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.01896512499661185,
+      "render_only_geometry": [
+        [
+          [
+            560.6937255859375,
+            237.69461059570312
+          ],
+          [
+            561.3053588867188,
+            447.6937255859375
+          ],
+          [
+            351.3062744140625,
+            448.3053894042969
+          ],
+          [
+            350.6946105957031,
+            238.3062744140625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 89.83311877162049
+      },
+      "pixel_sha256": "5c4116243ec20cce432a20141d5ac28c6927cf21f8e3fd58879cfb2e42f1b8c3",
+      "historical_frame_filename_only": "independent_frames/mirror-07.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 0,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007948249985929579,
+      "render_only_geometry": [
+        [
+          [
+            556.1284790039062,
+            494.8343505859375
+          ],
+          [
+            387.1656494140625,
+            370.1285095214844
+          ],
+          [
+            511.8714904785156,
+            201.16563415527344
+          ],
+          [
+            680.8343505859375,
+            325.8714904785156
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -143.57020039523408,
+        "other_id_render_only": "CONSTA-0530"
+      },
+      "pixel_sha256": "2c9416a7ec040be46323fe73cff4f1cde78004d24580c43cb6611deb12c49a54",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-00.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 1,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.0069351670099422336,
+      "render_only_geometry": [
+        [
+          [
+            460.9970703125,
+            442.57135009765625
+          ],
+          [
+            257.42864990234375,
+            390.9970703125
+          ],
+          [
+            309.0029296875,
+            187.42864990234375
+          ],
+          [
+            512.5713500976562,
+            239.0029296875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -165.78319066708514,
+        "other_id_render_only": "CONSTA-0148"
+      },
+      "pixel_sha256": "2c3a3125be04240360eb71541bcfab08a31f22843dcd05d378a0b8086067d271",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-01.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 2,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 7,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.00916745897848159,
+      "render_only_geometry": [
+        [
+          [
+            207.97669982910156,
+            128.43775939941406
+          ],
+          [
+            403.5622253417969,
+            51.97669982910156
+          ],
+          [
+            480.0233154296875,
+            247.56224060058594
+          ],
+          [
+            284.4377746582031,
+            324.0233154296875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -21.35222642832728,
+        "other_id_render_only": "CONSTA-0612"
+      },
+      "pixel_sha256": "4bf8162009470caba844cbcaa9e636278fa74075d5e5ee9f0dc828fc45cdeb0e",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-02.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 3,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.005930375016760081,
+      "render_only_geometry": [
+        [
+          [
+            646.8538818359375,
+            159.33558654785156
+          ],
+          [
+            614.6644287109375,
+            366.8538818359375
+          ],
+          [
+            407.1461181640625,
+            334.6644287109375
+          ],
+          [
+            439.3355712890625,
+            127.14613342285156
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 98.8172366355466,
+        "other_id_render_only": "CONSTA-0947"
+      },
+      "pixel_sha256": "1648f68b16a8f00e5d9b33e7088415b9b3da6b9de1747ecaca0ef5b2f78f0b51",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-03.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 4,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.00567545901867561,
+      "render_only_geometry": [
+        [
+          [
+            238.9547119140625,
+            452.768798828125
+          ],
+          [
+            127.23118591308594,
+            274.9547119140625
+          ],
+          [
+            305.0452880859375,
+            163.23118591308594
+          ],
+          [
+            416.768798828125,
+            341.0452880859375
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -122.14182310239373,
+        "other_id_render_only": "CONSTA-0786"
+      },
+      "pixel_sha256": "b3e9018b27ce622a3de98aa24537dae53f6915cb93dc51c6c5a4d7b7dcaf8d1f",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-04.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 5,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007191791984951124,
+      "render_only_geometry": [
+        [
+          [
+            412.596435546875,
+            418.50543212890625
+          ],
+          [
+            448.49456787109375,
+            211.59645080566406
+          ],
+          [
+            655.403564453125,
+            247.49456787109375
+          ],
+          [
+            619.5054321289062,
+            454.403564453125
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -80.15732533619361,
+        "other_id_render_only": "CONSTA-0407"
+      },
+      "pixel_sha256": "193747e40a0691695474ad2cd7eb4ad5e1605daef7e19e7b7d5390d665fd9f41",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-05.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 6,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 6,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007167083007516339,
+      "render_only_geometry": [
+        [
+          [
+            368.67718505859375,
+            453.664306640625
+          ],
+          [
+            163.335693359375,
+            409.67718505859375
+          ],
+          [
+            207.3227996826172,
+            204.335693359375
+          ],
+          [
+            412.664306640625,
+            248.3227996826172
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -167.90914956455654,
+        "other_id_render_only": "CONSTA-0946"
+      },
+      "pixel_sha256": "5ec3bdbce0192261bf6524861146a4b2271d0cc5d60a2b32034294b5716824fc",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-06.png"
+    },
+    {
+      "scenario": "mixed_rings",
+      "sequence": 7,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.007875374983996153,
+      "render_only_geometry": [
+        [
+          [
+            407.16302490234375,
+            293.76025390625
+          ],
+          [
+            613.23974609375,
+            334.16302490234375
+          ],
+          [
+            572.8369750976562,
+            540.23974609375
+          ],
+          [
+            366.76025390625,
+            499.83697509765625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 11.092545640300386,
+        "other_id_render_only": "CONSTA-0622"
+      },
+      "pixel_sha256": "5acb7a4370d21261f4e871f1d4f1aa886faf4ab37b2b870e7858863aa2746e33",
+      "historical_frame_filename_only": "independent_frames/mixed_rings-07.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 0,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.0063291669939644635,
+      "render_only_geometry": [],
+      "configuration": {
+        "type": "clutter"
+      },
+      "pixel_sha256": "7cfe2e9a2ece6d8809b8a741b491afcbf5b10f9f1b74a3d1dbd16964f2852f5f",
+      "historical_frame_filename_only": "independent_frames/negative-00.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 1,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.005716915999073535,
+      "render_only_geometry": [],
+      "configuration": {
+        "type": "clutter"
+      },
+      "pixel_sha256": "64b7914418f8fe8146b7a77f0502635304a0ec306e8b81d7327b8d847f670d34",
+      "historical_frame_filename_only": "independent_frames/negative-01.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 2,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 8,
+        "finder_count": 1,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.005809167021652684,
+      "render_only_geometry": [],
+      "configuration": {
+        "type": "clutter"
+      },
+      "pixel_sha256": "5f50e33fd24b4ece229ca0aeb6cb6951e31aca6ea70fecce8135f055b3073e47",
+      "historical_frame_filename_only": "independent_frames/negative-02.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 3,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 3,
+        "finder_count": 0,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.004962875013006851,
+      "render_only_geometry": [],
+      "configuration": {
+        "type": "clutter"
+      },
+      "pixel_sha256": "cf8db1315512a6fc943281b3956140180c157f7d627819970cfb2bb253264c92",
+      "historical_frame_filename_only": "independent_frames/negative-03.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 4,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.014881999988574535,
+      "render_only_geometry": [
+        [
+          [
+            164.00587463378906,
+            106.00465393066406
+          ],
+          [
+            361.995361328125,
+            176.00587463378906
+          ],
+          [
+            291.994140625,
+            373.995361328125
+          ],
+          [
+            94.00465393066406,
+            303.994140625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 19.471571559102586,
+        "type": "foreign_outside_correction_neighborhood",
+        "foreign_word_render_only": "10111001000101000111001011010010",
+        "nearest_discrete_distance_render_only": 4
+      },
+      "pixel_sha256": "f338d9e05779502685bbeb21b484f7e4442a872dcdd02e7625db1677c48505a4",
+      "historical_frame_filename_only": "independent_frames/negative-04.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 5,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.01608683299855329,
+      "render_only_geometry": [
+        [
+          [
+            345.4473876953125,
+            430.5497131347656
+          ],
+          [
+            135.4502716064453,
+            429.4473876953125
+          ],
+          [
+            136.5526123046875,
+            219.45028686523438
+          ],
+          [
+            346.54974365234375,
+            220.5526123046875
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": -179.6992412948323,
+        "type": "foreign_outside_correction_neighborhood",
+        "foreign_word_render_only": "01000101011100010011001100100001",
+        "nearest_discrete_distance_render_only": 6
+      },
+      "pixel_sha256": "7baf203c5baf2fa73b07c670d18c05d696d4b8684a5227dad0fa87589946f497",
+      "historical_frame_filename_only": "independent_frames/negative-05.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 6,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.0213029159931466,
+      "render_only_geometry": [
+        [
+          [
+            329.38958740234375,
+            65.56118774414062
+          ],
+          [
+            500.4388122558594,
+            187.38958740234375
+          ],
+          [
+            378.61041259765625,
+            358.4388122558594
+          ],
+          [
+            207.56118774414062,
+            236.61041259765625
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 35.46005547391915,
+        "type": "foreign_outside_correction_neighborhood",
+        "foreign_word_render_only": "11110010100000110011101001111111",
+        "nearest_discrete_distance_render_only": 5
+      },
+      "pixel_sha256": "d4564ae74cd1c956a0f4c0bc36fef8e39e0467f2892f0db562a20f09fcad335e",
+      "historical_frame_filename_only": "independent_frames/negative-06.png"
+    },
+    {
+      "scenario": "negative",
+      "sequence": 7,
+      "expected": [],
+      "detected": [],
+      "missing": [],
+      "extras": [],
+      "detections": [],
+      "diagnostics": {
+        "quad_attempts": 6,
+        "finder_count": 4,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.024919499992392957,
+      "render_only_geometry": [
+        [
+          [
+            546.02685546875,
+            374.21575927734375
+          ],
+          [
+            351.78424072265625,
+            454.02685546875
+          ],
+          [
+            271.97314453125,
+            259.78424072265625
+          ],
+          [
+            466.21575927734375,
+            179.97315979003906
+          ]
+        ]
+      ],
+      "configuration": {
+        "side_preset_pixels": 210,
+        "rotation_render_degrees": 157.66305437455372,
+        "type": "foreign_outside_correction_neighborhood",
+        "foreign_word_render_only": "00110101010010000001110111011010",
+        "nearest_discrete_distance_render_only": 5
+      },
+      "pixel_sha256": "62c484b1ec8a3d281a5eecd6efee24f835ed211b903f9590b30073f1a67f99fe",
+      "historical_frame_filename_only": "independent_frames/negative-07.png"
+    },
+    {
+      "scenario": "multi_mixed_native",
+      "sequence": 0,
+      "expected": [
+        "CONSTA-0593",
+        "CONSTA-0095",
+        "CONSTA-0113",
+        "CONSTA-0061"
+      ],
+      "detected": [
+        "CONSTA-0061",
+        "CONSTA-0113",
+        "CONSTA-0593",
+        "CONSTA-0095"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0061",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            850.5,
+            550.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              769.0,
+              551.0
+            ],
+            [
+              851.0,
+              475.0
+            ],
+            [
+              917.0,
+              550.0
+            ],
+            [
+              865.0,
+              627.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0113",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            200.25,
+            550.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              169.0,
+              445.0
+            ],
+            [
+              292.0,
+              510.0
+            ],
+            [
+              256.0,
+              656.0
+            ],
+            [
+              84.0,
+              590.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0593",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            201.0,
+            180.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              145.0,
+              170.0
+            ],
+            [
+              206.0,
+              132.0
+            ],
+            [
+              262.0,
+              180.0
+            ],
+            [
+              191.0,
+              240.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0095",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            850.75,
+            180.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              795.0,
+              112.0
+            ],
+            [
+              906.0,
+              128.0
+            ],
+            [
+              921.0,
+              235.0
+            ],
+            [
+              781.0,
+              245.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 6,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.055493708001449704,
+      "render_only_geometry": [
+        {
+          "id_render_only": "CONSTA-0593",
+          "polygon": [
+            [
+              140.55050659179688,
+              170.22592163085938
+            ],
+            [
+              205.39691162109375,
+              128.67080688476562
+            ],
+            [
+              266.6103515625,
+              180.02877807617188
+            ],
+            [
+              190.5718231201172,
+              245.62173461914062
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0095",
+          "polygon": [
+            [
+              791.042724609375,
+              107.68722534179688
+            ],
+            [
+              908.5717163085938,
+              125.4642333984375
+            ],
+            [
+              924.9696044921875,
+              238.35609436035156
+            ],
+            [
+              774.1700439453125,
+              250.7485809326172
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0113",
+          "polygon": [
+            [
+              166.72885131835938,
+              438.99078369140625
+            ],
+            [
+              296.4449462890625,
+              508.17767333984375
+            ],
+            [
+              259.2396240234375,
+              663.7747802734375
+            ],
+            [
+              73.89392852783203,
+              593.1998901367188
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0061",
+          "polygon": [
+            [
+              850.8494873046875,
+              469.06060791015625
+            ],
+            [
+              920.843017578125,
+              550.4020385742188
+            ],
+            [
+              865.1690673828125,
+              631.9778442382812
+            ],
+            [
+              762.11767578125,
+              550.5916137695312
+            ]
+          ]
+        }
+      ],
+      "configuration": {
+        "type": "four_separate_native_markers"
+      },
+      "pixel_sha256": "63c622945228c4eaed47fc81f16fcd84ff59e64c796912109b5ce48c27130450",
+      "historical_frame_filename_only": "independent_frames/multi_mixed_native-00.png"
+    },
+    {
+      "scenario": "multi_mixed_native",
+      "sequence": 1,
+      "expected": [
+        "CONSTA-0996",
+        "CONSTA-0404",
+        "CONSTA-0395",
+        "CONSTA-0084"
+      ],
+      "detected": [
+        "CONSTA-0084",
+        "CONSTA-0395",
+        "CONSTA-0996",
+        "CONSTA-0404"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0084",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            847.5,
+            550.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              830.0,
+              470.0
+            ],
+            [
+              924.0,
+              534.0
+            ],
+            [
+              863.0,
+              614.0
+            ],
+            [
+              773.0,
+              583.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0395",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            198.75,
+            550.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              103.0,
+              464.0
+            ],
+            [
+              278.0,
+              472.0
+            ],
+            [
+              279.0,
+              614.0
+            ],
+            [
+              135.0,
+              651.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0996",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            201.5,
+            180.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              143.0,
+              175.0
+            ],
+            [
+              206.0,
+              131.0
+            ],
+            [
+              260.0,
+              172.0
+            ],
+            [
+              197.0,
+              245.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0404",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            853.0,
+            180.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              769.0,
+              178.0
+            ],
+            [
+              849.0,
+              102.0
+            ],
+            [
+              939.0,
+              166.0
+            ],
+            [
+              855.0,
+              274.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 7,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.03264145800494589,
+      "render_only_geometry": [
+        {
+          "id_render_only": "CONSTA-0996",
+          "polygon": [
+            [
+              138.6062469482422,
+              175.09109497070312
+            ],
+            [
+              204.51510620117188,
+              127.75541687011719
+            ],
+            [
+              263.4423522949219,
+              172.06622314453125
+            ],
+            [
+              196.0749969482422,
+              251.013916015625
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0404",
+          "polygon": [
+            [
+              763.3770141601562,
+              178.25347900390625
+            ],
+            [
+              849.194580078125,
+              97.89387512207031
+            ],
+            [
+              944.419189453125,
+              165.7411651611328
+            ],
+            [
+              853.8688354492188,
+              282.588134765625
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0395",
+          "polygon": [
+            [
+              283.0543212890625,
+              466.91876220703125
+            ],
+            [
+              282.39373779296875,
+              616.9678955078125
+            ],
+            [
+              130.1236572265625,
+              657.42822265625
+            ],
+            [
+              94.01497650146484,
+              455.4446105957031
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0084",
+          "polygon": [
+            [
+              929.472900390625,
+              532.880859375
+            ],
+            [
+              864.3701782226562,
+              616.8117065429688
+            ],
+            [
+              768.3067626953125,
+              584.9630737304688
+            ],
+            [
+              828.80029296875,
+              462.1700744628906
+            ]
+          ]
+        }
+      ],
+      "configuration": {
+        "type": "four_separate_native_markers"
+      },
+      "pixel_sha256": "8a53d3198b86aa2623d520714a611e4ebdf9f91b627e2dc438931ec19ec604e9",
+      "historical_frame_filename_only": "independent_frames/multi_mixed_native-01.png"
+    },
+    {
+      "scenario": "multi_mixed_native",
+      "sequence": 2,
+      "expected": [
+        "CONSTA-0164",
+        "CONSTA-0579",
+        "CONSTA-1016",
+        "CONSTA-0400"
+      ],
+      "detected": [
+        "CONSTA-0400",
+        "CONSTA-1016",
+        "CONSTA-0164",
+        "CONSTA-0579"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0400",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            851.0,
+            547.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              816.0,
+              476.0
+            ],
+            [
+              933.0,
+              523.0
+            ],
+            [
+              871.0,
+              623.0
+            ],
+            [
+              784.0,
+              569.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-1016",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            198.0,
+            549.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              76.0,
+              528.0
+            ],
+            [
+              239.0,
+              435.0
+            ],
+            [
+              309.0,
+              593.0
+            ],
+            [
+              168.0,
+              641.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0164",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            201.0,
+            179.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              157.0,
+              154.0
+            ],
+            [
+              224.0,
+              123.0
+            ],
+            [
+              254.0,
+              214.0
+            ],
+            [
+              169.0,
+              228.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0579",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            848.5,
+            181.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              788.0,
+              112.0
+            ],
+            [
+              914.0,
+              126.0
+            ],
+            [
+              902.0,
+              237.0
+            ],
+            [
+              790.0,
+              249.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 5,
+        "finder_count": 8,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.044081833999371156,
+      "render_only_geometry": [
+        {
+          "id_render_only": "CONSTA-0164",
+          "polygon": [
+            [
+              167.30592346191406,
+              231.40609741210938
+            ],
+            [
+              154.1959686279297,
+              152.93881225585938
+            ],
+            [
+              225.49081420898438,
+              118.56944274902344
+            ],
+            [
+              259.1452331542969,
+              217.56298828125
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0579",
+          "polygon": [
+            [
+              917.9307250976562,
+              121.78128051757812
+            ],
+            [
+              905.3435668945312,
+              239.4368896484375
+            ],
+            [
+              786.1912841796875,
+              252.802734375
+            ],
+            [
+              783.3482055664062,
+              105.84397888183594
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-1016",
+          "polygon": [
+            [
+              316.5832824707031,
+              594.9425048828125
+            ],
+            [
+              167.48458862304688,
+              645.3505249023438
+            ],
+            [
+              68.20945739746094,
+              526.2666015625
+            ],
+            [
+              243.4803466796875,
+              424.34979248046875
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0400",
+          "polygon": [
+            [
+              872.5772094726562,
+              628.365478515625
+            ],
+            [
+              780.8546142578125,
+              570.563720703125
+            ],
+            [
+              814.284912109375,
+              471.7055969238281
+            ],
+            [
+              941.25,
+              521.5406494140625
+            ]
+          ]
+        }
+      ],
+      "configuration": {
+        "type": "four_separate_native_markers"
+      },
+      "pixel_sha256": "d79057995544dd23ae6c1d451fdb75a7be7c7271ea258d03ec08e08e5a8e0807",
+      "historical_frame_filename_only": "independent_frames/multi_mixed_native-02.png"
+    },
+    {
+      "scenario": "multi_mixed_native",
+      "sequence": 3,
+      "expected": [
+        "CONSTA-0282",
+        "CONSTA-0678",
+        "CONSTA-0101",
+        "CONSTA-0346"
+      ],
+      "detected": [
+        "CONSTA-0346",
+        "CONSTA-0101",
+        "CONSTA-0282",
+        "CONSTA-0678"
+      ],
+      "missing": [],
+      "extras": [],
+      "detections": [
+        {
+          "tag_id": "CONSTA-0346",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            850.25,
+            550.5
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              800.0,
+              484.0
+            ],
+            [
+              913.0,
+              507.0
+            ],
+            [
+              891.0,
+              602.0
+            ],
+            [
+              797.0,
+              609.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0101",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            199.75,
+            549.75
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              103.0,
+              520.0
+            ],
+            [
+              224.0,
+              434.0
+            ],
+            [
+              316.0,
+              593.0
+            ],
+            [
+              156.0,
+              652.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0282",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            200.0,
+            180.0
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              137.0,
+              180.0
+            ],
+            [
+              201.0,
+              122.0
+            ],
+            [
+              252.0,
+              178.0
+            ],
+            [
+              210.0,
+              240.0
+            ]
+          ]
+        },
+        {
+          "tag_id": "CONSTA-0678",
+          "bit_errors": 0,
+          "erasures": 0,
+          "center": [
+            851.0,
+            183.25
+          ],
+          "method": "frame_homography",
+          "quad": [
+            [
+              814.0,
+              105.0
+            ],
+            [
+              918.0,
+              148.0
+            ],
+            [
+              905.0,
+              253.0
+            ],
+            [
+              767.0,
+              227.0
+            ]
+          ]
+        }
+      ],
+      "diagnostics": {
+        "quad_attempts": 4,
+        "finder_count": 7,
+        "candidate_budget_hit": false
+      },
+      "seconds_observed": 0.03826041700085625,
+      "render_only_geometry": [
+        {
+          "id_render_only": "CONSTA-0282",
+          "polygon": [
+            [
+              201.03916931152344,
+              117.94914245605469
+            ],
+            [
+              255.05169677734375,
+              177.78073120117188
+            ],
+            [
+              210.6854705810547,
+              243.85548400878906
+            ],
+            [
+              130.82977294921875,
+              178.9069366455078
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0678",
+          "polygon": [
+            [
+              810.6157836914062,
+              100.16273498535156
+            ],
+            [
+              921.2404174804688,
+              145.75775146484375
+            ],
+            [
+              908.3546142578125,
+              257.67755126953125
+            ],
+            [
+              759.3682861328125,
+              230.6002655029297
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0101",
+          "polygon": [
+            [
+              154.2420654296875,
+              658.9608154296875
+            ],
+            [
+              97.72122192382812,
+              519.7100830078125
+            ],
+            [
+              225.45091247558594,
+              426.0395812988281
+            ],
+            [
+              326.478515625,
+              597.185302734375
+            ]
+          ]
+        },
+        {
+          "id_render_only": "CONSTA-0346",
+          "polygon": [
+            [
+              917.651123046875,
+              503.33062744140625
+            ],
+            [
+              893.0328369140625,
+              604.452880859375
+            ],
+            [
+              792.91650390625,
+              612.7002563476562
+            ],
+            [
+              795.7235717773438,
+              477.7346496582031
+            ]
+          ]
+        }
+      ],
+      "configuration": {
+        "type": "four_separate_native_markers"
+      },
+      "pixel_sha256": "f4a0ef85047b16822b78074fb31d019fe355dbed26849843e28858f6dca3a4a0",
+      "historical_frame_filename_only": "independent_frames/multi_mixed_native-03.png"
+    }
+  ],
+  "historical_frame_files_not_retained": true
+}

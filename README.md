@@ -8,6 +8,8 @@ Projeto de hackathon no contexto do HCFMUSP. A documentação descreve a propost
 
 ## Rastreamento de equipamentos
 
+**Desenvolvimento óptico atual — V2:** [abrir demonstração](experiments/optical-tags/v2/index.html) · [método, testes e reprodução](experiments/optical-tags/v2/README.md) · [catálogo de 1.024 identidades](experiments/optical-tags/v2/catalog32.json). A óptica é o caminho principal desta etapa; perspectiva e oclusões parciais delimitadas agora são tratadas pelo detector. A bateria e a validação adversarial preservam também as falhas.
+
 **Pesquisa atual — móveis em corredores e enfermarias:** [relatório comparativo EUA/Europa, identidade óptica e BLE](outputs/researchwrite/consta-optica-ble/exports/proposal_final.md) · [versão DOCX](outputs/researchwrite/consta-optica-ble/exports/proposal_final.docx) · [emulação óptica offline](experiments/optical-tags/index.html) · [prancha de IDs](experiments/optical-tags/overview.png).
 
 A emulação lê pixels de cenas sintéticas, distingue uma família finita de tags circulares e expõe falhas de leitura. É um spike de pesquisa, não validação hospitalar ou implementação de produto aprovada. A recomendação de avaliar BLE/AoA por áreas é proposta, sujeita à seleção e aos ensaios do conjunto.

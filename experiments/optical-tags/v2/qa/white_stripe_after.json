@@ -1,0 +1,578 @@
+[
+  {
+    "expected": "CONSTA-0089",
+    "detected": [
+      "CONSTA-0089"
+    ]
+  },
+  {
+    "expected": "CONSTA-0232",
+    "detected": [
+      "CONSTA-0232"
+    ]
+  },
+  {
+    "expected": "CONSTA-0670",
+    "detected": [
+      "CONSTA-0670"
+    ]
+  },
+  {
+    "expected": "CONSTA-0581",
+    "detected": [
+      "CONSTA-0581"
+    ]
+  },
+  {
+    "expected": "CONSTA-0123",
+    "detected": [
+      "CONSTA-0123"
+    ]
+  },
+  {
+    "expected": "CONSTA-0540",
+    "detected": [
+      "CONSTA-0540"
+    ]
+  },
+  {
+    "expected": "CONSTA-0524",
+    "detected": [
+      "CONSTA-0524"
+    ]
+  },
+  {
+    "expected": "CONSTA-0496",
+    "detected": [
+      "CONSTA-0496"
+    ]
+  },
+  {
+    "expected": "CONSTA-0993",
+    "detected": [
+      "CONSTA-0993"
+    ]
+  },
+  {
+    "expected": "CONSTA-0818",
+    "detected": [
+      "CONSTA-0818"
+    ]
+  },
+  {
+    "expected": "CONSTA-0069",
+    "detected": [
+      "CONSTA-0069"
+    ]
+  },
+  {
+    "expected": "CONSTA-0954",
+    "detected": [
+      "CONSTA-0954"
+    ]
+  },
+  {
+    "expected": "CONSTA-0471",
+    "detected": [
+      "CONSTA-0471"
+    ]
+  },
+  {
+    "expected": "CONSTA-0339",
+    "detected": [
+      "CONSTA-0339"
+    ]
+  },
+  {
+    "expected": "CONSTA-1015",
+    "detected": [
+      "CONSTA-1015"
+    ]
+  },
+  {
+    "expected": "CONSTA-0613",
+    "detected": [
+      "CONSTA-0613"
+    ]
+  },
+  {
+    "expected": "CONSTA-0675",
+    "detected": [
+      "CONSTA-0675"
+    ]
+  },
+  {
+    "expected": "CONSTA-0883",
+    "detected": [
+      "CONSTA-0883"
+    ]
+  },
+  {
+    "expected": "CONSTA-0283",
+    "detected": [
+      "CONSTA-0283"
+    ]
+  },
+  {
+    "expected": "CONSTA-0542",
+    "detected": [
+      "CONSTA-0542"
+    ]
+  },
+  {
+    "expected": "CONSTA-0594",
+    "detected": [
+      "CONSTA-0594"
+    ]
+  },
+  {
+    "expected": "CONSTA-0932",
+    "detected": [
+      "CONSTA-0932"
+    ]
+  },
+  {
+    "expected": "CONSTA-0561",
+    "detected": [
+      "CONSTA-0561"
+    ]
+  },
+  {
+    "expected": "CONSTA-0929",
+    "detected": [
+      "CONSTA-0929"
+    ]
+  },
+  {
+    "expected": "CONSTA-0931",
+    "detected": [
+      "CONSTA-0931"
+    ]
+  },
+  {
+    "expected": "CONSTA-0421",
+    "detected": [
+      "CONSTA-0421"
+    ]
+  },
+  {
+    "expected": "CONSTA-0901",
+    "detected": [
+      "CONSTA-0901"
+    ]
+  },
+  {
+    "expected": "CONSTA-0621",
+    "detected": [
+      "CONSTA-0621"
+    ]
+  },
+  {
+    "expected": "CONSTA-0399",
+    "detected": [
+      "CONSTA-0399"
+    ]
+  },
+  {
+    "expected": "CONSTA-0718",
+    "detected": [
+      "CONSTA-0718"
+    ]
+  },
+  {
+    "expected": "CONSTA-0483",
+    "detected": [
+      "CONSTA-0483"
+    ]
+  },
+  {
+    "expected": "CONSTA-0124",
+    "detected": [
+      "CONSTA-0124"
+    ]
+  },
+  {
+    "expected": "CONSTA-0387",
+    "detected": [
+      "CONSTA-0387"
+    ]
+  },
+  {
+    "expected": "CONSTA-0684",
+    "detected": [
+      "CONSTA-0684"
+    ]
+  },
+  {
+    "expected": "CONSTA-0892",
+    "detected": [
+      "CONSTA-0892"
+    ]
+  },
+  {
+    "expected": "CONSTA-0296",
+    "detected": [
+      "CONSTA-0296"
+    ]
+  },
+  {
+    "expected": "CONSTA-0111",
+    "detected": [
+      "CONSTA-0111"
+    ]
+  },
+  {
+    "expected": "CONSTA-0257",
+    "detected": [
+      "CONSTA-0257"
+    ]
+  },
+  {
+    "expected": "CONSTA-0032",
+    "detected": [
+      "CONSTA-0032"
+    ]
+  },
+  {
+    "expected": "CONSTA-0783",
+    "detected": [
+      "CONSTA-0783"
+    ]
+  },
+  {
+    "expected": "CONSTA-0830",
+    "detected": [
+      "CONSTA-0830"
+    ]
+  },
+  {
+    "expected": "CONSTA-0789",
+    "detected": [
+      "CONSTA-0789"
+    ]
+  },
+  {
+    "expected": "CONSTA-0279",
+    "detected": [
+      "CONSTA-0279"
+    ]
+  },
+  {
+    "expected": "CONSTA-0270",
+    "detected": [
+      "CONSTA-0270"
+    ]
+  },
+  {
+    "expected": "CONSTA-0637",
+    "detected": [
+      "CONSTA-0637"
+    ]
+  },
+  {
+    "expected": "CONSTA-0228",
+    "detected": [
+      "CONSTA-0228"
+    ]
+  },
+  {
+    "expected": "CONSTA-0765",
+    "detected": [
+      "CONSTA-0765"
+    ]
+  },
+  {
+    "expected": "CONSTA-0453",
+    "detected": [
+      "CONSTA-0453"
+    ]
+  },
+  {
+    "expected": "CONSTA-0762",
+    "detected": [
+      "CONSTA-0762"
+    ]
+  },
+  {
+    "expected": "CONSTA-0106",
+    "detected": [
+      "CONSTA-0106"
+    ]
+  },
+  {
+    "expected": "CONSTA-0912",
+    "detected": [
+      "CONSTA-0912"
+    ]
+  },
+  {
+    "expected": "CONSTA-0013",
+    "detected": [
+      "CONSTA-0013"
+    ]
+  },
+  {
+    "expected": "CONSTA-0850",
+    "detected": [
+      "CONSTA-0850"
+    ]
+  },
+  {
+    "expected": "CONSTA-0951",
+    "detected": [
+      "CONSTA-0951"
+    ]
+  },
+  {
+    "expected": "CONSTA-0004",
+    "detected": [
+      "CONSTA-0004"
+    ]
+  },
+  {
+    "expected": "CONSTA-0833",
+    "detected": [
+      "CONSTA-0833"
+    ]
+  },
+  {
+    "expected": "CONSTA-0991",
+    "detected": [
+      "CONSTA-0991"
+    ]
+  },
+  {
+    "expected": "CONSTA-0942",
+    "detected": [
+      "CONSTA-0942"
+    ]
+  },
+  {
+    "expected": "CONSTA-0531",
+    "detected": [
+      "CONSTA-0531"
+    ]
+  },
+  {
+    "expected": "CONSTA-0179",
+    "detected": [
+      "CONSTA-0179"
+    ]
+  },
+  {
+    "expected": "CONSTA-1000",
+    "detected": [
+      "CONSTA-1000"
+    ]
+  },
+  {
+    "expected": "CONSTA-0321",
+    "detected": [
+      "CONSTA-0321"
+    ]
+  },
+  {
+    "expected": "CONSTA-0485",
+    "detected": [
+      "CONSTA-0485"
+    ]
+  },
+  {
+    "expected": "CONSTA-0251",
+    "detected": [
+      "CONSTA-0251"
+    ]
+  },
+  {
+    "expected": "CONSTA-0424",
+    "detected": [
+      "CONSTA-0424"
+    ]
+  },
+  {
+    "expected": "CONSTA-0909",
+    "detected": [
+      "CONSTA-0909"
+    ]
+  },
+  {
+    "expected": "CONSTA-0576",
+    "detected": [
+      "CONSTA-0576"
+    ]
+  },
+  {
+    "expected": "CONSTA-0365",
+    "detected": [
+      "CONSTA-0365"
+    ]
+  },
+  {
+    "expected": "CONSTA-0324",
+    "detected": [
+      "CONSTA-0324"
+    ]
+  },
+  {
+    "expected": "CONSTA-0031",
+    "detected": [
+      "CONSTA-0031"
+    ]
+  },
+  {
+    "expected": "CONSTA-0538",
+    "detected": [
+      "CONSTA-0538"
+    ]
+  },
+  {
+    "expected": "CONSTA-0605",
+    "detected": [
+      "CONSTA-0605"
+    ]
+  },
+  {
+    "expected": "CONSTA-0936",
+    "detected": [
+      "CONSTA-0936"
+    ]
+  },
+  {
+    "expected": "CONSTA-0141",
+    "detected": [
+      "CONSTA-0141"
+    ]
+  },
+  {
+    "expected": "CONSTA-0947",
+    "detected": [
+      "CONSTA-0947"
+    ]
+  },
+  {
+    "expected": "CONSTA-0128",
+    "detected": [
+      "CONSTA-0128"
+    ]
+  },
+  {
+    "expected": "CONSTA-0631",
+    "detected": [
+      "CONSTA-0631"
+    ]
+  },
+  {
+    "expected": "CONSTA-0168",
+    "detected": [
+      "CONSTA-0168"
+    ]
+  },
+  {
+    "expected": "CONSTA-0400",
+    "detected": [
+      "CONSTA-0400"
+    ]
+  },
+  {
+    "expected": "CONSTA-0798",
+    "detected": [
+      "CONSTA-0798"
+    ]
+  },
+  {
+    "expected": "CONSTA-0463",
+    "detected": [
+      "CONSTA-0463"
+    ]
+  },
+  {
+    "expected": "CONSTA-0987",
+    "detected": [
+      "CONSTA-0987"
+    ]
+  },
+  {
+    "expected": "CONSTA-0969",
+    "detected": [
+      "CONSTA-0969"
+    ]
+  },
+  {
+    "expected": "CONSTA-0159",
+    "detected": [
+      "CONSTA-0159"
+    ]
+  },
+  {
+    "expected": "CONSTA-0865",
+    "detected": [
+      "CONSTA-0865"
+    ]
+  },
+  {
+    "expected": "CONSTA-0949",
+    "detected": [
+      "CONSTA-0949"
+    ]
+  },
+  {
+    "expected": "CONSTA-0162",
+    "detected": [
+      "CONSTA-0162"
+    ]
+  },
+  {
+    "expected": "CONSTA-0067",
+    "detected": [
+      "CONSTA-0067"
+    ]
+  },
+  {
+    "expected": "CONSTA-0495",
+    "detected": [
+      "CONSTA-0495"
+    ]
+  },
+  {
+    "expected": "CONSTA-0577",
+    "detected": [
+      "CONSTA-0577"
+    ]
+  },
+  {
+    "expected": "CONSTA-0587",
+    "detected": [
+      "CONSTA-0587"
+    ]
+  },
+  {
+    "expected": "CONSTA-0523",
+    "detected": [
+      "CONSTA-0523"
+    ]
+  },
+  {
+    "expected": "CONSTA-0361",
+    "detected": [
+      "CONSTA-0361"
+    ]
+  },
+  {
+    "expected": "CONSTA-0062",
+    "detected": [
+      "CONSTA-0062"
+    ]
+  },
+  {
+    "expected": "CONSTA-0902",
+    "detected": [
+      "CONSTA-0902"
+    ]
+  },
+  {
+    "expected": "CONSTA-0398",
+    "detected": [
+      "CONSTA-0398"
+    ]
+  }
+]
