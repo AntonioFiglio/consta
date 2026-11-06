@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONSTA — Brand Identity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #0A0A0A;
+      --orange:    #F97316;
+      --vermilion: #E63946;
+      --white:     #FAFAF9;
+      --gray-100:  #F5F5F4;
+      --gray-200:  #E7E5E4;
+      --gray-500:  #78716C;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--gray-100);
+      color: var(--black);
+      padding: 56px 24px 96px;
+    }
+
+    /* ─── LAYOUT ─── */
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .card-inner {
+      padding: 40px;
+    }
+
+    /* ─── WORDMARK ─── */
+    .wm {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .wm-lg { font-size: 72px; }
+    .wm-md { font-size: 48px; }
+    .wm-sm { font-size: 28px; }
+    .wm-xs { font-size: 16px; }
+
+    .dot { color: var(--orange); }
+    .dot-red { color: var(--vermilion); }
+
+    .on-dark { color: white; }
+
+    /* ─── WORDMARK SHOWCASES ─── */
+    .wm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .wm-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px;
+      min-height: 180px;
+    }
+
+    .wm-cell--white { background: white; border-right: 1px solid var(--gray-200); }
+    .wm-cell--black { background: var(--black); }
+
+    .wm-cell--white-b { background: white; border-right: 1px solid var(--gray-200); border-top: 1px solid var(--gray-200); }
+    .wm-cell--gray  { background: var(--gray-100); border-top: 1px solid var(--gray-200); }
+
+    /* ─── SIZES ─── */
+    .sizes-row {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: 40px;
+    }
+
+    .size-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .size-tag {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      min-width: 60px;
+    }
+
+    /* ─── COLORS ─── */
+    .colors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .color-cell {
+      padding: 32px 28px 24px;
+    }
+
+    .color-swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .color-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .color-hex {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+    }
+
+    .color-use {
+      font-size: 11px;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .color-cell + .color-cell {
+      border-left: 1px solid var(--gray-200);
+    }
+
+    /* ─── USAGE ─── */
+    .usage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--gray-200);
+    }
+
+    .usage-cell {
+      background: white;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .usage-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 4px;
+    }
+
+    /* ─── STATUS SYSTEM ─── */
+    .status-block {
+      padding: 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-dot--ok       { background: #22C55E; }
+    .status-dot--warning  { background: var(--orange); }
+    .status-dot--critical { background: var(--vermilion); }
+
+    .status-text {
+      font-size: 13px;
+      color: var(--black);
+    }
+
+    .status-text strong {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+    }
+
+    .status-desc {
+      font-size: 11.5px;
+      color: var(--gray-500);
+      margin-left: auto;
+    }
+
+    /* ─── TAGLINE ─── */
+    .tagline-block {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: var(--black);
+    }
+
+    .tagline-main {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline-main em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .tagline-sub {
+      font-size: 15px;
+      color: #888;
+      max-width: 440px;
+      line-height: 1.6;
+    }
+
+    .taglines-alt {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid #1F1F1F;
+      padding-top: 24px;
+    }
+
+    .tagline-alt-item {
+      font-size: 13px;
+      color: #555;
+      display: flex;
+      gap: 10px;
+    }
+
+    .tagline-alt-item::before {
+      content: '—';
+      color: #333;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .wm-grid, .colors-grid, .usage-grid { grid-template-columns: 1fr; }
+      .wm-cell--white, .wm-cell--white-b { border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .color-cell + .color-cell { border-left: none; border-top: 1px solid var(--gray-200); }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- WORDMARK PRINCIPAL -->
+  <div>
+    <div class="section-label">Wordmark</div>
+    <div class="card">
+      <div class="wm-grid">
+        <div class="wm-cell wm-cell--white">
+          <span class="wm wm-lg">CONSTA<span class="dot">.</span></span>
+        </div>
+        <div class="wm-cell wm-cell--black">
+          <span class="wm wm-lg on-dark">CONSTA<span class="dot">.</span></span>
+        </div>
+        <div class="wm-cell wm-cell--white-b">
+          <span class="wm wm-lg">CONSTA<span class="dot-red">.</span></span>
+        </div>
+        <div class="wm-cell wm-cell--gray">
+          <span class="wm wm-lg">CONSTA<span class="dot">.</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAMANHOS -->
+  <div>
+    <div class="section-label">Escala</div>
+    <div class="card">
+      <div class="sizes-row">
+        <div class="size-item">
+          <span class="size-tag">Hero</span>
+          <span class="wm wm-lg">CONSTA<span class="dot">.</span></span>
+        </div>
+        <div class="size-item">
+          <span class="size-tag">Header</span>
+          <span class="wm wm-md">CONSTA<span class="dot">.</span></span>
+        </div>
+        <div class="size-item">
+          <span class="size-tag">Nav</span>
+          <span class="wm wm-sm">CONSTA<span class="dot">.</span></span>
+        </div>
+        <div class="size-item">
+          <span class="size-tag">Favicon</span>
+          <span class="wm wm-xs">CONSTA<span class="dot">.</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORES -->
+  <div>
+    <div class="section-label">Paleta</div>
+    <div class="card">
+      <div class="colors-grid">
+        <div class="color-cell">
+          <div class="color-swatch" style="background:#0A0A0A;"></div>
+          <div class="color-name">Black</div>
+          <div class="color-hex">#0A0A0A</div>
+          <div class="color-use">Wordmark, texto, fundos</div>
+        </div>
+        <div class="color-cell">
+          <div class="color-swatch" style="background:#F97316;"></div>
+          <div class="color-name">Orange</div>
+          <div class="color-hex">#F97316</div>
+          <div class="color-use">Ponto da marca, alertas, manutenção próxima</div>
+        </div>
+        <div class="color-cell">
+          <div class="color-swatch" style="background:#E63946;"></div>
+          <div class="color-name">Vermilion</div>
+          <div class="color-hex">#E63946</div>
+          <div class="color-use">Crítico, equipamento parado, urgente</div>
+        </div>
+        <div class="color-cell">
+          <div class="color-swatch" style="background:#FAFAF9; border: 1px solid #E7E5E4;"></div>
+          <div class="color-name">White</div>
+          <div class="color-hex">#FAFAF9</div>
+          <div class="color-use">Fundos, wordmark invertida</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SISTEMA DE STATUS -->
+  <div>
+    <div class="section-label">Sistema de Status</div>
+    <div class="card">
+      <div class="status-block">
+        <div class="status-row">
+          <div class="status-dot status-dot--ok"></div>
+          <span class="status-text"><strong>CONSTA.</strong> positivo</span>
+          <span class="status-desc">Manutenção em dia, equipamento operacional</span>
+        </div>
+        <div class="status-row">
+          <div class="status-dot status-dot--warning"></div>
+          <span class="status-text" style="color: var(--orange);"><strong>CONSTA.</strong> atenção</span>
+          <span class="status-desc">Manutenção ativada automaticamente</span>
+        </div>
+        <div class="status-row">
+          <div class="status-dot status-dot--critical"></div>
+          <span class="status-text" style="color: var(--vermilion);"><strong>CONSTA.</strong> crítico</span>
+          <span class="status-desc">Equipamento parado — ação necessária</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAGLINE / VOZ -->
+  <div>
+    <div class="section-label">Voz da Marca</div>
+    <div class="card">
+      <div class="tagline-block">
+        <div class="tagline-main">
+          Seus equipamentos,<br>
+          sempre <em>constando positivo.</em>
+        </div>
+        <div class="tagline-sub">
+          CONSTA detecta quando um equipamento precisa de manutenção e ativa o processo automaticamente — antes de parar.
+        </div>
+        <div class="taglines-alt">
+          <div class="tagline-alt-item">Consta positivo. Sempre.</div>
+          <div class="tagline-alt-item">Manutenção que se ativa sozinha.</div>
+          <div class="tagline-alt-item">Do documento ao técnico. Automático.</div>
+          <div class="tagline-alt-item">Equipamento parado. Prejuízo garantido. Não com CONSTA.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,14 +1,21 @@
 :root {
-  --consta-ice: #D3EFFF;
-  --consta-navy: #154F6F;
-  --consta-black: #000000;
-  --consta-white: #FFFFFF;
-  --consta-font: 'Manrope', sans-serif;
-}
-@font-face {
-  font-family: 'Manrope';
-  src: url('./fonts/Manrope-Variable.ttf') format('truetype');
-  font-weight: 200 800;
-  font-style: normal;
-  font-display: swap;
+  /* ── Paleta principal ── */
+  --consta-black:     #0A0A0A;
+  --consta-orange:    #F97316;
+  --consta-vermilion: #E63946;
+  --consta-white:     #FAFAF9;
+
+  /* ── Escala de cinzas ── */
+  --consta-gray-100:  #F5F5F4;
+  --consta-gray-200:  #E7E5E4;
+  --consta-gray-500:  #78716C;
+
+  /* ── Sistema de status ── */
+  --consta-status-ok:       #22C55E;
+  --consta-status-warning:  #F97316;  /* orange */
+  --consta-status-critical: #E63946;  /* vermilion */
+
+  /* ── Tipografia ── */
+  --consta-font-mark: 'DM Mono', monospace;   /* wordmark e dados */
+  --consta-font-ui:   'Inter', system-ui, sans-serif; /* toda a interface */
 }
