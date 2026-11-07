@@ -265,3 +265,7 @@ Por pedido de Matheus, a assinatura passou a “Gestão de ativos e manutenção
 ### Pitch final, CTA e preços propostos —07/11/2026
 
 Apresentação local com17telas: fluxo automático do logo e da IA no mesmo slide, gaveta do gestor em looping, demo do CRM e Smart Agenda preservadas; celular e custoR$75mil retirados da navegação. Impactos em verde distinguem referência assistencial de ganho próprio e economia potencial de receita. Depois do time, CTA com QR parahttps://consta.vercel.app; Business vem após o CTA. QR gerado e decodificado; destino retornou451/DEPLOYMENT_DISABLED. Preços anuais6/12/24mil por faixas100/500/2.000ativos são propostas a validar, hardware/implantação à parte. Publicação emdevelop e main autorizada explicitamente por Matheus. Integração preparada sobre a develop remota, preservando o CRM:93testes sem skips, build/TypeScript e verificador documental aprovados, além do QA WebKit do pitch.
+
+### PDF do pitch para envio — 07/11/2026
+
+Entrega em [pitch/entrega](../pitch/entrega/README.md): PDF com 17 páginas, agenda e mapa completos, etapas principais da demo e documentos visíveis na gaveta. HTML independente com recursos incorporados para reprodução offline. Exportação WebKit sem erros de página; PDF conferido visualmente, com texto pesquisável, fontes clicáveis e link do CTA para consta2.vercel.app. As afirmações e simulações mantêm os limites do pitch.
