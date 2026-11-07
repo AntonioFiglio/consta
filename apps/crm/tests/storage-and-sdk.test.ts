@@ -183,21 +183,14 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
         created_at: 1,
         status: "completed",
         model: "test-model",
-        output: [
-          {
-            type: "message",
-            id: "msg_test",
-            status: "completed",
-            role: "assistant",
-            content: [
-              {
-                type: "output_text",
-                text: JSON.stringify(extraction),
-                annotations: [],
-              },
-            ],
-          },
-        ],
+        output: [{
+                  type: "function_call",
+                  id: "fc_test",
+                  call_id: "call_test",
+                  status: "completed",
+                  name: "prepare_equipment_import",
+                  arguments: JSON.stringify(extraction),
+                }],
       }),
       { headers: { "Content-Type": "application/json" } },
     );
@@ -209,7 +202,7 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
       "application/pdf",
       transport,
     );
-    assert.deepEqual(result, extraction);
+    assert.deepEqual({ ...result, equipments: result.equipments.map(({ importUnit: _unit, ...fields }) => fields) }, extraction);
     assert.equal(result.equipments.length, 2);
     assert.equal(
       result.equipments[0].maintenanceCompany?.value,
@@ -229,8 +222,10 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
     assert.match(body.instructions, /Não deduza a marca pelo nome do modelo/);
     assert.equal(body.model, "test-model");
     assert.equal(body.store, false);
-    assert.equal(body.text.format.type, "json_schema");
-    assert.equal(body.text.format.strict, true);
+    assert.equal(body.tools[0].name, "prepare_equipment_import");
+    assert.equal(body.tools[0].strict, true);
+    assert.deepEqual(body.tool_choice, { type: "function", name: "prepare_equipment_import" });
+    assert.equal(body.parallel_tool_calls, false);
     assert.match(
       body.input[0].content[0].file_data,
       /^data:application\/pdf;base64,/,

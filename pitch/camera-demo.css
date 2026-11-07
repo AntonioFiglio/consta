@@ -1,0 +1,36 @@
+/* CapturePage.tsx / styles.css, adapted to the fixed presentation stage.
+   The label and reading are explicitly synthetic. No device or network access. */
+.layer-camera { background:#fafaf9; color:#0a0a0a; }
+.layer-camera .cd-eyebrow { position:absolute; left:100px; top:115px; font:500 20px/1.3 var(--mono); letter-spacing:.08em; color:#6b655e; }
+.layer-camera .cd-title { position:absolute; left:100px; top:220px; font:600 91px/1.04 var(--sans); letter-spacing:-.055em; }
+.layer-camera .cd-title span { color:#c2410c; }
+.layer-camera .cd-mechanism { position:absolute; left:105px; top:575px; font:400 31px/1.45 var(--sans); color:#57534e; }
+.layer-camera .cd-disclosure { position:absolute; left:105px; top:860px; font:500 23px/1.6 var(--sans); }
+.layer-camera .cd-disclosure span { font:400 20px/1.6 var(--sans); color:#6b655e; }
+.layer-camera .cd-anchor { left:825px; top:500px; }
+/* iPhone viewport: 393 × 852 CSS pixels, uniformly enlarged for the stage.
+   The images are captured from CapturePage, without presentation CSS overrides. */
+.layer-camera .cd-app { position:absolute; left:1190px; top:65px; width:calc(393px * 1.1 + 18px); height:calc(852px * 1.1 + 18px); border:9px solid #101010; border-radius:64px; background:#101010; box-shadow:0 0 0 2px #797977,0 0 0 4px #c8c8c5,0 24px 48px #0a0a0a20; }
+.layer-camera .cd-phone-display { position:absolute; left:0; top:0; width:393px; height:852px; transform:scale(1.1); transform-origin:top left; overflow:hidden; border-radius:50px; background:#f6f3ed; }
+.layer-camera .cd-phone-side { position:absolute; left:-14px; top:155px; width:3px; height:54px; border-radius:2px; background:#60605e; box-shadow:0 70px #60605e,calc(393px * 1.1 + 24px) 38px #60605e; }
+.layer-camera .cd-status { position:absolute; inset:0 0 auto; height:59px; display:flex; align-items:center; justify-content:space-between; padding:0 26px 0 30px; background:#f6f3ed; color:#101010; font:600 16px/1 var(--sans); }
+.layer-camera .cd-island { position:absolute; width:126px; height:36px; left:50%; top:11px; transform:translateX(-50%); border-radius:24px; background:#080808; }
+.layer-camera .cd-island::after { content:''; position:absolute; right:11px; top:13px; width:9px; height:9px; background:#14202c; box-shadow:inset 0 0 0 2px #1d2831; border-radius:50%; }
+.layer-camera .cd-phone-screen { position:absolute; left:0; top:59px; width:393px; height:690px; overflow:hidden; background:#f6f3ed; }
+.layer-camera .cd-capture { position:absolute; inset:0; display:block; width:393px; height:690px; max-width:none; object-fit:contain; }
+.layer-camera .cd-received { visibility:hidden; }
+.layer-camera.is-read .cd-framing { visibility:hidden; }
+.layer-camera.is-read .cd-received { visibility:visible; }
+.layer-camera .cd-safari { position:absolute; left:0; right:0; bottom:0; height:103px; background:#f3f1ee; border-top:1px solid #d6d3d1; padding:8px 18px 0; }
+.layer-camera .cd-address { display:flex; align-items:center; justify-content:space-between; height:37px; padding:0 12px; border-radius:11px; background:#e5e3df; color:#292524; font:400 14px/1 var(--sans); }
+.layer-camera .cd-address>span:nth-child(2) { display:flex; align-items:center; gap:6px; }
+.layer-camera .cd-toolbar { display:flex; align-items:center; justify-content:space-between; height:39px; padding:0 8px; color:#292524; font:300 30px/1 var(--sans); }
+.layer-camera .cd-toolbar>span:nth-child(2) { color:#aaa6a0; }
+.layer-camera .cd-home { position:absolute; width:134px; height:5px; border-radius:4px; left:50%; bottom:7px; transform:translateX(-50%); background:#171717; }
+.layer-camera .cd-cursor { position:absolute; left:274px; top:633px; width:30px; height:30px; border:2px solid #fff; border-radius:50%; background:#0a0a0a40; box-shadow:0 0 0 1px #0a0a0a44; opacity:0; transition:opacity 180ms; pointer-events:none; }
+.layer-camera .cd-cursor.is-visible { opacity:1; }
+.layer-camera .cd-result { position:absolute; left:105px; top:705px; color:#6b655e; font:400 28px/1.5 var(--sans); opacity:0; transform:translateY(8px); transition:opacity 250ms,transform 400ms; }
+.layer-camera .cd-result strong { color:#292524; font-weight:500; }
+.layer-camera.is-read .cd-result { opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce) { .layer-camera * { transition:none!important; } .layer-camera .cd-cursor { display:none; } }
+.stage.snap .layer-camera * { transition:none!important; }

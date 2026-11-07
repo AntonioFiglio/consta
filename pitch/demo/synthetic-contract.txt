@@ -1,0 +1,125 @@
+CONSTA-DEMO-2026-01
+Manutenção de cinco autoclaves — cenário sintético Consta
+CENÁRIO INTEIRAMENTE SINTÉTICO — SEM VALIDADE CONTRATUAL
+
+Documento exclusivamente demonstrativo. Todos os dados, organizações, contatos, equipamentos e condições são fictícios. Não é um contrato do HCFMUSP e não reproduz suas condições. Extração simulada, sujeita à conferência humana. Documento TXT de página lógica única, sem quebras de página.
+
+Contratante fictícia: Hospital Demonstrador Consta
+Empresa prestadora fictícia: Assistência Demo Ltda.
+E-mail fictício: assistencia@example.test
+Telefone fictício: (11) 4000-0000
+Não ligar nem enviar mensagens aos contatos de exemplo.
+Data de referência: 07/11/2026 (2026-11-07)
+Vigência: de 07/11/2026 (2026-11-07) a 06/11/2027 (2027-11-06).
+Cobertura: manutenção preventiva e corretiva de todas as cinco unidades abaixo.
+Responsabilidade: empresa prestadora contratada Assistência Demo Ltda.; não é oficina interna.
+Primeiro vencimento é explicitamente definido no cenário; não é calculado ou inferido de um contrato real.
+
+UNIDADE 01
+Equipamento: Autoclave 01
+Marca: Consta Demo
+Modelo: AD-50
+Número de série: DEMO001
+Número de tombamento: CST0001
+Etiqueta de demonstração: DEMO-TAG001
+Setor: CME demonstradora
+Empresa de manutenção: Assistência Demo Ltda.
+Telefone da manutenção: (11) 4000-0000
+E-mail da manutenção: assistencia@example.test
+Observações: DEMO-TAG001 · Uso exclusivamente demonstrativo
+Quantidade: 1
+Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)
+Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)
+Marco de manutenção: Início do contrato
+Data do marco: 07/11/2026 (2026-11-07)
+Início da vigência: 07/11/2026 (2026-11-07)
+Fim da vigência: 06/11/2027 (2027-11-06)
+Cobertura: preventiva e corretiva
+
+UNIDADE 02
+Equipamento: Autoclave 02
+Marca: Consta Demo
+Modelo: AD-50
+Número de série: DEMO002
+Número de tombamento: CST0002
+Etiqueta de demonstração: DEMO-TAG002
+Setor: CME demonstradora
+Empresa de manutenção: Assistência Demo Ltda.
+Telefone da manutenção: (11) 4000-0000
+E-mail da manutenção: assistencia@example.test
+Observações: DEMO-TAG002 · Uso exclusivamente demonstrativo
+Quantidade: 1
+Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)
+Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)
+Marco de manutenção: Início do contrato
+Data do marco: 07/11/2026 (2026-11-07)
+Início da vigência: 07/11/2026 (2026-11-07)
+Fim da vigência: 06/11/2027 (2027-11-06)
+Cobertura: preventiva e corretiva
+
+UNIDADE 03
+Equipamento: Autoclave 03
+Marca: Consta Demo
+Modelo: AD-50
+Número de série: DEMO003
+Número de tombamento: CST0003
+Etiqueta de demonstração: DEMO-TAG003
+Setor: CME demonstradora
+Empresa de manutenção: Assistência Demo Ltda.
+Telefone da manutenção: (11) 4000-0000
+E-mail da manutenção: assistencia@example.test
+Observações: DEMO-TAG003 · Uso exclusivamente demonstrativo
+Quantidade: 1
+Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)
+Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)
+Marco de manutenção: Início do contrato
+Data do marco: 07/11/2026 (2026-11-07)
+Início da vigência: 07/11/2026 (2026-11-07)
+Fim da vigência: 06/11/2027 (2027-11-06)
+Cobertura: preventiva e corretiva
+
+UNIDADE 04
+Equipamento: Autoclave 04
+Marca: Consta Demo
+Modelo: AD-50
+Número de série: DEMO004
+Número de tombamento: CST0004
+Etiqueta de demonstração: DEMO-TAG004
+Setor: CME demonstradora
+Empresa de manutenção: Assistência Demo Ltda.
+Telefone da manutenção: (11) 4000-0000
+E-mail da manutenção: assistencia@example.test
+Observações: DEMO-TAG004 · Uso exclusivamente demonstrativo
+Quantidade: 1
+Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)
+Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)
+Marco de manutenção: Início do contrato
+Data do marco: 07/11/2026 (2026-11-07)
+Início da vigência: 07/11/2026 (2026-11-07)
+Fim da vigência: 06/11/2027 (2027-11-06)
+Cobertura: preventiva e corretiva
+
+UNIDADE 05
+Equipamento: Autoclave 05
+Marca: Consta Demo
+Modelo: AD-50
+Número de série: DEMO005
+Número de tombamento: CST0005
+Etiqueta de demonstração: DEMO-TAG005
+Setor: CME demonstradora
+Empresa de manutenção: Assistência Demo Ltda.
+Telefone da manutenção: (11) 4000-0000
+E-mail da manutenção: assistencia@example.test
+Observações: DEMO-TAG005 · Uso exclusivamente demonstrativo
+Quantidade: 1
+Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)
+Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)
+Marco de manutenção: Início do contrato
+Data do marco: 07/11/2026 (2026-11-07)
+Início da vigência: 07/11/2026 (2026-11-07)
+Fim da vigência: 06/11/2027 (2027-11-06)
+Cobertura: preventiva e corretiva
+
+CONFERÊNCIA E LIMITES
+Uma pessoa deve conferir os campos extraídos e confirmar o cadastro e planejamento. Ausência de pendência nos campos deste cenário significa apenas que o exemplo foi preenchido e conferido. Etiquetas são identificadores sintéticos, sem transmissão de rádio ou integração BLE comprovada. Nenhuma execução de serviço, comprovante, inspeção clínica ou liberação de uso é declarada. Previsão não equivale a manutenção concluída. O cenário não prova automação sem revisão, conformidade hospitalar ou resultado operacional do Consta.
+Não usar como contrato, orçamento, comprovante ou documento institucional. Não assinar.

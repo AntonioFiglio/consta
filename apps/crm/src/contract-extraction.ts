@@ -6,8 +6,11 @@ import type {
   PeriodUnit,
 } from "./types.js";
 import { nextOccurrence, occurrence } from "./schedule.js";
+import { expandEquipmentGroups } from "./equipment-import.js";
 
 export type EquipmentDraft = {
+  importUnit?: EquipmentExtraction["importUnit"];
+  importSource?: Asset["importSource"];
   assetId?: string;
   key: string;
   name: string;
@@ -52,7 +55,7 @@ const missing: Evidence = {
 };
 export function extractionItems(data: Extraction): EquipmentExtraction[] {
   if (isMultiExtraction(data))
-    return data.equipments.map((item) => ({
+    return expandEquipmentGroups(data).equipments.map((item) => ({
       ...item,
       brand: item.brand || missing,
       maintenanceCompany: item.maintenanceCompany || missing,
@@ -111,6 +114,7 @@ export function draftFromExtraction(
     anchorDate = "";
   return {
     key,
+    importUnit: item.importUnit,
     name: value(item.equipment),
     patrimony: value(item.patrimony),
     brand: value(item.brand),
@@ -159,6 +163,7 @@ export function draftFromAsset(asset: Asset): EquipmentDraft {
   return {
     ...emptyDraft(asset.id),
     assetId: asset.id,
+    importSource: asset.importSource,
     name: asset.name,
     patrimony: asset.patrimony,
     brand: asset.brand || "",
@@ -186,8 +191,15 @@ export function draftFromAsset(asset: Asset): EquipmentDraft {
 export function existingForDraft(
   row: EquipmentDraft,
   assets: Asset[],
+  contractId?: string,
 ): Asset | undefined {
   if (row.assetId) return assets.find((asset) => asset.id === row.assetId);
+  if (contractId && row.importUnit) {
+    const imported = assets.find((asset) =>
+      asset.importSource?.contractId === contractId &&
+      asset.importSource.unitKey === row.importUnit!.key);
+    if (imported) return imported;
+  }
   const patrimony = row.patrimony.trim().toLocaleUpperCase("pt-BR");
   return patrimony
     ? assets.find(

@@ -1,0 +1,19 @@
+{
+  "source": "apps/crm/src/CapturePage.tsx",
+  "commit": "7e0f502",
+  "viewport": {
+    "width": 393,
+    "height": 690
+  },
+  "deviceScaleFactor": 2,
+  "shoot": {
+    "x": 230.8125,
+    "y": 569.453125,
+    "width": 114.1875,
+    "height": 43.5
+  },
+  "simulation": true,
+  "physicalCamera": false,
+  "realOCR": false,
+  "pageErrors": []
+}

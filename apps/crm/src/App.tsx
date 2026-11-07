@@ -1,4 +1,5 @@
 import { ContextHelp } from "./ContextHelp";
+import { contractCopy, crmPageCopy } from "./contract-copy";
 import { DayScheduleDialog } from "./DayScheduleDialog";
 import { useSidebarResize } from "./useSidebarResize";
 import { createPortal } from "react-dom";
@@ -174,7 +175,7 @@ export function App() {
   useEffect(() => {
     if (captureToken) return;
     setQuery("");
-    document.title = `${view === "calendar" ? "Calendário" : view === "contracts" ? "Contratos" : "Equipamentos"} · CONSTA.`;
+    document.title = `${crmPageCopy[view].title} · CONSTA.`;
     pageTitle.current?.focus({ preventScroll: true });
   }, [location.pathname, config?.authenticated, captureToken, view]);
   useEffect(() => {
@@ -379,7 +380,7 @@ export function App() {
             </div>
             <section
               className="sidebar-add-card sidebar-upload-control"
-              aria-label="Envio de contrato"
+              aria-label="Envio do Termo de Contrato (TC)"
             >
               <button
                 type="button"
@@ -390,11 +391,11 @@ export function App() {
                 }}
               >
                 <Upload size={19} aria-hidden="true" />
-                <span>Enviar contrato</span>
+                <span>{contractCopy.upload}</span>
               </button>
               <ContextHelp
-                label="Como funciona o envio de contrato"
-                text="Envie um contrato em PDF ou TXT para cadastrar seus equipamentos. Confira os dados antes de salvar."
+                label={contractCopy.uploadHelp}
+                text={contractCopy.uploadDescription}
               />
             </section>
           </div>
@@ -406,7 +407,7 @@ export function App() {
                 onClick={sidebar.closeOnMobile}
               >
                 <CalendarDays size={19} />
-                <span>Calendário</span>
+                <span>{crmPageCopy.calendar.title}</span>
               </NavLink>
               <NavLink
                 to={routePaths.contracts}
@@ -414,7 +415,7 @@ export function App() {
                 onClick={sidebar.closeOnMobile}
               >
                 <FileText size={19} />
-                <span>Contratos</span>
+                <span>{crmPageCopy.contracts.title}</span>
               </NavLink>
               <NavLink
                 to={routePaths.assets}
@@ -426,7 +427,7 @@ export function App() {
                 }}
               >
                 <LayoutGrid size={19} />
-                <span>Equipamentos</span>
+                <span>{crmPageCopy.assets.title}</span>
               </NavLink>
             </nav>
             {pendingRepairCount > 0 && (
@@ -505,11 +506,7 @@ export function App() {
             <div className="breadcrumb">
               Espaço de trabalho <span>/</span>
               <strong>
-                {view === "calendar"
-                  ? "Calendário"
-                  : view === "contracts"
-                    ? "Contratos"
-                    : "Equipamentos"}
+                {crmPageCopy[view].title}
               </strong>
             </div>
           </div>
@@ -527,18 +524,10 @@ export function App() {
           <div className="page-heading">
             <div>
               <h1 ref={pageTitle} tabIndex={-1}>
-                {view === "calendar"
-                  ? "Calendário"
-                  : view === "contracts"
-                    ? "Contratos"
-                    : "Equipamentos"}
+                {crmPageCopy[view].title}
               </h1>
               <p>
-                {view === "calendar"
-                  ? "Acompanhe as próximas manutenções dos equipamentos."
-                  : view === "contracts"
-                    ? "Consulte os contratos, aditivos e equipamentos vinculados."
-                    : "Consulte os equipamentos e suas informações de manutenção."}
+                {crmPageCopy[view].description}
               </p>
             </div>
             {view !== "calendar" && (
@@ -547,7 +536,7 @@ export function App() {
                 onClick={() => setEditing(null)}
               >
                 <Plus size={18} />
-                {view === "contracts" ? "Novo contrato" : "Novo equipamento"}
+                {crmPageCopy[view].create}
               </button>
             )}
           </div>
@@ -645,8 +634,7 @@ export function App() {
           {view !== "calendar" && (
             <footer className="page-footer">
               <span>
-                CONSTA<span className="orange-dot">.</span> Clareza para cuidar
-                do que importa.
+                CONSTA<span className="orange-dot">.</span> Gestão de ativos e manutenção hospitalar.
               </span>
               <span>
                 Previsão de manutenção não equivale a liberação técnica.
@@ -667,6 +655,18 @@ export function App() {
             setRevision((value) => value + 1);
           }}
           onSaved={onSaved}
+          onImported={(result) => {
+            setAssets(current => [
+              ...current.filter(asset => !result.assets.some(saved => saved.id === asset.id)),
+              ...result.assets,
+            ]);
+            const { extraction: _extraction, ...summary } = result.contract;
+            setContracts(current => [summary, ...current.filter(item => item.id !== summary.id)]);
+            setRevision(value => value + 1);
+            setToast(result.createdCount
+              ? `${result.createdCount} ${result.createdCount === 1 ? "equipamento cadastrado" : "equipamentos cadastrados"} no TC.`
+              : "Os equipamentos deste TC já estão cadastrados.");
+          }}
           onBreakdown={openBreakdown}
         />
       )}
@@ -814,11 +814,10 @@ function HelpDialog({ onClose }: { onClose: () => void }) {
     >
       <section className="help-card">
         <span className="eyebrow">UM FLUXO SIMPLES</span>
-        <h2 id="help-title">Do contrato ao calendário.</h2>
+        <h2 id="help-title">Do Termo de Contrato ao calendário.</h2>
         <ol>
           <li>
-            <strong>Envie um contrato.</strong> Arraste um PDF ou TXT e informe
-            o número de tombamento do equipamento.
+            <strong>Envie o Termo de Contrato (TC).</strong> Selecione o PDF ou TXT do contrato principal dos equipamentos. Contrato de manutenção e termo aditivo são documentos opcionais, que podem ser vinculados depois.
           </li>
           <li>
             <strong>Confira as informações.</strong> Revise a periodicidade e o

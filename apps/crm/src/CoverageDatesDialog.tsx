@@ -37,24 +37,24 @@ export function CoverageDatesDialog({ asset, coverageId, onClose, onSaved, onOpe
       onCancel={(event) => { event.preventDefault(); event.stopPropagation(); if (!busy) onClose(); }}>
       <header className="document-header">
         <div>
-          <h2 id="coverage-dates-title">Informar datas do contrato</h2>
-          <p>{asset.name} · Tombamento {asset.patrimony}</p>
+          <h2 id="coverage-dates-title">Informar período da manutenção</h2>
+          <p>{asset.name} · Tombamento {asset.patrimony || "pendente"}</p>
         </div>
       </header>
       <form onSubmit={save}>
         <fieldset disabled={busy} className="coverage-dates-fields">
-          <legend className="visually-hidden">Datas do contrato</legend>
+          <legend className="visually-hidden">Período de cobertura de manutenção</legend>
           <div className="coverage-dates-guidance">
-            <p>Precisamos dessas datas para saber se a manutenção deste equipamento está incluída no contrato hoje.</p>
-            <p>Abra o contrato ou o aditivo que define o período da manutenção. Procure as cláusulas “Vigência” ou “Prazo de execução” e confira as datas de início e término do serviço.</p>
-            {plan.contractId && <button type="button" className="text-button" onClick={() => onOpenDocument(plan.contractId!)}>Abrir contrato ou aditivo</button>}
-            <p>Se a manutenção é feita pela Oficina do hospital, escolha “Manutenção interna” em Gerenciar manutenção.</p>
+            <p>As datas indicam quando a cobertura de manutenção deste equipamento está vigente.</p>
+            <p>Abra o TC, o contrato de manutenção ou o termo aditivo que define esse período. Procure as cláusulas “Vigência” ou “Prazo de execução” e confira as datas de início e término do serviço.</p>
+            {plan.contractId && <button type="button" className="text-button" onClick={() => onOpenDocument(plan.contractId!)}>Abrir documento da manutenção</button>}
+            <p>Para atendimento interno, selecione “Oficina do hospital” ao definir o responsável pela manutenção.</p>
           </div>
-          <label>Início do contrato
+          <label>Início da cobertura de manutenção
             <input type="date" required autoFocus={!plan.validFrom} min="1900-01-01" max={end || "2200-12-31"}
               value={start} onChange={(event) => setStart(event.target.value)} />
           </label>
-          <label>Fim do contrato
+          <label>Fim da cobertura de manutenção
             <input type="date" required autoFocus={Boolean(plan.validFrom)} min={start || "1900-01-01"} max="2200-12-31"
               value={end} onChange={(event) => setEnd(event.target.value)} />
           </label>

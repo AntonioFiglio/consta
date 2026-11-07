@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONSTA — Pitch</title>
+<style>
+@font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/font-0.ttf) format('truetype'); }
+@font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/font-1.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url(assets/font-2.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/font-3.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/font-4.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(assets/font-5.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url(assets/font-6.ttf) format('truetype'); }
+</style>
+<link rel="stylesheet" href="palco.css">
+<link rel="stylesheet" href="crm-identity.css">
+<link rel="stylesheet" href="patient-pain.css">
+<link rel="stylesheet" href="flow-automation.css">
+<link rel="stylesheet" href="product-demo.css">
+<link rel="stylesheet" href="camera-demo.css">
+<link rel="stylesheet" href="team-portraits.css">
+<link rel="stylesheet" href="presenter-controls.css">
+<link rel="stylesheet" href="indoor-map.css">
+<link rel="stylesheet" href="impact.css">
+<link rel="stylesheet" href="care-impact.css">
+<link rel="stylesheet" href="cover-slide.css">
+<link rel="stylesheet" href="smart-agenda.css">
+<link rel="stylesheet" href="ble-message.css">
+<link rel="stylesheet" href="pitch-labels.css">
+<link rel="stylesheet" href="pitch-refinements.css">
+</head>
+<body data-theme="dark">
+
+<p class="sr-only" id="live" aria-live="polite"></p>
+<p class="portrait-note" aria-hidden="true">Melhor em tela horizontal.</p>
+
+<!--
+  Palco fixo 1920×1080, escalonado para a janela. Cada camada (data-layer) é uma cena visual;
+  data-on/data-off indicam o beat (base zero) em que o elemento aparece/sai. O ponto
+  (#hero-dot) persiste sobre as camadas; o fio (#hero-line) só aparece em conexões reais
+  (documento→IA, documento→tabela, tag isolada→tag instalada). Ambos usam âncoras .anchor medidas.
+-->
+<main class="stage" id="stage" tabindex="-1" aria-roledescription="apresentação">
+
+  <section class="layer layer-cover" data-layer="cover" aria-label="Capa da apresentação Consta">
+    <p class="cv-meta">III HACKATHON SAÚDE HCFMUSP<br><span>São Paulo · 6 e 7 de novembro de 2026</span></p>
+    <h1 class="cv-word" id="t-cover">CONSTA<i class="anchor cv-dot" id="a-cover" aria-hidden="true"></i></h1>
+    <div class="cv-rule"></div>
+    <p class="cv-tagline">Gestão de ativos e manutenção preventiva hospitalar.</p>
+    <p class="cv-summary">Documentos, equipamentos e prazos em um só lugar.</p>
+    <ul class="cv-team" aria-label="Integrantes da equipe"><li>Matheus Godoi</li><li>Pedro Morais</li><li>Antonio Figlio</li><li>Nicolas Braga</li></ul>
+    <p class="cv-hint">Avance para começar <span>→</span></p>
+  </section>
+
+
+  <!-- ═════════ 01 · NEWS — notícias datadas; não provam que o Consta evitaria os episódios ═════════ -->
+  <section class="layer layer-news" data-layer="news" aria-label="A dor em notícias brasileiras">
+    <figure class="nw-lead r wipe" data-on="1">
+      <img src="assets/news-walfredo-2026.png" alt="Técnicos trabalham no conserto de um tomógrafo do Hospital Walfredo Gurgel, em Natal">
+      <figcaption>Foto: Divulgação / Agora RN</figcaption>
+    </figure>
+    <p class="nw-kicker r fade" data-on="1"><span class="nw-flag"></span>IMPRENSA BRASILEIRA · EPISÓDIOS DATADOS · 2025–2026</p>
+
+    <h1 class="nw-headline r rise" data-on="1" style="--d:1">Quando o<br>equipamento para,<br><span>a rotina não espera.</span></h1>
+
+    <div class="nw-chyron r wipe" data-on="1" style="--d:2" id="nw-chyron">
+      <p class="nw-chy-place">NATAL / RN · HOSPITAL WALFREDO GURGEL</p>
+      <p class="nw-chy-main">Falhas levaram a encaminhamentos<br>e a aluguel emergencial de tomógrafo.</p>
+      <p class="nw-chy-src"><a href="https://agorarn.com.br/ultimas/walfredo-gurgel-recebe-novo-tomografo/" target="_blank" rel="noopener noreferrer">AGORA RN · 19 JUN 2026 · histórico de 2025 ↗</a></p>
+      <i class="anchor anchor-dot" id="a-news"></i>
+    </div>
+
+    <figure class="nw-card nw-celso r wipe" data-on="1">
+      <img src="assets/news-celso-ramos-2026.webp" alt="Paciente com o rosto desfocado na reportagem do SCC SBT sobre o Hospital Celso Ramos">
+      <div class="nw-mini">
+        <p class="nw-mini-place">FLORIANÓPOLIS / SC · HOSPITAL CELSO RAMOS</p>
+        <p class="nw-mini-main">Exames em outro hospital.</p>
+      </div>
+      <figcaption><a href="https://scc10.com.br/cotidiano/saude/scc-sbt-mostra-situacao-do-hospital-celso-ramos/" target="_blank" rel="noopener noreferrer">SCC SBT / SCC10 · 13 AGO 2026 ↗</a> · Imagem: Reprodução / SCC SBT, desfoque do original</figcaption>
+    </figure>
+
+    <figure class="nw-card nw-araras r wipe" data-on="1" style="--d:1">
+      <img src="assets/news-araras-2026.jpg" alt="Tomógrafo sem uso da UPA Mandic, citado na reportagem sobre a Santa Casa de Araras">
+      <div class="nw-mini">
+        <p class="nw-mini-place">ARARAS / SP · SANTA CASA</p>
+        <p class="nw-mini-main">Exames fora. Na UPA,<br>tomógrafo sem uso.</p>
+      </div>
+      <figcaption><a href="https://rca1.com.br/exclusivo-santa-casa-de-araras-esta-com-tomografo-quebrado-enquanto-upa-mandic-possui-mesmo-aparelho-sem-uso/" target="_blank" rel="noopener noreferrer">RCA1 · 06 MAI 2026 ↗</a> · Foto: aparelho sem uso da UPA Mandic, não o tomógrafo da Santa Casa</figcaption>
+    </figure>
+
+    <p class="nw-ticker r fade" data-on="1" style="--d:2"><b>EXAMES FORA · ENCAMINHAMENTOS · DESPESA EMERGENCIAL</b><span>Episódios datados; respostas e desfechos nas fontes. Não são custos evitados pelo Consta. <a href="metodo.html#noticias" target="_blank" rel="noopener">Dossiê ↗</a></span></p>
+  </section>
+
+  <!-- ═════════ 02 · COST — um impacto documentado, com natureza explícita ═════════ -->
+  <section class="layer layer-cost" data-layer="cost" aria-label="Consequência de um caso documentado">
+    <p class="kicker r fade" data-on="3" data-off="4">DOR</p>
+    <p class="cs-number r rise" data-on="3" data-off="4" id="t-cost"><span class="cs-cur">R$</span>75&nbsp;mil<span class="cs-unit">/mês</span><i class="anchor anchor-dot" id="a-cost"></i></p>
+    <div class="cs-daily r rise" data-on="3" data-off="4" style="--d:2"><p class="cs-daily-label">EQUIVALÊNCIA DO ALUGUEL · MÊS DE 30 DIAS</p><p class="cs-daily-calc">R$ 75.000 ÷ 30 = <b>R$ 2.500/dia</b></p><p class="cs-daily-note">Conta sobre o aluguel anunciado. Não é o custo real da parada nem economia do Consta.</p></div>
+    <p class="cs-what r rise" data-on="3" data-off="4" style="--d:1">no aluguel emergencial anunciado<br>de um tomógrafo, depois de falhas.</p>
+    <p class="cs-context r fade" data-on="3" data-off="4" style="--d:2">Hospital Walfredo Gurgel · Natal/RN · falhas em 2025, histórico retomado pela <a href="https://agorarn.com.br/ultimas/walfredo-gurgel-recebe-novo-tomografo/" target="_blank" rel="noopener noreferrer">Agora RN em 19 jun 2026 ↗</a></p>
+
+    <div class="cost-patient-pain r" data-on="4" aria-label="A pane é a parte visível do impacto no atendimento">
+      <p class="pitch-section-label">DOR</p>
+      <h2 class="patient-pain-title">A pane é só <em>o que aparece.</em></h2>
+      <div class="patient-pain-diagram">
+        <svg class="patient-pain-iceberg" viewBox="0 0 1776 640" fill="none" aria-hidden="true">
+          <!-- Above and below the waterline are one continuous silhouette. -->
+          <path d="M246 176 380 36 430 82 488 0 618 176Z" fill="#FAFAF9"/>
+          <path d="M488 0 470 176H618Z" fill="#D6D3D1"/>
+          <g class="patient-pain-submerged">
+            <path d="M246 176 122 300 240 468 408 614 580 536 774 318 618 176Z" fill="#292524" stroke="#78716C" stroke-width="2"/>
+            <path d="M246 176 408 614 470 176M470 176 580 536M470 176 774 318M122 300 470 176" stroke="#57534E" stroke-width="2"/>
+            <path d="M635 282H944M618 414H944M580 546H944" stroke="#A8A29E" stroke-width="2"/>
+            <circle cx="635" cy="282" r="7" fill="#FAFAF9"/>
+            <circle cx="618" cy="414" r="7" fill="#FAFAF9"/>
+            <circle cx="580" cy="546" r="7" fill="#F97316"/>
+          </g>
+          <path d="M570 100H944" stroke="#E63946" stroke-width="2"/>
+          <circle cx="570" cy="100" r="7" fill="#E63946"/>
+          <g class="patient-pain-water">
+            <path d="M0 176H1776" stroke="#78716C" stroke-width="2"/>
+            <path d="M0 184H1776" stroke="#292524" stroke-width="2"/>
+          </g>
+        </svg>
+        <div class="patient-pain-visible"><small>A PONTA DO ICEBERG</small><strong>Equipamento indisponível</strong></div>
+        <ol class="patient-pain-effects" aria-label="Consequências no atendimento e na operação">
+          <li class="patient-pain-effect" style="--effect-order:1" id="n-chain1"><small>PARA O PACIENTE</small><strong>Cirurgias adiadas</strong></li>
+          <li class="patient-pain-effect patient-pain-manager" style="--effect-order:2"><small>PARA O GESTOR</small><strong>Gestor sob pressão</strong><p>Ativo, contrato e manutenção para resolver.</p></li>
+          <li class="patient-pain-effect" style="--effect-order:3" id="n-chain3"><small>PARA O HOSPITAL</small><strong>Despesa extra</strong></li>
+        </ol>
+        <i class="anchor anchor-dot" id="a-chain" aria-hidden="true"></i>
+      </div>
+      <p class="patient-pain-source">Casos distintos. <a href="https://jblitoral.com.br/cidades/cirurgias-eletivas-estao-suspensas-ha-mais-de-uma-semana-no-hrl-por-problemas-com-esterilizacao-de-instrumentos/" target="_blank" rel="noopener noreferrer">Cirurgias: JB Litoral · 21 dez 2025 ↗</a> · <a href="metodo.html#noticias" target="_blank" rel="noopener noreferrer">Demais casos e contexto ↗</a></p>
+    </div>
+
+  </section>
+
+  <!-- ═════════ 03 · GAP — informação existe, mas não chega à rotina ═════════ -->
+  <section class="layer layer-gap" data-layer="gap" aria-label="A informação existe, mas está desconectada">
+    <p class="pitch-section-label">DOR</p>
+    <h2 class="gp-title r rise" data-on="5" id="t-gap">A informação existe.<br><span>Na gaveta do gestor<i class="anchor anchor-dot" id="a-gap"></i></span></h2>
+    <p class="gp-sub r fade" data-on="5" style="--d:1">Ele precisa encontrar o ativo, conferir o contrato<br>e colocar a manutenção em dia.</p>
+
+    <!-- Gaveta original do Pedro: documentos entram pela abertura e ficam atrás da frente. -->
+    <div class="gp-drawer r fade" data-on="5" aria-hidden="true">
+      <svg viewBox="0 0 460 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <defs>
+        <clipPath id="drawer-cavity-clip" clipPathUnits="userSpaceOnUse">
+         <path d="M0 0H460V213H405V391H55V213H0Z"/>
+        </clipPath>
+       </defs>
+       <ellipse cx="230" cy="413" rx="196" ry="13" fill="#0A0A0A" opacity=".035"/>
+       <path d="M38 249 68 213H392L422 249V391H38Z" fill="#F5F5F4" stroke="#D6D3D1" stroke-width="1.5"/>
+       <path d="M38 249H422M68 213V249M392 213V249" stroke="#D6D3D1" stroke-width="1.5"/>
+       <path d="M68 213H392L405 249V300H55V249Z" fill="#D6D3D1"/>
+       <g class="drawer-cavity" clip-path="url(#drawer-cavity-clip)">
+       <g class="drawer-papers">
+        <g transform="rotate(-12 130 170)">
+         <rect x="50" y="70" width="155" height="195" rx="5" fill="#FAFAF9" stroke="#A8A29E" stroke-width="1.4"/>
+         <path d="M70 127H174M70 140H158M70 153H174M70 166H144" stroke="#D6D3D1" stroke-width="2"/>
+         <text x="70" y="105" fill="#78716C" font-family="DM Mono,monospace" font-size="11">NOTA FISCAL</text>
+        </g>
+        <g transform="rotate(10 330 170)">
+         <rect x="252" y="65" width="155" height="195" rx="5" fill="#FAFAF9" stroke="#A8A29E" stroke-width="1.4"/>
+         <path d="M272 122H376M272 135H360M272 148H376M272 161H346" stroke="#D6D3D1" stroke-width="2"/>
+         <text x="272" y="100" fill="#78716C" font-family="DM Mono,monospace" font-size="11">CONTRATO</text>
+        </g>
+        <rect x="150" y="24" width="160" height="212" rx="5" fill="#FAFAF9" stroke="#F97316" stroke-width="1.5"/>
+        <text x="171" y="61" fill="#F97316" font-family="DM Mono,monospace" font-size="11">MANUAL TÉCNICO</text>
+        <path d="M171 84H288M171 98H270M171 112H288" stroke="#D6D3D1" stroke-width="2"/>
+        <rect x="171" y="141" width="64" height="49" rx="3" stroke="#D6D3D1" stroke-width="1.4"/>
+        <path d="M244 150H288M244 163H279M244 176H288" stroke="#D6D3D1" stroke-width="2"/>
+       </g>
+       </g>
+       <g class="drawer-front">
+        <path d="M38 270H422V391H38Z" fill="#FAFAF9" stroke="#A8A29E" stroke-width="1.5"/>
+        <path d="M38 270 55 249H405L422 270" fill="#E7E5E4" stroke="#A8A29E" stroke-width="1.5"/>
+        <rect x="187" y="293" width="86" height="27" rx="4" stroke="#A8A29E" stroke-width="1.5"/>
+        <path d="M204 306H256" stroke="#78716C" stroke-width="2" stroke-linecap="round"/>
+        <g class="drawer-status">
+         <circle cx="173" cy="355" r="3" fill="#F97316"/>
+         <text x="185" y="359" fill="#78716C" font-family="DM Mono,monospace" font-size="11" letter-spacing="1">ARQUIVADO</text>
+        </g>
+       </g>
+      </svg>
+    </div>
+
+  </section>
+
+  <!-- ═════════ 04 · SOLUTION · marca e fluxo ═════════ -->
+  <section class="layer layer-brand" data-layer="brand" aria-label="Consta">
+    <p class="kicker r fade" data-on="7">SOLUÇÃO</p>
+    <div class="br-mark">
+      <p class="br-word" id="t-brand" aria-label="CONSTA."><i class="br-base" aria-hidden="true"></i>CONSTA<i class="anchor br-dot-anchor" id="a-brand"></i></p>
+      <p class="br-claim r rise" data-on="7" style="--d:1">O contrato vira inventário.<br>O mapa mostra onde procurar.</p>
+    </div>
+  </section>
+
+  <!-- Cenário sintético completo; interface real, extração preparada e salvamento exercitado em API isolada. -->
+  <section class="layer layer-crm product-demo" data-layer="crm" aria-label="Demonstração simulada na interface real do Consta">
+    <header class="pd-heading">
+      <p class="pd-eyebrow">DEMONSTRAÇÃO</p>
+      <h2 class="pd-title pd-title-upload">Um contrato.<br><span>Cinco equipamentos.</span></h2>
+      <h2 class="pd-title pd-title-review">A IA preenche.<br><span>Você confirma.</span></h2>
+      <h2 class="pd-title pd-title-inventory">Salvou.<br><span>Já está no inventário.</span></h2>
+      <p class="pd-simulation">Cenário sintético · interface real</p>
+    </header>
+    <div class="pd-screen" aria-label="Demonstração automática com HTML e estilos reais do CRM">
+      <div class="pd-native-world">
+        <iframe class="pd-native-frame" title="CRM — navegação simulada" tabindex="-1"></iframe>
+        <div class="pd-file-picker" hidden><header>Selecionar documento<span>DEMO</span></header><div class="pd-file-row"><b>TXT</b><span>synthetic-contract.txt<small>CONSTA-DEMO-2026-01 · cenário sintético</small></span><i>✓</i></div><footer><span>TXT selecionado</span><button type="button">Abrir</button></footer></div>
+        <div class="pd-focus" aria-hidden="true"></div>
+        <svg class="pd-cursor" viewBox="0 0 28 38" aria-hidden="true"><path d="M3 2v29l7-7 6 12 6-3-6-11h10z"/></svg>
+      </div>
+    </div>
+    <p class="pd-screen-caption">Envie o arquivo do contrato.</p>
+    <div class="pd-rail" aria-hidden="true">
+      <span class="pd-rail-label pd-label-contract">Contrato</span>
+      <i id="cr-doc" class="anchor pd-source-link"></i>
+      <i id="a-read" class="anchor anchor-dot pd-read-anchor"></i>
+      <span id="cr-table" class="pd-rail-label">Dados prontos</span>
+      <i id="a-table" class="anchor anchor-dot pd-table-anchor"></i>
+      <span id="cr-inv" class="pd-rail-label">Inventário</span>
+      <i id="a-inv" class="anchor anchor-dot pd-inventory-anchor"></i>
+    </div>
+    <footer class="pd-footer">
+      <a href="demo/synthetic-contract.html" target="_blank" rel="noopener">Documento de demonstração completo ↗</a>
+      <span class="pd-pending-note">Dados e regras preenchidos no cenário demonstrativo.</span>
+      <a href="demo/native/README.md" target="_blank" rel="noopener">Como a demo foi preparada ↗</a>
+    </footer>
+  </section>
+
+<section class="layer layer-smart-agenda" data-layer="smart-agenda" aria-label="Proposta de agenda inteligente com vinte equipamentos fictícios">
+  <p class="sa-kicker">SOLUÇÃO · AGENDA</p>
+  <h2 class="sa-title">20 serviços no mesmo dia?<br><span>Distribua a carga.</span></h2>
+  <i class="anchor anchor-dot sa-anchor" id="a-smart-agenda" aria-hidden="true"></i>
+  <div class="sa-window">
+    <div class="sa-document" aria-label="Contrato fictício de manutenção de vinte equipamentos">
+      <div class="sa-doc-label"><span>CONTRATO DE MANUTENÇÃO</span><span>EXEMPLO FICTÍCIO</span></div>
+      <h3 class="sa-doc-title">Um contrato.<br><strong>20 equipamentos.</strong></h3>
+      <div class="sa-doc-details"><span>Previsão inicial<strong>05/02/2027</strong></span><span>Janela autorizada no exemplo<strong>01–05/02/2027</strong></span></div>
+      <p class="sa-doc-list-label">RELAÇÃO DE EQUIPAMENTOS · EQ-01 A EQ-20</p>
+    </div>
+    <div class="sa-toolbar"><strong>Calendário · fevereiro de 2027</strong><span class="sa-badge">Proposta · planejamento simulado</span></div>
+    <div class="sa-board" role="img" aria-label="Vinte preventivas inicialmente em 5 de fevereiro. Proposta: quatro por dia, de 1 a 5 de fevereiro, dentro da janela autorizada no exemplo.">
+      <div class="sa-origin">Contrato de exemplo · 20 equipamentos · mesma data: 05/02</div>
+      <div class="sa-days" aria-hidden="true">
+        <div class="sa-day">SEG · 01/02<strong>4 serviços</strong></div>
+        <div class="sa-day">TER · 02/02<strong>4 serviços</strong></div>
+        <div class="sa-day">QUA · 03/02<strong>4 serviços</strong></div>
+        <div class="sa-day">QUI · 04/02<strong>4 serviços</strong></div>
+        <div class="sa-day">SEX · 05/02<strong>4 serviços</strong></div>
+      </div>
+    </div>
+  </div>
+  <p class="sa-conclusion">Capacidade considerada no exemplo: <span>4 serviços por dia.</span> Sem ultrapassar o prazo.</p>
+  <p class="sa-condition">Janela autorizada no exemplo: 01–05/02/2027. Confirmar janela e capacidade com a Engenharia Clínica.</p>
+</section>
+
+<section class="layer layer-camera" data-layer="camera" aria-label="Fotografar o patrimônio e conferir">
+  <p class="cd-eyebrow r fade" data-on="12">DEMONSTRAÇÃO · CAPTURA</p>
+  <h2 class="cd-title r rise" data-on="12">Fotografe o<br>patrimônio.<br><span>Confira e salve.</span></h2>
+  <p class="cd-mechanism r rise" data-on="12">Da etiqueta à conferência.<br>A decisão continua com você.</p>
+  <p class="cd-disclosure r fade" data-on="12">Demonstração simulada<br><span>Etiqueta sintética · leitura simulada</span></p>
+  <i class="anchor anchor-dot cd-anchor" id="a-photo" aria-hidden="true"></i>
+  <div class="cd-app cd-phone r rise" data-on="12" data-camera-state="framing" aria-label="Demonstração da página de captura em celular">
+    <div class="cd-phone-side" aria-hidden="true"></div>
+    <div class="cd-phone-display">
+      <div class="cd-status" aria-hidden="true">
+        <span>9:41</span><span class="cd-island"></span>
+        <svg width="68" height="14" viewBox="0 0 68 14" fill="currentColor"><path d="M0 10h3v4H0zm5-3h3v7H5zm5-3h3v10h-3zm5-3h3v13h-3z"/><path d="M25 5q8-8 16 0l-2 2q-6-6-12 0zm4 4q4-4 8 0l-2 2q-2-2-4 0zm3 3h2v2h-2z"/><rect x="47" y="2" width="18" height="10" rx="3" fill="none" stroke="currentColor"/><rect x="49" y="4" width="14" height="6" rx="1"/><path d="M66 5h2v4h-2z"/></svg>
+      </div>
+      <div class="cd-phone-screen">
+        <img class="cd-capture cd-framing" src="demo/camera/framing.png" width="393" height="690" alt="Tela real do CRM de Nicolas: enquadramento de etiqueta sintética e botão Tirar foto.">
+        <img class="cd-capture cd-received" src="demo/camera/received.png" width="393" height="690" alt="Tela real do CRM: tombamento CST0001 recebido por leitura simulada.">
+      </div>
+      <div class="cd-safari" aria-hidden="true">
+        <div class="cd-address"><span>ᴀA</span><span><svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="currentColor"><rect x="1" y="5" width="8" height="6" rx="1.5"/><path d="M3 5V3a2 2 0 0 1 4 0v2"/></svg> consta · captura</span><span>↻</span></div>
+        <div class="cd-toolbar"><span>‹</span><span>›</span><svg width="20" height="22" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 9H3v15h18V9h-4M12 17V1m-5 5 5-5 5 5"/></svg><svg width="22" height="20" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4C8 1 4 1 1 2v17c4-1 7 0 11 2 4-2 7-3 11-2V2c-3-1-7-1-11 2zm0 0v17"/></svg><svg width="21" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="1" width="17" height="17" rx="3"/><path d="M18 21v2H1V6h2"/></svg></div>
+        <span class="cd-home"></span>
+      </div>
+      <span class="cd-cursor" aria-hidden="true"></span>
+    </div>
+  </div>
+  <p class="cd-result" aria-live="polite">Patrimônio recebido.<br><strong>Confira antes de salvar.</strong></p>
+</section>
+
+  <!-- ═════════ 04 · SOLUTION · tag conceitual instalada ═════════ -->
+  <section class="layer layer-tag tag-adhesive" data-layer="tag" aria-label="Conceito de tag BLE instalada em equipamento móvel">
+    <div class="tg-copy">
+      <p class="kicker r fade" data-on="13">SOLUÇÃO · BLE</p>
+      <h2 class="tg-title r rise" data-on="13" id="t-tag">Uma etiqueta<br>BLE no<br>equipamento.</h2>
+    </div>
+    <figure class="tg-asset r rise" data-on="13" style="--d:1" id="tg-asset">
+      <div class="tg-pump">
+        <img src="assets/tag/consta-tag-adesiva-na-bomba-conceito.png" alt="Conceito de etiqueta Bluetooth Consta adesiva sobre a lateral plana de uma bomba de infusão genérica, sem berço ou cinta" onerror="this.closest('.tg-pump').classList.add('missing')">
+        <p class="tg-missing">Imagem em preparação<br><span>assets/tag/consta-tag-adesiva-na-bomba-conceito.png</span></p>
+        <i class="anchor anchor-dot tg-dot" id="a-tag"></i>
+      </div>
+      <figcaption><b>Bomba de infusão BI-07</b></figcaption>
+    </figure>
+    <figure class="tg-figure r fade" data-on="13" style="--d:3" id="tg-figure">
+      <div class="tg-imgbox">
+        <img src="assets/tag/consta-tag-adesiva-isolada-conceito.png" alt="Conceito da cápsula adesiva Consta, sem berço, cinta ou parafusos externos, com liner destacável" onerror="this.closest('.tg-imgbox').classList.add('missing')">
+        <p class="tg-missing">Conceito em preparação</p>
+      </div>
+
+    </figure>
+  </section>
+
+  <!-- ═════════ 04 · SOLUTION · mapa simulado (pitch apenas; sem leitura de rádio) ═════════ -->
+  <section class="layer layer-map" data-layer="map" aria-label="Mapa interno fictício com localização simulada por setor">
+    <header class="im-heading"><p>DEMONSTRAÇÃO · LOCALIZAÇÃO</p><h2>Saiba em qual setor procurar.</h2><span class="im-simulation">Rastreamento simulado</span></header>
+    <div class="im-map-frame">
+      <div class="im-map-toolbar"><div class="im-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><span>Bomba de infusão <b>BI-07</b></span></div><span class="im-building">Hospital demonstrador <span> / </span> Bloco principal</span></div>
+      <div class="mp-map" id="map">
+        <div id="indoor-camera" class="im-camera">
+          <svg class="im-floorplan" viewBox="0 0 1180 720" role="img" aria-label="Planta fictícia: internação ao norte, apoio à direita e UTI ao sul; corredores conectam os três setores.">
+            <defs><pattern id="im-landscape" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1" fill="#d9ddd3"/></pattern><filter id="im-building-shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#44403c" flood-opacity=".10"/></filter></defs>
+            <rect width="1180" height="720" fill="#edf0e9"/><rect width="1180" height="720" fill="url(#im-landscape)"/>
+            <path d="M-20 36H1210M-20 686H1210" stroke="#fff" stroke-width="25" fill="none"/>
+            <g fill="#d5dfce" stroke="#c7d4bf" stroke-width="2"><circle cx="38" cy="120" r="22"/><circle cx="36" cy="188" r="17"/><circle cx="1145" cy="88" r="21"/><circle cx="1146" cy="642" r="22"/><circle cx="50" cy="625" r="23"/></g>
+            <path class="im-building-shell" d="M80 90H520V145H650V90H1100V650H650V560H470V650H80Z"/>
+            <path class="mp-zone im-zone-a" data-zone="A" d="M90 100H510V300H90Z"/>
+            <path class="mp-zone im-zone-b" data-zone="B" d="M660 100H1090V300H660Z"/>
+            <path class="mp-zone im-zone-c" data-zone="C" d="M660 385H1090V640H660Z"/>
+            <path class="im-corridor" d="M90 310H1090V375H650V550H470V640H90V385H260V300H325V385H650V155H590V310Z"/>
+            <path class="im-neutral-room" d="M90 395H250V535H90ZM90 550H250V640H90ZM335 100H510V170H335ZM530 165H580V300H530ZM755 100H910V170H755ZM925 100H1090V170H925ZM90 100H245V170H90Z"/>
+            <path class="im-room-lines" d="M90 180H245M90 235H245M165 100V170M335 180H510M335 235H510M420 100V170M755 180H1090M835 180V300M925 180V300M660 100V270M755 100V270M755 395V465M835 395V465M915 395V465M995 395V465M660 465H690M765 465H1090M660 565H690M765 565H1090M755 565V640M835 565V640M915 565V640M995 565V640"/>
+            <path class="im-room-walls" d="M90 300H260M325 300H510M660 300H690M735 300H1090M660 385H690M735 385H1090M260 395V535H90M260 550V640M470 560H650"/>
+            <path class="im-courtyard" d="M280 410H610V530H450V620H280Z"/>
+            <g class="im-garden"><circle cx="330" cy="455" r="20"/><circle cx="555" cy="458" r="24"/><circle cx="330" cy="570" r="20"/><path d="M370 450H480M365 530V575"/></g>
+            <g class="im-lift" transform="translate(110 570)"><rect width="44" height="44" rx="4"/><rect x="59" width="44" height="44" rx="4"/><path d="M22 8V36M81 8V36M12 20l10-10 10 10M71 26l10 10 10-10"/></g>
+            <g class="im-sector-labels"><text x="170" y="211">Internação</text><text class="im-sector-code" x="170" y="237">SETOR A</text><text x="850" y="228">Apoio</text><text class="im-sector-code" x="850" y="254">SETOR B</text><text x="890" y="588">UTI adulto</text><text class="im-sector-code" x="890" y="614">SETOR C</text></g>
+            <g class="im-small-labels"><text x="148" y="467">Recepção</text><text x="450" y="489">Jardim interno</text><text x="590" y="354">Circulação</text><text x="162" y="638">Elevadores</text></g>
+            <path class="mp-trail" id="trail" pathLength="1" d="M285 240V340H728V520H885"/>
+            <g class="mp-rx im-receivers"><g transform="translate(505 340)"><circle r="12"/><path d="M-4-5 4 3-4 10V-10L4-3-4 5"/></g><g transform="translate(1020 340)"><circle r="12"/><path d="M-4-5 4 3-4 10V-10L4-3-4 5"/></g></g>
+          </svg>
+          <span class="mp-marker" id="marker" aria-hidden="true"><span class="im-marker-label">BI-07</span></span>
+          <i class="anchor anchor-dot mp-anchor" id="a-map"></i>
+        </div>
+      </div>
+      <div class="im-floor-control" aria-label="Andar exibido"><span>ANDAR</span><b>1</b><small>Planta fictícia</small></div>
+      <div class="im-zoom-control" aria-label="Controles do mapa"><button type="button" data-map-zoom="in" aria-label="Ampliar mapa">+</button><button type="button" data-map-zoom="out" aria-label="Reduzir mapa">−</button><button type="button" data-map-zoom="reset" aria-label="Enquadrar mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div>
+      <div class="im-map-key"><span><i></i>Último setor detectado</span><small>Planta e percurso ilustrativos · sem leituras de rádio</small></div>
+    </div>
+    <aside class="mp-panel">
+      <div class="im-asset-top"><span class="im-asset-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5v30M11 35h18M13 8h14M12 12h16v15H12zM16 17h8M16 22h5"/></svg></span><div><p class="mp-panel-head">EQUIPAMENTO SELECIONADO</p><p class="mp-asset" id="t-asset">Bomba de infusão<span>BI-07 · ativo fictício</span></p></div></div>
+      <dl class="mp-fields"><dt>Último setor detectado</dt><dd class="mp-sector" id="sector-value">Setor A · Internação</dd><dt>Origem e horário</dt><dd class="im-last-seen">Etiqueta Bluetooth <span>09:41 · simulado</span></dd><dt>Estado da leitura</dt><dd id="read-state">simulada · por setor, não por coordenada</dd></dl>
+      <p class="im-release">Localização não indica liberação técnica.</p>
+      <div class="mp-precedent r fade" data-on="15"><p class="mp-study-label">EVIDÊNCIA · LOCALIZAÇÃO</p><p class="mp-study-value">100<span>%</span></p><h3>de acerto por setor<br>nos testes do estudo</h3><p class="mp-study-sample">90 medições · 30 etiquetas Bluetooth<br>reutilizadas em três setores.</p></div>
+    </aside>
+    <p class="map-study-footer r fade" data-on="15"><a href="https://teses.usp.br/teses/disponiveis/5/5174/tde-30112023-155658/pt-br.html" target="_blank" rel="noopener noreferrer">Barbosa · FMUSP · 2023 · p. 29 ↗</a><br>Estudo externo, não resultado do Consta.<br>Limites por sala disponíveis no apoio.</p>
+    <p class="im-stage-note">Conceito de navegação · integração BLE e implantação hospitalar ainda a validar.</p>
+  </section>
+
+  <!-- ═════════ 05 · BENEFITS — mecanismos e métricas de piloto, sem projeção ═════════ -->
+  <section class="layer layer-benefits flow-automation" data-layer="benefits" data-flow-phase="manual" aria-label="Da entrada do contrato à gestão, com IA e revisão humana">
+    <p class="kicker r fade" data-on="16">SOLUÇÃO · AUTOMAÇÃO</p>
+    <h2 class="flow-title flow-logo r fade" data-on="16" id="t-ben"><span class="br-word" id="flow-brand">CONSTA<i class="br-base" aria-hidden="true"></i><i class="anchor br-dot-anchor" id="flow-logo-dot"></i><span class="br-static-dot" aria-hidden="true"></span></span></h2>
+
+    <div class="flow-process r fade" data-on="16">
+      <div class="flow-upload" id="bn-first">
+        <svg viewBox="0 0 48 56" aria-hidden="true"><path d="M8 2h22l12 12v40H8zM30 2v14h12M17 29h16M17 37h16"/></svg>
+        <h3>Envie<br>o contrato</h3><p>PDF ou TXT</p>
+      </div>
+
+      <div class="flow-manual" aria-label="Trabalho de leitura e transcrição assumido pela IA">
+        <p class="flow-manual-label">O CAMINHO MANUAL</p>
+        <ol><li class="flow-step" data-flow-step="0" data-state="pending">Ler para<br>extrair</li><li class="flow-step" data-flow-step="1" data-state="pending">Localizar<br>dados</li><li class="flow-step" data-flow-step="2" data-state="pending">Digitar<br>campos</li><li class="flow-step" data-flow-step="3" data-state="pending">Organizar<br>cadastro</li></ol>
+      </div>
+
+      <div class="flow-bypass" aria-label="A IA ultrapassa as etapas de leitura e transcrição">
+        <i class="anchor anchor-dot flow-start-dot" id="a-ben"></i>
+        <svg class="flow-bridge" viewBox="0 0 840 190" aria-hidden="true"><path id="flow-route" data-flow-route pathLength="1" d="M0 20 C65 20 30 140 118 140 H802"/><path class="flow-arrow" d="m780 118 24 22-24 22"/></svg>
+        <div class="flow-ai"><b>IA lê e preenche</b><p>Equipamentos · série · tombamento<br>Modelo · regras do documento</p></div>
+      </div>
+
+      <div class="flow-review">
+        <i class="anchor anchor-dot flow-review-anchor" id="flow-review-anchor"></i>
+        <span class="flow-gate" aria-hidden="true"><svg class="flow-check" viewBox="0 0 32 32"><path d="m7 16 6 6 12-13" pathLength="1"/></svg></span>
+        <h3>Confirme<br>e salve</h3>
+        <p>Dados preenchidos.<br>Confirme o cadastro.</p>
+      </div>
+      <span class="flow-after-review" aria-hidden="true">→</span>
+      <div class="flow-management r rise" data-on="16" id="bn-last">
+        <i class="anchor anchor-dot flow-end-dot" id="a-ben2"></i>
+        <i class="anchor anchor-dot flow-end-dot" id="flow-final-anchor"></i>
+        <span class="flow-management-label">PRONTO PARA GERIR</span>
+        <h3>Inventário.<br>Agenda.<br>Pendências.</h3>
+        <p>Plano revisado<br>gera previsões.</p>
+      </div>
+    </div>
+    <p class="flow-evidence r fade" data-on="16">Documento completo. Cadastro preparado. Confirme e comece a gerir.</p>
+    <button type="button" class="flow-details r fade" data-on="16" id="open-appendix">Ver detalhes e validação <span aria-hidden="true">↗</span></button>
+  </section>
+
+
+
+<section class="layer layer-care-impact" data-layer="care-impact" aria-label="Disponibilidade como objetivo para ampliar a capacidade de atendimento">
+  <p class="ci-kicker r fade" data-on="18">IMPACTO · ATENDIMENTO</p>
+  <h2 class="ci-title r rise" data-on="18">Mais equipamento disponível.<br><span>Mais capacidade para atender<i class="anchor anchor-dot ci-anchor" id="a-care" aria-hidden="true"></i></span></h2>
+
+  <div class="ci-evidence r rise" data-on="18" style="--d:1">
+
+    <div class="ci-evolution" aria-label="De 13 endoscópios disponíveis no início de 2025 para 34 no fim de 2025">
+      <div><span>INÍCIO DE 2025</span><b>13<small>/42</small></b><em>funcionavam</em></div><span class="ci-arrow" aria-hidden="true">→</span><div><span>FIM DE 2025</span><strong>34<small>/42</small></strong><em>disponíveis após manutenção</em></div>
+    </div>
+    <h3>Endoscópios disponíveis</h3>
+
+
+  </div>
+
+  <div class="ci-path ci-patients r rise" data-on="18" style="--d:2">
+    <p class="ci-path-label">ESCALA REAL · OUTRO HOSPITAL</p>
+    <strong class="ci-patient-number">Até 2 mil<span>/mês</span></strong>
+    <h3>procedimentos de endoscopia</h3>
+
+    <p class="ci-boundary">Referência de outro hospital; não ganho do Consta.</p>
+
+  </div>
+
+  <div class="ci-bottom r rise" data-on="18" style="--d:3">
+    <p>Casos distintos · impacto do Consta a medir no piloto.</p>
+    <div class="ci-footer-sources"><a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf#page=87" target="_blank" rel="noopener noreferrer">HC-UFG · Relatório de Gestão 2025, p. 87 ↗</a><a class="ci-patient-source" href="https://imed.org.br/hmb-alcanca-a-marca-de-30-mil-endoscopias-realizadas-e-amplia-acesso-a-exames-especializados/" target="_blank" rel="noopener noreferrer">IMED · gestor do hospital · 24/03/2026 ↗</a></div>
+  </div>
+</section>
+
+<section class="layer layer-impact" data-layer="impact" aria-label="Economia potencial condicionada à dispensa efetiva de locação">
+  <p class="im-kicker r fade" data-on="19">IMPACTO · ECONOMIA POTENCIAL</p>
+  <h2 class="im-title r rise" data-on="19">Menos locação.<br>Mais recursos para cuidar<i class="anchor anchor-dot im-anchor" id="a-impact" aria-hidden="true"></i></h2>
+  <div class="im-money r rise" data-on="19" style="--d:1">
+    <p class="im-amount"><span class="im-currency">≈ R$</span><strong>500</strong><span class="im-thousand">mil</span><span class="im-period">/ano</span></p>
+    <p class="im-unit">se uma locação adicional for dispensada por 12 meses</p>
+    <p class="im-monthly">Referência: R$41.190,95/mês · um tomógrafo</p>
+  </div>
+  <div class="im-sources r fade" data-on="19" style="--d:2"><a href="https://hmsuzano.ints.org.br/wp-content/uploads/2026/03/ASAV_CTR-042.2026-C.pdf#page=12" target="_blank" rel="noopener noreferrer">Suzano · Contrato042/2026-C, p.12 · R$494.291,40 em12mensalidades ↗</a><a href="metodo.html#financeiro-cenario" target="_blank">Conta e critérios ↗</a></div>
+  <footer class="im-pilot r rise" data-on="19" style="--d:3"><p>Cenário bruto, não economia comprovada. Descontar implantação e operação.</p></footer>
+</section>
+
+  <!-- ═════════ 06 · TEAM ═════════ -->
+  <section class="layer layer-team team-portraits" data-layer="team" aria-label="Equipe Consta">
+    <p class="pitch-section-label">TIME</p>
+    <h2 class="tm-title r rise" data-on="20">Quem <span>CONSTA</span> com a gente.</h2>
+    <ul class="tm-grid">
+      <li class="r rise" data-on="20" style="--d:1"><div class="tm-monogram tm-photo tm-photo-matheus"><img src="assets/team/matheus.jpg" alt="Matheus Godoi" decoding="async"></div><b>Matheus Godoi</b><span class="tm-role">Engenheiro biomédico</span></li>
+      <li class="r rise" data-on="20" style="--d:2"><div class="tm-monogram tm-photo tm-photo-pedro"><img src="assets/team/pedro.png" alt="Pedro Morais" decoding="async"></div><b>Pedro Morais</b><span class="tm-role">Engenheiro de software</span></li>
+      <li class="r rise" data-on="20" style="--d:3"><div class="tm-monogram tm-photo tm-photo-antonio"><img src="assets/team/antonio.jpg" alt="Antonio Figlio" decoding="async"></div><b>Antonio Figlio</b><span class="tm-role">Engenheiro de produto</span></li>
+      <li class="r rise" data-on="20" style="--d:4"><div class="tm-monogram tm-photo tm-photo-nicolas"><img src="assets/team/nicolas.png" alt="Nicolas Braga" decoding="async"></div><b>Nicolas Braga</b><span class="tm-role">Engenheiro de dados</span></li>
+    </ul>
+    <div class="tm-close">
+      <p class="tm-word" id="t-team" aria-label="CONSTA.">CONSTA<i class="anchor br-dot-anchor" id="a-team"></i></p>
+      <p class="tm-next r fade" data-on="20" style="--d:5">Gestão de ativos e<br>manutenção hospitalar.<span class="tm-pilot">Próximo passo: piloto em equipamentos<br>e áreas aprovados pelo hospital.</span></p>
+    </div>
+  </section>
+
+  <section class="layer layer-cta" data-layer="cta" aria-label="Conheça o Consta no endereço consta.vercel.app">
+    <p class="cta-kicker">PRÓXIMO PASSO</p><h2 class="cta-brand">CONSTA<span>.</span></h2>
+    <p class="cta-title">Conheça o Consta.</p><p class="cta-invite">Vamos validar com a Engenharia Clínica?</p>
+    <a class="cta-qr" href="https://consta.vercel.app" target="_blank" rel="noopener noreferrer"><img src="assets/consta-deploy-qr.svg" alt="QR code para https://consta.vercel.app"><span>consta.vercel.app ↗</span></a>
+  </section>
+  <section class="layer layer-business" data-layer="business" aria-label="Modelo de negócio proposto, Plano Business">
+    <p class="bs-kicker r fade" data-on="22">MODELO DE NEGÓCIO · PROPOSTA</p>
+    <h2 class="bs-title r rise" data-on="22">Plano Business<span>Licença anual por parque de equipamentos.</span><i class="anchor anchor-dot" id="a-business" aria-hidden="true"></i></h2>
+    <div class="bs-grid r rise" data-on="22" style="--d:1">
+      <article><h3>Até 100 equipamentos</h3><p><span>R$</span> 6 mil<small>/ano</small></p><div>Equivalente a R$500/mês</div></article>
+      <article><h3>Até 500 equipamentos</h3><p><span>R$</span> 12 mil<small>/ano</small></p><div>Equivalente a R$1.000/mês</div></article>
+      <article><h3>Até 2.000 equipamentos</h3><p><span>R$</span> 24 mil<small>/ano</small></p><div>Equivalente a R$2.000/mês</div></article>
+    </div>
+    <p class="bs-extra r fade" data-on="22" style="--d:2">CRM por unidade hospitalar. Tags BLE, receptores e implantação à parte.</p>
+    <footer class="bs-footer r fade" data-on="22" style="--d:2">Preços propostos para validação comercial. Acima de2.000equipamentos: proposta personalizada.</footer>
+  </section>
+
+  <!-- Herói persistente: o ponto da marca e seu fio -->
+  <!-- Fio de continuidade entre cenas e morfose em contornos reais da DM Mono 500 (motion.js) -->
+  <svg class="hero-wire" id="hero-wire" viewBox="0 0 1920 1080" aria-hidden="true" focusable="false" data-phase="idle">
+    <path class="hw-wire" id="hero-wire-path" data-motion-wire d=""/>
+    <g class="hw-glyphs" id="hero-glyphs"></g>
+  </svg>
+  <div class="hero-line" id="hero-line" aria-hidden="true"></div>
+  <div class="hero-dot" id="hero-dot" aria-hidden="true"></div>
+</main>
+
+<!-- Controles do apresentador (fora do palco escalonado) -->
+<nav class="controls" aria-label="Navegação da apresentação">
+  <a class="ctl-link" id="cover-link" href="#b=0">Capa</a>
+  <span class="ctl-scene" id="ctl-scene"></span>
+  <span class="ctl-count" id="ctl-count"></span>
+  <button type="button" class="ctl-btn" id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button type="button" class="ctl-btn" id="btn-next" aria-label="Próximo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button type="button" class="ctl-btn ctl-fs" id="btn-fs" aria-label="Tela cheia (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</nav>
+
+<!-- Apoio para perguntas: detalhes das cinco frentes, fora do caminho principal -->
+<div class="appendix" id="appendix" role="dialog" aria-modal="true" aria-labelledby="ap-title" hidden>
+  <div class="ap-sheet">
+    <header class="ap-head">
+      <p id="ap-title">Detalhes das cinco frentes · <span>mecanismo proposto, evidência externa e métrica do piloto</span></p>
+      <button type="button" class="ap-close" id="close-appendix">Fechar <kbd>Esc</kbd></button>
+    </header>
+    <div class="ap-tabs" role="tablist" aria-label="Frentes">
+      <button type="button" role="tab" id="ap-tab-0" aria-controls="ap-0" aria-selected="true" data-tab="0"><img src="assets/hospital.svg" alt="">Localização</button>
+      <button type="button" role="tab" id="ap-tab-1" aria-controls="ap-1" aria-selected="false" tabindex="-1" data-tab="1"><img src="assets/scan-line.svg" alt="">Cadastro</button>
+      <button type="button" role="tab" id="ap-tab-2" aria-controls="ap-2" aria-selected="false" tabindex="-1" data-tab="2"><img src="assets/wrench.svg" alt="">Manutenção</button>
+      <button type="button" role="tab" id="ap-tab-3" aria-controls="ap-3" aria-selected="false" tabindex="-1" data-tab="3"><img src="assets/clipboard-list.svg" alt="">Execução</button>
+      <button type="button" role="tab" id="ap-tab-4" aria-controls="ap-4" aria-selected="false" tabindex="-1" data-tab="4"><img src="assets/building-2.svg" alt="">Contratos</button>
+    </div>
+
+    <article class="ap-panel" role="tabpanel" id="ap-0" aria-labelledby="ap-tab-0">
+      <h3>Encontrar o equipamento</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Tag vinculada ao ativo</li><li>Receptores detectam a presença</li><li>CRM mostra setor e última leitura</li></ol></div>
+        <figure><figcaption class="ap-label">Ensaio externo de BLE</figcaption><p class="ap-big">90<span>/90</span></p><p class="ap-strong">medições com o setor correto</p><p>Os mesmos 30 beacons em três setores. Acerto de sala foi limitado.</p><p class="ap-scope">Não mediu tempo de busca ou desempenho do Consta.</p><p class="ap-src"><a href="https://teses.usp.br/teses/disponiveis/5/5174/tde-30112023-155658/pt-br.html" target="_blank" rel="noopener noreferrer">Barbosa · FMUSP, 2023 · pp. 24–25 e 29 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Acerto por setor e tempo para encontrar o ativo</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-1" aria-labelledby="ap-tab-1" hidden>
+      <h3>Do documento ao cadastro</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>IA sugere campos com página e trecho</li><li>Pessoa responsável confere</li><li>Cadastro preserva a origem</li></ol></div>
+        <figure><figcaption class="ap-label">Exigência documental real</figcaption><p class="ap-strong">A garantia começa na instalação.</p><p>O marco precisa estar comprovado antes de calcular o prazo.</p><p class="ap-scope">Fonte de obrigações para extrair; não é ensaio da IA do Consta.</p><p class="ap-src"><a href="https://www.fz.org.br/wp-content/uploads/2026/07/edital-completo-processo-no-43644-26.pdf" target="_blank" rel="noopener noreferrer">Fundação Zerbini · edital 43644/2026 · p. 31 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Tempo de cadastro com revisão e erros por campo</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-2" aria-labelledby="ap-tab-2" hidden>
+      <h3>Transformar obrigação em tarefa</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Documento informa a obrigação</li><li>Plano passa por revisão humana</li><li>Tarefa recebe prazo e responsável</li></ol></div>
+        <figure><figcaption class="ap-label">Resultado externo · manutenção</figcaption><p class="ap-strong">Endoscópios disponíveis no HC-UFG</p><p class="ap-pair"><span>Início de 2025<b>13</b></span><span class="ap-arrow" aria-hidden="true">→</span><span>Final de 2025<b>34</b></span></p><p class="ap-scope">Resultado de equipe e processos; não efeito isolado de software.</p><p class="ap-src"><a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf" target="_blank" rel="noopener noreferrer">HC-UFG · Relatório de Gestão 2025 · p. 87 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Tarefas concluídas no prazo e horas indisponíveis</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-3" aria-labelledby="ap-tab-3" hidden>
+      <h3>Acompanhar até a conclusão</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Pendência recebe responsável</li><li>Quebra e reparo ficam registrados</li><li>Decisão técnica fica registrada</li></ol></div>
+        <figure><figcaption class="ap-label">Volume de trabalho de outra instituição</figcaption><p class="ap-big">4.128</p><p class="ap-strong">ordens de serviço atendidas</p><p>Engenharia Clínica do HC-UFG, em 2025. Localizado ≠ liberado para uso.</p><p class="ap-scope">Quantidade de serviços atendidos; não ganho ou economia.</p><p class="ap-src"><a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf" target="_blank" rel="noopener noreferrer">HC-UFG · Relatório de Gestão 2025 · p. 89 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Tempo até resolução e pendências em aberto</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-4" aria-labelledby="ap-tab-4" hidden>
+      <h3>Conferir a cobertura antes de gastar</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Contrato e anexos ficam vinculados</li><li>Conflitos aparecem com sua fonte</li><li>Pessoa responsável decide a cobertura</li></ol></div>
+        <figure><figcaption class="ap-label">Conflito documental real</figcaption><p class="ap-pair"><span>Anexo<b>12 meses</b></span><span>Contrato<b>24 meses</b></span></p><p class="ap-strong">O mesmo conjunto tem divergência.</p><p>A fonte e a regra de prevalência precisam aparecer para revisão.</p><p class="ap-scope">Exige revisão de cobertura; não demonstra economia.</p><p class="ap-src"><a href="https://www.fz.org.br/wp-content/uploads/2025/07/contrato-philips-medical-system-ltda.pdf" target="_blank" rel="noopener noreferrer">Fundação Zerbini · contrato FZ-C-0177/25 · pp. 2, 5 e 35 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Acertos de cobertura e despesas conferidas por documento</p>
+    </article>
+    <p class="ap-rent"><b>Equivalência do aluguel do caso de Natal</b> · R$ 75.000 ÷ 30 dias = R$ 2.500/dia · ÷ 720 horas = R$ 104,17 por hora de calendário. Conta sobre a locação anunciada (<a href="https://agorarn.com.br/ultimas/walfredo-gurgel-recebe-novo-tomografo/" target="_blank" rel="noopener noreferrer">Agora RN, 19 jun 2026, histórico de 2025 ↗</a>); não é custo real da parada nem economia do Consta.</p>
+    <footer class="ap-foot">Ganho do Consta ainda não medido. <a href="metodo.html" target="_blank" rel="noopener">Método, contas e fontes ↗</a> · <a href="apoio-tecnico.html" target="_blank" rel="noopener">Apoio técnico BLE ↗</a> · ← → trocam a frente</footer>
+  </div>
+</div>
+
+<script src="assets/consta-glifos.js"></script>
+<script src="motion.js"></script>
+<script src="product-demo.js"></script>
+<script src="camera-demo.js"></script>
+<script src="indoor-map.js"></script>
+<script src="smart-agenda.js"></script>
+<script src="presenter-controls.js"></script>
+</body>
+</html>

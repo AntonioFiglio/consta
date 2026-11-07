@@ -1,0 +1,259 @@
+{
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "deviceScaleFactor": 2,
+  "coordinateSpace": "logical CSS pixels",
+  "actions": [
+    {
+      "action": "Enviar contrato",
+      "box": {
+        "x": 16,
+        "y": 107.546875,
+        "width": 183,
+        "height": 46.390625
+      }
+    },
+    {
+      "action": "Continuar",
+      "box": {
+        "x": 1199.015625,
+        "y": 739.390625,
+        "width": 117.984375,
+        "height": 43.5
+      }
+    },
+    {
+      "action": "Salvar cadastros",
+      "box": {
+        "x": 1419.515625,
+        "y": 863.5,
+        "width": 137.484375,
+        "height": 43.5
+      }
+    }
+  ],
+  "reviewFields": [
+    {
+      "label": "Buscar equipamento",
+      "value": "",
+      "box": {
+        "x": 335,
+        "y": 173.78125,
+        "width": 408,
+        "height": 40
+      }
+    },
+    {
+      "label": "Selecionar contrato",
+      "value": "",
+      "box": {
+        "x": 341,
+        "y": 289.796875,
+        "width": 24,
+        "height": 40
+      }
+    },
+    {
+      "label": "Equipamento 1",
+      "value": "Autoclave",
+      "box": {
+        "x": 380,
+        "y": 472.109375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave",
+      "value": "HC156593",
+      "box": {
+        "x": 651.390625,
+        "y": 483.515625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 863.796875,
+        "y": 483.109375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 1064.390625,
+        "y": 481.109375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 2",
+      "value": "Autoclave",
+      "box": {
+        "x": 380,
+        "y": 570.484375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave",
+      "value": "HC163231",
+      "box": {
+        "x": 651.390625,
+        "y": 590.890625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 863.796875,
+        "y": 590.484375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 1064.390625,
+        "y": 588.484375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 3",
+      "value": "Autoclave",
+      "box": {
+        "x": 380,
+        "y": 686.859375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave",
+      "value": "FZ18204",
+      "box": {
+        "x": 651.390625,
+        "y": 698.265625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 863.796875,
+        "y": 697.859375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 1064.390625,
+        "y": 695.859375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 4",
+      "value": "Autoclave",
+      "box": {
+        "x": 380,
+        "y": 794.234375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave",
+      "value": "HC 137224",
+      "box": {
+        "x": 651.390625,
+        "y": 805.640625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 863.796875,
+        "y": 805.234375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 1064.390625,
+        "y": 803.234375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 5",
+      "value": "Autoclave",
+      "box": {
+        "x": 380,
+        "y": 901.609375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave",
+      "value": "HC087274",
+      "box": {
+        "x": 651.390625,
+        "y": 913.015625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 863.796875,
+        "y": 912.609375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave",
+      "value": "",
+      "box": {
+        "x": 1064.390625,
+        "y": 910.609375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    }
+  ]
+}

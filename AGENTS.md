@@ -4,7 +4,8 @@
 
 1. Leia [README.md](README.md) e [docs/estado-atual.md](docs/estado-atual.md).
 2. Confira `git status --short --branch`; preserve alterações de outros integrantes.
-3. Carregue somente os documentos da tarefa na tabela abaixo. O [índice](docs/README.md) aponta o restante.
+3. Carregue somente os documentos da tarefa na tabela abaixo.
+4. Ao retomar pitch, automação ou demo, leia a [memória de continuidade e tarefas](docs/desenvolvimento/continuidade-pitch-2026-11-07.md). A direção atual é telas reais do CRM animadas dentro do pitch, SEM vídeo; dados e processamento simulados identificados. Não publicar sem pedido explícito de Matheus. O [índice](docs/README.md) aponta o restante.
 
 ## Roteamento
 

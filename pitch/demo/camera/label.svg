@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="cd-label" viewBox="0 0 500 300" role="img" aria-label="Etiqueta sintética. Patrimônio CST0001; série DEMO001.">
+            <rect width="500" height="300" rx="8" fill="#d9dad8"/>
+            <path d="M0 33h500M0 262h500" stroke="#b9bbb8"/>
+            <g transform="translate(50 60) rotate(-3 200 90)">
+              <rect width="400" height="180" rx="4" fill="#fafaf9" stroke="#999b96"/>
+              <text x="26" y="34" fill="#57534e" font-family="Inter,sans-serif" font-size="14" letter-spacing="2">CONTROLE PATRIMONIAL</text>
+              <text x="26" y="86" fill="#0a0a0a" font-family="DM Mono,monospace" font-size="36" font-weight="500">PAT. CST0001</text>
+              <path d="M26 106h348" stroke="#d6d3d1"/>
+              <text x="26" y="133" fill="#78716c" font-family="DM Mono,monospace" font-size="14">SÉRIE DEMO001</text>
+              <text x="26" y="160" fill="#78716c" font-family="Inter,sans-serif" font-size="11">ETIQUETA SINTÉTICA · DEMONSTRAÇÃO</text>
+            </g>
+          </svg>

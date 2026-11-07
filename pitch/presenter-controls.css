@@ -1,0 +1,4 @@
+/* Controls appear on pointer interaction or keyboard focus, then leave the stage clear. */
+.controls { opacity: 0; transition: opacity 160ms linear; }
+.controls.is-visible, .controls:hover, .controls:focus-within { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .controls { transition: none; } }

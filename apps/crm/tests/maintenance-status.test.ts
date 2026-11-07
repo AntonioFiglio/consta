@@ -75,10 +75,10 @@ test("contrato conferido com vigência incompleta não volta a revisão pendente
       });
       const status = maintenanceStatus(input, "2026-11-07");
       assert.equal(status.kind, "dates");
-      assert.equal(status.label, "Prazo do contrato a confirmar");
+      assert.equal(status.label, "Vigência da manutenção a confirmar");
       assert.equal(status.group, "attention");
       assert.equal(status.contractId, contractId);
-      assert.match(status.detail, /não sabemos se a manutenção está incluída no contrato hoje/);
+      assert.match(status.detail, /não sabemos se a cobertura de manutenção está vigente hoje/);
       assert.equal(input.reviewed, true);
       assert.equal(
         maintenanceStatus(
@@ -100,9 +100,9 @@ test("contrato conferido com vigência incompleta não volta a revisão pendente
 test("distingue contrato vencido, contrato futuro e lacuna entre coberturas", () => {
   assert.equal(
     maintenanceStatus(asset(), "2026-12-01").label,
-    "Contrato vencido",
+    "Cobertura de manutenção encerrada",
   );
-  assert.equal(maintenanceStatus(asset(), "2026-10-31").label, "Sem contrato ativo");
+  assert.equal(maintenanceStatus(asset(), "2026-10-31").label, "Sem cobertura de manutenção");
   const old = plan({ validFrom: "2026-01-01", validUntil: "2026-10-31" });
   const future = plan({
     contractId: randomUUID(),
@@ -171,7 +171,7 @@ test("não presume oficina interna pela ausência de contrato; exige definição
       asset({ maintenanceProvider: "contract", contractId: null }),
       "2026-11-07",
     ).label,
-    "Sem contrato ativo",
+    "Sem cobertura de manutenção",
   );
 });
 

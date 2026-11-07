@@ -1,0 +1,69 @@
+{
+  "status": "captured",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "deviceScaleFactor": 2,
+  "screenshots": [],
+  "simulation": true,
+  "realExternalAI": false,
+  "database": ":memory:",
+  "mockCalls": 1,
+  "assetCount": 5,
+  "assets": [
+    {
+      "name": "Autoclave",
+      "serial": "04389",
+      "patrimony": "FZ18204",
+      "maintenanceCompany": "PHOENIX LUFERCO LTDA",
+      "notes": "TAG documental: SAUT0014. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "05452",
+      "patrimony": "HC 137224",
+      "maintenanceCompany": "PHOENIX LUFERCO LTDA",
+      "notes": "TAG documental: SAUT0016. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "04388",
+      "patrimony": "HC087274",
+      "maintenanceCompany": "PHOENIX LUFERCO LTDA",
+      "notes": "TAG documental: SAUT0013. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "14155",
+      "patrimony": "HC156593",
+      "maintenanceCompany": "PHOENIX LUFERCO LTDA",
+      "notes": "TAG documental: SAUT0019. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "20366",
+      "patrimony": "HC163231",
+      "maintenanceCompany": "PHOENIX LUFERCO LTDA",
+      "notes": "TAG documental: SAUT0050. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+      "periodValue": null,
+      "firstDueDate": null
+    }
+  ],
+  "pageErrors": [],
+  "dateValuesBeforeSave": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

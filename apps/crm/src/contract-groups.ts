@@ -1,4 +1,5 @@
 import type { Asset, ContractSummary } from "./types.js";
+import { contractCopy } from "./contract-copy.js";
 
 export const assetHasDocument = (asset: Asset, ids: ReadonlySet<string>) =>
   Boolean(
@@ -76,10 +77,10 @@ export function documentKindLabel(
   document: Pick<ContractSummary, "documentKind" | "parentContractId">,
 ): string {
   if (document.documentKind === "outsourced")
-    return "Contrato terceirizado";
+    return contractCopy.maintenance;
   return document.documentKind === "complement"
-    ? "Anexo"
-    : document.parentContractId
-      ? "Termo aditivo"
-      : "Contrato principal";
+    ? contractCopy.annex
+    : document.documentKind === "amendment" || document.parentContractId
+      ? contractCopy.amendment
+      : contractCopy.principal;
 }

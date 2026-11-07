@@ -2382,17 +2382,6 @@ label > small {
   cursor: pointer;
   color: #ad835e;
 }
-.extraction-controls {
-  margin-top: 18px;
-  border-top: 1px solid var(--consta-border);
-  padding-top: 14px;
-}
-.extraction-controls summary {
-  font-size: var(--consta-text-xs);
-  color: var(--consta-text-secondary);
-  cursor: pointer;
-  margin-bottom: var(--consta-space-3);
-}
 .compact-contract > span {
   margin-left: auto;
   white-space: nowrap;
@@ -2483,15 +2472,19 @@ label > small {
   min-height: 0;
 }
 .equipment-table-dialog > form {
-  flex: 1;
+  flex: 1 1 0px;
   overflow: hidden;
 }
 .equipment-table-dialog fieldset {
-  flex: 1;
+  flex: 1 1 0px;
+  display: block;
   overflow: hidden;
 }
 .equipment-table-dialog .simple-config {
-  flex: 1;
+  height: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
   padding: 18px 28px;
   border-bottom: 0;
   gap: var(--consta-space-3);
@@ -2515,7 +2508,7 @@ label > small {
 .equipment-editor-scroll {
   overflow: auto;
   min-height: 0;
-  flex: 1;
+  flex: 1 1 0px;
   border: 1px solid var(--consta-border);
   border-radius: var(--consta-radius-md);
   overscroll-behavior: contain;
@@ -2627,15 +2620,6 @@ label > small {
   margin: 0;
   align-self: flex-start;
   flex-shrink: 0;
-}
-.equipment-table-dialog .extraction-controls {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  flex-shrink: 0;
-}
-.equipment-table-dialog .extraction-controls summary {
-  margin: 0;
 }
 .equipment-table-dialog .renewal-notice,
 .equipment-table-dialog .document-warnings {
@@ -3590,16 +3574,13 @@ a.text-button {
   table-layout: fixed;
 }
 .contracts-family-table > thead th:nth-child(1) {
-  width: 40%;
+  width: 50%;
 }
 .contracts-family-table > thead th:nth-child(2) {
-  width: 14%;
+  width: 18%;
 }
 .contracts-family-table > thead th:nth-child(3) {
-  width: 27%;
-}
-.contracts-family-table > thead th:nth-child(4) {
-  width: 19%;
+  width: 32%;
 }
 .contracts-family-table td {
   white-space: normal;
@@ -3646,18 +3627,6 @@ a.text-button {
 .contract-document-name:hover {
   color: #ac784c;
   text-decoration: underline;
-}
-.contract-group-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--consta-space-3);
-}
-.contract-group-actions .text-button {
-  font-size: var(--consta-text-xs);
-}
-.contract-group-actions .muted-action {
-  color: var(--consta-text-secondary);
 }
 .contract-family-open {
   background: #fdfbf8;
@@ -3795,7 +3764,7 @@ a.text-button {
     padding-top: 10px;
   }
 }
-.contract-organization-dialog {
+.contract-attachment-dialog {
   position: fixed;
   inset: 0;
   margin: auto;
@@ -3810,25 +3779,25 @@ a.text-button {
   color: var(--consta-black);
   box-shadow: var(--consta-shadow-dialog);
 }
-.contract-organization-dialog::backdrop {
+.contract-attachment-dialog::backdrop {
   background: #211a1259;
   backdrop-filter: blur(3px);
 }
-.contract-organization-fields {
+.contract-attachment-fields {
   padding: 22px 26px;
 }
-.contract-organization-fields label {
+.contract-attachment-fields label {
   display: block;
   font-size: var(--consta-text-sm);
   color: var(--consta-text-secondary);
 }
-.contract-organization-fields select {
+.contract-attachment-fields select {
   margin-top: 9px;
 }
-.contract-organization-fields > .field-hint {
+.contract-attachment-fields > .field-hint {
   margin: 18px 0 0;
 }
-.contract-organization-dialog .error-message {
+.contract-attachment-dialog .error-message {
   margin: 0 26px 18px;
 }
 .amendment-upload {
@@ -3856,10 +3825,10 @@ a.text-button {
 .amendment-upload span {
   font-size: var(--consta-text-sm);
 }
-.contract-organization-fields .document-switch {
+.contract-attachment-fields .document-switch {
   margin-bottom: 18px;
 }
-.contract-organization-fields .document-switch button {
+.contract-attachment-fields .document-switch button {
   border-color: var(--consta-border);
 }
 .document-header .contract-parent-link {
@@ -4129,6 +4098,9 @@ a.text-button {
 }
 .managed-dialog.equipment-table-dialog {
   width: min(1240px, calc(100vw - 32px));
+  /* Esta janela precisa de altura definida para a tabela poder encolher e rolar. */
+  height: min(820px, calc(100dvh - 32px));
+  max-height: calc(100dvh - 32px);
 }
 .managed-dialog.asset-overview-dialog {
   width: min(600px, calc(100vw - 32px));
@@ -4136,7 +4108,7 @@ a.text-button {
 .managed-dialog.maintenance-assignment-dialog {
   width: min(460px, calc(100vw - 32px));
 }
-.managed-dialog.contract-organization-dialog {
+.managed-dialog.contract-attachment-dialog {
   width: min(500px, calc(100vw - 32px));
 }
 .managed-dialog.document-dialog {
@@ -5107,14 +5079,14 @@ a.text-button {
 .contract-link-dialog .contract-workspace-header {
   border-bottom: 1px solid var(--consta-gray-200);
 }
-.contract-link-dialog .contract-organization-fields {
+.contract-link-dialog .contract-attachment-fields {
   display: grid;
   gap: 20px;
   border: 0;
   margin: 0;
   padding: var(--consta-space-5);
 }
-.contract-link-dialog .contract-organization-fields > label {
+.contract-link-dialog .contract-attachment-fields > label {
   display: grid;
   gap: var(--consta-space-2);
   font-size: var(--consta-text-md);
@@ -6006,4 +5978,159 @@ a.text-button {
 .sidebar-upload-control > .status-help-trigger:focus-visible {
   color: inherit;
   background: #ffe1c8;
+}
+
+/* Progresso por etapas reais; o tempo não altera a quantidade concluída. */
+.contract-import-progress {
+  flex-shrink: 0;
+  margin: var(--consta-space-4) 22px 0;
+  padding: var(--consta-space-4);
+  border: 1px solid var(--consta-border);
+  border-radius: var(--consta-radius-md);
+  background: var(--consta-surface-subtle);
+}
+.contract-import-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--consta-space-2);
+  color: var(--consta-text-primary);
+}
+.contract-import-heading h3 {
+  font-size: var(--consta-text-md);
+  font-weight: var(--consta-weight-semibold);
+  line-height: var(--consta-leading-tight);
+}
+.contract-import-status p {
+  margin-top: var(--consta-space-2);
+  color: var(--consta-text-secondary);
+  font-size: var(--consta-text-sm);
+  line-height: var(--consta-leading-body);
+}
+.contract-import-track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--consta-space-1);
+  margin-top: var(--consta-space-4);
+}
+.contract-import-track > span {
+  position: relative;
+  overflow: hidden;
+  height: 8px;
+  border-radius: var(--consta-radius-sm);
+  background: var(--consta-gray-200);
+}
+.contract-import-track > span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--consta-orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s ease-out;
+}
+.contract-import-track > .is-complete::before {
+  transform: scaleX(1);
+}
+.contract-import-track > .is-active {
+  background: #ffedd5;
+}
+.contract-import-track > .is-active::before {
+  background: linear-gradient(100deg, var(--consta-orange) 25%, #fdba74 45%, var(--consta-orange) 65%);
+  background-size: 220% 100%;
+  animation:
+    contract-import-advance 18s cubic-bezier(0.15, 0.65, 0.3, 1) forwards,
+    contract-import-shimmer 1.6s linear infinite;
+}
+/* Avanço visual dentro da etapa ativa; a conclusão depende da resposta da API. */
+@keyframes contract-import-advance {
+  from { transform: scaleX(0.08); }
+  to { transform: scaleX(0.88); }
+}
+@keyframes contract-import-shimmer {
+  from { background-position: 110% 0; }
+  to { background-position: -110% 0; }
+}
+.contract-import-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--consta-space-3);
+  margin: var(--consta-space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.contract-import-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--consta-space-2);
+  min-width: 0;
+  color: var(--consta-text-secondary);
+  font-size: var(--consta-text-xs);
+  line-height: var(--consta-leading-body);
+}
+.contract-import-step-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 22px;
+  height: 22px;
+  border: 1px solid var(--consta-border);
+  border-radius: 50%;
+  background: var(--consta-surface);
+  font-weight: var(--consta-weight-medium);
+}
+.contract-import-steps .is-active {
+  color: var(--consta-action);
+  font-weight: var(--consta-weight-semibold);
+}
+.contract-import-steps .is-active .contract-import-step-icon {
+  border-color: var(--consta-orange);
+  background: #fff3e8;
+}
+.contract-import-steps .is-complete .contract-import-step-icon {
+  color: #487450;
+  background: #f0f7f0;
+  border-color: #b8d2bb;
+}
+.contract-import-steps small {
+  display: block;
+  font-size: inherit;
+  font-weight: var(--consta-weight-regular);
+  color: var(--consta-text-secondary);
+}
+.contract-import-time {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--consta-space-2);
+  margin-top: var(--consta-space-4);
+  color: var(--consta-text-secondary);
+  font-size: var(--consta-text-xs);
+}
+.contract-import-progress.is-ready .contract-import-heading {
+  color: #487450;
+}
+.contract-import-progress.has-error .contract-import-heading,
+.contract-import-progress.has-error .contract-import-steps .is-active {
+  color: #b42332;
+}
+.contract-import-progress.has-error .contract-import-steps .is-active .contract-import-step-icon {
+  border-color: #e9b8bf;
+  background: #fff5f5;
+}
+@media (max-width: 520px) {
+  .contract-import-progress {
+    margin: var(--consta-space-3) var(--consta-space-3) 0;
+    padding: var(--consta-space-3);
+  }
+  .contract-import-steps {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contract-import-track > span::before {
+    transition: none;
+  }
+  .contract-import-track > .is-active::before {
+    animation: none;
+    transform: scaleX(0.5);
+  }
 }

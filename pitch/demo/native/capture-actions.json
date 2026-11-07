@@ -1,0 +1,259 @@
+{
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "deviceScaleFactor": 2,
+  "coordinateSpace": "logical CSS pixels",
+  "actions": [
+    {
+      "action": "Enviar contrato",
+      "box": {
+        "x": 16,
+        "y": 107.546875,
+        "width": 183,
+        "height": 46.390625
+      }
+    },
+    {
+      "action": "Continuar",
+      "box": {
+        "x": 1199.015625,
+        "y": 739.390625,
+        "width": 117.984375,
+        "height": 43.5
+      }
+    },
+    {
+      "action": "Confirmar e salvar",
+      "box": {
+        "x": 1408.46875,
+        "y": 863.5,
+        "width": 148.53125,
+        "height": 43.5
+      }
+    }
+  ],
+  "reviewFields": [
+    {
+      "label": "Buscar equipamento",
+      "value": "",
+      "box": {
+        "x": 335,
+        "y": 173.78125,
+        "width": 408,
+        "height": 40
+      }
+    },
+    {
+      "label": "Selecionar contrato",
+      "value": "",
+      "box": {
+        "x": 341,
+        "y": 289.796875,
+        "width": 24,
+        "height": 40
+      }
+    },
+    {
+      "label": "Equipamento 1",
+      "value": "Autoclave 01",
+      "box": {
+        "x": 380,
+        "y": 406.984375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave 01",
+      "value": "CST0001",
+      "box": {
+        "x": 651.390625,
+        "y": 418.375,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave 01",
+      "value": "90",
+      "box": {
+        "x": 863.796875,
+        "y": 417.984375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave 01",
+      "value": "2027-02-05",
+      "box": {
+        "x": 1064.390625,
+        "y": 415.984375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 2",
+      "value": "Autoclave 02",
+      "box": {
+        "x": 380,
+        "y": 494.78125,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave 02",
+      "value": "CST0002",
+      "box": {
+        "x": 651.390625,
+        "y": 506.171875,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave 02",
+      "value": "90",
+      "box": {
+        "x": 863.796875,
+        "y": 505.78125,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave 02",
+      "value": "2027-02-05",
+      "box": {
+        "x": 1064.390625,
+        "y": 503.78125,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 3",
+      "value": "Autoclave 03",
+      "box": {
+        "x": 380,
+        "y": 582.578125,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave 03",
+      "value": "CST0003",
+      "box": {
+        "x": 651.390625,
+        "y": 593.96875,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave 03",
+      "value": "90",
+      "box": {
+        "x": 863.796875,
+        "y": 593.578125,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave 03",
+      "value": "2027-02-05",
+      "box": {
+        "x": 1064.390625,
+        "y": 591.578125,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 4",
+      "value": "Autoclave 04",
+      "box": {
+        "x": 380,
+        "y": 670.375,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave 04",
+      "value": "CST0004",
+      "box": {
+        "x": 651.390625,
+        "y": 681.765625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave 04",
+      "value": "90",
+      "box": {
+        "x": 863.796875,
+        "y": 681.375,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave 04",
+      "value": "2027-02-05",
+      "box": {
+        "x": 1064.390625,
+        "y": 679.375,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    },
+    {
+      "label": "Equipamento 5",
+      "value": "Autoclave 05",
+      "box": {
+        "x": 380,
+        "y": 758.171875,
+        "width": 251.390625,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Número de tombamento de Autoclave 05",
+      "value": "CST0005",
+      "box": {
+        "x": 651.390625,
+        "y": 769.5625,
+        "width": 192.40625,
+        "height": 40
+      }
+    },
+    {
+      "label": "Intervalo de manutenção de Autoclave 05",
+      "value": "90",
+      "box": {
+        "x": 863.796875,
+        "y": 769.171875,
+        "width": 50,
+        "height": 40.796875
+      }
+    },
+    {
+      "label": "Primeira manutenção de Autoclave 05",
+      "value": "2027-02-05",
+      "box": {
+        "x": 1064.390625,
+        "y": 767.171875,
+        "width": 180.609375,
+        "height": 44.796875
+      }
+    }
+  ]
+}

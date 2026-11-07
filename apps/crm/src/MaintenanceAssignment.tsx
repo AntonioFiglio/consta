@@ -1,3 +1,4 @@
+import { contractCopy } from "./contract-copy";
 import { ManagedDialog } from "./DialogManager";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -97,11 +98,11 @@ export function MaintenanceAssignment({
         <div>
           <h2 id="assignment-title" ref={title} tabIndex={-1}>
             {step === 1
-              ? "Quem cuida da manutenção?"
-              : "Arquivo da manutenção"}
+              ? "Quem é responsável pela manutenção?"
+              : "Documento de manutenção"}
           </h2>
           <p>
-            {asset.name} · Tombamento {asset.patrimony}
+            {asset.name} · Tombamento {asset.patrimony || "pendente"}
           </p>
         </div>
       </header>
@@ -115,8 +116,8 @@ export function MaintenanceAssignment({
               [
                 [
                   "contract",
-                  "Empresa externa",
-                  "Por termo aditivo ou contrato terceirizado.",
+                  "Empresa de manutenção",
+                  "Atendimento previsto em contrato de manutenção ou termo aditivo.",
                 ],
                 [
                   "internal",
@@ -158,7 +159,7 @@ export function MaintenanceAssignment({
                 id="maintenance-document-type-label"
                 className="maintenance-field-label"
               >
-                Tipo de arquivo
+                Tipo de documento
               </span>
               <div
                 className="document-switch maintenance-document-switch"
@@ -171,7 +172,7 @@ export function MaintenanceAssignment({
                   onClick={() => setKind("amendment")}
                 >
                   <FilePenLine size={15} aria-hidden="true" />
-                  Termo aditivo
+                  {contractCopy.amendment}
                 </button>
                 <button
                   type="button"
@@ -179,13 +180,13 @@ export function MaintenanceAssignment({
                   onClick={() => setKind("outsourced")}
                 >
                   <Building2 size={15} aria-hidden="true" />
-                  Contrato terceirizado
+                  {contractCopy.maintenance}
                 </button>
               </div>
               <p className="maintenance-document-hint">
                 {kind === "amendment"
-                  ? "Altera as condições do contrato principal."
-                  : "Contrato com outra empresa para cuidar da manutenção."}
+                  ? "Altera o prazo, o valor ou as condições de um contrato existente."
+                  : "Define a empresa, os serviços e o período de atendimento dos equipamentos."}
               </p>
             </div>
             <input
@@ -213,9 +214,9 @@ export function MaintenanceAssignment({
               <span className="upload-icon" aria-hidden="true">
                 {file ? <FileText size={23} /> : <UploadCloud size={23} />}
               </span>
-              <strong>{file?.name || "Arraste o arquivo aqui"}</strong>
+              <strong>{file?.name || "Selecione o documento de manutenção"}</strong>
               <span>
-                {file ? "Clique para trocar" : "ou clique para selecionar"}
+                {file ? "Clique para trocar" : "Clique para selecionar ou arraste o arquivo"}
               </span>
               <small>
                 {file

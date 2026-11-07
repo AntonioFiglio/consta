@@ -24,7 +24,13 @@ export const assetInput = z
         .refine((value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), "E-mail da manutenção inválido")
         .optional(),
     model: z.string().trim().max(160).default(""),
-    patrimony: z.string().trim().min(1).max(80),
+    patrimony: z.string().trim().max(80).default(""),
+    importSource: z.object({
+        contractId: z.string().uuid(),
+        unitKey: z.string().min(1).max(4000),
+        position: z.number().int().min(1).max(50).optional(),
+        total: z.number().int().min(1).max(50).optional(),
+    }).optional(),
     serial: z.string().trim().max(100).default(""),
     maintenanceProvider: z
         .enum(["contract", "internal", "unassigned"])
@@ -44,13 +50,13 @@ export const assetInput = z
         .default(null),
     validFrom: z
         .string()
-        .refine(validDate, "Data de início do contrato inválida")
+        .refine(validDate, "Data de início da cobertura de manutenção inválida")
         .nullable()
         .optional()
         .default(null),
     validUntil: z
         .string()
-        .refine(validDate, "Data de fim do contrato inválida")
+        .refine(validDate, "Data de fim da cobertura de manutenção inválida")
         .nullable()
         .optional()
         .default(null),
@@ -60,21 +66,21 @@ export const assetInput = z
     if (data.validFrom && data.validUntil && data.validFrom > data.validUntil)
         ctx.addIssue({
             code: "custom",
-            message: "O fim do contrato deve ser igual ou posterior ao início.",
+            message: "O fim da cobertura de manutenção deve ser igual ou posterior ao início.",
         });
     if (data.firstDueDate &&
         data.validFrom &&
         data.firstDueDate < data.validFrom)
         ctx.addIssue({
             code: "custom",
-            message: "A primeira manutenção deve estar entre o início e o fim do contrato.",
+            message: "A primeira manutenção deve estar dentro do período de cobertura.",
         });
     if (data.firstDueDate &&
         data.validUntil &&
         data.firstDueDate > data.validUntil)
         ctx.addIssue({
             code: "custom",
-            message: "A primeira manutenção é posterior ao fim do contrato.",
+            message: "A primeira manutenção é posterior ao fim da cobertura.",
         });
     if (data.reviewed &&
         (!data.periodValue ||
@@ -116,10 +122,10 @@ export const coverageDatesInput = z
     .object({
     validFrom: z
         .string()
-        .refine(validDate, "Data de início do contrato inválida"),
+        .refine(validDate, "Data de início da cobertura de manutenção inválida"),
     validUntil: z
         .string()
-        .refine(validDate, "Data de fim do contrato inválida"),
+        .refine(validDate, "Data de fim da cobertura de manutenção inválida"),
 })
     .strict();
 export function updateCoverageDates(asset, coverageId, input) {
@@ -134,10 +140,10 @@ export function updateCoverageDates(asset, coverageId, input) {
     assetInput.parse({ ...asset, ...plan, ...dates });
     if (plans[index - 1]?.validFrom &&
         dates.validFrom <= plans[index - 1].validFrom)
-        throw new DomainError("O contrato deve começar depois do início do contrato anterior.");
+        throw new DomainError("A cobertura de manutenção deve começar depois do início da cobertura anterior.");
     if (plans[index + 1]?.validFrom &&
         dates.validFrom >= plans[index + 1].validFrom)
-        throw new DomainError("O contrato deve começar antes do próximo contrato.");
+        throw new DomainError("A cobertura de manutenção deve começar antes da próxima cobertura.");
     return {
         ...asset,
         ...(index === plans.length - 1 ? dates : {}),
@@ -158,19 +164,19 @@ export function prepareAsset(existing, input, renewal = false) {
         if (!existing ||
             !input.contractId ||
             input.contractId === existing.contractId)
-            throw new DomainError("Selecione um contrato ou aditivo diferente para renovar a manutenção.");
+            throw new DomainError("Selecione outro contrato de manutenção ou termo aditivo para renovar a cobertura.");
         if (!input.validFrom)
-            throw new DomainError("Informe quando começa o novo contrato.");
+            throw new DomainError("Informe o início da nova cobertura de manutenção.");
         if (plans.some((plan) => plan.contractId === input.contractId))
-            throw new DomainError("Este contrato já faz parte do histórico do equipamento.");
+            throw new DomainError("Este documento contratual já faz parte do histórico do equipamento.");
     }
     else if (existing && input.contractId !== existing.contractId) {
-        throw new DomainError("Adicione o novo contrato nas configurações avançadas para preservar o anterior.");
+        throw new DomainError("Adicione o novo documento de manutenção nos detalhes para preservar o histórico.");
     }
     const previous = plans[renewal ? plans.length - 1 : plans.length - 2];
     if (previous?.validFrom &&
         (!input.validFrom || input.validFrom <= previous.validFrom))
-        throw new DomainError("O novo período deve começar depois do início do contrato anterior.");
+        throw new DomainError("A nova cobertura de manutenção deve começar depois do início da anterior.");
     const coverage = {
         id: renewal || !plans.length ? randomUUID() : plans[plans.length - 1].id,
         contractId: input.contractId,
@@ -199,6 +205,7 @@ export function prepareAsset(existing, input, renewal = false) {
         plans[plans.length - 1] = coverage;
     return {
         ...input,
+        importSource: existing?.importSource || input.importSource,
         brand: input.brand ?? existing?.brand ?? "",
         maintenanceCompany: coverage.maintenanceCompany,
         maintenancePhone: coverage.maintenancePhone,

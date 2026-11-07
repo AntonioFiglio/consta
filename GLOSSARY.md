@@ -12,6 +12,16 @@ Vocabulário do produto e da engenharia clínica. As regras de implementação f
 
 **Instituição:** organização responsável por um conjunto de ativos, pessoas, documentos e permissões.
 
+**Termo de Contrato (TC):** instrumento contratual identificado como principal no cadastro da CONSTA. A interface usa o nome completo no envio e na identificação do documento, com TC nas ações curtas. O objeto pode ser aquisição, comodato, locação ou serviço; o título, sozinho, não comprova cobertura de manutenção.
+
+**Contrato de manutenção:** instrumento que define a prestação de serviços de manutenção, empresa responsável, equipamentos abrangidos, condições e vigência. Substitui o rótulo genérico “contrato terceirizado” na interface. É opcional no fluxo documental; pode haver atendimento interno ou obrigações previstas no próprio TC.
+
+**Termo aditivo:** documento que altera condições de um contrato identificado, como prazo, valor ou escopo. É opcional e não equivale a um novo contrato independente de manutenção.
+
+**Anexo contratual:** documento associado que complementa informações do contrato, como relação de equipamentos ou especificação. Seu vínculo, isoladamente, não comprova alteração contratual nem cobertura de manutenção.
+
+O vocabulário da interface está centralizado em `apps/crm/src/contract-copy.ts`. O uso de **Termo de Contrato** e **Termo aditivo** aparece nas [publicações do Hospital das Forças Armadas](https://www.gov.br/hfa/pt-br/acesso-a-informacao/licitacoes-e-contratos/arquivos-da-pagina-contratos/paginas-de-contratos-publicados-divididas-por-ano/contratos-e-outras-avencas-2024). A distinção de manutenção segue o objeto do instrumento, como no [caso HCFMUSP 05/2026](docs/referencias/novos-contratos-demo-2026-11-07.md); não há inferência de compra ou manutenção somente pela sigla TC.
+
 **Setor/local:** área identificada da instituição, como enfermaria, corredor ou sala. O local cadastrado de um ativo pode diferir do local observado.
 
 **Cobertura contratual:** serviços, condições e período abrangidos por um contrato para os ativos vinculados. Cobertura não comprova execução.

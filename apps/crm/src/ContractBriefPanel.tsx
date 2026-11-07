@@ -6,7 +6,7 @@ import type { ContractBrief, ContractBriefTopic } from "./types";
 const topics: Record<ContractBriefTopic, string> = {
   responsible: "Quem atende", equipment: "Equipamentos", services: "Serviços",
   dates: "Prazos", response: "Atendimento", obligations: "Responsabilidades",
-  costs: "Valores", limits: "Limites do contrato",
+  costs: "Valores", limits: "Limites da contratação",
 };
 
 export function ContractBriefPanel({ contractId, active, onRead }: {
@@ -44,7 +44,7 @@ export function ContractBriefPanel({ contractId, active, onRead }: {
   return (
     <section className="contract-brief" aria-label="Resumo para gestão clínica" aria-busy={!current?.brief && !current?.error}>
       <div className="contract-brief-heading">
-        <h3>O essencial do contrato</h3>
+        <h3>O essencial deste documento</h3>
         {current?.brief && <span className={`contract-brief-source ${current.brief.source}`}>
           {current.brief.source === "simulated" ? "Simulação" : "Resumo por IA"}
         </span>}
