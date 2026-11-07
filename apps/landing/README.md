@@ -64,3 +64,9 @@ Verificação: quatro testes da landing aprovados, incluindo igualdade do deck/d
 ### Sincronização com o pitch mais recente
 
 A versão atual preserva o cenário de capacidade anual de RMN do pitch e seus limites (projeção com fontes distintas, sem receita ou resultado medidos pelo Consta). A LP não reproduz esses valores como benefícios próprios. A especialidade de Nicolas foi alinhada a engenheiro de software. O link da topbar, a cópia de produção e os recursos do pitch permanecem sincronizados pelo processo de build. Conflitos da reaplicação local foram resolvidos mantendo HTML/QR mais recentes; o stash original foi preservado.
+
+## Cores compartilhadas com o pitch
+
+A paleta do Plano Business tem origem em [pitch/business-colors.css](../../pitch/business-colors.css). O deck carrega esse arquivo e a LP importa a mesma fonte no Vite: verde `#166534`, destaque `#14532d`, menta `#dcfce7` e borda `#d6e5d9`. A seção da LP usa cards Entrada, Expansão e Hospital com os mesmos benefícios e destaque central do pitch, sem alterar os valores. Preto e vermelho da abertura usam os tokens da marca, como na apresentação.
+
+Verificação: quatro testes da landing, build e referências locais aprovados; cards conferidos visualmente no Chrome desktop. Layout móvel desta alteração ainda não foi conferido visualmente.
