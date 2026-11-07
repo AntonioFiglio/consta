@@ -23,6 +23,8 @@ Backlog de entregas, não lista de funcionalidades concluídas. O [estado atual]
 
 Implementar a fatia completa antes de expandir painéis, integrações e canais. A integração real de IA pode avançar em paralelo com avaliação de documentos representativos e custo; uma resposta JSON válida não basta como avaliação da extração.
 
+O [corpus público auditado](../referencias/auditoria-corpus-documental.md) e os [casos estruturados](../../data/referencias/casos-avaliacao-extracao.json) podem iniciar essa avaliação. Antes de automatizar, revisar saídas esperadas, convenção de páginas e condições entre documentos. Casos com garantia/SLA divergentes devem permanecer pendentes de decisão, não apenas produzir JSON válido. Ainda não há benchmark de LLM executado.
+
 ## Localização em paralelo
 
 | Entrega | Depende de | Pronta quando |
