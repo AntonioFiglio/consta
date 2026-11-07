@@ -60,9 +60,9 @@ Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas vis
 
 ## Tela 15 · CTA · QR do sistema
 
-> Conheça o Consta em consta ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
+> Conheça o Consta em consta dois ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
 
-**Acesso:** verificar o deploy antes do palco. Na checagem local, o endereço retornou451/DEPLOYMENT_DISABLED. Não anunciar sistema acessível enquanto isso persistir.
+**Acesso:** CTA atualizado para https://consta2.vercel.app; QR decodificado e destino HTTP 200 confirmado em 07/11/2026. Conferir novamente antes do palco.
 
 ## Tela 16 · modelo de negócio · apoio após o CTA
 

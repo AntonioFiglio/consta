@@ -38,4 +38,4 @@ R$ 500 mil/ano refere-se a um cenário bruto de locação adicional dispensada, 
 
 ## CTA
 
-QR para https://consta.vercel.app . Payload verificado anteriormente por OpenCV; a checagem HTTP registrada retornou 451/DEPLOYMENT_DISABLED. Nenhum deploy ou configuração de conta foi alterado nesta tarefa.
+QR atualizado para https://consta2.vercel.app por solicitação de Matheus. PNG regenerado e decodificado por OpenCV com payload exato; SVG equivalente usado no slide. Destino respondeu HTTP 200 em 07/11/2026. Nenhuma configuração de conta ou deploy foi alterada nesta correção.
