@@ -1,5 +1,7 @@
 # Metadados públicos de pesquisa
 
+O [pacote original fornecido por Matheus](pacotes/README.md) está disponível via Git LFS, com instruções de download e hash de integridade. As tabelas abaixo continuam sendo metadados e casos de avaliação, distintos do arquivo original.
+
 Esta pasta reúne referências auditadas, distintas dos [cenários financeiros fictícios](../CONSTA_CENARIOS_SIMULADOS.csv). Ela não contém inventário operacional do HC, documentos internos, dados de pacientes ou resultados do Consta.
 
 | Arquivo | Uso e limite |
