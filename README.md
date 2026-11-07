@@ -21,6 +21,10 @@ npm run dev
 
 Abra `http://127.0.0.1:5173`. A aplicação começa com três equipamentos sintéticos identificados. O [guia do CRM](apps/crm/README.md) explica configuração do SDK, senha local, persistência e testes. O [diagrama da fase 1](docs/produto/fase-1-cadastro-e-calendario.md) apresenta o fluxo simplificado.
 
+## Landing page e lista de interesse
+
+A [aplicação de apresentação](apps/landing/README.md) usa Vite e funciona separadamente do CRM. Na raiz, execute `npm run dev:landing` e abra `http://127.0.0.1:5174`. Os CTAs abrem diretamente o WhatsApp da equipe com uma mensagem pronta, sem formulário; o visitante confirma o envio no próprio WhatsApp. Build estático: `npm run build:landing`.
+
 ## Comece por aqui
 
 | Preciso… | Leia |
@@ -39,6 +43,7 @@ Abra `http://127.0.0.1:5173`. A aplicação começa com três equipamentos sint�
 ## Organização do repositório
 
 ```text
+apps/landing/             Landing Vite e contato para lista de interesse
 apps/crm/                 CRM local React 19/Vite, API e SQLite — fase 1
 services/localizacao/     Recepção e estimativa de localização — implementação pendente
 packages/contratos/       Especificação das interfaces entre software e receptores

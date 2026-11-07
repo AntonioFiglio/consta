@@ -13,3 +13,6 @@ dist/
 *.tsbuildinfo
 dist-server/
 apps/crm/.data/
+
+# Cópia gerada do pitch e documentos públicos para a landing.
+apps/landing/public/
