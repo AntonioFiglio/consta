@@ -3,7 +3,12 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { createHash, randomUUID } from "node:crypto";
 import { coverageFromAsset } from "./domain.js";
-import type { Asset, Contract, Extraction, MaintenanceCoverage } from "../src/types.js";
+import type {
+  Asset,
+  Contract,
+  Extraction,
+  MaintenanceCoverage,
+} from "../src/types.js";
 
 export function createStore(filename: string, seed = false) {
   if (filename !== ":memory:")
@@ -16,13 +21,28 @@ export function createStore(filename: string, seed = false) {
   // Migração aditiva: mantém cadastros/arquivos existentes e registra a cobertura legada.
   db.exec("BEGIN IMMEDIATE");
   try {
-    for (const row of db.prepare("SELECT id,payload FROM assets WHERE id NOT IN (SELECT asset_id FROM asset_contracts)").all() as {id: string; payload: string}[]) {
+    for (const row of db
+      .prepare(
+        "SELECT id,payload FROM assets WHERE id NOT IN (SELECT asset_id FROM asset_contracts)",
+      )
+      .all() as { id: string; payload: string }[]) {
       const asset: Asset = JSON.parse(row.payload);
       const coverage = coverageFromAsset(asset);
-      db.prepare("INSERT INTO asset_contracts (id,asset_id,contract_id,position,payload) VALUES (?,?,?,?,?)").run(coverage.id, asset.id, coverage.contractId, 0, JSON.stringify(coverage));
+      db.prepare(
+        "INSERT INTO asset_contracts (id,asset_id,contract_id,position,payload) VALUES (?,?,?,?,?)",
+      ).run(
+        coverage.id,
+        asset.id,
+        coverage.contractId,
+        0,
+        JSON.stringify(coverage),
+      );
     }
     db.exec("PRAGMA user_version=2; COMMIT");
-  } catch (error) { db.exec("ROLLBACK"); throw error; }
+  } catch (error) {
+    db.exec("ROLLBACK");
+    throw error;
+  }
 
   const listAssets = (): Asset[] =>
     (
@@ -33,9 +53,20 @@ export function createStore(filename: string, seed = false) {
       const asset: Asset = JSON.parse(row.payload);
       return {
         ...asset,
-        coverages: (db.prepare("SELECT payload FROM asset_contracts WHERE asset_id=? ORDER BY position").all(asset.id) as {payload: string}[]).map(row => {
+        coverages: (
+          db
+            .prepare(
+              "SELECT payload FROM asset_contracts WHERE asset_id=? ORDER BY position",
+            )
+            .all(asset.id) as { payload: string }[]
+        ).map((row) => {
           const plan: MaintenanceCoverage = JSON.parse(row.payload);
-          return {...plan, contractName: plan.contractId ? getContract(plan.contractId)?.name : null};
+          return {
+            ...plan,
+            contractName: plan.contractId
+              ? getContract(plan.contractId)?.name
+              : null,
+          };
         }),
         contractName: asset.contractId
           ? getContract(asset.contractId)?.name
@@ -53,22 +84,42 @@ export function createStore(filename: string, seed = false) {
     try {
       for (const asset of assets) {
         const { coverages, ...payload } = asset;
-        const plans = coverages?.length ? coverages : [coverageFromAsset(asset)];
-        db.prepare(`INSERT INTO assets (id,patrimony,payload,contract_id) VALUES (?,?,?,?)
-          ON CONFLICT(id) DO UPDATE SET patrimony=excluded.patrimony,payload=excluded.payload,contract_id=excluded.contract_id`)
-          .run(asset.id, asset.patrimony.toLocaleUpperCase("pt-BR"), JSON.stringify(payload), asset.contractId);
+        const plans = coverages?.length
+          ? coverages
+          : [coverageFromAsset(asset)];
+        db.prepare(
+          `INSERT INTO assets (id,patrimony,payload,contract_id) VALUES (?,?,?,?)
+          ON CONFLICT(id) DO UPDATE SET patrimony=excluded.patrimony,payload=excluded.payload,contract_id=excluded.contract_id`,
+        ).run(
+          asset.id,
+          asset.patrimony.toLocaleUpperCase("pt-BR"),
+          JSON.stringify(payload),
+          asset.contractId,
+        );
         for (let position = 0; position < plans.length; position++) {
           const plan = plans[position];
-          db.prepare(`INSERT INTO asset_contracts (id,asset_id,contract_id,position,payload) VALUES (?,?,?,?,?)
-            ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,contract_id=excluded.contract_id`)
-            .run(plan.id, asset.id, plan.contractId, position, JSON.stringify(plan));
+          db.prepare(
+            `INSERT INTO asset_contracts (id,asset_id,contract_id,position,payload) VALUES (?,?,?,?,?)
+            ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,contract_id=excluded.contract_id`,
+          ).run(
+            plan.id,
+            asset.id,
+            plan.contractId,
+            position,
+            JSON.stringify(plan),
+          );
         }
       }
       db.exec("COMMIT");
       return assets;
-    } catch (error) { db.exec("ROLLBACK"); throw error; }
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
   }
-  function saveAsset(asset: Asset) { return saveAssets([asset])[0]; }
+  function saveAsset(asset: Asset) {
+    return saveAssets([asset])[0];
+  }
   function upload(name: string, mime: string, bytes: Buffer) {
     const hash = createHash("sha256").update(bytes).digest("hex");
     const existing = db
@@ -163,6 +214,17 @@ export function createStore(filename: string, seed = false) {
   return {
     listAssets,
     getContract,
+    listContracts: () =>
+      (
+        db
+          .prepare("SELECT metadata FROM contracts ORDER BY rowid DESC")
+          .all() as { metadata: string }[]
+      ).map((row) => {
+        const { extraction: _extraction, ...summary } = JSON.parse(
+          row.metadata,
+        ) as Contract;
+        return summary;
+      }),
     saveAsset,
     saveAssets,
     upload,

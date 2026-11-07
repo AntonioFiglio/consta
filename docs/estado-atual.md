@@ -17,7 +17,9 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 
 ### Fase 1 do CRM — implementação local em 07/11/2026
 
-O usuário delimitou a primeira entrega a cadastro por contrato/patrimônio e calendário, com React 19 e Vite. Há [aplicação executável](../apps/crm/README.md), API Express, SQLite, upload PDF/TXT, revisão manual, edição, busca e projeções mensais. Logo/tokens são os existentes; fontes são locais. A [decisão da stack](adr/0004-crm-fase-1.md) registra escopo e limites.
+O calendário usa uma apresentação compacta, sem cabeçalho promocional no conteúdo principal, com grade ajustada à altura da janela em desktop (a partir de 1024 × 650). A sidebar mantém o mesmo padrão entre as telas, incluindo a ação de cadastrar equipamento. A agenda e os eventos extensos têm rolagem interna; telas menores preservam rolagem para manter a leitura. Build/TypeScript e verificação do repositório passaram; conferência visual desta alteração ficou pendente por indisponibilidade do acesso ao navegador.
+
+O usuário delimitou a primeira entrega a cadastro por contrato/número de tombamento e calendário, com React 19 e Vite. Há [aplicação executável](../apps/crm/README.md), API Express, SQLite, upload PDF/TXT, revisão manual, edição, busca e projeções mensais. Logo/tokens são os existentes; fontes são locais. A [decisão da stack](adr/0004-crm-fase-1.md) registra escopo e limites.
 
 O SDK OpenAI está integrado no backend com URL, chave e modelo configuráveis pelo usuário. Não foi criada chave nem executada chamada real. Sem configuração, a leitura automática fica desabilitada e o preenchimento manual funciona. Não há extração fictícia apresentada como leitura de documento.
 
@@ -25,7 +27,9 @@ Verificações realizadas: build e TypeScript; testes de calendário, validaçã
 
 O banco inicial tem três equipamentos/contratos sintéticos identificados. O aplicativo é um espaço local único, com senha opcional e escuta em loopback; não implementa autorização multi-instituição ou papéis. Planos versionados, tarefas até execução, comprovantes, rastreamento e operação hospitalar permanecem no backlog.
 
-O cadastro separa envio do contrato e configuração em duas telas, sem indicador de etapas ou numeração. Os campos opcionais ficam recolhidos em Mais informações. Verificação no Chrome: avanço bloqueado antes do upload, envio de contrato sintético, navegação até os campos e retorno preservando arquivo e preenchimento; edição existente começa nos campos. A leitura real da IA continua sem validação, pois não há credencial configurada.
+O diálogo foi reduzido a equipamentos/números de tombamento, intervalo e primeira manutenção. Configurações avançadas reúnem vigência, evidências, dados opcionais e renovação. Há cadastro de várias unidades sob o mesmo documento e novas coberturas por equipamento, com documentos anteriores preservados. A migração aditiva cria `asset_contracts` no SQLite (`user_version=2`), sem limpar os dados existentes.
+
+Testes de comportamento cobrem vários equipamentos por contrato, vencimento, renovação sem duplicação, lacuna de cobertura, substituição pendente, rollback do lote e migração legada. O SDK também extrai sugestões de início/fim de cobertura, sem execução real contra provedor. Isso não implementa registro de execução nem histórico imutável de toda edição de plano.
 
 | Área | Entrega disponível | Evidência e limite |
 | --- | --- | --- |
@@ -60,3 +64,22 @@ O [estudo do pacote de pesquisas](referencias/estudo-pacote-pesquisas.md) acresc
 Stack/armazenamento para expansão além do protótipo local; autorização institucional; provedor/modelo e avaliação da extração; execução da IA com internet indisponível; protocolo de transporte dos receptores; componentes, bateria e gabinete; critério de localização e metas de aceitação; instalação piloto e custos; licença do projeto e disponibilidade jurídica da marca.
 
 As interfaces de [packages/contratos](../packages/contratos/README.md) são propostas para coordenar a primeira implementação. O [backlog](desenvolvimento/backlog.md) organiza a sequência de construção.
+
+
+## Extração e gestão de múltiplos equipamentos
+
+A resposta do SDK passou a `version: 2` com `equipments[]`, campos/evidências/avisos próprios por item, incluindo número de tombamento, série, setor, observações e cobertura. O formulário cria uma linha editável na tabela para cada item e preserva regras distintas; quantidades sem identificação não viram ativos fictícios. Leituras antigas continuam acessíveis e podem ser reprocessadas. O inventário ganhou último contrato/cobertura, série, próxima manutenção e busca por contrato.
+
+O lote admite criação/edição/renovação explícita por unidade, com validação antes da transação. Testes sintéticos verificam dois equipamentos com dados e periodicidades diferentes desde o schema, passando pelo preenchimento até persistência e calendário. Não foi executada extração com contrato real ou provedor real nesta entrega.
+
+A segunda tela do cadastro usa tabela editável, uma linha por equipamento, e Detalhes abre a edição da unidade em uma janela flutuante sobre a tabela, com abas Identificação, Contrato e Dados da IA; retornar preserva os valores. O scroll fica restrito à área de trabalho, com cabeçalho e ações fixos e Adicionar equipamento no topo direito. A interface usa “Número de tombamento”; o identificador interno `patrimony` permanece compatível. Verificação: tabela e detalhes conferidos no Chrome com rascunhos sintéticos, build e checagem TypeScript aprovados, 14 testes aprovados e um teste HTTP integrado ignorado por restrição de abertura de portas do ambiente.
+
+Os detalhes agora são uma janela não modal sobreposta à tabela, reposicionável pelo cabeçalho e pelas setas, com limites de movimento e posição fixa em telas pequenas. A tabela mantém seu scroll e os campos do rascunho; Esc e Concluir edição fecham os detalhes. Exibição sobreposta e retorno à tabela conferidos no Chrome com rascunho sintético; o arraste e o comportamento em tela pequena ainda exigem conferência manual completa.
+
+## Consulta de contratos e ficha do equipamento
+
+Implementadas área de Contratos com busca, prévia digital de PDF/TXT e consulta das unidades vinculadas, incluindo coberturas anteriores. O inventário e os eventos do calendário abrem a ficha de consulta do equipamento; edição permanece uma ação explícita. O cadastro permite consultar o arquivo enviado e os documentos anteriores sem sair do sistema. A listagem autenticada `GET /api/contracts` retorna somente metadados, sem bytes ou extração, incluindo arquivos ainda sem vínculo.
+
+Verificação: PDF sintético de uma página renderizado no leitor do Chrome; TXT sintético, navegação contrato → equipamentos → ficha e listagem sem vínculo conferidos na interface. Teste de armazenamento verifica listagem sem conteúdo/extração, deduplicação e persistência após reabrir. Build/TypeScript aprovados, 14 testes aprovados e um teste HTTP isolado ignorado pela restrição de abertura de portas do ambiente. Nenhuma chamada real à IA foi feita. A compatibilidade do leitor PDF depende do navegador; há acesso direto ao arquivo.
+
+A consulta do contrato agora inicia em Equipamentos, com Documento como segunda aba. A ficha da unidade é uma janela não modal sobreposta ao contrato, movível pelo cabeçalho e pelas setas, com limites no diálogo e layout fixo em telas pequenas. O contrato e a lista permanecem montados ao abrir/fechar a ficha; fechar devolve o foco ao equipamento e a linha selecionada fica destacada. A ficha do inventário/calendário também aceita reposicionamento. Ordem inicial e sobreposição conferidas no Chrome com dados sintéticos; build e TypeScript aprovados.

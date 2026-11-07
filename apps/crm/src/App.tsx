@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowDownLeft,
   ArrowRight,
   CalendarDays,
   Check,
@@ -17,8 +16,17 @@ import {
   X,
 } from "lucide-react";
 import logo from "../../../brand/logo/svg/consta-wordmark-black.svg?raw";
-import type { AppConfig, Asset, MaintenanceEvent } from "./types";
+import type {
+  AppConfig,
+  Asset,
+  MaintenanceEvent,
+  ContractSummary,
+} from "./types";
+import { ContractsPage } from "./ContractsPage";
+import { ContractViewer } from "./ContractViewer";
+import { AssetOverview } from "./AssetOverview";
 import { AssetDialog } from "./AssetDialog";
+import { nextMaintenanceDate } from "./schedule";
 import { api } from "./api";
 
 const dateKey = (date: Date) =>
@@ -45,12 +53,19 @@ const Brand = () => (
 export function App() {
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [assets, setAssets] = useState<Asset[]>([]);
+  const [contracts, setContracts] = useState<ContractSummary[]>([]);
+  const [viewingContract, setViewingContract] = useState<string | null>(null);
+  const [viewingAsset, setViewingAsset] = useState<Asset | null>(null);
   const [events, setEvents] = useState<MaintenanceEvent[]>([]);
   const [month, setMonth] = useState(
     () => new Date(new Date().getFullYear(), new Date().getMonth(), 1, 12),
   );
-  const [view, setView] = useState<"calendar" | "assets">(() =>
-    location.hash === "#equipamentos" ? "assets" : "calendar",
+  const [view, setView] = useState<"calendar" | "assets" | "contracts">(() =>
+    location.hash === "#contratos"
+      ? "contracts"
+      : location.hash === "#equipamentos"
+        ? "assets"
+        : "calendar",
   );
   const [query, setQuery] = useState("");
   const [selection, setSelection] = useState<string | null>(null);
@@ -92,7 +107,13 @@ export function App() {
   }, [refreshConfig]);
   useEffect(() => {
     const changed = () => {
-      setView(location.hash === "#equipamentos" ? "assets" : "calendar");
+      setView(
+        location.hash === "#contratos"
+          ? "contracts"
+          : location.hash === "#equipamentos"
+            ? "assets"
+            : "calendar",
+      );
       setQuery("");
     };
     window.addEventListener("hashchange", changed);
@@ -105,13 +126,15 @@ export function App() {
     setError("");
     Promise.all([
       api<Asset[]>("/assets"),
+      api<ContractSummary[]>("/contracts"),
       api<MaintenanceEvent[]>(
         `/events?from=${dateKey(days[0])}&to=${dateKey(days[41])}`,
       ),
     ])
-      .then(([nextAssets, nextEvents]) => {
+      .then(([nextAssets, nextContracts, nextEvents]) => {
         if (!cancelled) {
           setAssets(nextAssets);
+          setContracts(nextContracts);
           setEvents(nextEvents);
         }
       })
@@ -132,9 +155,16 @@ export function App() {
     }
   }, [toast]);
   const filteredAssets = assets.filter((asset) =>
-    `${asset.name} ${asset.patrimony} ${asset.model} ${asset.sector}`
+    `${asset.name} ${asset.patrimony} ${asset.serial} ${asset.model} ${asset.sector} ${asset.contractName || ""}`
       .toLocaleLowerCase("pt-BR")
       .includes(query.toLocaleLowerCase("pt-BR")),
+  );
+  const nextDates = useMemo(
+    () =>
+      new Map(
+        assets.map((asset) => [asset.id, nextMaintenanceDate(asset, today)]),
+      ),
+    [assets, today],
   );
   const visibleIds = new Set(filteredAssets.map((asset) => asset.id));
   const filteredEvents = events.filter((event) =>
@@ -155,7 +185,7 @@ export function App() {
     setSelection(null);
   };
   const openEvent = (event: MaintenanceEvent) =>
-    setEditing(assets.find((asset) => asset.id === event.assetId));
+    setViewingAsset(assets.find((asset) => asset.id === event.assetId) || null);
   const onSaved = () => {
     setEditing(undefined);
     setRevision((value) => value + 1);
@@ -210,7 +240,7 @@ export function App() {
     );
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${view === "calendar" ? "calendar-page" : ""}`}>
       <aside className="sidebar">
         <a
           href="#calendario"
@@ -243,6 +273,13 @@ export function App() {
           >
             <LayoutGrid size={19} />
             Equipamentos<span className="nav-count">{assets.length}</span>
+          </a>
+          <a
+            href="#contratos"
+            aria-current={view === "contracts" ? "page" : undefined}
+          >
+            <FileText size={19} />
+            Contratos<span className="nav-count">{contracts.length}</span>
           </a>
         </nav>
         <div className="sidebar-note">
@@ -279,7 +316,11 @@ export function App() {
           <div className="breadcrumb">
             Espaço de trabalho <span>/</span>
             <strong>
-              {view === "calendar" ? "Calendário" : "Equipamentos"}
+              {view === "calendar"
+                ? "Calendário"
+                : view === "contracts"
+                  ? "Contratos"
+                  : "Equipamentos"}
             </strong>
           </div>
           <div className="topbar-right">
@@ -295,32 +336,43 @@ export function App() {
           </div>
         </header>
         <main className="main-content">
-          <div className="page-heading">
-            <div>
-              <div className="eyebrow">GESTÃO DE EQUIPAMENTOS</div>
-              <h1>
-                {view === "calendar"
-                  ? "Cada manutenção, no seu tempo."
-                  : "Seu inventário, organizado."}
-              </h1>
-              <p>
-                {view === "calendar"
-                  ? "Dos contratos às próximas datas. Tudo em um só calendário."
-                  : "Contratos e previsões conectados ao equipamento certo."}
-              </p>
+          {view !== "calendar" && (
+            <div className="page-heading">
+              <div>
+                <div className="eyebrow">GESTÃO DE EQUIPAMENTOS</div>
+                <h1>
+                  {view === "contracts"
+                    ? "Seus contratos, sempre à mão."
+                    : "Seu inventário, organizado."}
+                </h1>
+                <p>
+                  {view === "contracts"
+                    ? "Consulte o documento original e os equipamentos de cada contrato."
+                    : "Contratos e previsões conectados ao equipamento certo."}
+                </p>
+              </div>
+              <button
+                className="button primary"
+                onClick={() => setEditing(null)}
+              >
+                <Plus size={18} />
+                Novo equipamento
+              </button>
             </div>
-            <button className="button primary" onClick={() => setEditing(null)}>
-              <Plus size={18} />
-              Novo equipamento
-            </button>
-          </div>
+          )}
           {assets.some((asset) => asset.simulated) && (
             <div className="demo-banner">
               <span className="demo-dot" />
               <span>
-                Você está explorando{" "}
-                <strong>dados sintéticos de demonstração</strong>. Cadastre um
-                equipamento para começar seu próprio calendário.
+                {view === "calendar" ? (
+                  <strong>Dados sintéticos de demonstração</strong>
+                ) : (
+                  <>
+                    Você está explorando{" "}
+                    <strong>dados sintéticos de demonstração</strong>. Cadastre
+                    um equipamento para começar seu próprio calendário.
+                  </>
+                )}
               </span>
             </div>
           )}
@@ -338,64 +390,62 @@ export function App() {
               </button>
             </div>
           )}
-          <section className="stats" aria-label="Resumo">
-            <div className="stat">
-              <div>
-                <span>Previsões neste mês</span>
-                <strong>
-                  {String(monthEvents.length).padStart(2, "0")}
-                  <small>manutenções</small>
-                </strong>
-                <p>Conforme as regras revisadas</p>
+          {view === "assets" && (
+            <section className="stats" aria-label="Resumo">
+              <div className="stat">
+                <div>
+                  <span>Previsões neste mês</span>
+                  <strong>
+                    {String(monthEvents.length).padStart(2, "0")}
+                    <small>manutenções</small>
+                  </strong>
+                  <p>Conforme as regras revisadas</p>
+                </div>
+                <span className="stat-icon orange">
+                  <CalendarDays size={20} />
+                </span>
               </div>
-              <span className="stat-icon orange">
-                <CalendarDays size={20} />
-              </span>
-            </div>
-            <div className="stat">
-              <div>
-                <span>Equipamentos cadastrados</span>
-                <strong>
-                  {String(assets.length).padStart(2, "0")}
-                  <small>no inventário</small>
-                </strong>
-                <p>Identificados pelo patrimônio</p>
+              <div className="stat">
+                <div>
+                  <span>Equipamentos cadastrados</span>
+                  <strong>
+                    {String(assets.length).padStart(2, "0")}
+                    <small>no inventário</small>
+                  </strong>
+                  <p>Identificados pelo número de tombamento</p>
+                </div>
+                <span className="stat-icon">
+                  <LayoutGrid size={20} />
+                </span>
               </div>
-              <span className="stat-icon">
-                <LayoutGrid size={20} />
-              </span>
-            </div>
-            <div className="stat">
-              <div>
-                <span>Pendentes de revisão</span>
-                <strong>
-                  {String(pending).padStart(2, "0")}
-                  <small>cadastros</small>
-                </strong>
-                <p>
-                  {pending
-                    ? "Complete os dados para gerar previsões"
-                    : "Tudo conferido por aqui"}
-                </p>
+              <div className="stat">
+                <div>
+                  <span>Pendentes de revisão</span>
+                  <strong>
+                    {String(pending).padStart(2, "0")}
+                    <small>cadastros</small>
+                  </strong>
+                  <p>
+                    {pending
+                      ? "Complete os dados para gerar previsões"
+                      : "Tudo conferido por aqui"}
+                  </p>
+                </div>
+                <span className="stat-icon">
+                  <ClipboardList size={20} />
+                </span>
               </div>
-              <span className="stat-icon">
-                <ClipboardList size={20} />
-              </span>
-            </div>
-          </section>
+            </section>
+          )}
           {view === "calendar" ? (
             <section className="calendar-section">
               <div className="section-toolbar">
-                <div className="section-title">
-                  <h2>Calendário de manutenção</h2>
-                  <span className="badge neutral">Previsões</span>
-                </div>
                 <label className="search">
                   <Search size={16} />
                   <input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Buscar equipamento ou patrimônio"
+                    placeholder="Buscar equipamento ou número de tombamento"
                     aria-label="Buscar no calendário"
                   />
                   {query && (
@@ -510,7 +560,7 @@ export function App() {
                       <i className="legend-dot" />
                       Manutenção prevista
                     </span>
-                    <span>Datas calculadas a partir de regras conferidas</span>
+                    <span>Previsão não equivale a liberação técnica</span>
                   </footer>
                 </div>
                 <aside className="agenda">
@@ -579,23 +629,17 @@ export function App() {
                       </div>
                     )}
                   </div>
-                  <div className="agenda-tip">
-                    <ArrowDownLeft size={20} />
-                    <strong>Uma previsão começa no contrato.</strong>
-                    <p>
-                      Adicione um equipamento e confira a periodicidade. O
-                      calendário cuida das próximas datas.
-                    </p>
-                    <button
-                      className="text-button"
-                      onClick={() => setEditing(null)}
-                    >
-                      Adicionar equipamento <ArrowRight size={14} />
-                    </button>
-                  </div>
                 </aside>
               </div>
             </section>
+          ) : view === "contracts" ? (
+            <ContractsPage
+              contracts={contracts}
+              assets={assets}
+              query={query}
+              onQuery={setQuery}
+              onOpen={setViewingContract}
+            />
           ) : (
             <section className="inventory-section">
               <div className="section-toolbar">
@@ -610,7 +654,7 @@ export function App() {
                   <input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Buscar nome, patrimônio ou setor"
+                    placeholder="Buscar equipamento, série ou contrato"
                     aria-label="Buscar equipamento"
                   />
                 </label>
@@ -620,9 +664,11 @@ export function App() {
                   <thead>
                     <tr>
                       <th>Equipamento / modelo</th>
-                      <th>Patrimônio</th>
+                      <th>Número de tombamento</th>
                       <th>Setor</th>
+                      <th>Último contrato / cobertura</th>
                       <th>Periodicidade</th>
+                      <th>Próxima manutenção</th>
                       <th>Revisão</th>
                       <th>
                         <span className="visually-hidden">Ações</span>
@@ -638,7 +684,7 @@ export function App() {
                               <LayoutGrid size={18} />
                             </span>
                             <div>
-                              <button onClick={() => setEditing(asset)}>
+                              <button onClick={() => setViewingAsset(asset)}>
                                 {asset.name}
                               </button>
                               <small>
@@ -648,9 +694,46 @@ export function App() {
                             </div>
                           </div>
                         </td>
-                        <td className="mono">{asset.patrimony}</td>
+                        <td className="mono">
+                          {asset.patrimony}
+                          {asset.serial && (
+                            <small className="inventory-serial">
+                              Série: {asset.serial}
+                            </small>
+                          )}
+                        </td>
                         <td>{asset.sector || "—"}</td>
+                        <td>
+                          <div className="inventory-contract">
+                            {asset.contractId ? (
+                              <button
+                                className="text-button"
+                                onClick={() =>
+                                  setViewingContract(asset.contractId)
+                                }
+                                title={asset.contractName || "Ver contrato"}
+                              >
+                                {asset.contractName || "Ver contrato"}
+                              </button>
+                            ) : (
+                              <span>Sem contrato</span>
+                            )}
+                            <small>
+                              {asset.validUntil
+                                ? `Até ${prettyDate(asset.validUntil)}`
+                                : "Vencimento não informado"}
+                              {asset.validUntil && asset.validUntil < today
+                                ? " · Vencido"
+                                : ""}
+                            </small>
+                          </div>
+                        </td>
                         <td>{intervalLabel(asset)}</td>
+                        <td className="mono">
+                          {nextDates.get(asset.id)
+                            ? prettyDate(nextDates.get(asset.id)!)
+                            : "Sem previsão"}
+                        </td>
                         <td>
                           <span
                             className={`badge ${asset.reviewed ? "reviewed" : "warning"}`}
@@ -682,7 +765,7 @@ export function App() {
                     </h3>
                     <p>
                       {query
-                        ? "Tente outro nome ou patrimônio."
+                        ? "Tente outro nome ou número de tombamento."
                         : "Envie um contrato ou preencha o cadastro manualmente."}
                     </p>
                     <button
@@ -697,15 +780,17 @@ export function App() {
               </div>
             </section>
           )}
-          <footer className="page-footer">
-            <span>
-              CONSTA<span className="orange-dot">.</span> Clareza para cuidar do
-              que importa.
-            </span>
-            <span>
-              Previsão de manutenção não equivale a liberação técnica.
-            </span>
-          </footer>
+          {view !== "calendar" && (
+            <footer className="page-footer">
+              <span>
+                CONSTA<span className="orange-dot">.</span> Clareza para cuidar
+                do que importa.
+              </span>
+              <span>
+                Previsão de manutenção não equivale a liberação técnica.
+              </span>
+            </footer>
+          )}
         </main>
       </div>
       {editing !== undefined && (
@@ -714,8 +799,36 @@ export function App() {
           asset={editing}
           assets={assets}
           aiReady={config?.aiReady || false}
-          onClose={() => setEditing(undefined)}
+          onClose={() => {
+            setEditing(undefined);
+            setRevision((value) => value + 1);
+          }}
           onSaved={onSaved}
+        />
+      )}
+      {viewingAsset && (
+        <AssetOverview
+          asset={viewingAsset}
+          today={today}
+          onClose={() => setViewingAsset(null)}
+          onEdit={() => {
+            setEditing(viewingAsset);
+            setViewingAsset(null);
+          }}
+          onContract={setViewingContract}
+        />
+      )}
+      {viewingContract && (
+        <ContractViewer
+          contractId={viewingContract}
+          assets={assets}
+          onClose={() => setViewingContract(null)}
+          onEditAsset={(asset) => {
+            setViewingContract(null);
+            setViewingAsset(null);
+            setEditing(asset);
+          }}
+          onContract={setViewingContract}
         />
       )}
       {toast && (
@@ -764,7 +877,7 @@ function HelpDialog({ onClose }: { onClose: () => void }) {
         <ol>
           <li>
             <strong>Envie um contrato.</strong> Arraste um PDF ou TXT e informe
-            o patrimônio do equipamento.
+            o número de tombamento do equipamento.
           </li>
           <li>
             <strong>Confira as informações.</strong> Revise a periodicidade e o

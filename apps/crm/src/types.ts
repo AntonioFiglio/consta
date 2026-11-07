@@ -5,7 +5,7 @@ export type Evidence = {
   page: number | null;
   quote: string | null;
 };
-export type Extraction = {
+export type LegacyExtraction = {
   equipment: Evidence;
   model: Evidence;
   periodValue: Evidence;
@@ -16,6 +16,20 @@ export type Extraction = {
   validUntil?: Evidence;
   warnings: string[];
 };
+export type EquipmentExtraction = LegacyExtraction & {
+  patrimony: Evidence;
+  serial: Evidence;
+  sector: Evidence;
+  notes: Evidence;
+  quantity: Evidence;
+  firstDueDate: Evidence;
+};
+export type MultiEquipmentExtraction = {
+  version: 2;
+  equipments: EquipmentExtraction[];
+  warnings: string[];
+};
+export type Extraction = LegacyExtraction | MultiEquipmentExtraction;
 export type Contract = {
   id: string;
   name: string;
@@ -76,3 +90,5 @@ export type AppConfig = {
   passwordRequired: boolean;
   mode: "local-demo" | "local-protected";
 };
+
+export type ContractSummary = Omit<Contract, "extraction">;

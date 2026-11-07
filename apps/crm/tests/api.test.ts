@@ -54,6 +54,7 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
       "nega arquivos e registros sem sessão; valida senha e origem",
       async () => {
         assert.equal((await send("/assets")).status, 401);
+        assert.equal((await send("/contracts")).status, 401);
         assert.equal((await send("/contracts/nao-existe/file")).status, 401);
         assert.equal(
           (
@@ -102,6 +103,17 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
         assert.equal(response.status, 201);
         const contract = await response.json();
         contractId = contract.id;
+        const contractList = await send("/contracts");
+        assert.equal(contractList.status, 200);
+        const summaries = await contractList.json();
+        assert.ok(
+          summaries.some((item: { id: string }) => item.id === contractId),
+        );
+        assert.ok(
+          summaries.every(
+            (item: object) => !("extraction" in item) && !("bytes" in item),
+          ),
+        );
         assert.equal(
           (
             await (
@@ -226,7 +238,7 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
           page: null,
           quote: null,
         };
-        const extraction: Extraction = {
+        const equipment = {
           equipment: {
             value: "Bomba sintética",
             status: "found",
@@ -256,6 +268,25 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
           validFrom: missing,
           validUntil: missing,
           warnings: ["Data de instalação ausente."],
+        };
+        const extraction: Extraction = {
+          version: 2,
+          equipments: [
+            {
+              ...equipment,
+              equipment: { ...equipment.equipment, status: "found" },
+              periodValue: { ...equipment.periodValue, status: "found" },
+              periodUnit: { ...equipment.periodUnit, status: "found" },
+              anchorType: { ...equipment.anchorType, status: "found" },
+              patrimony: missing,
+              serial: missing,
+              sector: missing,
+              notes: missing,
+              quantity: missing,
+              firstDueDate: missing,
+            } as import("../src/types.js").EquipmentExtraction,
+          ],
+          warnings: [],
         };
         let received: Record<string, any> | undefined;
         const mock = createServer(async (req, res) => {

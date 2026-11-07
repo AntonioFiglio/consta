@@ -8,7 +8,14 @@ import {
 } from "node:crypto";
 import { z } from "zod";
 import { resolve } from "node:path";
-import { assetInput, DomainError, eventsFor, occurrence, prepareAsset, validDate } from "./domain.js";
+import {
+  assetInput,
+  DomainError,
+  eventsFor,
+  occurrence,
+  prepareAsset,
+  validDate,
+} from "./domain.js";
 import { aiReady, extractContract } from "./extraction.js";
 import { createStore } from "./store.js";
 
@@ -52,7 +59,7 @@ export function createApp(options: {
     res.set("Cache-Control", "no-store");
     next();
   });
-  app.use(express.json({ limit: "128kb" }));
+  app.use(express.json({ limit: "1mb" }));
   const authenticated = (cookie?: string) => {
     if (!options.password) return true;
     const token = cookie
@@ -84,11 +91,9 @@ export function createApp(options: {
       attempts.set(key, attempt);
     }
     if (attempt.count >= 10)
-      return res
-        .status(429)
-        .json({
-          error: "Muitas tentativas. Tente novamente em cinco minutos.",
-        });
+      return res.status(429).json({
+        error: "Muitas tentativas. Tente novamente em cinco minutos.",
+      });
     const supplied =
       typeof req.body?.password === "string" ? req.body.password : "";
     const digest = (value: string) =>
@@ -124,11 +129,9 @@ export function createApp(options: {
   app.use("/api", (req, res, next) =>
     authenticated(req.get("cookie"))
       ? next()
-      : res
-          .status(401)
-          .json({
-            error: "Entre novamente para acessar os cadastros e contratos.",
-          }),
+      : res.status(401).json({
+          error: "Entre novamente para acessar os cadastros e contratos.",
+        }),
   );
   app.get("/api/assets", (_req, res) => res.json(store.listAssets()));
   app.get("/api/events", (req, res) => {
@@ -140,11 +143,9 @@ export function createApp(options: {
       from > to ||
       to > occurrence(from, 2, "years", 1)
     )
-      return res
-        .status(400)
-        .json({
-          error: "Informe um intervalo de consulta válido de até dois anos.",
-        });
+      return res.status(400).json({
+        error: "Informe um intervalo de consulta válido de até dois anos.",
+      });
     res.json(eventsFor(store.listAssets(), from, to));
   });
   const saveAsset: express.RequestHandler = (req, res) => {
@@ -168,44 +169,113 @@ export function createApp(options: {
               input.patrimony.toLocaleUpperCase("pt-BR"),
         )
     )
-      return res
-        .status(409)
-        .json({
-          error:
-            "Este patrimônio já está cadastrado. Abra o cadastro existente para editar.",
-        });
+      return res.status(409).json({
+        error:
+          "Este número de tombamento já está cadastrado. Abra o cadastro existente para editar.",
+      });
     res
       .status(existing ? 200 : 201)
-      .json(
-        store.saveAsset(prepareAsset(existing, input)), 
-      );
+      .json(store.saveAsset(prepareAsset(existing, input)));
   };
   app.post("/api/assets", saveAsset);
   app.post("/api/assets/batch", (req, res) => {
-    const input = z.object({ existingId: z.string().uuid().optional(), assets: z.array(assetInput).min(1).max(50) }).parse(req.body);
-    const existing = input.existingId ? store.listAssets().find(asset => asset.id === input.existingId) : undefined;
-    if (input.existingId && !existing) throw new DomainError("Equipamento não encontrado.");
-    const known = new Set(store.listAssets().filter(asset => asset.id !== existing?.id).map(asset => asset.patrimony.toLocaleUpperCase("pt-BR")));
-    for (const asset of input.assets) {
-      const key = asset.patrimony.toLocaleUpperCase("pt-BR");
-      if (known.has(key)) throw new DomainError(`O patrimônio ${asset.patrimony} já está cadastrado ou foi repetido.`);
+    const input = z
+      .object({
+        existingId: z.string().uuid().optional(),
+        assets: z
+          .array(
+            assetInput.and(
+              z.object({
+                id: z.string().uuid().optional(),
+                renew: z.boolean().optional(),
+              }),
+            ),
+          )
+          .min(1)
+          .max(50),
+      })
+      .parse(req.body);
+    const all = store.listAssets();
+    const entries = input.assets.map((entry, index) => ({
+      ...entry,
+      id: entry.id || (index === 0 ? input.existingId : undefined),
+    }));
+    const ids = entries
+      .map((entry) => entry.id)
+      .filter((id): id is string => Boolean(id));
+    if (new Set(ids).size !== ids.length)
+      throw new DomainError(
+        "O mesmo equipamento aparece mais de uma vez na lista.",
+      );
+    if (ids.some((id) => !all.some((asset) => asset.id === id)))
+      throw new DomainError("Um dos equipamentos não foi encontrado.");
+    const known = new Set(
+      all
+        .filter((asset) => !ids.includes(asset.id))
+        .map((asset) => asset.patrimony.toLocaleUpperCase("pt-BR")),
+    );
+    for (const entry of entries) {
+      const key = entry.patrimony.toLocaleUpperCase("pt-BR");
+      if (known.has(key))
+        throw new DomainError(
+          `O número de tombamento ${entry.patrimony} já está cadastrado ou foi repetido.`,
+        );
       known.add(key);
-      if (asset.contractId && !store.getContract(asset.contractId)) throw new DomainError("Contrato não encontrado.");
+      if (entry.contractId && !store.getContract(entry.contractId))
+        throw new DomainError("Contrato não encontrado.");
     }
-    res.status(201).json(store.saveAssets(input.assets.map((input, index) => prepareAsset(index === 0 ? existing : undefined, input))));
+    const updated = entries.map(({ id, renew, ...data }) =>
+      prepareAsset(
+        id ? all.find((asset) => asset.id === id) : undefined,
+        data,
+        renew === true,
+      ),
+    );
+    res.status(201).json(store.saveAssets(updated));
   });
+
   app.post("/api/assets/:id/contracts", (req, res) => {
     const { additionalAssetIds = [], ...body } = req.body || {};
     const ids = z.array(z.string().uuid()).max(49).parse(additionalAssetIds);
     const input = assetInput.parse(body);
-    if (!input.contractId || !store.getContract(input.contractId)) throw new DomainError("Envie o novo contrato antes de salvar.");
+    if (!input.contractId || !store.getContract(input.contractId))
+      throw new DomainError("Envie o novo contrato antes de salvar.");
     const existing = store.listAssets();
     const targetIds = [...new Set([String(req.params.id), ...ids])];
-    const updated = targetIds.map(id => {
-      const asset = existing.find(asset => asset.id === id);
-      if (!asset) throw new DomainError("Um dos equipamentos selecionados não foi encontrado.");
-      return prepareAsset(asset, id === req.params.id ? input : {...input, name: asset.name, model: asset.model, patrimony: asset.patrimony, serial: asset.serial, sector: asset.sector, notes: asset.notes}, true);
+    const updated = targetIds.map((id) => {
+      const asset = existing.find((asset) => asset.id === id);
+      if (!asset)
+        throw new DomainError(
+          "Um dos equipamentos selecionados não foi encontrado.",
+        );
+      return prepareAsset(
+        asset,
+        id === req.params.id
+          ? input
+          : {
+              ...input,
+              name: asset.name,
+              model: asset.model,
+              patrimony: asset.patrimony,
+              serial: asset.serial,
+              sector: asset.sector,
+              notes: asset.notes,
+            },
+        true,
+      );
     });
+    const patrimonies = new Set<string>();
+    for (const asset of [
+      ...existing.filter((asset) => !targetIds.includes(asset.id)),
+      ...updated,
+    ]) {
+      const key = asset.patrimony.toLocaleUpperCase("pt-BR");
+      if (patrimonies.has(key))
+        throw new DomainError(
+          "Este número de tombamento já pertence a outro equipamento.",
+        );
+      patrimonies.add(key);
+    }
     res.json(store.saveAssets(updated));
   });
   app.put("/api/assets/:id", saveAsset);
@@ -243,6 +313,7 @@ export function createApp(options: {
       .slice(0, 180);
     res.status(201).json(store.upload(name, mime, file.buffer));
   });
+  app.get("/api/contracts", (_req, res) => res.json(store.listContracts()));
   app.get("/api/contracts/:id", (req, res) => {
     const contract = store.getContract(req.params.id);
     if (!contract)
@@ -268,19 +339,14 @@ export function createApp(options: {
     if (!contract || !bytes)
       return res.status(404).json({ error: "Contrato não encontrado." });
     if (!aiReady())
-      return res
-        .status(503)
-        .json({
-          error:
-            "Leitura por IA ainda não configurada. Você pode preencher os dados manualmente.",
-        });
+      return res.status(503).json({
+        error:
+          "Leitura por IA ainda não configurada. Você pode preencher os dados manualmente.",
+      });
     if (extracting.size)
-      return res
-        .status(409)
-        .json({
-          error:
-            "Já existe uma leitura em andamento. Aguarde e tente novamente.",
-        });
+      return res.status(409).json({
+        error: "Já existe uma leitura em andamento. Aguarde e tente novamente.",
+      });
     extracting.add(contract.id);
     try {
       res.json(
@@ -290,12 +356,10 @@ export function createApp(options: {
         ),
       );
     } catch {
-      res
-        .status(502)
-        .json({
-          error:
-            "Não foi possível ler o contrato. Confira a configuração do provedor ou tente novamente. Seu arquivo foi preservado e o cadastro manual continua disponível.",
-        });
+      res.status(502).json({
+        error:
+          "Não foi possível ler o contrato. Confira a configuração do provedor ou tente novamente. Seu arquivo foi preservado e o cadastro manual continua disponível.",
+      });
     } finally {
       extracting.delete(contract.id);
     }
@@ -316,24 +380,21 @@ export function createApp(options: {
       res: express.Response,
       _next: express.NextFunction,
     ) => {
-      if (error instanceof DomainError) return res.status(400).json({error: error.message});
+      if (error instanceof DomainError)
+        return res.status(400).json({ error: error.message });
       if (error instanceof z.ZodError)
-        return res
-          .status(400)
-          .json({
-            error: error.issues[0]?.message || "Confira os dados informados.",
-          });
+        return res.status(400).json({
+          error: error.issues[0]?.message || "Confira os dados informados.",
+        });
       if (error instanceof multer.MulterError)
         return res
           .status(400)
           .json({ error: "Envie apenas um arquivo PDF ou TXT de até 15 MB." });
       if (error instanceof SyntaxError)
         return res.status(400).json({ error: "Requisição inválida." });
-      res
-        .status(500)
-        .json({
-          error: "Não foi possível concluir a operação. Tente novamente.",
-        });
+      res.status(500).json({
+        error: "Não foi possível concluir a operação. Tente novamente.",
+      });
     },
   );
   return { app, store };

@@ -35,9 +35,25 @@ test("contrato, evidência e ativo persistem no SQLite após reabrir; hash dedup
       updatedAt: "2026-11-07T00:00:00Z",
     };
     store.saveAsset(asset);
+    const orphan = store.upload(
+      "sem-equipamento.txt",
+      "text/plain",
+      Buffer.from("Documento sintético ainda sem vínculo"),
+    );
+    const summaries = store.listContracts();
+    assert.equal(summaries.length, 2);
+    assert.deepEqual(
+      new Set(summaries.map((item) => item.id)),
+      new Set([contract.id, orphan.id]),
+    );
+    assert.equal(
+      summaries.some((item) => "extraction" in item || "bytes" in item),
+      false,
+    );
     store.close();
     store = createStore(join(dir, "db.sqlite"));
     assert.deepEqual(store.getBytes(contract.id), bytes);
+    assert.equal(store.listContracts().length, 2);
     assert.equal(store.listAssets()[0].contractName, "teste.txt");
     assert.equal(store.listAssets()[0].reviewed, false);
     assert.throws(
@@ -62,7 +78,7 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
     page: null,
     quote: null,
   };
-  const extraction: Extraction = {
+  const equipment = {
     equipment: {
       value: "Bomba sintética",
       status: "found",
@@ -82,6 +98,35 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
     validUntil: missing,
     warnings: ["Periodicidade conflitante."],
   };
+  const extraction: Extraction = {
+    version: 2,
+    equipments: [
+      {
+        ...equipment,
+        equipment: { ...equipment.equipment, status: "found" },
+        periodValue: { ...equipment.periodValue, status: "conflict" },
+        periodUnit: { ...equipment.periodUnit, status: "missing" },
+        anchorType: { ...equipment.anchorType, status: "found" },
+        patrimony: missing,
+        serial: missing,
+        sector: missing,
+        notes: missing,
+        quantity: missing,
+        firstDueDate: missing,
+      } as import("../src/types.js").EquipmentExtraction,
+    ],
+    warnings: [],
+  };
+  extraction.equipments.push({
+    ...extraction.equipments[0],
+    equipment: {
+      value: "Monitor sintético",
+      status: "found",
+      page: 3,
+      quote: "Monitor sintético",
+    },
+    patrimony: { value: "SINT-02", status: "found", page: 3, quote: "SINT-02" },
+  });
   process.env.OPENAI_API_KEY = "test-not-a-real-key";
   process.env.OPENAI_BASE_URL = "https://provider.invalid/v1";
   process.env.OPENAI_MODEL = "test-model";
@@ -132,6 +177,8 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
       transport,
     );
     assert.deepEqual(result, extraction);
+    assert.equal(result.equipments.length, 2);
+    assert.equal(result.equipments[1].patrimony.value, "SINT-02");
     assert.equal(body.model, "test-model");
     assert.equal(body.store, false);
     assert.equal(body.text.format.type, "json_schema");
