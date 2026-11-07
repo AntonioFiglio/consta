@@ -29,7 +29,13 @@ import {
   useLocation,
   useNavigate,
 } from "react-router";
-import { legacyDestination, pageForPath, routePaths } from "./routes";
+import {
+  captureTokenFromPath,
+  legacyDestination,
+  pageForPath,
+  routePaths,
+} from "./routes";
+import { CapturePage } from "./CapturePage";
 import {
   ArrowRight,
   PanelLeftClose,
@@ -84,6 +90,7 @@ const Brand = () => (
 
 export function App() {
   const location = useLocation();
+  const captureToken = captureTokenFromPath(location.pathname);
   const navigate = useNavigate();
   const view = pageForPath(location.pathname);
   const pageTitle = useRef<HTMLHeadingElement>(null);
@@ -166,10 +173,11 @@ export function App() {
     refreshConfig();
   }, [refreshConfig]);
   useEffect(() => {
+    if (captureToken) return;
     setQuery("");
     document.title = `${crmPageCopy[view].title} · CONSTA.`;
     pageTitle.current?.focus({ preventScroll: true });
-  }, [location.pathname, config?.authenticated]);
+  }, [location.pathname, config?.authenticated, captureToken, view]);
   useEffect(() => {
     if (!config?.authenticated) return;
     let cancelled = false;
@@ -295,6 +303,8 @@ export function App() {
       setLoginBusy(false);
     }
   }
+  if (captureToken) return <CapturePage token={captureToken} />;
+
   if (config && !config.authenticated)
     return (
       <main className="login-page">

@@ -25,15 +25,35 @@ import { contractFile } from "./contract-file.js";
 import { createStore } from "./store.js";
 import { createContractBriefService, ContractBriefError } from "./contract-summary.js";
 import { importContractEquipment } from "./contract-import.js";
+import {
+  createCaptureSessions,
+  type CaptureResult,
+} from "./tombamento-capture.js";
+import { imageKind, readTombamento } from "./tombamento-ocr.js";
 
 export function createApp(options: {
   database: string;
   password?: string;
   seed?: boolean;
   staticDirectory?: string;
+  readTombamento?: (bytes: Buffer, mime: string) => Promise<string | null>;
 }) {
   const store = createStore(options.database, options.seed);
   const getContractBrief = createContractBriefService(store);
+  const captures = createCaptureSessions(options.readTombamento || readTombamento);
+  const sendCapture = <T,>(res: express.Response, result: CaptureResult<T>) => {
+    if (result.type === "ok")
+      return res.status(result.status ?? 200).json(result.body);
+    if (result.type === "missing")
+      return res.status(404).json({ error: "Este link não está disponível." });
+    if (result.type === "blocked")
+      return res.status(410).json({ error: result.message });
+    if (result.type === "conflict")
+      return res.status(409).json({ error: result.message });
+    if (result.type === "unavailable")
+      return res.status(502).json({ error: result.message });
+    return res.status(422).json({ error: result.message });
+  };
   const app = express();
   const sessions = new Map<string, number>();
   const attempts = new Map<string, { count: number; since: number }>();
@@ -41,6 +61,17 @@ export function createApp(options: {
   const upload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 15 * 1024 * 1024, files: 1, fields: 0 },
+  });
+  const photoUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 8 * 1024 * 1024, files: 1, fields: 4, fieldSize: 80 },
+    fileFilter: (_req, file, cb) => {
+      if (!file.mimetype || file.mimetype.startsWith("image/")) cb(null, true);
+      else
+        cb(
+          new DomainError("Envie uma foto JPEG, PNG ou WebP de até 8 MB."),
+        );
+    },
   });
   const maintenanceUpload = multer({
     storage: multer.memoryStorage(),
@@ -143,12 +174,69 @@ export function createApp(options: {
     if (token) sessions.delete(token);
     res.clearCookie("consta_session", { path: "/api" }).json({ ok: true });
   });
+  const captureRows = z.object({
+    rows: z
+      .array(
+        z.object({
+          key: z.string().uuid(),
+          name: z.string().trim().max(160),
+        }),
+      )
+      .max(50),
+  });
+  app.get("/api/captures/:token", (req, res) =>
+    sendCapture(res, captures.view(String(req.params.token))),
+  );
+  app.post("/api/captures/:token/photos", photoUpload.single("file"), async (req, res) => {
+    const rowKey = typeof req.body?.rowKey === "string" ? req.body.rowKey : "";
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+        rowKey,
+      )
+    )
+      return res.status(400).json({ error: "Equipamento inválido." });
+    if (!req.file)
+      return res
+        .status(400)
+        .json({ error: "Envie a foto do número de tombamento." });
+    const kind = imageKind(req.file.buffer);
+    if (!kind)
+      return res
+        .status(400)
+        .json({ error: "Envie uma foto JPEG, PNG ou WebP de até 8 MB." });
+    sendCapture(
+      res,
+      await captures.photo(String(req.params.token), rowKey, req.file.buffer, kind),
+    );
+  });
   app.use("/api", (req, res, next) =>
     authenticated(req.get("cookie"))
       ? next()
       : res.status(401).json({
           error: "Entre novamente para acessar os cadastros e contratos.",
         }),
+  );
+  app.post("/api/captures", (req, res) => {
+    const input = captureRows
+      .extend({ contractId: z.string().uuid() })
+      .parse(req.body);
+    if (!store.getContract(input.contractId))
+      return res.status(400).json({
+        error: "Contrato não encontrado. Envie o arquivo novamente.",
+      });
+    sendCapture(res, captures.create(input.rows));
+  });
+  app.patch("/api/captures/:token/rows", (req, res) =>
+    sendCapture(
+      res,
+      captures.sync(String(req.params.token), captureRows.parse(req.body).rows),
+    ),
+  );
+  app.post("/api/captures/:token/seal", (req, res) =>
+    sendCapture(res, captures.seal(String(req.params.token))),
+  );
+  app.post("/api/captures/:token/revoke", (req, res) =>
+    sendCapture(res, captures.revoke(String(req.params.token))),
   );
   app.get("/api/assets", (_req, res) => res.json(store.listAssets()));
   app.patch("/api/assets/:id/maintenance-responsibility", (req, res) => {
@@ -505,7 +593,7 @@ export function createApp(options: {
   app.use(
     (
       error: unknown,
-      _req: express.Request,
+      req: express.Request,
       res: express.Response,
       _next: express.NextFunction,
     ) => {
@@ -516,9 +604,11 @@ export function createApp(options: {
           error: error.issues[0]?.message || "Confira os dados informados.",
         });
       if (error instanceof multer.MulterError)
-        return res
-          .status(400)
-          .json({ error: "Envie apenas um arquivo PDF ou TXT de até 15 MB." });
+        return res.status(400).json({
+          error: req.originalUrl.includes("/captures/")
+            ? "Envie uma foto JPEG, PNG ou WebP de até 8 MB."
+            : "Envie apenas um arquivo PDF ou TXT de até 15 MB.",
+        });
       if (error instanceof SyntaxError)
         return res.status(400).json({ error: "Requisição inválida." });
       res.status(500).json({

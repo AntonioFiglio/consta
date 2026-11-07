@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  Camera,
   FileText,
   GripHorizontal,
   SlidersHorizontal,
@@ -110,6 +111,24 @@ export function AssetDialog({
   const floatingDetails = useRef<HTMLDialogElement>(null);
   const lastDetailsButton = useRef<HTMLButtonElement | null>(null);
   const [renewTargetId, setRenewTargetId] = useState<string | null>(null);
+  const [captureIntent, setCaptureIntent] = useState(false);
+  const [captureState, setCaptureState] = useState<"idle" | "creating" | "ready">(
+    "idle",
+  );
+  const [capture, setCapture] = useState<{
+    token: string;
+    path: string;
+    photosSubmitted: boolean;
+  } | null>(null);
+  const [capturedKeys, setCapturedKeys] = useState<Set<string>>(new Set());
+  const captureRef = useRef(capture);
+  captureRef.current = capture;
+  const sealedRef = useRef(false);
+  const openingCapture = useRef(false);
+  const editedAt = useRef<Record<string, number>>({});
+  const appliedAt = useRef<Record<string, string>>({});
+  const rowsRef = useRef(rows);
+  rowsRef.current = rows;
   const uploadTarget = useRef<string | null>(null);
   const renewalBackup = useRef<{
     rows: EquipmentDraft[];
@@ -130,6 +149,110 @@ export function AssetDialog({
     dialog.current?.scrollTo({ top: 0 });
     heading.current?.focus({ preventScroll: true });
   }, [step]);
+  useEffect(() => {
+    if (
+      step !== 2 ||
+      !captureIntent ||
+      !contract ||
+      capture ||
+      openingCapture.current
+    )
+      return;
+    openingCapture.current = true;
+    setCaptureIntent(false);
+    setCaptureState("creating");
+    const snapshot = rows.map((row) => ({ key: row.key, name: row.name }));
+    const contractId = contract.id;
+    void api<{ token: string; path: string }>("/captures", {
+      method: "POST",
+      body: JSON.stringify({ contractId, rows: snapshot }),
+    })
+      .then((created) => {
+        const next = { ...created, photosSubmitted: false };
+        captureRef.current = next;
+        setCapture(next);
+        setCaptureState("ready");
+      })
+      .catch((e) => {
+        openingCapture.current = false;
+        setCaptureState("idle");
+        setError((e as Error).message);
+      });
+  }, [step, captureIntent, contract, capture, rows]);
+  const captureRows = rows.map((row) => `${row.key}\n${row.name}`).join("\n");
+  useEffect(() => {
+    if (!capture || step !== 2) return;
+    const token = capture.token;
+    const snapshot = rows.map((row) => ({ key: row.key, name: row.name }));
+    const handle = window.setTimeout(() => {
+      if (sealedRef.current) return;
+      void api(`/captures/${token}/rows`, {
+        method: "PATCH",
+        body: JSON.stringify({ rows: snapshot }),
+      }).catch((e) => {
+        if (String((e as Error).message).includes("encerrado"))
+          sealedRef.current = true;
+      });
+    }, 250);
+    return () => window.clearTimeout(handle);
+  }, [capture, step, captureRows]);
+  useEffect(() => {
+    if (!capture || step !== 2) return;
+    let stop = false;
+    const tick = () => {
+      if (stop || sealedRef.current) return;
+      void api<{
+        photosSubmitted: boolean;
+        rows: {
+          key: string;
+          patrimony: string | null;
+          readAt: string | null;
+        }[];
+      }>(`/captures/${capture.token}`)
+        .then((view) => {
+          if (stop || sealedRef.current) return;
+          setCapture((current) =>
+            current && current.photosSubmitted === view.photosSubmitted
+              ? current
+              : current
+                ? { ...current, photosSubmitted: view.photosSubmitted }
+                : current,
+          );
+          const currentRows = rowsRef.current;
+          let changed = false;
+          const next = currentRows.map((row) => {
+            const incoming = view.rows.find((item) => item.key === row.key);
+            if (!incoming?.patrimony || !incoming.readAt) return row;
+            if (appliedAt.current[row.key] === incoming.readAt) return row;
+            if ((editedAt.current[row.key] || 0) > Date.parse(incoming.readAt))
+              return row;
+            appliedAt.current[row.key] = incoming.readAt;
+            changed = true;
+            return { ...row, patrimony: incoming.patrimony };
+          });
+          if (changed) setRows(next);
+          setCapturedKeys((current) => {
+            const keys = Object.keys(appliedAt.current);
+            if (
+              keys.length === current.size &&
+              keys.every((key) => current.has(key))
+            )
+              return current;
+            return new Set(keys);
+          });
+        })
+        .catch((e) => {
+          if (String((e as Error).message).includes("encerrado"))
+            sealedRef.current = true;
+        });
+    };
+    tick();
+    const id = window.setInterval(tick, 1500);
+    return () => {
+      stop = true;
+      window.clearInterval(id);
+    };
+  }, [capture, step]);
   useEffect(() => {
     if (advancedRows.size) advancedBack.current?.focus({ preventScroll: true });
     else lastDetailsButton.current?.focus({ preventScroll: true });
@@ -233,6 +356,7 @@ export function AssetDialog({
       setAutoRegistered(true);
       setImportProgress({ phase: "ready", startedAt: Date.now() });
       onImported?.(result);
+      setCaptureIntent(true);
       goToStep(2);
       return true;
     } catch (error) {
@@ -345,7 +469,33 @@ export function AssetDialog({
       !(await readContract())
     )
       return;
+    setCaptureIntent(true);
     goToStep(2);
+  }
+  async function closeCaptureLink() {
+    const link = captureRef.current;
+    if (!link || sealedRef.current) return;
+    sealedRef.current = true;
+    try {
+      await api(`/captures/${link.token}/seal`, { method: "POST" });
+    } catch {
+      try {
+        await api(`/captures/${link.token}/revoke`, { method: "POST" });
+      } catch {
+        sealedRef.current = false;
+      }
+    }
+  }
+  function requestClose() {
+    if (busy) return;
+    const link = captureRef.current;
+    if (link && !sealedRef.current) {
+      sealedRef.current = true;
+      void api(`/captures/${link.token}/revoke`, { method: "POST" }).catch(() => {
+        sealedRef.current = false;
+      });
+    }
+    onClose();
   }
   function cancelRenewal() {
     setImportProgress(null);
@@ -448,6 +598,7 @@ export function AssetDialog({
         method: "POST",
         body: JSON.stringify({ assets: payload }),
       });
+      await closeCaptureLink();
       onSaved();
     } catch (e) {
       setError((e as Error).message);
@@ -457,7 +608,7 @@ export function AssetDialog({
   return (
     <ManagedDialog
       closeDisabled={Boolean(busy)}
-      onRequestClose={onClose}
+      onRequestClose={requestClose}
       ref={dialog}
       className={`asset-dialog multi-equipment-dialog ${step === 2 ? "equipment-table-dialog" : ""}`}
       aria-labelledby="dialog-title"
@@ -465,11 +616,11 @@ export function AssetDialog({
         e.preventDefault();
         if (!busy) {
           if (advancedRows.size) closeDetails();
-          else onClose();
+          else requestClose();
         }
       }}
       onClick={(e) => {
-        if (e.target === dialog.current && !busy) onClose();
+        if (e.target === dialog.current && !busy) requestClose();
       }}
     >
       <header className="dialog-header">
@@ -588,20 +739,51 @@ export function AssetDialog({
                     </span>
                   </div>
                 )}
-                {rows.length < 50 && (
-                  <button
-                    type="button"
-                    className="text-button add-equipment"
-                    onClick={() =>
-                      setRows((old) => [
-                        ...old,
-                        emptyDraft(crypto.randomUUID()),
-                      ])
-                    }
-                  >
-                    <Plus size={14} />
-                    Adicionar equipamento
-                  </button>
+                {(capture || captureState === "creating" || rows.length < 50) && (
+                  <div className="equipment-table-actions">
+                    {capture ? (
+                      <a
+                        className="text-button add-equipment"
+                        href={capture.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Camera size={14} />
+                        Fotografar tombamento
+                      </a>
+                    ) : (
+                      captureState === "creating" && (
+                        <button
+                          type="button"
+                          className="text-button add-equipment"
+                          disabled
+                        >
+                          <LoaderCircle size={14} className="spin" />
+                          Preparando câmera…
+                        </button>
+                      )
+                    )}
+                    {rows.length < 50 && (
+                      <button
+                        type="button"
+                        className="text-button add-equipment"
+                        onClick={() =>
+                          setRows((old) => [
+                            ...old,
+                            emptyDraft(crypto.randomUUID()),
+                          ])
+                        }
+                      >
+                        <Plus size={14} />
+                        Adicionar equipamento
+                      </button>
+                    )}
+                    <p className="visually-hidden" aria-live="polite">
+                      {capturedKeys.size
+                        ? `${capturedKeys.size} ${capturedKeys.size === 1 ? "número de tombamento lido da foto." : "números de tombamento lidos da foto."}`
+                        : ""}
+                    </p>
+                  </div>
                 )}
               </div>
               {renewTargetId && (
@@ -743,10 +925,23 @@ export function AssetDialog({
                               value={row.patrimony}
                               maxLength={80}
                               placeholder="Completar depois"
-                              onChange={(e) =>
-                                change(row.key, "patrimony", e.target.value)
-                              }
+                              onChange={(e) => {
+                                editedAt.current[row.key] = Date.now();
+                                delete appliedAt.current[row.key];
+                                setCapturedKeys((current) => {
+                                  if (!current.has(row.key)) return current;
+                                  const next = new Set(current);
+                                  next.delete(row.key);
+                                  return next;
+                                });
+                                change(row.key, "patrimony", e.target.value);
+                              }}
                             />
+                            {capturedKeys.has(row.key) && row.patrimony && (
+                              <small className="editor-row-hint">
+                                Lido da foto da etiqueta
+                              </small>
+                            )}
                           </td>
                           <td>
                             <div className="input-pair">
