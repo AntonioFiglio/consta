@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, HTMLAttributes, RefObject } from "react";
 
-// A janela usa a mesma interação de arraste das configurações avançadas.
+// Todos os diálogos se movem no viewport, inclusive os abertos dentro de outro.
 export function useDraggablePanel(
   panel: RefObject<HTMLElement | null>,
-  boundary?: RefObject<HTMLElement | null>,
 ) {
   const [position, setPosition] = useState<{
     left: number;
@@ -17,14 +16,12 @@ export function useDraggablePanel(
     top: number;
   } | null>(null);
   function geometry() {
-    const parent = boundary?.current;
-    const bounds = parent?.getBoundingClientRect();
     const box = panel.current?.getBoundingClientRect();
     return {
-      left: (box?.left || 0) - (bounds?.left || 0) - (parent?.clientLeft || 0),
-      top: (box?.top || 0) - (bounds?.top || 0) - (parent?.clientTop || 0),
-      width: parent?.clientWidth || window.innerWidth,
-      height: parent?.clientHeight || window.innerHeight,
+      left: box?.left || 0,
+      top: box?.top || 0,
+      width: window.innerWidth,
+      height: window.innerHeight,
     };
   }
   function constrain(left: number, top: number) {
@@ -45,18 +42,17 @@ export function useDraggablePanel(
       setPosition((old) => (old ? constrain(old.left, old.top) : old));
     const observer = new ResizeObserver(resized);
     if (panel.current) observer.observe(panel.current);
-    if (boundary?.current) observer.observe(boundary.current);
     window.addEventListener("resize", resized);
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", resized);
     };
-  }, [panel, boundary]);
+  }, [panel]);
   const handleProps: HTMLAttributes<HTMLDivElement> = {
     role: "button",
     tabIndex: 0,
     "aria-label":
-      "Mover ficha do equipamento. Arraste ou use as setas do teclado.",
+      "Mover dialog. Arraste ou use as setas do teclado.",
     onPointerDown(event) {
       if (event.button !== 0 || window.innerWidth <= 650) return;
       event.preventDefault();

@@ -32,6 +32,10 @@ function item(patch: Partial<EquipmentExtraction> = {}): EquipmentExtraction {
     equipment: found("Bomba sintética"),
     patrimony: found("SINT-01"),
     serial: found("SERIE-01"),
+    brand: found("Marca sintética A"),
+    maintenanceCompany: missing,
+    maintenancePhone: missing,
+    maintenanceEmail: missing,
     model: found("Modelo A"),
     sector: found("UTI sintética"),
     notes: found("Inspecionar conexões"),
@@ -57,6 +61,7 @@ test("schema e preenchimento mantêm todos os equipamentos, identidades e regras
         patrimony: found("SINT-02", 3),
         serial: found("SERIE-02", 3),
         sector: found("Enfermaria sintética", 3),
+        brand: found("Marca sintética B", 3),
         model: found("Modelo B", 3),
         periodValue: found("3", 3),
         anchorDate: found("2026-02-10", 3),
@@ -75,6 +80,7 @@ test("schema e preenchimento mantêm todos os equipamentos, identidades e regras
       row.name,
       row.patrimony,
       row.serial,
+      row.brand,
       row.model,
       row.sector,
       row.periodValue,
@@ -85,6 +91,7 @@ test("schema e preenchimento mantêm todos os equipamentos, identidades e regras
         "Bomba sintética",
         "SINT-01",
         "SERIE-01",
+        "Marca sintética A",
         "Modelo A",
         "UTI sintética",
         "6",
@@ -94,6 +101,7 @@ test("schema e preenchimento mantêm todos os equipamentos, identidades e regras
         "Monitor sintético",
         "SINT-02",
         "SERIE-02",
+        "Marca sintética B",
         "Modelo B",
         "Enfermaria sintética",
         "3",
@@ -124,6 +132,8 @@ test("schema e preenchimento mantêm todos os equipamentos, identidades e regras
     );
     const saved = store.listAssets();
     assert.equal(saved.length, 2);
+    assert.equal(saved[0].brand, "Marca sintética A");
+    assert.equal(saved[1].brand, "Marca sintética B");
     assert.equal(saved[0].serial, "SERIE-01");
     assert.equal(saved[1].serial, "SERIE-02");
     const events = eventsFor(saved, "2026-01-01", "2026-12-31");

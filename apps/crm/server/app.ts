@@ -10,6 +10,9 @@ import { z } from "zod";
 import { resolve } from "node:path";
 import {
   assetInput,
+  maintenanceDocumentInput,
+  coverageDatesInput,
+  updateCoverageDates,
   DomainError,
   eventsFor,
   occurrence,
@@ -17,7 +20,10 @@ import {
   validDate,
 } from "./domain.js";
 import { aiReady, extractContract } from "./extraction.js";
+import { breakdownInput, updateBreakdown } from "./breakdowns.js";
+import { contractFile } from "./contract-file.js";
 import { createStore } from "./store.js";
+import { createContractBriefService, ContractBriefError } from "./contract-summary.js";
 
 export function createApp(options: {
   database: string;
@@ -26,6 +32,7 @@ export function createApp(options: {
   staticDirectory?: string;
 }) {
   const store = createStore(options.database, options.seed);
+  const getContractBrief = createContractBriefService(store);
   const app = express();
   const sessions = new Map<string, number>();
   const attempts = new Map<string, { count: number; since: number }>();
@@ -33,6 +40,15 @@ export function createApp(options: {
   const upload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 15 * 1024 * 1024, files: 1, fields: 0 },
+  });
+  const maintenanceUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 15 * 1024 * 1024,
+      files: 1,
+      fields: 2,
+      fieldSize: 20000,
+    },
   });
   app.disable("x-powered-by");
   app.use((_req, res, next) => {
@@ -154,6 +170,19 @@ export function createApp(options: {
       }),
     );
   });
+  app.patch("/api/assets/:id/coverages/:coverageId/dates", (req, res) => {
+    const dates = coverageDatesInput.parse(req.body);
+    const existing = store
+      .listAssets()
+      .find((asset) => asset.id === req.params.id);
+    if (!existing)
+      return res.status(404).json({ error: "Equipamento não encontrado." });
+    res.json(
+      store.saveAsset(
+        updateCoverageDates(existing, req.params.coverageId, dates),
+      ),
+    );
+  });
   app.get("/api/events", (req, res) => {
     const from = String(req.query.from || "");
     const to = String(req.query.to || "");
@@ -254,6 +283,15 @@ export function createApp(options: {
     res.status(201).json(store.saveAssets(updated));
   });
 
+  app.patch("/api/assets/:id/breakdown", (req, res) => {
+    const asset = store.listAssets().find((item) => item.id === req.params.id);
+    if (!asset)
+      return res.status(404).json({ error: "Equipamento não encontrado." });
+    res.json(
+      store.saveAsset(updateBreakdown(asset, breakdownInput.parse(req.body))),
+    );
+  });
+
   app.post("/api/assets/:id/contracts", (req, res) => {
     const { additionalAssetIds = [], ...body } = req.body || {};
     const ids = z.array(z.string().uuid()).max(49).parse(additionalAssetIds);
@@ -275,6 +313,7 @@ export function createApp(options: {
           : {
               ...input,
               name: asset.name,
+              brand: asset.brand,
               model: asset.model,
               patrimony: asset.patrimony,
               serial: asset.serial,
@@ -300,45 +339,83 @@ export function createApp(options: {
   });
   app.put("/api/assets/:id", saveAsset);
   app.post("/api/contracts", upload.single("file"), (req, res) => {
-    const file = req.file;
-    if (!file || !file.size)
-      return res
-        .status(400)
-        .json({ error: "Selecione um PDF ou TXT não vazio, com até 15 MB." });
-    let mime: string;
-    if (
-      file.originalname.toLowerCase().endsWith(".pdf") &&
-      file.buffer.subarray(0, 5).toString() === "%PDF-"
-    )
-      mime = "application/pdf";
-    else if (file.originalname.toLowerCase().endsWith(".txt")) {
-      try {
-        new TextDecoder("utf-8", { fatal: true }).decode(file.buffer);
-      } catch {
-        return res
-          .status(400)
-          .json({ error: "O TXT precisa usar codificação UTF-8." });
-      }
-      if (file.buffer.includes(0))
-        return res
-          .status(400)
-          .json({ error: "O arquivo não é um texto válido." });
-      mime = "text/plain";
-    } else
-      return res
-        .status(400)
-        .json({ error: "Formato inválido. Envie um PDF ou TXT." });
-    const name = file.originalname
-      .replace(/[\x00-\x1f\x7f/\\]/g, "_")
-      .slice(0, 180);
-    res.status(201).json(store.upload(name, mime, file.buffer));
+    const file = contractFile(req.file);
+    res.status(201).json(store.upload(file.name, file.mime, file.bytes));
   });
+  app.post(
+    "/api/assets/:id/maintenance-documents",
+    maintenanceUpload.single("file"),
+    async (req, res) => {
+      const assetId = z.string().parse(req.params.id);
+      if (!store.listAssets().some((asset) => asset.id === assetId))
+        return res.status(404).json({ error: "Equipamento não encontrado." });
+      const input = maintenanceDocumentInput.parse(req.body);
+      const file = contractFile(req.file);
+      let extraction: Awaited<ReturnType<typeof extractContract>> | undefined;
+      if (aiReady()) {
+        if (extracting.size)
+          return res
+            .status(409)
+            .json({
+              error:
+                "Já existe uma leitura em andamento. Aguarde e tente novamente.",
+            });
+        const job = `maintenance:${assetId}`;
+        extracting.add(job);
+        try {
+          extraction = await extractContract(file.bytes, file.name, file.mime);
+        } catch {
+          return res
+            .status(502)
+            .json({
+              error:
+                "Não foi possível ler o documento. Tente novamente. O vínculo de manutenção não foi alterado.",
+            });
+        } finally {
+          extracting.delete(job);
+        }
+      }
+      res
+        .status(201)
+        .json(
+          store.attachMaintenanceDocument(assetId, file, input, extraction),
+        );
+    },
+  );
   app.get("/api/contracts", (_req, res) => res.json(store.listContracts()));
+  app.patch("/api/contracts/:id/parent", (req, res) => {
+    const { parentContractId, documentKind } = z
+      .object({
+        parentContractId: z.string().uuid().nullable(),
+        documentKind: z
+          .enum(["amendment", "outsourced", "complement"])
+          .optional(),
+      })
+      .strict()
+      .parse(req.body);
+    if (!store.getContract(req.params.id))
+      return res.status(404).json({ error: "Arquivo não encontrado." });
+    const { extraction: _extraction, ...summary } = store.setContractParent(
+      req.params.id,
+      parentContractId,
+      documentKind,
+    );
+    res.json(summary);
+  });
   app.get("/api/contracts/:id", (req, res) => {
     const contract = store.getContract(req.params.id);
     if (!contract)
       return res.status(404).json({ error: "Contrato não encontrado." });
     res.json(contract);
+  });
+  app.post("/api/contracts/:id/summary", async (req, res) => {
+    const { retry } = z.object({ retry: z.boolean().optional().default(false) }).strict().parse(req.body || {});
+    try {
+      res.json(await getContractBrief(String(req.params.id), retry));
+    } catch (error) {
+      if (error instanceof ContractBriefError) return res.status(error.status).json({ error: error.message });
+      throw error;
+    }
   });
   app.get("/api/contracts/:id/file", (req, res) => {
     const contract = store.getContract(req.params.id);

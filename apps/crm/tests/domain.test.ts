@@ -11,6 +11,7 @@ import type { Asset } from "../src/types.js";
 const asset: Asset = {
   id: "test-asset",
   name: "Bomba sintética",
+  brand: "",
   model: "",
   patrimony: "TEST-1",
   serial: "",

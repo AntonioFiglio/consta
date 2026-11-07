@@ -8,10 +8,11 @@ import "@fontsource/dm-mono/latin-400.css";
 import "@fontsource/dm-mono/latin-500.css";
 import "../../../brand/tokens.css";
 import "./styles.css";
+import { DialogProvider } from "./DialogManager";
 import { App } from "./App";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <DialogProvider><App /></DialogProvider>
   </React.StrictMode>,
 );

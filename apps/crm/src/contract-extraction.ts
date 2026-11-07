@@ -14,6 +14,10 @@ export type EquipmentDraft = {
   patrimony: string;
   serial: string;
   sector: string;
+  brand: string;
+  maintenanceCompany: string;
+  maintenancePhone: string;
+  maintenanceEmail: string;
   model: string;
   notes: string;
   periodValue: string;
@@ -47,10 +51,18 @@ const missing: Evidence = {
   quote: null,
 };
 export function extractionItems(data: Extraction): EquipmentExtraction[] {
-  if (isMultiExtraction(data)) return data.equipments;
+  if (isMultiExtraction(data))
+    return data.equipments.map((item) => ({
+      ...item,
+      brand: item.brand || missing,
+      maintenanceCompany: item.maintenanceCompany || missing,
+      maintenancePhone: item.maintenancePhone || missing,
+      maintenanceEmail: item.maintenanceEmail || missing,
+    }));
   return [
     {
       ...data,
+      brand: missing,
       patrimony: missing,
       serial: missing,
       sector: missing,
@@ -101,6 +113,10 @@ export function draftFromExtraction(
     key,
     name: value(item.equipment),
     patrimony: value(item.patrimony),
+    brand: value(item.brand),
+    maintenanceCompany: value(item.maintenanceCompany),
+    maintenancePhone: value(item.maintenancePhone),
+    maintenanceEmail: value(item.maintenanceEmail),
     model: value(item.model),
     serial: value(item.serial),
     sector: value(item.sector),
@@ -122,6 +138,10 @@ export function emptyDraft(key: string): EquipmentDraft {
     name: "",
     patrimony: "",
     serial: "",
+    brand: "",
+    maintenanceCompany: "",
+    maintenancePhone: "",
+    maintenanceEmail: "",
     model: "",
     sector: "",
     notes: "",
@@ -141,6 +161,10 @@ export function draftFromAsset(asset: Asset): EquipmentDraft {
     assetId: asset.id,
     name: asset.name,
     patrimony: asset.patrimony,
+    brand: asset.brand || "",
+    maintenanceCompany: asset.maintenanceCompany || "",
+    maintenancePhone: asset.maintenancePhone || "",
+    maintenanceEmail: asset.maintenanceEmail || "",
     model: asset.model,
     serial: asset.serial,
     sector: asset.sector,

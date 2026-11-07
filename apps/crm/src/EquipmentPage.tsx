@@ -1,8 +1,53 @@
+import { SearchField } from "./SearchField";
 import { useState } from "react";
-import { Search, ChevronRight, Plus } from "lucide-react";
+import {
+  ArrowRight,
+  Plus,
+  Flag,
+  SlidersHorizontal,
+} from "lucide-react";
+import { brandAndModel } from "./equipment-identity";
+import type { OnBreakdown } from "./breakdowns";
+import {
+  equipmentSituation,
+  matchesEquipmentFilter,
+  type EquipmentFilter,
+} from "./equipment-situation";
+import { StatusHelp } from "./StatusHelp";
 import type { Asset } from "./types";
-import { maintenanceStatus } from "./maintenance-status";
-import { nextMaintenanceDate } from "./schedule";
+import {
+  maintenanceStatusLabels,
+  type MaintenanceStatusKind,
+} from "./maintenance-status";
+
+const AttentionFlag = () => (
+  <Flag size={14} fill="currentColor" aria-hidden="true" />
+);
+
+const statusFilters: {
+  value: EquipmentFilter;
+  label: string;
+}[] = [
+  { value: "all", label: "Todas as situações" },
+  { value: "broken", label: "Equipamento quebrado" },
+  { value: "unassigned", label: maintenanceStatusLabels.unassigned },
+  { value: "uncovered", label: maintenanceStatusLabels.uncovered },
+  { value: "expired", label: maintenanceStatusLabels.expired },
+  { value: "review", label: maintenanceStatusLabels.review },
+  { value: "dates", label: maintenanceStatusLabels.dates },
+  { value: "covered", label: maintenanceStatusLabels.covered },
+  { value: "internal", label: maintenanceStatusLabels.internal },
+];
+const repairPriority = { overdue: 0, unscheduled: 1, scheduled: 2 };
+const priority: Record<MaintenanceStatusKind, number> = {
+  unassigned: 0,
+  expired: 1,
+  uncovered: 2,
+  review: 3,
+  dates: 4,
+  internal: 5,
+  covered: 6,
+};
 
 export function EquipmentPage({
   assets,
@@ -10,154 +55,198 @@ export function EquipmentPage({
   onQuery,
   today,
   onView,
-  onContract,
   onAssign,
+  onBreakdown,
   onCreate,
+  initialFilter = "all",
 }: {
   assets: Asset[];
   query: string;
   onQuery: (query: string) => void;
   today: string;
   onView: (asset: Asset) => void;
-  onContract: (id: string) => void;
   onAssign: (asset: Asset) => void;
+  onBreakdown: OnBreakdown;
   onCreate: () => void;
+  initialFilter?: EquipmentFilter;
 }) {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState<EquipmentFilter>(initialFilter);
   const rows = assets
-    .map((asset) => ({ asset, status: maintenanceStatus(asset, today) }))
-    .filter(({ status }) => filter === "all" || status.group === filter)
+    .filter((asset) => matchesEquipmentFilter(asset, filter, today))
+    .map((asset) => equipmentSituation(asset, today))
     .sort(
       (a, b) =>
-        Number(b.status.group === "attention") -
-          Number(a.status.group === "attention") ||
+        (a.repair ? repairPriority[a.repair.stage] : 3) -
+          (b.repair ? repairPriority[b.repair.stage] : 3) ||
+        priority[a.coverage.kind] - priority[b.coverage.kind] ||
         a.asset.name.localeCompare(b.asset.name, "pt-BR"),
     );
   return (
     <section
-      className="inventory-section clinical-equipment-section"
-      aria-label="Gestão de equipamentos"
+      className="inventory-section equipment-status-page"
+      aria-label="Situação da manutenção dos equipamentos"
     >
-      <div className="equipment-list-toolbar">
-        <label className="search">
-          <Search size={16} />
-          <input
-            value={query}
-            onChange={(event) => onQuery(event.target.value)}
-            placeholder="Buscar nome, tombamento ou setor"
-            aria-label="Buscar equipamento"
-          />
-        </label>
-        <label className="equipment-filter">
-          Manutenção
-          <select
-            value={filter}
-            onChange={(event) => setFilter(event.target.value)}
+      <div className="equipment-status-toolbar">
+        <SearchField value={query} onChange={onQuery} placeholder="Buscar nome, marca, modelo ou tombamento" label="Buscar equipamento" />
+        <span className="equipment-attention-legend">
+          <AttentionFlag /> Pendências aparecem primeiro
+        </span>
+      </div>
+      <div
+        className="equipment-status-filters"
+        role="group"
+        aria-label="Filtrar por situação da manutenção"
+      >
+        {statusFilters.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            aria-pressed={filter === option.value}
+            onClick={() => setFilter(option.value)}
+            className={`equipment-status-filter ${option.value}`}
           >
-            <option value="all">Todos os equipamentos</option>
-            <option value="attention">Precisam de atenção</option>
-            <option value="covered">Com contrato vigente</option>
-            <option value="internal">Oficina de Manutenção</option>
-          </select>
-        </label>
+            {option.value !== "all" && (
+              <span aria-hidden="true" className="filter-status-dot" />
+            )}
+            {option.label}
+          </button>
+        ))}
       </div>
       <div className="table-container">
-        <table className="clinical-equipment-table">
+        <table className="equipment-status-table">
+          <caption className="visually-hidden">
+            Equipamentos com pendências são marcados com bandeira vermelha e
+            aparecem primeiro.
+          </caption>
           <thead>
             <tr>
               <th>Equipamento</th>
-              <th>Número de tombamento</th>
-              <th>Setor</th>
-              <th>Manutenção</th>
-              <th>Próxima manutenção</th>
+              <th>Situação do equipamento</th>
               <th>
-                <span className="visually-hidden">Ações</span>
+                <span className="visually-hidden">Ação</span>
               </th>
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ asset, status }) => {
-              const next = nextMaintenanceDate(asset, today);
-              return (
-                <tr key={asset.id}>
-                  <td>
-                    <button
-                      className="equipment-name-link"
-                      onClick={() => onView(asset)}
-                    >
-                      {asset.name}
-                    </button>
-                    <small className="equipment-secondary">
-                      {asset.model || "Modelo não informado"}
-                      {asset.simulated ? " · Simulado" : ""}
-                    </small>
-                  </td>
-                  <td className="mono">{asset.patrimony}</td>
-                  <td>{asset.sector || "Setor não informado"}</td>
-                  <td>
-                    <span className={`maintenance-status ${status.group}`}>
-                      <i />
-                      {status.label}
-                    </span>
-                    <small className="equipment-secondary">
-                      {status.detail}
-                    </small>
-                    {status.contractId && (
-                      <button
-                        className="text-button maintenance-contract-link"
-                        onClick={() => onContract(status.contractId!)}
-                      >
-                        Ver contrato
-                      </button>
-                    )}
-                  </td>
-                  <td>
-                    {next
-                      ? new Date(next + "T12:00:00").toLocaleDateString("pt-BR")
-                      : "Sem data prevista"}
-                    {!asset.reviewed && (
-                      <small className="equipment-secondary">
-                        Planejamento pendente
-                      </small>
-                    )}
-                  </td>
-                  <td>
-                    <div className="equipment-row-actions">
-                      <button
-                        className="text-button"
-                        onClick={() => onAssign(asset)}
-                      >
-                        Definir manutenção
-                      </button>
-                      <button
-                        className="icon-button"
-                        aria-label={`Ver ficha de ${asset.name}`}
-                        onClick={() => onView(asset)}
-                      >
-                        <ChevronRight size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+            {rows.map(
+              ({ asset, coverage: status, repair: broken, attention }) => {
+                const action = broken?.action || "Registrar quebra";
+                return (
+                  <tr
+                    key={asset.id}
+                    className={attention ? "equipment-needs-attention" : ""}
+                  >
+                    <td>
+                      <div className="equipment-status-identity">
+                        <div>
+                          <div className="equipment-name-row">
+                            <button
+                              className="equipment-name-link"
+                              onClick={() => onView(asset)}
+                            >
+                              {asset.name}
+                            </button>
+                            {attention && (
+                              <span
+                                className="equipment-attention-flag"
+                                role="img"
+                                aria-label={`Precisa de atenção: ${broken ? "Equipamento quebrado" : status.label}`}
+                                title={
+                                  broken ? "Equipamento quebrado" : status.label
+                                }
+                              >
+                                <AttentionFlag />
+                              </span>
+                            )}
+                          </div>
+                          <small className="equipment-brand-model">
+                            {brandAndModel(asset) ||
+                              "Marca e modelo não informados"}
+                          </small>
+                          <small className="equipment-secondary">
+                            <span className="mono">
+                              Tombamento {asset.patrimony}
+                            </span>
+                            <span aria-hidden="true"> · </span>
+                            {asset.sector || "Setor não informado"}
+                          </small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="equipment-status-with-help">
+                        <span
+                          className={`equipment-status-text ${broken ? "broken" : status.kind}`}
+                        >
+                          {broken ? "Equipamento quebrado" : status.label}
+                        </span>
+                        {!broken && <StatusHelp status={status} />}
+                      </div>
+                      {broken && (
+                        <small
+                          className={`equipment-repair-detail ${broken.stage}`}
+                        >
+                          {broken.detail}
+                        </small>
+                      )}
+                    </td>
+                    <td>
+                      <div className="equipment-row-actions">
+                        <button
+                          className={`equipment-status-action ${broken ? "requires-action" : ""}`}
+                          onClick={() =>
+                            onBreakdown(asset, broken ? "schedule" : "report")
+                          }
+                          aria-label={`${action}: ${asset.name}`}
+                        >
+                          {broken ? (
+                            <ArrowRight size={14} />
+                          ) : (
+                            <Flag size={14} />
+                          )}
+                          {action}
+                        </button>
+                        <button
+                          type="button"
+                          className="icon-button equipment-assignment-action"
+                          aria-label={`Configurar atendimento: ${asset.name}`}
+                          title="Configurar atendimento"
+                          onClick={() => onAssign(asset)}
+                        >
+                          <SlidersHorizontal size={15} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              },
+            )}
           </tbody>
         </table>
         {!rows.length && (
           <div className="document-empty">
             <h3>
               {query || filter !== "all"
-                ? "Nenhum equipamento nesta busca"
+                ? "Nenhum equipamento nesta situação"
                 : "Cadastre o primeiro equipamento"}
             </h3>
             <p>
               {query || filter !== "all"
-                ? "Tente outro nome ou escolha outro filtro de manutenção."
-                : "Informe os dados do equipamento para organizar a manutenção."}
+                ? "Escolha outra situação ou ajuste a busca."
+                : "Defina quem cuida da manutenção de cada equipamento."}
             </p>
             {!assets.length && !query && filter === "all" && (
               <button className="button primary" onClick={onCreate}>
                 <Plus size={15} /> Cadastrar equipamento
+              </button>
+            )}
+            {filter !== "all" && (
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => setFilter("all")}
+              >
+                Ver todas as situações
               </button>
             )}
           </div>

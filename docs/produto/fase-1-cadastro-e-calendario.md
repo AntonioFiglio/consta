@@ -106,3 +106,51 @@ A área **Contratos** permite buscar e abrir qualquer documento enviado, inclusi
 O nome de um equipamento no inventário, no calendário ou na consulta do contrato abre sua ficha: identificação, número de tombamento, série, setor, regras do último plano, próxima manutenção determinística, observações e histórico de coberturas. **Editar equipamento** abre o fluxo de revisão existente. Contratos na ficha e no cadastro abrem a mesma prévia. Consultar documentos não solicita extração de IA.
 
 Ao abrir um contrato, **Equipamentos** é a primeira aba e já vem selecionada; **Documento** é a segunda. A ficha abre como janela flutuante arrastável sobre a mesma consulta, sem fechar o contrato nem perder o scroll da lista. A linha selecionada fica destacada; fechar a ficha devolve o foco ao equipamento. O cabeçalho também aceita movimento pelas setas. Em telas pequenas, a janela fica fixa.
+
+## Equipamentos: responsabilidade e cobertura
+
+A lista de equipamentos prioriza quem cuida da manutenção e o que precisa de atenção. Sem cards e contadores, mantém equipamento/modelo, número de tombamento, setor, situação da manutenção, próxima previsão e acesso à ficha. A busca e o filtro atendem à gestão pela engenharia clínica; situações de atenção aparecem primeiro.
+
+Contrato vigente exige documento, revisão e início/fim conhecidos abrangendo a data atual. Sem datas ou revisão, mostrar Conferir cobertura. Vencimento, início futuro e intervalo sem cobertura continuam visíveis. Renovação pendente ou futura não elimina a indicação da cobertura anterior ainda válida.
+
+Oficina de Manutenção é uma responsabilidade interna escolhida pela pessoa, nunca inferida pela ausência de contrato. Definir manutenção oferece Por contrato, Oficina de Manutenção e Ainda não definido. Alterar responsabilidade mantém arquivos, histórico e planejamento; não cria datas ou comprova serviço realizado. Na ausência de responsabilidade, a lista indica Manutenção a definir.
+
+### Definir manutenção em duas telas
+
+A primeira tela contém as três opções de responsabilidade. **Empresa externa** e **Continuar** abrem a segunda tela: tipo (**Termo aditivo** ou **Contrato de manutenção terceirizada**), upload e Voltar/Salvar no histórico. As duas opções ficam visíveis no seletor segmentado, com uma explicação curta conforme a escolha. O upload reutiliza o componente visual do cadastro de equipamentos; nome e tamanho identificam o arquivo escolhido. Cabeçalho, conteúdo e ações compartilham os mesmos alinhamentos. Não há descrição opcional. Oficina e responsável não definido salvam diretamente.
+
+O equipamento já pertence a um contrato principal. Um aditivo altera esse contrato; um contrato terceirizado representa a contratação de outra empresa e fica relacionado ao principal para consulta conjunta. As classificações permanecem distintas no histórico da unidade e nos documentos vinculados. A API exige contrato de origem e impede criar um principal por esse caminho. Nada é enviado antes de **Salvar no histórico**. O envio preserva cobertura e planejamento; o histórico documental não é um registro de serviços executados.
+
+## Contratos principais e aditivos
+
+A tela de Contratos agrupa cada principal e seus aditivos. A seta expande/recolhe a lista. Adicionar aditivo fica dentro dessa área expandida, ao lado do título Aditivos do contrato, e permanece disponível mesmo sem aditivos cadastrados. O usuário pode anexar PDF/TXT ou escolher um documento existente; Organizar permite vincular, mover ou desvincular um aditivo sem apagar arquivos.
+
+Um aditivo aponta explicitamente para um único contrato principal. Documentos antigos continuam principais até a pessoa organizar o vínculo; não se infere relação pelo nome do arquivo. Não se permite aditivo de aditivo ou ciclos. O principal reúne, na consulta, equipamentos de seus documentos associados sem duplicar unidades; um aditivo isolado mantém a consulta de seus próprios vínculos. Buscar por aditivo mantém e expande o principal correspondente. A organização documental não aplica mudanças de vigência ou regras automaticamente.
+
+A leitura rápida da lista usa bandeira vermelha à esquerda para pendências, status em selo destacado e filtros visíveis por situação. Manutenção a definir aparece primeiro. Cada linha mostra um único status, sem instruções complementares como “Complete as datas do contrato”. Motivos, modelo e datas ficam na ficha; o destaque vermelho indica uma pendência de gestão, sem afirmar falha clínica ou indisponibilidade técnica.
+
+## Marca do equipamento
+
+Nome, marca e modelo são dados separados. Na lista, o nome permanece junto da bandeira de atenção, com marca e modelo em uma linha compacta abaixo; tombamento e setor continuam visíveis. A marca aparece também na ficha, no cadastro/configurações de identificação, nas evidências da IA e na consulta de equipamentos do contrato. A busca aceita marca/modelo.
+
+A IA preenche a marca apenas quando associada ao equipamento no documento, com evidência própria. Não usa fornecedor/assistência como marca nem deduz a partir do modelo. Sem marca, permanece em branco. Cadastros e leituras anteriores continuam funcionando; a marca é opcional e edições por clientes antigos não apagam o valor salvo.
+
+## Quebras e reparos agendados
+
+A ficha oferece **Registrar quebra** no rodapé. A ação abre um diálogo sobreposto no padrão das demais janelas; a ficha não expande um formulário. Informar agendamento é opcional. Depois de salvar, a unidade aparece como **Equipamento quebrado**, com flag vermelha, prioridade e filtro na lista. Uma data informada gera **Reparo agendado** em vermelho no calendário/agenda, separado da preventiva. É possível alterar ou retirar o agendamento e informar reparo, encerrando a flag e preservando o histórico. Sem data, não se inventa um evento.
+
+Foram retirados da ficha Gerenciar manutenção e a apresentação da pendência de prazo do contrato. O resumo mantém identificação, quem atende e previsão preventiva. Quem atende é a empresa do vínculo de manutenção mais recente; nome, telefone e e-mail vêm da extração do documento e podem ser conferidos no cadastro. Se o nome não for encontrado, mostrar Empresa terceirizada; não reutilizar os contatos de outra empresa de um contrato anterior. Os documentos continuam acessíveis. Esta escolha de contato não confirma vigência nem comprova execução/liberação técnica.
+
+## Consulta unificada de contratos
+
+Decisão de interface: **Contratos** é a área; contrato principal, termo aditivo, contrato terceirizado e anexo são os tipos. **Arquivo** designa PDF/TXT, não uma segunda área de produto. Os rótulos principais são centralizados para evitar versões concorrentes de copy.
+
+Um único diálogo apresenta **Visão geral**, **Arquivo** e **Equipamentos**. A navegação lateral contém o principal e os arquivos vinculados explicitamente. A entrada pelo aditivo ou terceirizado mantém esse item selecionado e abre seu conteúdo; a troca lateral reutiliza a janela. A entrada por “Ver equipamentos” abre a lista diretamente. O principal agrega as unidades do grupo; cada vínculo mantém sua associação própria.
+
+Adicionar e organizar arquivos usam o mesmo padrão visual, com contrato de origem em destaque. Adicionar oferece envio ou seleção de arquivo existente e classificação do vínculo. A operação organiza os arquivos sem aprovar planos ou alterar datas automaticamente.
+
+## Navegação recolhível e leitura rápida de contratos
+
+A sidebar da Fase 01 destaca cadastro, Calendário, Equipamentos e Contratos. Mantém a mensagem “Do contrato à próxima manutenção.”. O usuário pode ajustar a largura, arrastar até fechar ou usar o botão; o cabeçalho oferece reabertura. Preferências são locais ao navegador. Totais de volume saíram dos links; somente quebras ainda não resolvidas podem produzir o indicador de reparos pendentes, com acesso direto à lista filtrada.
+
+No leitor de contratos, os arquivos vinculados aparecem em árvore recolhível. A Visão geral solicita um resumo salvo somente ao ser aberta. Sem configuração, mostra Lorem identificado; com chave/modelo, gera e salva a síntese para gestão clínica, com pontos curtos e trechos sugeridos de origem. Não há regeneração a cada abertura. A síntese não aplica datas, aprova planos ou decide disponibilidade de equipamento.

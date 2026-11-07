@@ -16,6 +16,42 @@
   --consta-status-critical: #E63946;  /* vermilion */
 
   /* ── Tipografia ── */
-  --consta-font-mark: 'DM Mono', monospace;   /* wordmark e dados */
-  --consta-font-ui:   'Inter', system-ui, sans-serif; /* toda a interface */
+  --consta-font-mark: 'DM Mono', monospace; /* logotipo */
+  --consta-font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --consta-font-code: 'DM Mono', ui-monospace, monospace;
+  --consta-text-xs: 0.75rem;   /* 12 px: metadados e calendário */
+  --consta-text-sm: 0.8125rem; /* 13 px: rótulos e ações compactas */
+  --consta-text-md: 0.875rem;  /* 14 px: corpo, campos e controles */
+  --consta-text-lg: 1rem;     /* 16 px: títulos de seção */
+  --consta-title-sm: 1.25rem; /* 20 px: títulos de diálogo */
+  --consta-title-md: 1.5rem;  /* 24 px: títulos de página */
+  --consta-title-lg: 1.875rem; /* 30 px: indicadores */
+  --consta-weight-regular: 400;
+  --consta-weight-medium: 500;
+  --consta-weight-semibold: 600;
+  --consta-leading-tight: 1.35;
+  --consta-leading-body: 1.6;
+  --consta-leading-relaxed: 1.8;
+
+  /* Papéis de interface: texto legível sobre superfícies claras. */
+  --consta-text-primary: #292524;
+  --consta-text-secondary: #6b655e;
+  --consta-surface: #fff;
+  --consta-surface-subtle: #fafaf9;
+  --consta-border: #e7e5e4;
+  --consta-action: #c2410c;
+  --consta-action-hover: #9a3412;
+  --consta-focus: #c2410c;
+  --consta-radius-sm: 4px;
+  --consta-radius-md: 8px;
+  --consta-radius-lg: 12px;
+  --consta-space-1: 4px;
+  --consta-space-2: 8px;
+  --consta-space-3: 12px;
+  --consta-space-4: 16px;
+  --consta-space-5: 24px;
+  --consta-space-6: 32px;
+  --consta-control-height: 40px;
+  --consta-shadow-popover: 0 8px 28px #0a0a0a18;
+  --consta-shadow-dialog: 0 16px 48px #0a0a0a24;
 }

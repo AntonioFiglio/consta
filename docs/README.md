@@ -11,6 +11,8 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 - [Demonstração e discurso do projeto](produto/demonstracao.md)
 - [Glossário](../GLOSSARY.md)
 
+- [Registro de quebra: pesquisa de mercado e integração](produto/registro-de-quebra-pesquisa-e-fluxo.md)
+
 ## Arquitetura e desenvolvimento
 
 - [Visão geral e escolhas em aberto](arquitetura/visao-geral.md)

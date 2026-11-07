@@ -17,6 +17,10 @@ export type LegacyExtraction = {
   warnings: string[];
 };
 export type EquipmentExtraction = LegacyExtraction & {
+  maintenanceCompany?: Evidence;
+  maintenancePhone?: Evidence;
+  maintenanceEmail?: Evidence;
+  brand?: Evidence;
   patrimony: Evidence;
   serial: Evidence;
   sector: Evidence;
@@ -30,7 +34,11 @@ export type MultiEquipmentExtraction = {
   warnings: string[];
 };
 export type Extraction = LegacyExtraction | MultiEquipmentExtraction;
+export type MaintenanceDocumentKind =
+  "contract" | "amendment" | "outsourced" | "complement";
 export type Contract = {
+  documentKind?: MaintenanceDocumentKind;
+  parentContractId?: string | null;
   id: string;
   name: string;
   mime: string;
@@ -38,10 +46,23 @@ export type Contract = {
   extraction: Extraction | null;
 };
 export type MaintenanceProvider = "contract" | "internal" | "unassigned";
-export type Asset = {
+export type EquipmentBreakdown = {
+  id: string;
+  reportedAt: string;
+  scheduledDate: string | null;
+  resolvedAt: string | null;
+};
+export type MaintenanceContact = {
+  maintenanceCompany?: string;
+  maintenancePhone?: string;
+  maintenanceEmail?: string;
+};
+export type Asset = MaintenanceContact & {
+  breakdowns?: EquipmentBreakdown[];
   maintenanceProvider?: MaintenanceProvider;
   id: string;
   name: string;
+  brand: string;
   model: string;
   patrimony: string;
   serial: string;
@@ -60,8 +81,9 @@ export type Asset = {
   validFrom?: string | null;
   validUntil?: string | null;
   coverages?: MaintenanceCoverage[];
+  maintenanceDocuments?: MaintenanceDocument[];
 };
-export type MaintenanceCoverage = {
+export type MaintenanceCoverage = MaintenanceContact & {
   id: string;
   contractId: string | null;
   contractName?: string | null;
@@ -76,6 +98,7 @@ export type MaintenanceCoverage = {
   createdAt: string;
 };
 export type MaintenanceEvent = {
+  kind?: "preventive" | "corrective";
   id: string;
   assetId: string;
   name: string;
@@ -94,3 +117,32 @@ export type AppConfig = {
 };
 
 export type ContractSummary = Omit<Contract, "extraction">;
+
+export type ContractBriefTopic = "responsible" | "equipment" | "services" | "dates" | "response" | "obligations" | "costs" | "limits";
+export type ContractBrief = {
+  version: 1;
+  source: "simulated" | "ai";
+  generatedAt: string;
+  sourceHash: string;
+  model: string | null;
+  overview: string;
+  points: { topic: ContractBriefTopic; text: string; page: number | null; quote: string }[];
+  warnings: string[];
+};
+
+export type ContractBriefRecord = {
+  state: "pending" | "ready" | "failed";
+  mode: "ai" | "simulated";
+  startedAt: string;
+  token: string | null;
+  brief: ContractBrief | null;
+};
+
+export type MaintenanceDocument = MaintenanceContact & {
+  id: string;
+  contractId: string;
+  name: string;
+  kind: MaintenanceDocumentKind;
+  notes: string;
+  createdAt: string;
+};

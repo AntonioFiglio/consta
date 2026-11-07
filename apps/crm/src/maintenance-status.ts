@@ -4,18 +4,40 @@ import type {
   MaintenanceProvider,
 } from "./types.js";
 
+export type MaintenanceStatusKind =
+  | "unassigned"
+  | "uncovered"
+  | "expired"
+  | "review"
+  | "dates"
+  | "covered"
+  | "internal";
+export const maintenanceStatusLabels: Record<MaintenanceStatusKind, string> = {
+  unassigned: "Responsável não definido",
+  uncovered: "Sem contrato ativo",
+  expired: "Contrato vencido",
+  review: "Dados do contrato a conferir",
+  dates: "Prazo do contrato a confirmar",
+  covered: "Manutenção por contrato",
+  internal: "Manutenção interna",
+};
+
 export type MaintenanceStatus = {
+  kind: MaintenanceStatusKind;
   group: "covered" | "internal" | "attention";
   label: string;
   detail: string;
   contractId?: string;
+  coverageId?: string;
 };
 const pretty = (date: string) =>
   new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR");
 export function maintenanceProviderFor(asset: Asset): MaintenanceProvider {
   return (
     asset.maintenanceProvider ||
-    (asset.contractId || asset.coverages?.some((plan) => plan.contractId)
+    (asset.contractId ||
+    asset.coverages?.some((plan) => plan.contractId) ||
+    asset.maintenanceDocuments?.some((record) => record.kind !== "complement")
       ? "contract"
       : "unassigned")
   );
@@ -29,15 +51,18 @@ export function maintenanceStatus(
   const provider = maintenanceProviderFor(asset);
   if (provider === "internal")
     return {
+      kind: "internal",
       group: "internal",
-      label: "Manutenção interna",
+      label: maintenanceStatusLabels.internal,
       detail: "Oficina de Manutenção",
     };
   if (provider === "unassigned")
     return {
+      kind: "unassigned",
       group: "attention",
-      label: "Manutenção a definir",
-      detail: "Defina contrato ou Oficina de Manutenção",
+      label: maintenanceStatusLabels.unassigned,
+      detail:
+        "Escolha contrato ou aditivo, equipe do hospital ou responsável ainda não definido",
     };
   const plans: MaintenanceCoverage[] = asset.coverages?.length
     ? asset.coverages
@@ -67,29 +92,54 @@ export function maintenanceStatus(
     .find((plan) => plan.reviewed && plan.validFrom && plan.validUntil);
   if (confirmed)
     return {
+      kind: "covered",
       group: "covered",
-      label: "Contrato vigente",
-      detail: `Cobertura até ${pretty(confirmed.validUntil!)}`,
+      label: maintenanceStatusLabels.covered,
+      detail: `Contrato válido até ${pretty(confirmed.validUntil!)}`,
       contractId: confirmed.contractId!,
     };
   const candidate = [...current].reverse().find((plan) => plan.contractId);
+  if (candidate?.reviewed)
+    return {
+      kind: "dates",
+      group: "attention",
+      label: maintenanceStatusLabels.dates,
+      coverageId: candidate.id,
+      detail:
+        !candidate.validFrom && !candidate.validUntil
+          ? "Sem as datas de início e fim, não sabemos se a manutenção está incluída no contrato hoje."
+          : !candidate.validFrom
+            ? "Sem a data de início, não sabemos se a manutenção está incluída no contrato hoje."
+            : "Sem a data de término, não sabemos se a manutenção está incluída no contrato hoje.",
+      contractId: candidate.contractId!,
+    };
   if (candidate)
     return {
+      kind: "review",
       group: "attention",
-      label: "Conferir cobertura",
-      detail:
-        !candidate.validFrom || !candidate.validUntil
-          ? "Complete as datas do contrato"
-          : "Confira os dados do contrato",
+      label: maintenanceStatusLabels.review,
+      detail: "Confira os dados do contrato ou aditivo",
       contractId: candidate.contractId!,
+    };
+  const pendingDocument = asset.maintenanceDocuments?.find(
+    (record) => record.kind !== "complement",
+  );
+  if (pendingDocument)
+    return {
+      kind: "review",
+      group: "attention",
+      label: maintenanceStatusLabels.review,
+      detail: "Arquivo recebido; confira as condições de manutenção",
+      contractId: pendingDocument.contractId,
     };
   const future = plans.find(
     (plan) => plan.contractId && plan.validFrom && plan.validFrom > today,
   );
   if (future)
     return {
+      kind: "uncovered",
       group: "attention",
-      label: "Sem cobertura vigente",
+      label: maintenanceStatusLabels.uncovered,
       detail: `Contrato começa em ${pretty(future.validFrom!)}`,
       contractId: future.contractId!,
     };
@@ -100,14 +150,16 @@ export function maintenanceStatus(
     );
   if (expired)
     return {
+      kind: "expired",
       group: "attention",
-      label: "Contrato vencido",
-      detail: `Cobertura encerrada em ${pretty(expired.validUntil!)}`,
+      label: maintenanceStatusLabels.expired,
+      detail: `Contrato encerrado em ${pretty(expired.validUntil!)}`,
       contractId: expired.contractId!,
     };
   return {
+    kind: "uncovered",
     group: "attention",
-    label: "Sem contrato de manutenção",
-    detail: "Vincule um contrato ou defina manutenção interna",
+    label: maintenanceStatusLabels.uncovered,
+    detail: "Vincule um contrato ou aditivo, ou escolha a equipe do hospital",
   };
 }

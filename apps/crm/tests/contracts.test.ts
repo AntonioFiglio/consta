@@ -237,6 +237,7 @@ test("migração aditiva preserva dados legados e calendário sem limpar o banco
   const legacy: Asset = {
     id: randomUUID(),
     name: "Legado sintético",
+    brand: "",
     model: "",
     patrimony: "LEGACY-1",
     serial: "",

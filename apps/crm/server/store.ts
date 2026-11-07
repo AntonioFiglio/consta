@@ -2,12 +2,21 @@ import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { createHash, randomUUID } from "node:crypto";
-import { coverageFromAsset } from "./domain.js";
+import {
+  coverageFromAsset,
+  DomainError,
+  maintenanceDocumentInput,
+} from "./domain.js";
+import { contactFromExtraction } from "../src/maintenance-contact.js";
 import type {
   Asset,
   Contract,
+  ContractBrief,
+  ContractBriefRecord,
   Extraction,
   MaintenanceCoverage,
+  MaintenanceDocument,
+  MaintenanceDocumentKind,
 } from "../src/types.js";
 
 export function createStore(filename: string, seed = false) {
@@ -38,7 +47,41 @@ export function createStore(filename: string, seed = false) {
         JSON.stringify(coverage),
       );
     }
-    db.exec("PRAGMA user_version=2; COMMIT");
+    db.exec(`CREATE TABLE IF NOT EXISTS asset_documents (
+      id TEXT PRIMARY KEY,
+      asset_id TEXT NOT NULL REFERENCES assets(id),
+      contract_id TEXT NOT NULL REFERENCES contracts(id),
+      kind TEXT NOT NULL CHECK(kind IN ('contract','amendment','complement')),
+      notes TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      UNIQUE(asset_id,contract_id)
+    );`);
+    const documentSchema = db
+      .prepare("SELECT sql FROM sqlite_master WHERE name='asset_documents'")
+      .get() as { sql: string };
+    if (!documentSchema.sql.includes("'outsourced'")) {
+      db.exec(`CREATE TABLE asset_documents_v4 (
+        id TEXT PRIMARY KEY,
+        asset_id TEXT NOT NULL REFERENCES assets(id),
+        contract_id TEXT NOT NULL REFERENCES contracts(id),
+        kind TEXT NOT NULL CHECK(kind IN ('contract','amendment','outsourced','complement')),
+        notes TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        UNIQUE(asset_id,contract_id)
+      );
+      INSERT INTO asset_documents_v4 (rowid,id,asset_id,contract_id,kind,notes,created_at)
+        SELECT rowid,id,asset_id,contract_id,kind,notes,created_at FROM asset_documents;
+      DROP TABLE asset_documents;
+      ALTER TABLE asset_documents_v4 RENAME TO asset_documents;`);
+    }
+    db.exec(`CREATE TABLE IF NOT EXISTS contract_briefs (
+      contract_id TEXT PRIMARY KEY REFERENCES contracts(id),
+      state TEXT NOT NULL CHECK(state IN ('pending','ready','failed')),
+      mode TEXT NOT NULL CHECK(mode IN ('ai','simulated')),
+      started_at TEXT NOT NULL,
+      token TEXT,
+      payload TEXT
+    ); PRAGMA user_version=5; COMMIT`);
   } catch (error) {
     db.exec("ROLLBACK");
     throw error;
@@ -52,7 +95,27 @@ export function createStore(filename: string, seed = false) {
     ).map((row) => {
       const asset: Asset = JSON.parse(row.payload);
       return {
+        ...contactFromExtraction(
+          asset.contractId ? getContract(asset.contractId)?.extraction : null,
+          asset,
+        ),
         ...asset,
+        brand: asset.brand || "",
+        maintenanceDocuments: (
+          db
+            .prepare(
+              "SELECT id,contract_id AS contractId,kind,notes,created_at AS createdAt FROM asset_documents WHERE asset_id=? ORDER BY created_at DESC,rowid DESC",
+            )
+            .all(asset.id) as Omit<MaintenanceDocument, "name">[]
+        ).map((record) => ({
+          ...record,
+          ...contactFromExtraction(
+            getContract(record.contractId)?.extraction,
+            asset,
+          ),
+          name:
+            getContract(record.contractId)?.name || "Arquivo de manutenção",
+        })),
         coverages: (
           db
             .prepare(
@@ -62,6 +125,10 @@ export function createStore(filename: string, seed = false) {
         ).map((row) => {
           const plan: MaintenanceCoverage = JSON.parse(row.payload);
           return {
+            ...contactFromExtraction(
+              plan.contractId ? getContract(plan.contractId)?.extraction : null,
+              asset,
+            ),
             ...plan,
             contractName: plan.contractId
               ? getContract(plan.contractId)?.name
@@ -79,11 +146,80 @@ export function createStore(filename: string, seed = false) {
       .get(id) as { metadata: string } | undefined;
     return row ? JSON.parse(row.metadata) : null;
   }
+  function setContractParent(
+    id: string,
+    parentContractId: string | null,
+    documentKind?: "amendment" | "outsourced" | "complement",
+  ): Contract {
+    const contract = getContract(id);
+    if (!contract) throw new DomainError("Arquivo não encontrado.");
+    if (documentKind === "amendment" && !parentContractId)
+      throw new DomainError("Escolha o contrato principal deste aditivo.");
+    if (
+      documentKind &&
+      (
+        db.prepare("SELECT metadata FROM contracts").all() as {
+          metadata: string;
+        }[]
+      ).some(
+        (row) => (JSON.parse(row.metadata) as Contract).parentContractId === id,
+      )
+    )
+      throw new DomainError(
+        "Este contrato já possui aditivos. Reorganize os aditivos antes de alterar o tipo.",
+      );
+    if (parentContractId) {
+      if (id === parentContractId)
+        throw new DomainError("Um contrato não pode ser aditivo de si mesmo.");
+      const parent = getContract(parentContractId);
+      if (!parent) throw new DomainError("Contrato principal não encontrado.");
+      if (
+        parent.parentContractId ||
+        parent.documentKind === "complement" ||
+        parent.documentKind === "outsourced"
+      )
+        throw new DomainError(
+          "Escolha um contrato principal, não outro aditivo.",
+        );
+      const hasChildren = (
+        db.prepare("SELECT metadata FROM contracts").all() as {
+          metadata: string;
+        }[]
+      ).some(
+        (row) => (JSON.parse(row.metadata) as Contract).parentContractId === id,
+      );
+      if (hasChildren)
+        throw new DomainError(
+          "Este contrato já possui aditivos. Reorganize os aditivos antes de vinculá-lo a outro contrato.",
+        );
+    }
+    const updated = {
+      ...contract,
+      parentContractId,
+      documentKind:
+        documentKind ??
+        (contract.documentKind === "complement" ||
+        contract.documentKind === "outsourced"
+          ? contract.documentKind
+          : parentContractId
+            ? ("amendment" as const)
+            : ("contract" as const)),
+    };
+    db.prepare("UPDATE contracts SET metadata=? WHERE id=?").run(
+      JSON.stringify(updated),
+      id,
+    );
+    return updated;
+  }
   function saveAssets(assets: Asset[]) {
     db.exec("BEGIN IMMEDIATE");
     try {
       for (const asset of assets) {
-        const { coverages, ...payload } = asset;
+        const {
+          coverages,
+          maintenanceDocuments: _documents,
+          ...payload
+        } = asset;
         const plans = coverages?.length
           ? coverages
           : [coverageFromAsset(asset)];
@@ -138,6 +274,129 @@ export function createStore(filename: string, seed = false) {
     ).run(contract.id, hash, JSON.stringify(contract), bytes);
     return contract;
   }
+  function attachMaintenanceDocument(
+    assetId: string,
+    file: { name: string; mime: string; bytes: Buffer },
+    input: { kind: MaintenanceDocumentKind; notes?: string },
+    extraction?: Extraction,
+  ): Asset {
+    const data = maintenanceDocumentInput.parse(input);
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      const asset = listAssets().find((item) => item.id === assetId);
+      if (!asset) throw new DomainError("Equipamento não encontrado.");
+      const documents = asset.maintenanceDocuments || [];
+      const baseId =
+        asset.contractId ||
+        [...(asset.coverages || [])].reverse().find((plan) => plan.contractId)
+          ?.contractId;
+      const base = baseId ? getContract(baseId) : null;
+      const principalId = base?.parentContractId || base?.id || null;
+      if (!principalId)
+        throw new DomainError(
+          "O equipamento precisa ter um contrato de origem antes de receber um arquivo de manutenção.",
+        );
+      const fileContract = upload(file.name, file.mime, file.bytes);
+      const duplicate = documents.find(
+        (record) => record.contractId === fileContract.id,
+      );
+      if (!duplicate) {
+        const parentId = principalId;
+        if (parentId === fileContract.id)
+          throw new DomainError(
+            "Este arquivo já é o contrato principal. Escolha o termo aditivo ou o contrato terceirizado.",
+          );
+        if (
+          fileContract.parentContractId &&
+          fileContract.parentContractId !== parentId
+        )
+          throw new DomainError(
+            "Este arquivo pertence a outro contrato. Organize o vínculo antes de adicioná-lo ao equipamento.",
+          );
+        if (
+          fileContract.documentKind &&
+          fileContract.documentKind !== data.kind
+        )
+          throw new DomainError(
+            "Este arquivo já foi salvo com outro tipo de arquivo. Selecione o arquivo correspondente.",
+          );
+        if (
+          !fileContract.parentContractId &&
+          listAssets().some(
+            (item) =>
+              item.contractId === fileContract.id ||
+              item.coverages?.some(
+                (plan) => plan.contractId === fileContract.id,
+              ),
+          )
+        )
+          throw new DomainError(
+            "Este arquivo já é um contrato principal. Envie o termo aditivo ou o contrato terceirizado.",
+          );
+        if (parentId) setContractParent(fileContract.id, parentId);
+        const organized = {
+          ...getContract(fileContract.id)!,
+          documentKind: data.kind,
+        };
+        db.prepare("UPDATE contracts SET metadata=? WHERE id=?").run(
+          JSON.stringify(organized),
+          fileContract.id,
+        );
+        db.prepare(
+          "INSERT INTO asset_documents (id,asset_id,contract_id,kind,notes,created_at) VALUES (?,?,?,?,?,?)",
+        ).run(
+          randomUUID(),
+          asset.id,
+          fileContract.id,
+          data.kind,
+          data.notes,
+          new Date().toISOString(),
+        );
+      }
+      if (extraction && !fileContract.extraction)
+        saveExtraction(fileContract.id, extraction);
+      const {
+        coverages: _coverages,
+        maintenanceDocuments: _documents,
+        ...payload
+      } = asset;
+      db.prepare("UPDATE assets SET payload=? WHERE id=?").run(
+        JSON.stringify({
+          ...payload,
+          maintenanceProvider: "contract",
+          updatedAt: new Date().toISOString(),
+        }),
+        asset.id,
+      );
+      const updated = listAssets().find((item) => item.id === assetId)!;
+      db.exec("COMMIT");
+      return updated;
+    } catch (error) {
+      db.exec("ROLLBACK");
+      throw error;
+    }
+  }
+  function getContractBrief(id: string): ContractBriefRecord | null {
+    const row = db.prepare("SELECT state,mode,started_at AS startedAt,token,payload FROM contract_briefs WHERE contract_id=?").get(id) as (Omit<ContractBriefRecord, "brief"> & { payload: string | null }) | undefined;
+    if (!row) return null;
+    const { payload, ...record } = row;
+    return { ...record, brief: payload ? JSON.parse(payload) as ContractBrief : null };
+  }
+  function saveSimulatedBrief(id: string, brief: ContractBrief) {
+    db.prepare("INSERT OR IGNORE INTO contract_briefs (contract_id,state,mode,started_at,payload) VALUES (?,'ready','simulated',?,?)")
+      .run(id, brief.generatedAt, JSON.stringify(brief));
+  }
+  function claimContractBrief(id: string, token: string, retry: boolean, now: number) {
+    return db.prepare(`INSERT INTO contract_briefs (contract_id,state,mode,started_at,token) VALUES (?,'pending','ai',?,?)
+      ON CONFLICT(contract_id) DO UPDATE SET state='pending',mode='ai',started_at=excluded.started_at,token=excluded.token,payload=NULL
+      WHERE (contract_briefs.state='ready' AND contract_briefs.mode='simulated')
+      OR (?=1 AND (contract_briefs.state='failed' OR (contract_briefs.state='pending' AND contract_briefs.started_at<?)))`)
+      .run(id, new Date(now).toISOString(), token, retry ? 1 : 0, new Date(now - 120000).toISOString()).changes === 1;
+  }
+  function finishContractBrief(id: string, token: string, brief: ContractBrief | null) {
+    return db.prepare("UPDATE contract_briefs SET state=?,payload=?,token=NULL WHERE contract_id=? AND token=? AND state='pending'")
+      .run(brief ? "ready" : "failed", brief ? JSON.stringify(brief) : null, id, token).changes === 1;
+  }
   function saveExtraction(id: string, extraction: Extraction) {
     const contract = getContract(id);
     if (!contract) throw new Error("NOT_FOUND");
@@ -183,8 +442,9 @@ export function createStore(filename: string, seed = false) {
         12,
       ],
     ] as const) {
+      const brand = "Marca demonstrativa";
       const content = Buffer.from(
-        `CONTRATO SINTÉTICO — SOMENTE DEMONSTRAÇÃO\nEquipamento: ${name}.\nModelo: ${model}.\nManutenção preventiva a cada ${periodValue} meses desde a instalação.\nData de instalação fictícia: ${anchor(day)}.\nNenhum dado representa um hospital real.`,
+        `CONTRATO SINTÉTICO — SOMENTE DEMONSTRAÇÃO\nEquipamento: ${name}.\nMarca: ${brand}.\nModelo: ${model}.\nManutenção preventiva a cada ${periodValue} meses desde a instalação.\nData de instalação fictícia: ${anchor(day)}.\nNenhum dado representa um hospital real.`,
       );
       const contract = upload(
         `contrato-sintetico-${patrimony.toLowerCase()}.txt`,
@@ -194,6 +454,7 @@ export function createStore(filename: string, seed = false) {
       saveAsset({
         id: randomUUID(),
         name,
+        brand,
         model,
         patrimony,
         serial: "",
@@ -214,6 +475,8 @@ export function createStore(filename: string, seed = false) {
   return {
     listAssets,
     getContract,
+    setContractParent,
+    attachMaintenanceDocument,
     listContracts: () =>
       (
         db
@@ -229,6 +492,10 @@ export function createStore(filename: string, seed = false) {
     saveAssets,
     upload,
     saveExtraction,
+    getContractBrief,
+    saveSimulatedBrief,
+    claimContractBrief,
+    finishContractBrief,
     getBytes,
     close: () => db.close(),
   };

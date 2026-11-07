@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
+import { repairEventFor, sortMaintenanceEvents } from "../src/breakdowns.js";
 import { occurrence } from "../src/schedule.js";
 export { occurrence } from "../src/schedule.js";
 import type {
@@ -23,6 +24,18 @@ export function validDate(value: string): boolean {
 export const assetInput = z
   .object({
     name: z.string().trim().min(1).max(160),
+    brand: z.string().trim().max(160).optional(),
+    maintenanceCompany: z.string().trim().max(200).optional(),
+    maintenancePhone: z.string().trim().max(100).optional(),
+    maintenanceEmail: z
+      .string()
+      .trim()
+      .max(254)
+      .refine(
+        (value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+        "E-mail da manutenção inválido",
+      )
+      .optional(),
     model: z.string().trim().max(160).default(""),
     patrimony: z.string().trim().min(1).max(80),
     serial: z.string().trim().max(100).default(""),
@@ -44,13 +57,13 @@ export const assetInput = z
       .default(null),
     validFrom: z
       .string()
-      .refine(validDate, "Início de vigência inválido")
+      .refine(validDate, "Data de início do contrato inválida")
       .nullable()
       .optional()
       .default(null),
     validUntil: z
       .string()
-      .refine(validDate, "Fim de vigência inválido")
+      .refine(validDate, "Data de fim do contrato inválida")
       .nullable()
       .optional()
       .default(null),
@@ -60,7 +73,7 @@ export const assetInput = z
     if (data.validFrom && data.validUntil && data.validFrom > data.validUntil)
       ctx.addIssue({
         code: "custom",
-        message: "O fim da cobertura deve ser igual ou posterior ao início.",
+        message: "O fim do contrato deve ser igual ou posterior ao início.",
       });
     if (
       data.firstDueDate &&
@@ -70,7 +83,7 @@ export const assetInput = z
       ctx.addIssue({
         code: "custom",
         message:
-          "A primeira manutenção deve estar dentro da vigência do contrato.",
+          "A primeira manutenção deve estar entre o início e o fim do contrato.",
       });
     if (
       data.firstDueDate &&
@@ -79,7 +92,7 @@ export const assetInput = z
     )
       ctx.addIssue({
         code: "custom",
-        message: "A primeira manutenção é posterior ao fim da cobertura.",
+        message: "A primeira manutenção é posterior ao fim do contrato.",
       });
     if (
       data.reviewed &&
@@ -96,11 +109,20 @@ export const assetInput = z
   });
 
 export class DomainError extends Error {}
+export const maintenanceDocumentInput = z
+  .object({
+    kind: z.enum(["amendment", "outsourced"]),
+    notes: z.string().trim().max(4000).default(""),
+  })
+  .strict();
 
 export function coverageFromAsset(asset: Asset): MaintenanceCoverage {
   return {
     id: `legacy:${asset.id}`,
     contractId: asset.contractId,
+    maintenanceCompany: asset.maintenanceCompany,
+    maintenancePhone: asset.maintenancePhone,
+    maintenanceEmail: asset.maintenanceEmail,
     periodValue: asset.periodValue,
     periodUnit: asset.periodUnit,
     anchorDate: asset.anchorDate,
@@ -110,6 +132,53 @@ export function coverageFromAsset(asset: Asset): MaintenanceCoverage {
     validUntil: asset.validUntil || null,
     reviewed: asset.reviewed,
     createdAt: asset.updatedAt,
+  };
+}
+
+export const coverageDatesInput = z
+  .object({
+    validFrom: z
+      .string()
+      .refine(validDate, "Data de início do contrato inválida"),
+    validUntil: z
+      .string()
+      .refine(validDate, "Data de fim do contrato inválida"),
+  })
+  .strict();
+
+export function updateCoverageDates(
+  asset: Asset,
+  coverageId: string,
+  input: z.infer<typeof coverageDatesInput>,
+): Asset {
+  const dates = coverageDatesInput.parse(input);
+  const plans = asset.coverages?.length
+    ? asset.coverages
+    : [coverageFromAsset(asset)];
+  const index = plans.findIndex((plan) => plan.id === coverageId);
+  if (index < 0)
+    throw new DomainError("Cobertura não encontrada neste equipamento.");
+  const plan = plans[index];
+  assetInput.parse({ ...asset, ...plan, ...dates });
+  if (
+    plans[index - 1]?.validFrom &&
+    dates.validFrom <= plans[index - 1].validFrom!
+  )
+    throw new DomainError(
+      "O contrato deve começar depois do início do contrato anterior.",
+    );
+  if (
+    plans[index + 1]?.validFrom &&
+    dates.validFrom >= plans[index + 1].validFrom!
+  )
+    throw new DomainError("O contrato deve começar antes do próximo contrato.");
+  return {
+    ...asset,
+    ...(index === plans.length - 1 ? dates : {}),
+    coverages: plans.map((current, position) =>
+      position === index ? { ...current, ...dates } : current,
+    ),
+    updatedAt: new Date().toISOString(),
   };
 }
 
@@ -133,12 +202,10 @@ export function prepareAsset(
       input.contractId === existing.contractId
     )
       throw new DomainError(
-        "Selecione um contrato diferente para renovar a cobertura.",
+        "Selecione um contrato ou aditivo diferente para renovar a manutenção.",
       );
     if (!input.validFrom)
-      throw new DomainError(
-        "Informe quando começa a cobertura do novo contrato.",
-      );
+      throw new DomainError("Informe quando começa o novo contrato.");
     if (plans.some((plan) => plan.contractId === input.contractId))
       throw new DomainError(
         "Este contrato já faz parte do histórico do equipamento.",
@@ -159,6 +226,18 @@ export function prepareAsset(
   const coverage: MaintenanceCoverage = {
     id: renewal || !plans.length ? randomUUID() : plans[plans.length - 1].id,
     contractId: input.contractId,
+    maintenanceCompany:
+      input.maintenanceCompany ??
+      (renewal ? "" : existing?.maintenanceCompany) ??
+      "",
+    maintenancePhone:
+      input.maintenancePhone ??
+      (renewal ? "" : existing?.maintenancePhone) ??
+      "",
+    maintenanceEmail:
+      input.maintenanceEmail ??
+      (renewal ? "" : existing?.maintenanceEmail) ??
+      "",
     periodValue: input.periodValue,
     periodUnit: input.periodUnit,
     anchorDate: input.anchorDate,
@@ -174,6 +253,11 @@ export function prepareAsset(
   else plans[plans.length - 1] = coverage;
   return {
     ...input,
+    brand: input.brand ?? existing?.brand ?? "",
+    maintenanceCompany: coverage.maintenanceCompany,
+    maintenancePhone: coverage.maintenancePhone,
+    maintenanceEmail: coverage.maintenanceEmail,
+    breakdowns: existing?.breakdowns || [],
     maintenanceProvider:
       input.maintenanceProvider ??
       existing?.maintenanceProvider ??
@@ -193,6 +277,8 @@ export function eventsFor(
 ): MaintenanceEvent[] {
   const events: MaintenanceEvent[] = [];
   for (const asset of assets) {
+    const repair = repairEventFor(asset, from, to);
+    if (repair) events.push(repair);
     const plans = asset.coverages?.length
       ? asset.coverages
       : [coverageFromAsset(asset)];
@@ -243,7 +329,5 @@ export function eventsFor(
       }
     }
   }
-  return events.sort(
-    (a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name),
-  );
+  return sortMaintenanceEvents(events);
 }

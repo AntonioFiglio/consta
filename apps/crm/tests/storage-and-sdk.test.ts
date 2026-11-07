@@ -20,7 +20,8 @@ test("contrato, evidência e ativo persistem no SQLite após reabrir; hash dedup
     const asset: Asset = {
       id: "asset-sintetico",
       name: "Ativo sintético",
-      model: "",
+      brand: "Marca sintética",
+      model: "Modelo sintético",
       patrimony: "TEST-1",
       serial: "",
       sector: "",
@@ -56,6 +57,8 @@ test("contrato, evidência e ativo persistem no SQLite após reabrir; hash dedup
     assert.equal(store.listContracts().length, 2);
     assert.equal(store.listAssets()[0].contractName, "teste.txt");
     assert.equal(store.listAssets()[0].reviewed, false);
+    assert.equal(store.listAssets()[0].brand, "Marca sintética");
+    assert.equal(store.listAssets()[0].model, "Modelo sintético");
     assert.throws(
       () => store.saveAsset({ ...asset, id: "another" }),
       /UNIQUE constraint/,
@@ -79,11 +82,35 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
     quote: null,
   };
   const equipment = {
+    maintenanceCompany: {
+      ...missing,
+      status: "found",
+      value: "Empresa sintética de manutenção",
+      quote: "Empresa sintética de manutenção",
+    },
+    maintenancePhone: {
+      ...missing,
+      status: "found",
+      value: "(11) 5555-0100",
+      quote: "(11) 5555-0100",
+    },
+    maintenanceEmail: {
+      ...missing,
+      status: "found",
+      value: "manutencao@example.test",
+      quote: "manutencao@example.test",
+    },
     equipment: {
       value: "Bomba sintética",
       status: "found",
       page: 1,
       quote: "Bomba sintética",
+    },
+    brand: {
+      value: "Marca sintética A",
+      status: "found" as const,
+      page: 1,
+      quote: "Marca sintética A",
     },
     model: missing,
     periodValue: {
@@ -126,6 +153,12 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
       quote: "Monitor sintético",
     },
     patrimony: { value: "SINT-02", status: "found", page: 3, quote: "SINT-02" },
+    brand: {
+      value: "Marca sintética B",
+      status: "found",
+      page: 3,
+      quote: "Marca sintética B",
+    },
   });
   process.env.OPENAI_API_KEY = "test-not-a-real-key";
   process.env.OPENAI_BASE_URL = "https://provider.invalid/v1";
@@ -178,7 +211,22 @@ test("SDK constrói Responses API configurável com arquivo e schema; preserva a
     );
     assert.deepEqual(result, extraction);
     assert.equal(result.equipments.length, 2);
+    assert.equal(
+      result.equipments[0].maintenanceCompany?.value,
+      "Empresa sintética de manutenção",
+    );
+    assert.equal(
+      result.equipments[0].maintenancePhone?.value,
+      "(11) 5555-0100",
+    );
+    assert.equal(
+      result.equipments[0].maintenanceEmail?.value,
+      "manutencao@example.test",
+    );
     assert.equal(result.equipments[1].patrimony.value, "SINT-02");
+    assert.equal(result.equipments[0].brand?.value, "Marca sintética A");
+    assert.equal(result.equipments[1].brand?.value, "Marca sintética B");
+    assert.match(body.instructions, /Não deduza a marca pelo nome do modelo/);
     assert.equal(body.model, "test-model");
     assert.equal(body.store, false);
     assert.equal(body.text.format.type, "json_schema");

@@ -1,5 +1,14 @@
+import { ManagedDialog } from "./DialogManager";
 import { useEffect, useRef, useState } from "react";
-import { LoaderCircle, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  FileText,
+  Building2,
+  FilePenLine,
+  LoaderCircle,
+  UploadCloud,
+} from "lucide-react";
 import type { Asset, MaintenanceProvider } from "./types";
 import { maintenanceProviderFor } from "./maintenance-status";
 import { api } from "./api";
@@ -12,100 +21,212 @@ export function MaintenanceAssignment({
   asset: Asset;
   onClose: () => void;
   onSaved: (asset: Asset) => void;
+  onOpenDocument?: (id: string) => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
+  const title = useRef<HTMLHeadingElement>(null);
   const [provider, setProvider] = useState<MaintenanceProvider>(() =>
     maintenanceProviderFor(asset),
   );
+  const [step, setStep] = useState<1 | 2>(1);
+  const [kind, setKind] = useState<"amendment" | "outsourced">("amendment");
+  const [file, setFile] = useState<File | null>(null);
+  const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
-    dialog.current?.showModal();
-  }, []);
-  async function save(event: React.FormEvent) {
+    title.current?.focus({ preventScroll: true });
+  }, [step]);
+  function selectFile(selected?: File) {
+    if (!selected) return;
+    if (
+      !selected.size ||
+      selected.size > 15 * 1024 * 1024 ||
+      !/\.(pdf|txt)$/i.test(selected.name)
+    ) {
+      setError("Escolha um PDF ou TXT não vazio, com até 15 MB.");
+      return;
+    }
+    setFile(selected);
+    setError("");
+  }
+  async function submit(event: React.FormEvent) {
     event.preventDefault();
     if (busy) return;
+    if (step === 1 && provider === "contract") {
+      setError("");
+      setStep(2);
+      return;
+    }
     setBusy(true);
     setError("");
     try {
-      onSaved(
-        await api<Asset>(`/assets/${asset.id}/maintenance-responsibility`, {
-          method: "PATCH",
-          body: JSON.stringify({ maintenanceProvider: provider }),
-        }),
-      );
+      if (step === 2) {
+        if (!file) throw new Error("Selecione o arquivo de manutenção.");
+        const body = new FormData();
+        body.append("file", file);
+        body.append("kind", kind);
+        onSaved(
+          await api<Asset>(`/assets/${asset.id}/maintenance-documents`, {
+            method: "POST",
+            body,
+          }),
+        );
+      } else
+        onSaved(
+          await api<Asset>(`/assets/${asset.id}/maintenance-responsibility`, {
+            method: "PATCH",
+            body: JSON.stringify({ maintenanceProvider: provider }),
+          }),
+        );
     } catch (error) {
       setError((error as Error).message);
       setBusy(false);
     }
   }
   return (
-    <dialog
+    <ManagedDialog
+      closeDisabled={busy}
+      onRequestClose={onClose}
       ref={dialog}
       className="maintenance-assignment-dialog"
       aria-labelledby="assignment-title"
-      onCancel={(event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (!busy) onClose();
-      }}
     >
       <header className="document-header">
         <div>
-          <h2 id="assignment-title">Quem cuida da manutenção?</h2>
+          <h2 id="assignment-title" ref={title} tabIndex={-1}>
+            {step === 1
+              ? "Quem cuida da manutenção?"
+              : "Arquivo da manutenção"}
+          </h2>
           <p>
             {asset.name} · Tombamento {asset.patrimony}
           </p>
         </div>
-        <button
-          type="button"
-          className="icon-button"
-          disabled={busy}
-          onClick={onClose}
-          aria-label="Fechar definição de manutenção"
-        >
-          <X size={18} />
-        </button>
       </header>
-      <form onSubmit={save}>
-        <fieldset disabled={busy} className="maintenance-options">
-          <legend className="visually-hidden">
-            Responsável pela manutenção
-          </legend>
-          {(
-            [
+      <form onSubmit={submit}>
+        {step === 1 ? (
+          <fieldset disabled={busy} className="maintenance-options">
+            <legend className="visually-hidden">
+              Responsável pela manutenção
+            </legend>
+            {(
               [
-                "contract",
-                "Por contrato",
-                "A cobertura depende da vigência e da conferência do contrato.",
-              ],
-              [
-                "internal",
-                "Oficina de Manutenção",
-                "Manutenção realizada pela equipe interna do hospital.",
-              ],
-              [
-                "unassigned",
-                "Ainda não definido",
-                "O equipamento ficará na lista de atenção.",
-              ],
-            ] as const
-          ).map(([value, label, hint]) => (
-            <label key={value}>
-              <input
-                type="radio"
-                name="maintenance-provider"
-                value={value}
-                checked={provider === value}
-                onChange={() => setProvider(value)}
-              />
-              <span>
-                <strong>{label}</strong>
-                <small>{hint}</small>
+                [
+                  "contract",
+                  "Empresa externa",
+                  "Por termo aditivo ou contrato terceirizado.",
+                ],
+                [
+                  "internal",
+                  "Oficina do hospital",
+                  "A equipe interna cuida da manutenção.",
+                ],
+                [
+                  "unassigned",
+                  "Ainda não definido",
+                  "O equipamento continuará com uma pendência.",
+                ],
+              ] as const
+            ).map(([value, label, hint]) => (
+              <label
+                key={value}
+                className={provider === value ? "selected" : undefined}
+              >
+                <input
+                  type="radio"
+                  name="maintenance-provider"
+                  value={value}
+                  checked={provider === value}
+                  onChange={() => setProvider(value)}
+                />
+                <span>
+                  <strong>{label}</strong>
+                  <small>{hint}</small>
+                </span>
+              </label>
+            ))}
+          </fieldset>
+        ) : (
+          <fieldset disabled={busy} className="maintenance-document-fields">
+            <legend className="visually-hidden">
+              Arquivo para o histórico do equipamento
+            </legend>
+            <div className="maintenance-document-choice">
+              <span
+                id="maintenance-document-type-label"
+                className="maintenance-field-label"
+              >
+                Tipo de arquivo
               </span>
-            </label>
-          ))}
-        </fieldset>
+              <div
+                className="document-switch maintenance-document-switch"
+                role="group"
+                aria-labelledby="maintenance-document-type-label"
+              >
+                <button
+                  type="button"
+                  aria-pressed={kind === "amendment"}
+                  onClick={() => setKind("amendment")}
+                >
+                  <FilePenLine size={15} aria-hidden="true" />
+                  Termo aditivo
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={kind === "outsourced"}
+                  onClick={() => setKind("outsourced")}
+                >
+                  <Building2 size={15} aria-hidden="true" />
+                  Contrato terceirizado
+                </button>
+              </div>
+              <p className="maintenance-document-hint">
+                {kind === "amendment"
+                  ? "Altera as condições do contrato principal."
+                  : "Contrato com outra empresa para cuidar da manutenção."}
+              </p>
+            </div>
+            <input
+              ref={fileInput}
+              type="file"
+              className="visually-hidden"
+              accept=".pdf,.txt,application/pdf,text/plain"
+              onChange={(event) => selectFile(event.target.files?.[0])}
+            />
+            <button
+              type="button"
+              className={`dropzone maintenance-document-upload ${dragging ? "dragging" : ""}`}
+              onClick={() => fileInput.current?.click()}
+              onDragOver={(event) => {
+                event.preventDefault();
+                setDragging(true);
+              }}
+              onDragLeave={() => setDragging(false)}
+              onDrop={(event) => {
+                event.preventDefault();
+                setDragging(false);
+                selectFile(event.dataTransfer.files[0]);
+              }}
+            >
+              <span className="upload-icon" aria-hidden="true">
+                {file ? <FileText size={23} /> : <UploadCloud size={23} />}
+              </span>
+              <strong>{file?.name || "Arraste o arquivo aqui"}</strong>
+              <span>
+                {file ? "Clique para trocar" : "ou clique para selecionar"}
+              </span>
+              <small>
+                {file
+                  ? file.size < 1024 * 1024
+                    ? `${Math.max(1, Math.round(file.size / 1024))} KB`
+                    : `${(file.size / (1024 * 1024)).toFixed(1)} MB`
+                  : "PDF ou TXT · até 15 MB"}
+              </small>
+            </button>
+          </fieldset>
+        )}
         {error && (
           <p role="alert" className="error-message">
             {error}
@@ -116,16 +237,35 @@ export function MaintenanceAssignment({
             type="button"
             className="button secondary"
             disabled={busy}
-            onClick={onClose}
+            onClick={() => {
+              if (step === 2) {
+                setStep(1);
+                setError("");
+              } else onClose();
+            }}
           >
-            Cancelar
+            {step === 2 && <ArrowLeft size={14} />}
+            {step === 2 ? "Voltar" : "Cancelar"}
           </button>
-          <button className="button primary" disabled={busy}>
-            {busy && <LoaderCircle size={14} className="spin" />}
-            {busy ? "Salvando…" : "Salvar"}
+          <button
+            className="button primary"
+            disabled={busy || (step === 2 && !file)}
+          >
+            {busy ? (
+              <LoaderCircle size={14} className="spin" />
+            ) : step === 1 && provider === "contract" ? (
+              <ArrowRight size={14} />
+            ) : null}
+            {busy
+              ? "Salvando…"
+              : step === 2
+                ? "Salvar no histórico"
+                : provider === "contract"
+                  ? "Continuar"
+                  : "Salvar"}
           </button>
         </footer>
       </form>
-    </dialog>
+    </ManagedDialog>
   );
 }

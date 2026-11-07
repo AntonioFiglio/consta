@@ -1,3 +1,5 @@
+import type { OnBreakdown } from "./breakdowns";
+import { ManagedDialog } from "./DialogManager";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
@@ -14,11 +16,13 @@ import {
 import type {
   Asset,
   Contract,
+  ContractSummary,
   EquipmentExtraction,
   Extraction,
   PeriodUnit,
 } from "./types";
 import { ContractViewer } from "./ContractViewer";
+import { brandAndModel } from "./equipment-identity";
 import { api } from "./api";
 import {
   draftFromAsset,
@@ -39,6 +43,10 @@ const labels: Record<Exclude<keyof EquipmentExtraction, "warnings">, string> = {
   patrimony: "Número de tombamento",
   serial: "Número de série",
   sector: "Setor",
+  brand: "Marca",
+  maintenanceCompany: "Empresa de manutenção",
+  maintenancePhone: "Telefone da manutenção",
+  maintenanceEmail: "E-mail da manutenção",
   model: "Modelo",
   notes: "Observações",
   quantity: "Quantidade",
@@ -47,21 +55,25 @@ const labels: Record<Exclude<keyof EquipmentExtraction, "warnings">, string> = {
   firstDueDate: "Primeira manutenção",
   anchorDate: "Data de referência",
   anchorType: "Referência",
-  validFrom: "Início da cobertura",
-  validUntil: "Fim da cobertura",
+  validFrom: "Início do contrato",
+  validUntil: "Fim do contrato",
 };
 export function AssetDialog({
   asset,
   assets,
   aiReady,
+  contracts = [],
   onClose,
   onSaved,
+  onBreakdown,
 }: {
   asset: Asset | null;
   assets: Asset[];
   aiReady: boolean;
+  contracts?: ContractSummary[];
   onClose: () => void;
   onSaved: () => void;
+  onBreakdown?: OnBreakdown;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const input = useRef<HTMLInputElement>(null);
@@ -84,32 +96,7 @@ export function AssetDialog({
   >("identity");
   const advancedBack = useRef<HTMLButtonElement>(null);
   const tableRegion = useRef<HTMLDivElement>(null);
-  const floatingDetails = useRef<HTMLDivElement>(null);
-  const [detailsPosition, setDetailsPosition] = useState<{
-    left: number;
-    top: number;
-  } | null>(null);
-  const dragOrigin = useRef<{
-    x: number;
-    y: number;
-    left: number;
-    top: number;
-  } | null>(null);
-  function constrainPosition(left: number, top: number) {
-    const parent = dialog.current;
-    const panel = floatingDetails.current;
-    if (!parent || !panel) return { left, top };
-    return {
-      left: Math.max(
-        12,
-        Math.min(left, parent.clientWidth - panel.offsetWidth - 12),
-      ),
-      top: Math.max(
-        12,
-        Math.min(top, parent.clientHeight - panel.offsetHeight - 80),
-      ),
-    };
-  }
+  const floatingDetails = useRef<HTMLDialogElement>(null);
   const lastDetailsButton = useRef<HTMLButtonElement | null>(null);
   const [renewTargetId, setRenewTargetId] = useState<string | null>(null);
   const uploadTarget = useRef<string | null>(null);
@@ -119,7 +106,6 @@ export function AssetDialog({
   } | null>(null);
   const previousContract = useRef<Contract | null>(null);
   useEffect(() => {
-    dialog.current?.showModal();
     if (asset?.contractId)
       api<Contract>(`/contracts/${asset.contractId}`)
         .then((value) => {
@@ -136,17 +122,6 @@ export function AssetDialog({
   useEffect(() => {
     if (advancedRows.size) advancedBack.current?.focus({ preventScroll: true });
     else lastDetailsButton.current?.focus({ preventScroll: true });
-  }, [advancedRows]);
-  useEffect(() => {
-    if (!advancedRows.size) return;
-    const observer = new ResizeObserver(() => {
-      setDetailsPosition((old) =>
-        old ? constrainPosition(old.left, old.top) : old,
-      );
-    });
-    if (dialog.current) observer.observe(dialog.current);
-    if (floatingDetails.current) observer.observe(floatingDetails.current);
-    return () => observer.disconnect();
   }, [advancedRows]);
   function closeDetails() {
     const fields =
@@ -194,7 +169,12 @@ export function AssetDialog({
     const drafts = items.map((item) => {
       const row = draftFromExtraction(item, crypto.randomUUID());
       const matched = existingForDraft(row, assets);
-      if (matched) return { ...row, assetId: matched.id };
+      if (matched)
+        return {
+          ...row,
+          brand: row.brand || matched.brand || "",
+          assetId: matched.id,
+        };
       // Mantém a identificação já cadastrada somente quando o contrato aponta uma unidade única.
       if (
         target &&
@@ -205,6 +185,10 @@ export function AssetDialog({
           ? row.serial === target.serial
           : row.name.trim().toLocaleLowerCase("pt-BR") ===
               target.name.trim().toLocaleLowerCase("pt-BR") &&
+            (!row.brand ||
+              !target.brand ||
+              row.brand.trim().toLocaleLowerCase("pt-BR") ===
+                target.brand.trim().toLocaleLowerCase("pt-BR")) &&
             (!row.model ||
               !target.model ||
               row.model.trim().toLocaleLowerCase("pt-BR") ===
@@ -213,6 +197,7 @@ export function AssetDialog({
         return {
           ...row,
           assetId: target.id,
+          brand: row.brand || target.brand || "",
           patrimony: target.patrimony,
           serial: row.serial || target.serial,
         };
@@ -348,7 +333,7 @@ export function AssetDialog({
       setAdvancedTab("coverage");
       setAdvancedRows(new Set([missingStart.key]));
       setError(
-        `Informe o início da cobertura de ${missingStart.name || "equipamento"} nas configurações avançadas.`,
+        `Informe quando começa o contrato de ${missingStart.name || "equipamento"} nas configurações avançadas.`,
       );
       return;
     }
@@ -398,7 +383,9 @@ export function AssetDialog({
     }
   }
   return (
-    <dialog
+    <ManagedDialog
+      closeDisabled={Boolean(busy)}
+      onRequestClose={onClose}
       ref={dialog}
       className={`asset-dialog multi-equipment-dialog ${step === 2 ? "equipment-table-dialog" : ""}`}
       aria-labelledby="dialog-title"
@@ -421,22 +408,13 @@ export function AssetDialog({
           <p>
             {step === 1
               ? aiReady
-                ? "A IA preenche os dados de cada equipamento descrito no documento."
+                ? "A IA preenche os dados de cada equipamento descrito no arquivo."
                 : "Envie o contrato e complete os dados a seguir."
               : contract?.extraction
                 ? "Confira os dados preenchidos pelo contrato e complete o que faltar."
                 : "Complete os dados de cada equipamento e confira a manutenção."}
           </p>
         </div>
-        <button
-          className="icon-button"
-          type="button"
-          disabled={Boolean(busy)}
-          onClick={onClose}
-          aria-label="Fechar cadastro"
-        >
-          <X size={20} />
-        </button>
       </header>
       <form onSubmit={save} noValidate>
         <fieldset disabled={Boolean(busy) || loading}>
@@ -495,7 +473,7 @@ export function AssetDialog({
                   className="text-button upload-preview-action"
                   onClick={() => setPreviewContractId(contract.id)}
                 >
-                  <FileText size={14} /> Ver documento enviado
+                  <FileText size={14} /> Ver arquivo enviado
                 </button>
               )}
             </section>
@@ -546,7 +524,7 @@ export function AssetDialog({
               {renewTargetId && (
                 <div className="renewal-notice">
                   O novo contrato será vinculado aos equipamentos conferidos
-                  abaixo. Os documentos anteriores serão preservados.
+                  abaixo. Os arquivos anteriores serão preservados.
                   <button
                     type="button"
                     className="text-button"
@@ -584,7 +562,7 @@ export function AssetDialog({
                   <FileText size={24} />
                   <strong>Nenhum equipamento identificado.</strong>
                   <p>
-                    Confira o documento ou adicione o equipamento manualmente.
+                    Confira o arquivo ou adicione o equipamento manualmente.
                   </p>
                 </div>
               )}
@@ -654,6 +632,11 @@ export function AssetDialog({
                                 change(row.key, "name", e.target.value)
                               }
                             />
+                            {(row.brand || row.model) && (
+                              <small className="editor-row-hint">
+                                {brandAndModel(row)}
+                              </small>
+                            )}
                             {existing && (
                               <small className="editor-row-hint">
                                 {renewing
@@ -732,14 +715,14 @@ export function AssetDialog({
                               className={`badge ${ready ? "neutral" : "warning"}`}
                             >
                               {!ready
-                                ? "Pendente"
+                                ? "Cadastro incompleto"
                                 : renewing
                                   ? "Novo contrato"
                                   : "Conferir dados"}
                             </span>
                             {(warnings.length > 0 || incompleteEvidence) && (
                               <small className="editor-row-hint warning-text">
-                                Conferir contrato
+                                Conferir dados do contrato
                               </small>
                             )}
                           </td>
@@ -786,7 +769,10 @@ export function AssetDialog({
                   </tbody>
                 </table>
               </div>
-              <div
+              <ManagedDialog
+                onRequestClose={closeDetails}
+                closeButtonRef={advancedBack}
+                inline
                 id="equipment-details"
                 ref={floatingDetails}
                 className="floating-equipment-dialog"
@@ -794,15 +780,11 @@ export function AssetDialog({
                 aria-modal="false"
                 aria-labelledby="equipment-details-title"
                 hidden={!advancedRows.size}
-                style={
-                  detailsPosition
-                    ? {
-                        left: detailsPosition.left,
-                        top: detailsPosition.top,
-                        right: "auto",
-                      }
-                    : undefined
-                }
+                onCancel={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  closeDetails();
+                }}
                 onKeyDown={(event) => {
                   if (event.key === "Escape") {
                     event.preventDefault();
@@ -826,91 +808,7 @@ export function AssetDialog({
                     return (
                       <div className="editor-details" key={row.key}>
                         <header className="floating-details-header">
-                          <div
-                            className="floating-drag-handle"
-                            role="button"
-                            tabIndex={0}
-                            aria-label="Mover janela de detalhes. Use as setas do teclado ou arraste."
-                            onPointerDown={(event) => {
-                              if (
-                                event.button !== 0 ||
-                                window.innerWidth <= 650
-                              )
-                                return;
-                              const panel = floatingDetails.current;
-                              if (!panel) return;
-                              event.preventDefault();
-                              event.currentTarget.focus();
-                              dragOrigin.current = {
-                                x: event.clientX,
-                                y: event.clientY,
-                                left: panel.offsetLeft,
-                                top: panel.offsetTop,
-                              };
-                              event.currentTarget.setPointerCapture(
-                                event.pointerId,
-                              );
-                            }}
-                            onPointerMove={(event) => {
-                              const start = dragOrigin.current;
-                              if (start)
-                                setDetailsPosition(
-                                  constrainPosition(
-                                    start.left + event.clientX - start.x,
-                                    start.top + event.clientY - start.y,
-                                  ),
-                                );
-                            }}
-                            onPointerUp={(event) => {
-                              dragOrigin.current = null;
-                              if (
-                                event.currentTarget.hasPointerCapture(
-                                  event.pointerId,
-                                )
-                              )
-                                event.currentTarget.releasePointerCapture(
-                                  event.pointerId,
-                                );
-                            }}
-                            onPointerCancel={() => {
-                              dragOrigin.current = null;
-                            }}
-                            onLostPointerCapture={() => {
-                              dragOrigin.current = null;
-                            }}
-                            onKeyDown={(event) => {
-                              if (
-                                ![
-                                  "ArrowLeft",
-                                  "ArrowRight",
-                                  "ArrowUp",
-                                  "ArrowDown",
-                                ].includes(event.key) ||
-                                window.innerWidth <= 650
-                              )
-                                return;
-                              event.preventDefault();
-                              const panel = floatingDetails.current;
-                              if (!panel) return;
-                              const amount = event.shiftKey ? 40 : 10;
-                              setDetailsPosition(
-                                constrainPosition(
-                                  panel.offsetLeft +
-                                    (event.key === "ArrowLeft"
-                                      ? -amount
-                                      : event.key === "ArrowRight"
-                                        ? amount
-                                        : 0),
-                                  panel.offsetTop +
-                                    (event.key === "ArrowUp"
-                                      ? -amount
-                                      : event.key === "ArrowDown"
-                                        ? amount
-                                        : 0),
-                                ),
-                              );
-                            }}
-                          >
+                          <div className="floating-drag-handle">
                             <GripHorizontal size={16} className="drag-grip" />
                             <div>
                               <h4 id="equipment-details-title">
@@ -923,15 +821,6 @@ export function AssetDialog({
                               </p>
                             </div>
                           </div>
-                          <button
-                            ref={advancedBack}
-                            type="button"
-                            className="icon-button"
-                            onClick={closeDetails}
-                            aria-label="Fechar detalhes"
-                          >
-                            <X size={18} />
-                          </button>
                         </header>
                         <div className="floating-details-body">
                           <div
@@ -1039,6 +928,21 @@ export function AssetDialog({
                               hidden={advancedTab !== "identity"}
                             >
                               <label>
+                                Marca
+                                <input
+                                  value={row.brand}
+                                  maxLength={160}
+                                  placeholder={
+                                    row.evidence
+                                      ? "Não informada no contrato"
+                                      : "Marca do equipamento"
+                                  }
+                                  onChange={(e) =>
+                                    change(row.key, "brand", e.target.value)
+                                  }
+                                />
+                              </label>
+                              <label>
                                 Modelo
                                 <input
                                   value={row.model}
@@ -1068,7 +972,7 @@ export function AssetDialog({
                                   }
                                 />
                               </label>
-                              <label className="full">
+                              <label>
                                 Setor
                                 <input
                                   value={row.sector}
@@ -1103,7 +1007,7 @@ export function AssetDialog({
                               hidden={advancedTab !== "coverage"}
                             >
                               <label>
-                                Cobertura de
+                                Início do contrato
                                 <input
                                   type="date"
                                   min="1900-01-01"
@@ -1130,13 +1034,57 @@ export function AssetDialog({
                                   }
                                 />
                               </label>
+                              <label className="span-two">
+                                Empresa responsável pela manutenção
+                                <input
+                                  value={row.maintenanceCompany}
+                                  maxLength={200}
+                                  onChange={(event) =>
+                                    change(
+                                      row.key,
+                                      "maintenanceCompany",
+                                      event.target.value,
+                                    )
+                                  }
+                                />
+                              </label>
+                              <label>
+                                Telefone para manutenção
+                                <input
+                                  type="tel"
+                                  value={row.maintenancePhone}
+                                  maxLength={100}
+                                  onChange={(event) =>
+                                    change(
+                                      row.key,
+                                      "maintenancePhone",
+                                      event.target.value,
+                                    )
+                                  }
+                                />
+                              </label>
+                              <label>
+                                E-mail para manutenção
+                                <input
+                                  type="email"
+                                  value={row.maintenanceEmail}
+                                  maxLength={254}
+                                  onChange={(event) =>
+                                    change(
+                                      row.key,
+                                      "maintenanceEmail",
+                                      event.target.value,
+                                    )
+                                  }
+                                />
+                              </label>
                             </div>
                             <p
                               className="field-hint"
                               hidden={advancedTab !== "coverage"}
                             >
                               Sem fim informado, não há vencimento conhecido.
-                              Confirme as datas de cobertura.
+                              Confira quando o contrato começa e termina.
                             </p>
                             <div
                               role="tabpanel"
@@ -1283,10 +1231,10 @@ export function AssetDialog({
                       </div>
                     );
                   })}
-              </div>
+              </ManagedDialog>
               {!advancedRows.size && contract && aiReady && (
                 <details className="extraction-controls">
-                  <summary>Leitura do documento</summary>
+                  <summary>Leitura do arquivo</summary>
                   <button
                     type="button"
                     className="text-button"
@@ -1381,10 +1329,12 @@ export function AssetDialog({
         <ContractViewer
           contractId={previewContractId}
           assets={assets}
+          contracts={contracts}
           onClose={() => setPreviewContractId(null)}
           onContract={setPreviewContractId}
+          onBreakdown={onBreakdown}
         />
       )}
-    </dialog>
+    </ManagedDialog>
   );
 }

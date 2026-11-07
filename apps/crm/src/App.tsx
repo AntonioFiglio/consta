@@ -1,6 +1,22 @@
+import { SearchField } from "./SearchField";
+import { ContextHelp } from "./ContextHelp";
+import { DayScheduleDialog } from "./DayScheduleDialog";
+import { useSidebarResize } from "./useSidebarResize";
+import { createPortal } from "react-dom";
+import { EquipmentBreakdown } from "./EquipmentBreakdown";
+import {
+  activeBreakdown,
+  syncRepairEvent,
+  type BreakdownAction,
+  type OnBreakdown,
+} from "./breakdowns";
+import { ManagedDialog } from "./DialogManager";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Wrench,
   CalendarDays,
   Check,
   ChevronLeft,
@@ -11,7 +27,7 @@ import {
   LoaderCircle,
   LogOut,
   Plus,
-  Search,
+  Upload,
   X,
 } from "lucide-react";
 import logo from "../../../brand/logo/svg/consta-wordmark-black.svg?raw";
@@ -24,6 +40,7 @@ import type {
 import { ContractsPage } from "./ContractsPage";
 import { ContractViewer } from "./ContractViewer";
 import { AssetOverview } from "./AssetOverview";
+import { CoverageDatesDialog } from "./CoverageDatesDialog";
 import { EquipmentPage } from "./EquipmentPage";
 import { MaintenanceAssignment } from "./MaintenanceAssignment";
 import { AssetDialog } from "./AssetDialog";
@@ -46,12 +63,26 @@ const Brand = () => (
 );
 
 export function App() {
+  const sidebar = useSidebarResize();
+  const [equipmentInitialFilter, setEquipmentInitialFilter] = useState<
+    "all" | "broken"
+  >("all");
+  const [equipmentListRevision, setEquipmentListRevision] = useState(0);
+
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [contracts, setContracts] = useState<ContractSummary[]>([]);
   const [viewingContract, setViewingContract] = useState<string | null>(null);
   const [assigningMaintenance, setAssigningMaintenance] =
     useState<Asset | null>(null);
+  const [repairTarget, setRepairTarget] = useState<{
+    assetId: string;
+    action: BreakdownAction;
+  } | null>(null);
+  const [toastCalendar, setToastCalendar] = useState<{
+    date: string;
+    message: string;
+  } | null>(null);
   const [viewingAsset, setViewingAsset] = useState<Asset | null>(null);
   const [events, setEvents] = useState<MaintenanceEvent[]>([]);
   const [month, setMonth] = useState(
@@ -66,7 +97,22 @@ export function App() {
   );
   const [query, setQuery] = useState("");
   const [selection, setSelection] = useState<string | null>(null);
+  const [viewingDay, setViewingDay] = useState<string | null>(null);
   const [editing, setEditing] = useState<Asset | null | undefined>(undefined);
+  const [editingCoverage, setEditingCoverage] = useState<{
+    asset: Asset;
+    coverageId: string;
+  } | null>(null);
+  const [contractInitialView, setContractInitialView] = useState<
+    "summary" | "document" | "assets"
+  >("summary");
+  const openContract = (
+    id: string,
+    initialView: "summary" | "document" | "assets" = "summary",
+  ) => {
+    setContractInitialView(initialView);
+    setViewingContract(id);
+  };
   const [toast, setToast] = useState("");
   const [error, setError] = useState("");
   const [help, setHelp] = useState(false);
@@ -147,16 +193,27 @@ export function App() {
   }, [config, days, revision]);
   useEffect(() => {
     if (toast) {
-      const timeout = setTimeout(() => setToast(""), 4500);
+      const timeout = setTimeout(
+        () => setToast(""),
+        toastCalendar?.message === toast ? 9000 : 4500,
+      );
       return () => clearTimeout(timeout);
     }
-  }, [toast]);
+  }, [toast, toastCalendar]);
   const filteredAssets = assets.filter((asset) =>
-    `${asset.name} ${asset.patrimony} ${asset.serial} ${asset.model} ${asset.sector} ${asset.contractName || ""}`
+    `${asset.name} ${asset.patrimony} ${asset.serial} ${asset.brand} ${asset.model} ${asset.sector} ${asset.contractName || ""}`
       .toLocaleLowerCase("pt-BR")
       .includes(query.toLocaleLowerCase("pt-BR")),
   );
-  const visibleIds = new Set(filteredAssets.map((asset) => asset.id));
+  const visibleIds = new Set(
+    assets
+      .filter((asset) =>
+        `${asset.name} ${asset.patrimony} ${asset.serial} ${asset.brand} ${asset.model} ${asset.sector} ${asset.contractName || ""}`
+          .toLocaleLowerCase("pt-BR")
+          .includes(query.toLocaleLowerCase("pt-BR")),
+      )
+      .map((asset) => asset.id),
+  );
   const filteredEvents = events.filter((event) =>
     visibleIds.has(event.assetId),
   );
@@ -173,6 +230,53 @@ export function App() {
     );
     setSelection(null);
   };
+  const openBreakdown: OnBreakdown = (asset, action) => {
+    const current = assets.find((item) => item.id === asset.id) || asset;
+    setRepairTarget({
+      assetId: current.id,
+      action:
+        action === "report" && activeBreakdown(current) ? "schedule" : action,
+    });
+  };
+  const assetUpdated = (updated: Asset) => {
+    setAssets((current) =>
+      current.map((asset) => (asset.id === updated.id ? updated : asset)),
+    );
+    setEvents((current) =>
+      syncRepairEvent(current, updated, dateKey(days[0]), dateKey(days[41])),
+    );
+    setRevision((value) => value + 1);
+    const repair = activeBreakdown(updated);
+    const message =
+      repairTarget?.action === "resolve"
+        ? "Reparo registrado. Situação do equipamento atualizada."
+        : repair?.scheduledDate
+          ? "Reparo agendado. Equipamento e calendário atualizados."
+          : "Quebra registrada. Equipamento aguardando agendamento.";
+    setToast(message);
+    setToastCalendar(
+      repair?.scheduledDate ? { date: repair.scheduledDate, message } : null,
+    );
+  };
+  const showRepairOnCalendar = (date: string) => {
+    setViewingAsset(null);
+    setViewingContract(null);
+    setRepairTarget(null);
+    setQuery("");
+    setMonth(
+      new Date(fromKey(date).getFullYear(), fromKey(date).getMonth(), 1, 12),
+    );
+    setSelection(date);
+    setView("calendar");
+    location.hash = "#calendario";
+    setToast("");
+  };
+  const pendingRepairCount = assets.filter((asset) =>
+    activeBreakdown(asset),
+  ).length;
+  const repairAsset = repairTarget
+    ? assets.find((asset) => asset.id === repairTarget.assetId)
+    : null;
   const openEvent = (event: MaintenanceEvent) =>
     setViewingAsset(assets.find((asset) => asset.id === event.assetId) || null);
   const onSaved = () => {
@@ -229,95 +333,187 @@ export function App() {
     );
 
   return (
-    <div className={`app-shell ${view === "calendar" ? "calendar-page" : ""}`}>
-      <aside className="sidebar">
-        <a
-          href="#calendario"
-          className="brand-link"
-          aria-label="CONSTA. — início"
-        >
-          <Brand />
-        </a>
-        <div className="workspace">
-          <span className="workspace-icon">
-            <Plus size={19} strokeWidth={1.7} />
-          </span>
-          <div>
-            <strong>Engenharia clínica</strong>
-            <span>Espaço de trabalho local</span>
+    <div
+      className={`app-shell navigation-shell ${view === "calendar" ? "calendar-page" : ""}`}
+      style={{ gridTemplateColumns: `${sidebar.width}px minmax(0, 1fr)` }}
+      data-sidebar-open={sidebar.width > 0}
+      data-resizing={sidebar.resizing}
+    >
+      {sidebar.width > 0 && (
+        <button
+          type="button"
+          className="sidebar-mobile-backdrop"
+          aria-label="Fechar menu"
+          onClick={sidebar.close}
+        />
+      )}
+      <aside
+        className="sidebar application-sidebar"
+        aria-label="Menu do Consta"
+        aria-hidden={sidebar.width === 0}
+        inert={sidebar.width === 0}
+      >
+        <div className="sidebar-inner">
+          <div className="sidebar-top">
+            <div className="sidebar-brand-row">
+              <a
+                href="#calendario"
+                className="brand-link"
+                aria-label="CONSTA. — início"
+                onClick={sidebar.closeOnMobile}
+              >
+                <Brand />
+              </a>
+              <button
+                type="button"
+                className="sidebar-collapse-button"
+                onClick={sidebar.close}
+                aria-label="Fechar menu"
+                title="Fechar menu"
+              >
+                <PanelLeftClose size={17} />
+              </button>
+            </div>
+            <section className="sidebar-add-card" aria-label="Envio de contrato">
+              <button
+                type="button"
+                className="sidebar-upload-action"
+                onClick={() => {
+                  sidebar.closeOnMobile();
+                  setEditing(null);
+                }}
+              >
+                <Upload size={19} aria-hidden="true" />
+                <span>Enviar contrato</span>
+              </button>
+              <div className="sidebar-upload-help">
+                <span>PDF ou TXT</span>
+                <ContextHelp
+                  label="Como funciona o envio de contrato"
+                  text="Envie o contrato para cadastrar os equipamentos que ele inclui. Você confere e completa os dados antes de salvar."
+                />
+              </div>
+            </section>
           </div>
-        </div>
-        <div className="nav-label">ESPAÇO DE TRABALHO</div>
-        <nav aria-label="Navegação principal">
-          <a
-            href="#calendario"
-            aria-current={view === "calendar" ? "page" : undefined}
-          >
-            <CalendarDays size={19} />
-            Calendário<span className="nav-count">{monthEvents.length}</span>
-          </a>
-          <a
-            href="#contratos"
-            aria-current={view === "contracts" ? "page" : undefined}
-          >
-            <FileText size={19} />
-            Contratos<span className="nav-count">{contracts.length}</span>
-          </a>
-          <a
-            href="#equipamentos"
-            aria-current={view === "assets" ? "page" : undefined}
-          >
-            <LayoutGrid size={19} />
-            Equipamentos
-          </a>
-        </nav>
-        <div className="sidebar-note">
-          <div className="note-icon">
-            <FileText size={19} />
+          <div className="sidebar-main">
+            <nav aria-label="Navegação principal">
+              <a
+                href="#calendario"
+                aria-current={view === "calendar" ? "page" : undefined}
+                onClick={sidebar.closeOnMobile}
+              >
+                <CalendarDays size={19} />
+                <span>Calendário</span>
+              </a>
+              <a
+                href="#contratos"
+                aria-current={view === "contracts" ? "page" : undefined}
+                onClick={sidebar.closeOnMobile}
+              >
+                <FileText size={19} />
+                <span>Contratos</span>
+              </a>
+              <a
+                href="#equipamentos"
+                aria-current={view === "assets" ? "page" : undefined}
+                onClick={() => {
+                  setEquipmentInitialFilter("all");
+                  setEquipmentListRevision((value) => value + 1);
+                  sidebar.closeOnMobile();
+                }}
+              >
+                <LayoutGrid size={19} />
+                <span>Equipamentos</span>
+              </a>
+            </nav>
+            {pendingRepairCount > 0 && (
+              <div className="sidebar-attention">
+                <span className="sidebar-section-label">Precisa de ação</span>
+                <a
+                  href="#equipamentos"
+                  onClick={() => {
+                    setQuery("");
+                    setEquipmentInitialFilter("broken");
+                    setEquipmentListRevision((value) => value + 1);
+                    sidebar.closeOnMobile();
+                  }}
+                >
+                  <Wrench size={17} aria-hidden="true" />
+                  <span>Reparos pendentes</span>
+                  <strong
+                    aria-label={`${pendingRepairCount} equipamentos com reparo pendente`}
+                  >
+                    {pendingRepairCount}
+                  </strong>
+                </a>
+              </div>
+            )}
           </div>
-          <strong>Do contrato à próxima manutenção.</strong>
-          <p>Cadastre uma vez. Tenha as datas sempre à vista.</p>
-          <button type="button" onClick={() => setEditing(null)}>
-            Cadastrar equipamento <ArrowRight size={15} />
-          </button>
-        </div>
-        <div className="sidebar-bottom">
-          <button onClick={() => setHelp(true)}>
-            <CircleHelp size={17} />
-            Como funciona
-          </button>
-          {config?.passwordRequired && (
+          <div className="sidebar-bottom">
             <button
-              onClick={async () => {
-                await api("/logout", { method: "POST" });
-                refreshConfig();
+              type="button"
+              onClick={() => {
+                sidebar.closeOnMobile();
+                setHelp(true);
               }}
             >
-              <LogOut size={16} />
-              Sair
+              <CircleHelp size={17} /> Como funciona
             </button>
-          )}
-          <span className="version">CONSTA. / FASE 01</span>
+            {config?.passwordRequired && (
+              <button
+                type="button"
+                onClick={async () => {
+                  await api("/logout", { method: "POST" });
+                  refreshConfig();
+                }}
+              >
+                <LogOut size={16} /> Sair
+              </button>
+            )}
+            <span className="version">CONSTA. / FASE 01</span>
+          </div>
+        </div>
+        <div
+          role="separator"
+          aria-label="Ajustar menu. Arraste para fechar; use as setas para ajustar, Home para fechar e End para restaurar."
+          aria-orientation="vertical"
+          aria-valuemin={0}
+          aria-valuemax={340}
+          aria-valuenow={sidebar.width}
+          tabIndex={sidebar.width > 0 ? 0 : -1}
+          className="sidebar-resize-handle"
+          {...sidebar.resizeProps}
+        >
+          <span />
         </div>
       </aside>
       <div className="main-wrapper">
         <header className="topbar">
-          <div className="breadcrumb">
-            Espaço de trabalho <span>/</span>
-            <strong>
-              {view === "calendar"
-                ? "Calendário"
-                : view === "contracts"
-                  ? "Contratos"
-                  : "Equipamentos"}
-            </strong>
+          <div className="topbar-context">
+            <button
+              type="button"
+              className={`sidebar-reopen ${sidebar.width > 0 ? "is-open" : ""}`}
+              aria-label="Abrir menu"
+              title="Abrir menu"
+              onClick={sidebar.restore}
+            >
+              <PanelLeftOpen size={19} />
+            </button>
+            <div className="breadcrumb">
+              Espaço de trabalho <span>/</span>
+              <strong>
+                {view === "calendar"
+                  ? "Calendário"
+                  : view === "contracts"
+                    ? "Contratos"
+                    : "Equipamentos"}
+              </strong>
+            </div>
           </div>
           <div className="topbar-right">
             <span className="local-status">
               <i />
-              {config?.mode === "local-protected"
-                ? "Ambiente local"
-                : "Demonstração local"}
+              Ambiente local
             </span>
             <div className="avatar" title="Engenharia clínica">
               EC
@@ -325,48 +521,33 @@ export function App() {
           </div>
         </header>
         <main className="main-content">
-          {view !== "calendar" && (
-            <div className="page-heading">
-              <div>
-                {view !== "assets" && (
-                  <div className="eyebrow">GESTÃO DE EQUIPAMENTOS</div>
-                )}
-                <h1>
-                  {view === "contracts"
-                    ? "Seus contratos, sempre à mão."
+          <div className="page-heading">
+            <div>
+              <h1>
+                {view === "calendar"
+                  ? "Calendário"
+                  : view === "contracts"
+                    ? "Contratos"
                     : "Equipamentos"}
-                </h1>
-                <p>
-                  {view === "contracts"
-                    ? "Consulte o documento original e os equipamentos de cada contrato."
-                    : "Veja quem cuida da manutenção e o que precisa de atenção."}
-                </p>
-              </div>
+              </h1>
+              <p>
+                {view === "calendar"
+                  ? "Acompanhe as próximas manutenções dos equipamentos."
+                  : view === "contracts"
+                    ? "Consulte os contratos, aditivos e equipamentos vinculados."
+                    : "Consulte os equipamentos e suas informações de manutenção."}
+              </p>
+            </div>
+            {view !== "calendar" && (
               <button
                 className="button primary"
                 onClick={() => setEditing(null)}
               >
                 <Plus size={18} />
-                Novo equipamento
+                {view === "contracts" ? "Novo contrato" : "Novo equipamento"}
               </button>
-            </div>
-          )}
-          {assets.some((asset) => asset.simulated) && (
-            <div className="demo-banner">
-              <span className="demo-dot" />
-              <span>
-                {view === "calendar" ? (
-                  <strong>Dados sintéticos de demonstração</strong>
-                ) : (
-                  <>
-                    Você está explorando{" "}
-                    <strong>dados sintéticos de demonstração</strong>. Cadastre
-                    um equipamento para começar seu próprio calendário.
-                  </>
-                )}
-              </span>
-            </div>
-          )}
+            )}
+          </div>
           {error && (
             <div className="error-message" role="alert">
               {error}
@@ -384,23 +565,12 @@ export function App() {
           {view === "calendar" ? (
             <section className="calendar-section">
               <div className="section-toolbar">
-                <label className="search">
-                  <Search size={16} />
-                  <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Buscar equipamento ou número de tombamento"
-                    aria-label="Buscar no calendário"
-                  />
-                  {query && (
-                    <button
-                      onClick={() => setQuery("")}
-                      aria-label="Limpar busca"
-                    >
-                      <X size={14} />
-                    </button>
-                  )}
-                </label>
+                <SearchField
+                  value={query}
+                  onChange={setQuery}
+                  placeholder="Buscar equipamento ou tombamento"
+                  label="Buscar no calendário"
+                />
               </div>
               <div className="calendar-layout">
                 <div className="calendar-card">
@@ -467,8 +637,11 @@ export function App() {
                         >
                           <button
                             className="day-number"
-                            aria-label={`Ver previsões de ${prettyDate(key)}`}
-                            onClick={() => setSelection(key)}
+                            aria-label={`Ver ${dayEvents.length} manutenções de ${prettyDate(key)}`}
+                            onClick={() => {
+                              setSelection(key);
+                              setViewingDay(key);
+                            }}
                             aria-pressed={key === selection}
                           >
                             {day.getDate()}
@@ -477,21 +650,33 @@ export function App() {
                             {dayEvents.slice(0, 2).map((event) => (
                               <button
                                 key={event.id}
-                                className="calendar-event"
-                                title={`${event.name} · ${event.patrimony}${event.simulated ? " · Simulado" : ""}`}
+                                className={`calendar-event ${event.kind === "corrective" ? "corrective" : ""}`}
+                                title={`${event.kind === "corrective" ? "Reparo agendado · Equipamento quebrado" : "Preventiva prevista"} · ${event.name} · ${event.patrimony}`}
                                 onClick={() => openEvent(event)}
                               >
                                 <i />
-                                <span>{event.name}</span>
+                                <span>
+                                  {event.kind === "corrective"
+                                    ? "Reparo · "
+                                    : ""}
+                                  {event.name}
+                                </span>
                                 <small>{event.patrimony}</small>
                               </button>
                             ))}
                             {dayEvents.length > 2 && (
                               <button
                                 className="more-events"
-                                onClick={() => setSelection(key)}
+                                aria-label={`Ver todas as ${dayEvents.length} manutenções de ${prettyDate(key)}`}
+                                onClick={() => {
+                                  setSelection(key);
+                                  setViewingDay(key);
+                                }}
                               >
-                                +{dayEvents.length - 2} previsões
+                                +{dayEvents.length - 2}{" "}
+                                {dayEvents.length === 3
+                                  ? "manutenção"
+                                  : "manutenções"}
                               </button>
                             )}
                           </div>
@@ -504,7 +689,10 @@ export function App() {
                       <i className="legend-dot" />
                       Manutenção prevista
                     </span>
-                    <span>Previsão não equivale a liberação técnica</span>
+                    <span>
+                      <i className="legend-dot corrective" />
+                      Reparo de equipamento quebrado
+                    </span>
                   </footer>
                 </div>
                 <aside className="agenda">
@@ -513,8 +701,8 @@ export function App() {
                     <h3>{selection ? prettyDate(selection) : "Neste mês"}</h3>
                     <p>
                       {selection
-                        ? "Previsões para o dia selecionado"
-                        : `${monthEvents.length} ${monthEvents.length === 1 ? "previsão para acompanhar" : "previsões para acompanhar"}`}
+                        ? `${agenda.length} ${agenda.length === 1 ? "manutenção prevista neste dia" : "manutenções previstas neste dia"}`
+                        : `${monthEvents.length} ${monthEvents.length === 1 ? "manutenção para acompanhar" : "manutenções para acompanhar"}`}
                     </p>
                     {selection && (
                       <button
@@ -534,7 +722,7 @@ export function App() {
                     ) : agenda.length ? (
                       agenda.map((event) => (
                         <button
-                          className="agenda-event"
+                          className={`agenda-event ${event.kind === "corrective" ? "corrective" : ""}`}
                           key={event.id}
                           onClick={() => openEvent(event)}
                         >
@@ -549,13 +737,14 @@ export function App() {
                           <div className="agenda-description">
                             <span className="event-type">
                               <i />
-                              PREVENTIVA PREVISTA
+                              {event.kind === "corrective"
+                                ? "REPARO AGENDADO · QUEBRADO"
+                                : "PREVENTIVA PREVISTA"}
                             </span>
                             <strong>{event.name}</strong>
                             <span className="mono">{event.patrimony}</span>
                             <small>
                               {event.sector || "Setor não informado"}
-                              {event.simulated ? " · Simulado" : ""}
                             </small>
                           </div>
                           <ChevronRight size={14} />
@@ -564,7 +753,7 @@ export function App() {
                     ) : (
                       <div className="empty-agenda">
                         <CalendarDays size={27} />
-                        <strong>Nenhuma previsão por aqui</strong>
+                        <strong>Nenhuma manutenção por aqui</strong>
                         <span>
                           {selection
                             ? "Escolha outro dia ou veja todo o mês."
@@ -582,17 +771,28 @@ export function App() {
               assets={assets}
               query={query}
               onQuery={setQuery}
-              onOpen={setViewingContract}
+              onOpen={openContract}
+              onChanged={(updated) => {
+                setContracts((current) =>
+                  current.some((contract) => contract.id === updated.id)
+                    ? current.map((contract) =>
+                        contract.id === updated.id ? updated : contract,
+                      )
+                    : [updated, ...current],
+                );
+              }}
             />
           ) : (
             <EquipmentPage
+              key={equipmentListRevision}
+              initialFilter={equipmentInitialFilter}
               assets={filteredAssets}
               query={query}
               onQuery={setQuery}
               today={today}
               onView={setViewingAsset}
-              onContract={setViewingContract}
               onAssign={setAssigningMaintenance}
+              onBreakdown={openBreakdown}
               onCreate={() => setEditing(null)}
             />
           )}
@@ -614,43 +814,85 @@ export function App() {
           key={editing?.id || "new"}
           asset={editing}
           assets={assets}
+          contracts={contracts}
           aiReady={config?.aiReady || false}
           onClose={() => {
             setEditing(undefined);
             setRevision((value) => value + 1);
           }}
           onSaved={onSaved}
+          onBreakdown={openBreakdown}
+        />
+      )}
+      {viewingDay && (
+        <DayScheduleDialog
+          key={viewingDay}
+          date={viewingDay}
+          events={events}
+          loading={loading}
+          error={error}
+          onClose={() => setViewingDay(null)}
+          onView={openEvent}
         />
       )}
       {viewingAsset && (
         <AssetOverview
-          asset={viewingAsset}
+          asset={
+            assets.find((asset) => asset.id === viewingAsset.id) || viewingAsset
+          }
           today={today}
+          onBreakdown={openBreakdown}
           onClose={() => setViewingAsset(null)}
-          onEdit={() => {
-            setEditing(viewingAsset);
-            setViewingAsset(null);
-          }}
-          onContract={setViewingContract}
+          onEdit={() => setEditing(viewingAsset)}
+          onContract={openContract}
         />
       )}
       {viewingContract && (
         <ContractViewer
           contractId={viewingContract}
+          initialView={contractInitialView}
           assets={assets}
+          contracts={contracts}
+          onContractChanged={(updated) =>
+            setContracts((current) =>
+              current.some((item) => item.id === updated.id)
+                ? current.map((item) =>
+                    item.id === updated.id ? updated : item,
+                  )
+                : [updated, ...current],
+            )
+          }
           onClose={() => setViewingContract(null)}
+          onBreakdown={openBreakdown}
           onEditAsset={(asset) => {
-            setViewingContract(null);
-            setViewingAsset(null);
             setEditing(asset);
           }}
-          onContract={setViewingContract}
+          onContract={openContract}
+        />
+      )}
+      {editingCoverage && (
+        <CoverageDatesDialog
+          key={editingCoverage.coverageId}
+          {...editingCoverage}
+          onOpenDocument={openContract}
+          onClose={() => setEditingCoverage(null)}
+          onSaved={(updated) => {
+            setAssets((current) =>
+              current.map((asset) =>
+                asset.id === updated.id ? updated : asset,
+              ),
+            );
+            setEditingCoverage(null);
+            setRevision((value) => value + 1);
+            setToast("Datas salvas. Situação do equipamento atualizada.");
+          }}
         />
       )}
       {assigningMaintenance && (
         <MaintenanceAssignment
           key={assigningMaintenance.id}
           asset={assigningMaintenance}
+          onOpenDocument={openContract}
           onClose={() => setAssigningMaintenance(null)}
           onSaved={(updated) => {
             setAssets((current) =>
@@ -662,19 +904,47 @@ export function App() {
               current?.id === updated.id ? updated : current,
             );
             setAssigningMaintenance(null);
-            setToast("Responsável pela manutenção atualizado.");
+            setRevision((value) => value + 1);
+            setToast(
+              (updated.maintenanceDocuments?.length || 0) >
+                (assigningMaintenance.maintenanceDocuments?.length || 0)
+                ? "Arquivo salvo no histórico do equipamento."
+                : "Responsável pela manutenção atualizado.",
+            );
           }}
         />
       )}
-      {toast && (
-        <div className="toast" role="status">
-          <Check size={17} />
-          {toast}
-          <button onClick={() => setToast("")} aria-label="Fechar aviso">
-            <X size={15} />
-          </button>
-        </div>
+      {repairTarget && repairAsset && (
+        <EquipmentBreakdown
+          key={`${repairTarget.assetId}:${repairTarget.action}`}
+          asset={repairAsset}
+          mode={repairTarget.action}
+          onSaved={assetUpdated}
+          onClose={() => setRepairTarget(null)}
+          onChangeMode={(action) =>
+            setRepairTarget({ assetId: repairAsset.id, action })
+          }
+        />
       )}
+      {toast &&
+        createPortal(
+          <div className="toast" role="status">
+            <Check size={17} />
+            <span>{toast}</span>
+            {toastCalendar?.message === toast && editing === undefined && (
+              <button
+                className="toast-calendar-link"
+                onClick={() => showRepairOnCalendar(toastCalendar.date)}
+              >
+                Ver no calendário <ArrowRight size={13} />
+              </button>
+            )}
+            <button onClick={() => setToast("")} aria-label="Fechar aviso">
+              <X size={15} />
+            </button>
+          </div>,
+          document.body,
+        )}
       {help && <HelpDialog onClose={() => setHelp(false)} />}
     </div>
   );
@@ -682,11 +952,9 @@ export function App() {
 
 function HelpDialog({ onClose }: { onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    dialog.current?.showModal();
-  }, []);
   return (
-    <dialog
+    <ManagedDialog
+      onRequestClose={onClose}
       ref={dialog}
       className="help-dialog"
       aria-labelledby="help-title"
@@ -699,14 +967,6 @@ function HelpDialog({ onClose }: { onClose: () => void }) {
       }}
     >
       <section className="help-card">
-        <button
-          autoFocus
-          className="icon-button help-close"
-          onClick={onClose}
-          aria-label="Fechar ajuda"
-        >
-          <X size={18} />
-        </button>
         <span className="eyebrow">UM FLUXO SIMPLES</span>
         <h2 id="help-title">Do contrato ao calendário.</h2>
         <ol>
@@ -732,6 +992,6 @@ function HelpDialog({ onClose }: { onClose: () => void }) {
           Entendi <Check size={16} />
         </button>
       </section>
-    </dialog>
+    </ManagedDialog>
   );
 }
