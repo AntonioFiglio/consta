@@ -109,7 +109,7 @@ function wireTextIntersections() {
       await page.goto(pathToFileURL(path.resolve(__dirname, '../pitch/deck.html')).href);
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(900);
-      const total = 17; // Visible route; legacy internal beat aliases are not slides.
+      const total = 16; // Visible route; legacy internal beat aliases are not slides.
       const size = `${viewport.width}x${viewport.height}`;
       async function sample(label, times = [120, 360, 760, 1600]) {
         let elapsed = 0;

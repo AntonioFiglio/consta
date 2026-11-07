@@ -18,7 +18,7 @@ const {webkit} = require(process.env.CONSTA_PLAYWRIGHT_MODULE || 'playwright');
    assert(await page.evaluate(()=>Boolean(window.constaPitch)), 'Missing approved presentation navigation API');
    const start=await page.evaluate(()=>constaPitch.getState());
    assert.equal(start.beat,0);assert.equal(start.scene,'cover');assert(start.total>5);
-   const order=[0,1,4,5,16,8,9,10,11,13,14,15,18,19,20,21,22];
+   const order=[0,1,4,5,16,8,9,10,11,13,14,15,19,20,21,22];
    const states=new Map();const scenes=[];const mapBeats=[];
    for(const i of order) {
     await page.evaluate(n=>constaPitch.goTo(n),i);await page.waitForTimeout(1100);

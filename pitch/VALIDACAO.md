@@ -145,3 +145,17 @@ Clone limpo baseado na develop remota c97be02, com alterações locais seleciona
 ## Correção da entrada automática na demo
 
 Após mover o fluxo da IA antes do CRM, o salto de índice16→8 recebia a classe snap. O controlador da demo interpretava isso como pedido de exibir o estado final estático, sem emitir conclusão ou avançar. O mesmo ocorria em abertura direta por#b=8. A entrada agora inicia o playback mesmo quando a transição entre slides é instantânea; apenas movimento reduzido ou finishCurrent continuam estáticos. Regressão reproduziu running=false antes da correção e passou depois sem restart manual. A suíte cobre entrada natural, link direto, avanço automático, antecipação e cancelamento.
+
+
+## Impactos combinados, Business e continuidade — revisão final
+
+- Reprodução antes da correção: avanço normal 1→4, 16→8 e 11→13 apresentava fase idle e reposicionamento imediato, por confundir distância entre índices legados com distância entre telas visíveis. A entrada do logo também assentava o ponto antes da viagem.
+- Correção: adjacência pela rota visível; concatenar chegada e morfose; não assentar o fluxo ao antecipar avanço; passagem do guia para o marcador do mapa e âncora real do CTA.
+- `scripts/verificar_continuidade_pitch.cjs`: avanço/retorno de toda a sequência, ausência de salto no primeiro quadro, interrupção do logo e alias do impacto retirado; aprovado nos três viewports. Teste de geometria complementar confere chegada e interrupção do mapa.
+- `scripts/verificar_demo_pitch.cjs`: autoplay, avanço por tecla, cancelamento e movimento reduzido aprovados.
+- `scripts/verificar_pitch.cjs`: estados, navegação, assets offline, simulação e modo reduzido aprovados nos três viewports.
+- Impacto assistencial: produção externa publicada, não pacientes únicos nem benefício medido do Consta. Financeiro: cenário bruto condicional, não faturamento. Business: proposta comercial, sem custo/margem de hardware validados.
+
+- `scripts/verificar_motion_pitch.cjs`: sem interseções amostradas entre fios e textos/controles nas transições de avanço, retorno e interrupção, nas três resoluções.
+- Teste adicional encontrou endpoint do mapa anterior ao reenquadramento da câmera; a chegada passou a acompanhar o marcador renderizado durante a entrada. Conferência de posição final e antecipação de avanço/retorno aprovada nos três viewports.
+- Fala atualizada no clipboard com leitura de retorno idêntica.

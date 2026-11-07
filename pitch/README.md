@@ -2,7 +2,7 @@
 
 ## Estado atual — 07/11/2026
 
-Main integrada: `de5e84f`. Sequência local com17telas visíveis: capa1, notícias2, iceberg com gestor3, gaveta do gestor4, logo/fluxo IA automático5, demo6–8, Smart Agenda9, etiqueta BLE10, mapa11–12, atendimento13, economia potencial14, equipe15, CTA/QR16 e Business17. Celular, custoR$75mil, exemplos contratuais da gaveta e logo isolado fora da navegação. QR para https://consta.vercel.app; checagem retornou451/DEPLOYMENT_DISABLED, precisa reativação antes do palco. [Preços propostos e pesquisa](../docs/referencias/precos-business-consta.md).
+Sequência com 16 telas visíveis: capa 1, notícias 2, iceberg com gestor 3, gaveta do gestor 4, logo/fluxo IA automático 5, demo 6–8, Smart Agenda 9, etiqueta BLE 10, mapa 11–12, impacto combinado 13 (atendimento primeiro, economia potencial depois), equipe 14, CTA/QR 15 e Business 16. O antigo link de atendimento redireciona ao impacto combinado. Piso Business definido por Matheus: R$ 20 mil/ano para até 100 equipamentos, com 20 tags na contratação inicial; faixas propostas de R$ 60 mil e R$ 180 mil para até 500 e 2.000 equipamentos. [Pesquisa e limites comerciais](../docs/referencias/precos-business-consta.md).
 
 Use **Home**, PageUp ou o botão Capa para voltar à abertura sem sair do documento. A navegação mantém a sessão de tela cheia; não abre outra página.
 

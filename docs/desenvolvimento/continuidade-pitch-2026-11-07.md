@@ -1,3 +1,16 @@
+## Atualização atual — impactos, Business e continuidade
+
+Objetivo ativo solicitado por Matheus: corrigir a continuidade da bolinha em toda a apresentação, unir impactos e revisar monetização; manter a publicação já autorizada em develop e main.
+
+- [x] Impacto único, atendimento primeiro e economia potencial depois, verde; retirar 13/42 → 34/42 da navegação e do palco.
+- [x] Até 2 mil atendimentos de endoscopia/mês como produção externa do HMB; aproximadamente R$ 500 mil/ano como cenário de custos extras dispensados. Fontes e condições no rodapé e na fala, sem chamar economia de faturamento.
+- [x] Business: R$ 20 mil / R$ 60 mil / R$ 180 mil por ano, até 100 / 500 / 2.000 equipamentos; 20 tags na contratação inicial, extras/receptores/implantação separados. Pesquisa primária, incluindo contrapontos mais baratos, em [preços](../referencias/precos-business-consta.md).
+- [x] Corrigir a navegação para medir vizinhança pelas telas visíveis, não pelos índices antigos; manter chegada da bolinha antes da morfose, evitar salto ao interromper o fluxo e dar continuidade ao CTA.
+- [x] Conferir a passagem do guia global para o marcador do mapa, sem duplicar ou deslocar o ponto.
+- [x] Testes de navegação, autoplay da demo e continuidade em avanço/retorno nas três resoluções aprovados. Conferência temporal de interseções aprovada. Publicação segue feature → develop → main, autorizada e registrada nos PRs.
+
+Sequência atual: 16 telas, impacto 13, time 14, CTA 15 e Business 16. Os relatos abaixo são históricos; não reintroduzir estados removidos com base neles. A especialidade local de Nicolas foi preservada como engenheiro de software nesta edição, sem sobrescrever a mudança existente no workspace.
+
 > Atualização de autorização: em07/11/2026, Matheus pediu explicitamente commit e integração do trabalho em develop e main após as verificações. As orientações anteriores de manter apenas local são históricas para esta entrega. Preservar alterações paralelas do CRM.
 
 ## Mais recente: iceberg, Smart Agenda e explicação BLE
