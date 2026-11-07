@@ -170,16 +170,16 @@ test("não permite trocar contrato sem renovação explícita nem renovar sem in
   const previous = prepareAsset(undefined, input(randomUUID()));
   assert.throws(
     () => prepareAsset(previous, input(randomUUID())),
-    /configurações avançadas/,
+    /detalhes/,
   );
   assert.throws(
     () =>
       prepareAsset(previous, { ...input(randomUUID()), validFrom: null }, true),
-    /começa/,
+    /início/,
   );
   assert.throws(
     () => prepareAsset(previous, input(previous.contractId), true),
-    /diferente/,
+    /outro contrato de manutenção/,
   );
   assert.equal(
     assetInput.safeParse({

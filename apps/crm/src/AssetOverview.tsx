@@ -1,3 +1,4 @@
+import { equipmentTombamentoLabel } from "./equipment-import";
 import { contractCopy } from "./contract-copy";
 import { ManagedDialog } from "./DialogManager";
 import { useEffect, useRef, useId, useState } from "react";
@@ -99,7 +100,7 @@ export function AssetOverview({
         <div className="equipment-sheet-kicker">Ficha do equipamento</div>
         <h2 id={`${id}-title`}>{asset.name}</h2>
         <div className="equipment-sheet-identity">
-          <span className="mono">Tombamento {asset.patrimony}</span>
+          <span className="mono">Tombamento {equipmentTombamentoLabel(asset)}</span>
           <span>{asset.sector || "Setor não informado"}</span>
         </div>
         {brandAndModel(asset) && <p>{brandAndModel(asset)}</p>}
@@ -185,7 +186,7 @@ export function AssetOverview({
                   className="text-button"
                   onClick={() => onContract(contact.contractId!)}
                 >
-                  Ver contrato da manutenção <ArrowRight size={13} />
+                  Ver documento da manutenção <ArrowRight size={13} />
                 </button>
               ) : (
                 <button
@@ -246,7 +247,7 @@ export function AssetOverview({
                   (contractId === asset.contractId
                     ? asset.contractName
                     : null) ||
-                  "Contrato de manutenção";
+                  "Documento contratual";
                 return (
                   <article key={contractId}>
                     <div className="equipment-sheet-document-heading">
@@ -261,12 +262,12 @@ export function AssetOverview({
                         </button>
                         <small>
                           {record?.kind === "amendment"
-                            ? "Termo aditivo"
+                            ? contractCopy.amendment
                             : record?.kind === "complement"
-                              ? "Anexo"
+                              ? contractCopy.annex
                               : record?.kind === "outsourced"
-                                ? "Contrato terceirizado"
-                                : "Contrato vinculado"}
+                                ? contractCopy.maintenance
+                                : contractCopy.principal}
                         </small>
                       </div>
                       <button

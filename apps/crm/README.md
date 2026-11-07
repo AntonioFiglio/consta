@@ -1,10 +1,22 @@
 # CRM Consta — fase 1
 
-Aplicação local com **React 19 + Vite + TypeScript**, API Express e SQLite. Três áreas: calendário, equipamentos e contratos, com formulário de cadastro/revisão que recebe contrato PDF/TXT e número de tombamento. Logo SVG e tokens são importados diretamente de `brand/`; Inter e DM Mono são distribuídas localmente via Fontsource, com licenças nos respectivos pacotes.
+Aplicação local com **React 19 + Vite + TypeScript**, API Express e SQLite. Três áreas: calendário, equipamentos e contratos e aditivos, com formulário de cadastro/revisão que recebe contrato PDF/TXT e número de tombamento. Logo SVG e tokens são importados diretamente de `brand/`; Inter e DM Mono são distribuídas localmente via Fontsource, com licenças nos respectivos pacotes.
+
+## Importação de várias unidades
+
+Ao selecionar um TC, o cliente envia o arquivo e chama `POST /api/contracts/:id/import` automaticamente. Essa operação reutiliza a extração persistida ou executa a leitura configurada, grava equipamentos e evidências na mesma transação e retorna `{ contract, assets, createdCount, existingCount }`. A tabela abre com os equipamentos já cadastrados e o restante da aplicação recebe as fichas e o TC atualizados. Fechar a conferência preserva o cadastro; o botão final salva alterações.
+
+O importador persiste os campos documentados — nome, marca, modelo, série, tombamento, setor, observações, empresa de manutenção, telefone, e-mail, referências e condições do plano — sem inventar campos ausentes. Planos novos ficam com `reviewed: false`; não são aprovados nem geram datas ativas automaticamente. Reenvio preserva IDs e correções humanas. Falha de leitura não é sucesso de cadastro; o TC permanece disponível para nova tentativa ou preenchimento manual. Aditivos e contratos de manutenção continuam em seus fluxos próprios, sem criar máquinas pela simples anexação.
+
+Uma quantidade explícita de seis equipamentos prepara seis linhas para conferência, preenchendo os dados comuns documentados. A IA envia o grupo uma vez pela função estrita `prepare_equipment_import` do SDK; o código expande as unidades, sem exigir seis respostas repetidas ou uma segunda rodada de IA. O provedor/modelo configurado precisa suportar chamadas de função na Responses API. [Documentação oficial de function calling](https://developers.openai.com/api/docs/guides/function-calling).
+
+Leituras `version: 2` já salvas com uma linha e quantidade também são expandidas localmente, sem nova chamada à IA. `importUnit` identifica a posição provisória no grupo; ao salvar, `importSource` registra TC, chave da unidade e posição. Reenviar a mesma leitura persistida reconhece essas fichas em vez de duplicá-las. Um identificador individual não é replicado para o restante do lote. Quantidade ausente/conflitante não gera expansão; mais de 50 unidades exige dividir a importação.
+
+Tombamento e série podem ficar vazios. SQLite versão 6 preserva os dados legados e usa índices únicos parciais para tombamentos preenchidos e para a origem da unidade importada. A lista e a ficha mostram tombamento pendente e posição da unidade quando disponível. Completar a identificação preserva o ID da ficha; o cadastro pendente não comprova recebimento, disponibilidade ou execução de manutenção. No fluxo Enviar TC, a leitura concluída já grava o lote automaticamente. A conferência posterior serve para corrigir dados e aprovar regras de manutenção; não é necessária para fazer as fichas aparecerem no inventário. O salvamento do lote é atômico.
 
 ## Navegação da fase 01
 
-A sidebar principal mantém Calendário, Equipamentos e Contratos, cadastro em destaque e a mensagem “Do contrato à próxima manutenção.”. Pode ser fechada pelo botão ou arrastando a borda esquerda do conteúdo em direção à lateral da janela; **Abrir menu** no cabeçalho restaura a largura anterior. A largura e o fechamento ficam em `localStorage`. A borda também aceita setas, Home (fechar) e End (restaurar). Em telas pequenas, o menu abre como painel lateral com botão e fundo para fechar.
+A sidebar principal mantém Calendário, Equipamentos e Contratos e aditivos, cadastro em destaque e a mensagem “Do contrato à próxima manutenção.”. Pode ser fechada pelo botão ou arrastando a borda esquerda do conteúdo em direção à lateral da janela; **Abrir menu** no cabeçalho restaura a largura anterior. A largura e o fechamento ficam em `localStorage`. A borda também aceita setas, Home (fechar) e End (restaurar). Em telas pequenas, o menu abre como painel lateral com botão e fundo para fechar.
 
 Não há totais de contratos, equipamentos ou previsões nos links. **Reparos pendentes** aparece apenas quando há quebra registrada ainda sem resolução, informa a quantidade de equipamentos e abre a lista filtrada para essa ação. O número não constitui avaliação automática de risco clínico.
 
@@ -18,12 +30,12 @@ A API de ativos aceita `brand` como texto opcional de até 160 caracteres. Cadas
 
 ## Gestão de manutenção na lista de equipamentos
 
-A tela usa uma lista compacta sem cards ou contadores: equipamento com tombamento/setor, um único status e a ação correspondente. Pendências recebem bandeira vermelha no início da linha e aparecem primeiro. Os filtros ficam visíveis por situação: responsável não definido, sem contrato ativo, contrato vencido, dados do contrato a conferir, prazo do contrato a confirmar, manutenção por contrato e manutenção interna. Motivos, datas e orientações ficam na ficha do equipamento; a lista não repete explicações sob o status.
+A tela usa uma lista compacta sem cards ou contadores: equipamento com tombamento/setor, um único status e a ação correspondente. Pendências recebem bandeira vermelha no início da linha e aparecem primeiro. Os filtros ficam visíveis por situação: responsável não definido, sem cobertura de manutenção, cobertura de manutenção encerrada, conferir cobertura de manutenção, vigência da manutenção a confirmar, manutenção com cobertura contratual e manutenção interna. Motivos, datas e orientações ficam na ficha do equipamento; a lista não repete explicações sob o status.
 
-- **Manutenção por contrato** exige vínculo documental, revisão e início/fim de vigência conhecidos, incluindo a data consultada. Um arquivo anexado sozinho não comprova cobertura.
-- **Dados do contrato a conferir** indica revisão pendente. **Prazo do contrato a confirmar** indica contrato já conferido com início ou fim ausente; a ação **Gerenciar manutenção** abre as opções de contrato/aditivo, Oficina de Manutenção do hospital ou ainda não definido. Somente ao escolher contrato ficam disponíveis configuração documental e preenchimento da vigência. A oficina não exige datas contratuais; documentos anteriores são preservados. Contratos vencidos, futuros e lacunas aparecem como situações de atenção. Uma renovação pendente ou futura não oculta a cobertura anterior ainda válida.
+- **Manutenção com cobertura contratual** exige vínculo documental, revisão e início/fim de vigência conhecidos, incluindo a data consultada. Um arquivo anexado sozinho não comprova cobertura.
+- **Conferir cobertura de manutenção** indica revisão pendente. **Vigência da manutenção a confirmar** indica contrato já conferido com início ou fim ausente; a ação **Gerenciar manutenção** abre as opções de contrato/aditivo, Oficina de Manutenção do hospital ou ainda não definido. Somente ao escolher contrato ficam disponíveis configuração documental e preenchimento da vigência. A oficina não exige datas contratuais; documentos anteriores são preservados. Contratos vencidos, futuros e lacunas aparecem como situações de atenção. Uma renovação pendente ou futura não oculta a cobertura anterior ainda válida.
 - **Manutenção interna** identifica a **Oficina de Manutenção**, somente após escolha explícita. Ausência de contrato não atribui o equipamento à oficina automaticamente.
-- **Definir responsável** permite escolher manutenção por contrato ou aditivo, manutenção interna pela Oficina do hospital ou responsável não definido. A responsabilidade é persistida no equipamento; a operação preserva documentos, coberturas e planejamento existentes.
+- **Definir responsável** permite escolher manutenção com cobertura contratual ou aditivo, manutenção interna pela Oficina do hospital ou responsável não definido. A responsabilidade é persistida no equipamento; a operação preserva documentos, coberturas e planejamento existentes.
 
 `maintenanceProvider` aceita `contract`, `internal` ou `unassigned`. Registros legados continuam legíveis: vínculo documental indica intenção de atendimento por contrato, sujeito à verificação de cobertura; sem documento, responsabilidade a definir. Edições por consumidores antigos que omitem o campo preservam a definição existente. A escolha da oficina não cria datas, tarefas ou registros de execução.
 
@@ -33,20 +45,20 @@ A ficha do equipamento abre em **Visão geral**, destacando responsável, próxi
 
 ## Contratos principais e aditivos
 
-A tabela mostra contratos principais. A seta expande uma lista recolhível com todos os aditivos daquele contrato. **Adicionar aditivo** fica dentro da área expandida, junto à lista, inclusive quando ela estiver vazia. Permite enviar PDF/TXT ou vincular um documento já salvo. **Organizar** permite mudar o contrato principal de um aditivo ou torná-lo principal novamente.
+A tabela mostra contratos principais. A seta expande uma lista recolhível com todos os aditivos daquele contrato. **Adicionar aditivo** fica dentro da área expandida, junto à lista, inclusive quando ela estiver vazia. Permite enviar PDF/TXT ou vincular um documento já salvo. O TC de origem fica definido na inclusão; a interface não oferece reorganização posterior.
 
-O vínculo explícito usa `parentContractId` nos metadados persistidos. Registros antigos sem esse campo continuam como principais. Um aditivo pertence a um único principal; ciclos, vínculo consigo mesmo e aditivos dentro de aditivos são rejeitados. Um principal que já tem aditivos precisa reorganizá-los antes de se tornar aditivo. Arquivos, evidências, equipamentos e regras de manutenção são preservados.
+O vínculo explícito usa `parentContractId` nos metadados persistidos. Registros antigos sem esse campo continuam como principais. Um aditivo pertence a um único principal; ciclos, vínculo consigo mesmo e aditivos dentro de aditivos são rejeitados. Arquivos, evidências, equipamentos e regras de manutenção são preservados.
 
-A busca por aditivo mantém o principal no resultado e expande seu grupo. A consulta do principal reúne equipamentos vinculados a ele ou aos aditivos, sem duplicar unidades. A consulta individual do aditivo continua mostrando apenas seus próprios vínculos. Organizar documentos não renova nem altera a cobertura de manutenção automaticamente.
+A busca por aditivo mantém o principal no resultado e expande seu grupo. A consulta do principal reúne equipamentos vinculados a ele ou aos aditivos, sem duplicar unidades. A consulta individual do aditivo continua mostrando apenas seus próprios vínculos. A inclusão de documentos não renova nem altera a cobertura de manutenção automaticamente.
 
 ## Consulta de contratos e equipamentos
 
-A área se chama **Contratos**. Os tipos são **Contrato principal**, **Termo aditivo**, **Contrato terceirizado** e **Anexo**; **arquivo** identifica somente o PDF/TXT enviado ou consultado. O vocabulário compartilhado está em `src/contract-copy.ts`.
+A área se chama **Contratos e aditivos**. Os tipos são **Termo de Contrato (TC)**, **Contrato de manutenção**, **Termo aditivo** e **Anexo contratual**; **arquivo** identifica somente o PDF/TXT enviado ou consultado. O vocabulário compartilhado está em `src/contract-copy.ts`.
 
-- O mesmo leitor atende a todas as origens. Clicar no nome ou em **Ver arquivo** abre o arquivo escolhido, inclusive quando é aditivo ou terceirizado. **Ver equipamentos** entra diretamente nessa aba.
-- **Arquivos do contrato** permanece na lateral com o principal e os vínculos explícitos. Trocar a seleção altera o arquivo exibido na mesma janela. Os arquivos vinculados aparecem como ramos de uma árvore recolhível; em telas pequenas, a área da árvore tem rolagem própria.
+- O mesmo leitor atende a todas as origens. Clicar no nome ou em **Ver arquivo** abre o arquivo escolhido, inclusive quando é termo aditivo ou contrato de manutenção. **Ver equipamentos** entra diretamente nessa aba.
+- **Documentos contratuais** permanece na lateral com o principal e os vínculos explícitos. Trocar a seleção altera o arquivo exibido na mesma janela. Os arquivos vinculados aparecem como ramos de uma árvore recolhível; em telas pequenas, a área da árvore tem rolagem própria.
 - As abas **Visão geral**, **Arquivo** e **Equipamentos** aceitam setas, Home e End. O principal reúne os equipamentos de todo o grupo sem duplicar unidades; cada vínculo mostra seus próprios equipamentos.
-- **Adicionar arquivo** permite enviar PDF/TXT ou escolher um arquivo salvo e classificá-lo como termo aditivo, contrato terceirizado ou anexo. **Organizar vínculo** permite trocar o contrato de origem. Essas ações preservam arquivo e planos de manutenção.
+- **Adicionar documento** permite somente enviar PDF/TXT e classificá-lo como termo aditivo, contrato de manutenção ou anexo. A seleção de arquivo já salvo foi removida. A inclusão preserva arquivo e planos de manutenção.
 - O PDF usa o leitor do navegador, por Blob temporário revogado na troca/fechamento. Requisições antigas são canceladas ao selecionar outro arquivo. TXT é exibido como texto; a consulta não chama IA nem envia o arquivo para serviço externo.
 
 `PATCH /api/contracts/:id/parent` recebe `parentContractId` (UUID ou `null`) e `documentKind` opcional (`amendment`, `outsourced` ou `complement`). Aditivo exige principal; ciclos, pais inválidos e transformação de principal com filhos são rejeitados. O campo opcional preserva compatibilidade com consumidores anteriores.
@@ -119,6 +131,8 @@ Nenhuma chamada real foi executada nesta entrega. Sem chave/modelo, upload, cada
 
 ## Fluxo disponível
 
+O envio e a extração mostram uma barra segmentada com três etapas: receber o arquivo, extrair dados com IA e preparar a conferência. O arquivo só é marcado como recebido após confirmação da API; a leitura só termina quando os dados retornam e preenchem o formulário. Durante a chamada à IA, o preenchimento da etapa ativa avança visualmente e mantém um brilho em movimento enquanto aguarda, com tempo decorrido e mensagem para leituras demoradas. Essa animação indica atividade, sem medir uma porcentagem da leitura; ela não completa a etapa por tempo. Falhas mantêm a etapa interrompida e orientam a nova tentativa. A conclusão informa quantos itens estão disponíveis para conferência, incluindo registros de grupos ainda sem identificação individual. A preferência por movimento reduzido desativa a animação.
+
 1. Enviar contrato PDF/TXT e continuar. A IA, quando configurada, retorna todos os equipamentos do documento em uma resposta estruturada versionada.
 2. Conferir a tabela preenchida: cada linha tem nome, número de tombamento, intervalo e primeira manutenção próprios. Modelo, série, setor, observações, vigência e evidências ficam nas configurações avançadas de cada linha, também preenchidos pela IA quando documentados.
 3. Completar somente as lacunas ou resolver conflitos e confirmar o lote. Regras incompletas permanecem pendentes; não são inventadas datas. A confirmação é a revisão humana explícita.
@@ -159,11 +173,11 @@ Por padrão, demonstração local com três exemplos sintéticos identificados *
 
 “Quem cuida da manutenção?” mostra as opções de responsabilidade. **Empresa externa** segue por **Continuar** para duas opções: **Termo aditivo** ou **Contrato de manutenção terceirizada**, mais o upload de PDF/TXT (até 15 MB). Não há campo de descrição. Cancelar antes de salvar não envia o arquivo.
 
-O termo aditivo altera o contrato de origem; o contrato terceirizado é um documento separado relacionado à gestão do equipamento. Ambos mantêm vínculo ao principal, com classificação própria, sem substituir o contrato de origem ou serem confundidos na lista de documentos e no histórico da unidade. A ficha reúne esses arquivos e as coberturas anteriores. Esses registros documentais não comprovam manutenção executada.
+O termo aditivo altera o contrato de origem; o contrato de manutenção é um documento separado relacionado à gestão do equipamento. Ambos mantêm vínculo ao principal, com classificação própria, sem substituir o contrato de origem ou serem confundidos na lista de documentos e no histórico da unidade. A ficha reúne esses arquivos e as coberturas anteriores. Esses registros documentais não comprovam manutenção executada.
 
 **Salvar no histórico** envia `POST /api/assets/:id/maintenance-documents` autenticado, com multipart `file` e `kind` (`amendment` ou `outsourced`). O backend rejeita `contract` e `complement` nesse fluxo e exige contrato de origem. Arquivo, vínculo e responsabilidade são gravados na mesma transação; reenvios mantêm um único registro por unidade. Descrições históricas e o campo opcional `notes` da API permanecem compatíveis, sem entrada na interface.
 
-A migração transacional para `user_version=4` amplia os tipos em `asset_documents`, preservando IDs, arquivos, registros e a ordem histórica da versão 3. Coberturas continuam em `asset_contracts`. O histórico é retornado em `maintenanceDocuments`; `documentKind` diferencia aditivo de contrato terceirizado. Anexar não altera vigência, revisão ou previsões existentes.
+A migração transacional para `user_version=4` amplia os tipos em `asset_documents`, preservando IDs, arquivos, registros e a ordem histórica da versão 3. Coberturas continuam em `asset_contracts`. O histórico é retornado em `maintenanceDocuments`; `documentKind` diferencia aditivo de contrato de manutenção. Anexar não altera vigência, revisão ou previsões existentes.
 
 ## Quebra, reparo e contato da manutenção
 

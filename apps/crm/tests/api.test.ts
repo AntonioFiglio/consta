@@ -1,3 +1,4 @@
+import { importBatch } from "./fixtures/import-equipment.js";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
@@ -450,21 +451,14 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
               created_at: 1,
               status: "completed",
               model: "test-model",
-              output: [
-                {
-                  type: "message",
-                  id: "msg_local",
-                  role: "assistant",
+              output: [{
+                  type: "function_call",
+                  id: "fc_test",
+                  call_id: "call_test",
                   status: "completed",
-                  content: [
-                    {
-                      type: "output_text",
-                      text: JSON.stringify(extraction),
-                      annotations: [],
-                    },
-                  ],
-                },
-              ],
+                  name: "prepare_equipment_import",
+                  arguments: JSON.stringify(extraction),
+                }],
             }),
           );
         }).listen(0, "127.0.0.1");
@@ -478,10 +472,10 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
           });
           assert.equal(response.status, 200);
           const result = await response.json();
-          assert.deepEqual(result.extraction, extraction);
+          assert.deepEqual({ ...result.extraction, equipments: result.extraction.equipments.map(({ importUnit: _unit, ...fields }: any) => fields) }, extraction);
           assert.equal(received!.model, "test-model");
           assert.equal(received!.store, false);
-          assert.equal(received!.text.format.type, "json_schema");
+          assert.equal(received!.tools[0].name, "prepare_equipment_import");
           assert.equal(received!.input[0].content[0].type, "input_file");
           assert.match(
             received!.input[0].content[0].file_data,
@@ -522,6 +516,46 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
         );
       },
     );
+    await t.test("importação em lote sem tombamento é idempotente e permite completar identificação", async () => {
+      const payload = Array.from({ length: 6 }, (_, index) => ({
+        name: "Ecocardiógrafo sintético", patrimony: "", serial: "", contractId,
+        importSource: { contractId, unitKey: `synthetic-group:${index}`, position: index + 1, total: 6 },
+        periodValue: null, periodUnit: "months", anchorDate: null, reviewed: false,
+      }));
+      const first = await send("/assets/batch", { method: "POST", body: JSON.stringify({ assets: payload }) });
+      assert.equal(first.status, 201);
+      const units = await first.json();
+      assert.equal(units.length, 6);
+      const second = await send("/assets/batch", { method: "POST", body: JSON.stringify({ assets: payload }) });
+      assert.equal(second.status, 201);
+      assert.deepEqual((await second.json()).map((unit: any) => unit.id), units.map((unit: any) => unit.id));
+      const filled = await send(`/assets/${units[0].id}`, { method: "PUT", body: JSON.stringify({ ...units[0], patrimony: "TOMB-LOTE-01" }) });
+      assert.equal(filled.status, 200);
+      const all = await (await send("/assets")).json();
+      assert.equal(all.filter((unit: any) => unit.importSource?.unitKey?.startsWith("synthetic-group:")).length, 6);
+    });
+    await t.test("TC com leitura persistida cadastra equipamentos sem nova chamada à IA", async () => {
+      const tc = running.store.upload("tc-auto.txt", "text/plain", Buffer.from("TC automático sintético"));
+      running.store.saveExtraction(tc.id, importBatch());
+      const key = process.env.OPENAI_API_KEY;
+      delete process.env.OPENAI_API_KEY;
+      try {
+        const response = await send(`/contracts/${tc.id}/import`, { method: "POST" });
+        assert.equal(response.status, 200);
+        const imported = await response.json();
+        assert.equal(imported.createdCount, 6);
+        assert.equal(imported.assets.length, 6);
+        assert.ok(imported.assets.every((asset: any) => asset.contractId === tc.id && asset.reviewed === false));
+        const repeat = await (await send(`/contracts/${tc.id}/import`, { method: "POST" })).json();
+        assert.equal(repeat.createdCount, 0);
+        assert.deepEqual(repeat.assets.map((asset: any) => asset.id), imported.assets.map((asset: any) => asset.id));
+        const all = await (await send("/assets")).json();
+        assert.equal(all.filter((asset: any) => asset.contractId === tc.id).length, 6);
+      } finally {
+        if (key === undefined) delete process.env.OPENAI_API_KEY;
+        else process.env.OPENAI_API_KEY = key;
+      }
+    });
   } finally {
     for (const [key, value] of Object.entries({
       OPENAI_API_KEY: oldKey,

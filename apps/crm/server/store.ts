@@ -25,11 +25,26 @@ export function createStore(filename: string, seed = false) {
   const db = new DatabaseSync(filename);
   db.exec(`PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON;
     CREATE TABLE IF NOT EXISTS contracts (id TEXT PRIMARY KEY, hash TEXT UNIQUE NOT NULL, metadata TEXT NOT NULL, bytes BLOB NOT NULL);
-    CREATE TABLE IF NOT EXISTS assets (id TEXT PRIMARY KEY, patrimony TEXT UNIQUE NOT NULL, payload TEXT NOT NULL, contract_id TEXT REFERENCES contracts(id));
+    CREATE TABLE IF NOT EXISTS assets (id TEXT PRIMARY KEY, patrimony TEXT NOT NULL, payload TEXT NOT NULL, contract_id TEXT REFERENCES contracts(id));
     CREATE TABLE IF NOT EXISTS asset_contracts (id TEXT PRIMARY KEY, asset_id TEXT NOT NULL REFERENCES assets(id), contract_id TEXT REFERENCES contracts(id), position INTEGER NOT NULL, payload TEXT NOT NULL, UNIQUE(asset_id, position));`);
   // Migração aditiva: mantém cadastros/arquivos existentes e registra a cobertura legada.
-  db.exec("BEGIN IMMEDIATE");
+  db.exec("PRAGMA foreign_keys=OFF; BEGIN IMMEDIATE");
   try {
+    const assetsSchema = db.prepare("SELECT sql FROM sqlite_master WHERE name='assets'").get() as { sql: string };
+    if (/patrimony\s+TEXT\s+UNIQUE/i.test(assetsSchema.sql)) {
+      db.exec(`CREATE TABLE assets_v6 (
+        id TEXT PRIMARY KEY, patrimony TEXT NOT NULL, payload TEXT NOT NULL,
+        contract_id TEXT REFERENCES contracts(id));
+        INSERT INTO assets_v6 SELECT id,patrimony,payload,contract_id FROM assets;
+        DROP TABLE assets;
+        ALTER TABLE assets_v6 RENAME TO assets;`);
+    }
+    db.exec(`CREATE UNIQUE INDEX IF NOT EXISTS assets_known_patrimony
+      ON assets(patrimony) WHERE patrimony <> '';
+      CREATE UNIQUE INDEX IF NOT EXISTS assets_import_unit
+      ON assets(json_extract(payload,'$.importSource.contractId'),json_extract(payload,'$.importSource.unitKey'))
+      WHERE json_extract(payload,'$.importSource.contractId') IS NOT NULL
+        AND json_extract(payload,'$.importSource.unitKey') IS NOT NULL;`);
     for (const row of db
       .prepare(
         "SELECT id,payload FROM assets WHERE id NOT IN (SELECT asset_id FROM asset_contracts)",
@@ -81,10 +96,12 @@ export function createStore(filename: string, seed = false) {
       started_at TEXT NOT NULL,
       token TEXT,
       payload TEXT
-    ); PRAGMA user_version=5; COMMIT`);
+    ); PRAGMA user_version=6; COMMIT`);
   } catch (error) {
     db.exec("ROLLBACK");
     throw error;
+  } finally {
+    db.exec("PRAGMA foreign_keys=ON");
   }
 
   const listAssets = (): Asset[] =>
@@ -154,7 +171,7 @@ export function createStore(filename: string, seed = false) {
     const contract = getContract(id);
     if (!contract) throw new DomainError("Arquivo não encontrado.");
     if (documentKind === "amendment" && !parentContractId)
-      throw new DomainError("Escolha o contrato principal deste aditivo.");
+      throw new DomainError("Selecione o Termo de Contrato (TC) principal que este termo aditivo altera.");
     if (
       documentKind &&
       (
@@ -166,20 +183,20 @@ export function createStore(filename: string, seed = false) {
       )
     )
       throw new DomainError(
-        "Este contrato já possui aditivos. Reorganize os aditivos antes de alterar o tipo.",
+        "Este TC já possui termos aditivos. Reorganize os vínculos antes de alterar o tipo.",
       );
     if (parentContractId) {
       if (id === parentContractId)
-        throw new DomainError("Um contrato não pode ser aditivo de si mesmo.");
+        throw new DomainError("Um documento não pode ser termo aditivo de si mesmo.");
       const parent = getContract(parentContractId);
-      if (!parent) throw new DomainError("Contrato principal não encontrado.");
+      if (!parent) throw new DomainError("Termo de Contrato (TC) principal não encontrado.");
       if (
         parent.parentContractId ||
         parent.documentKind === "complement" ||
         parent.documentKind === "outsourced"
       )
         throw new DomainError(
-          "Escolha um contrato principal, não outro aditivo.",
+          "Selecione um Termo de Contrato (TC), não outro termo aditivo.",
         );
       const hasChildren = (
         db.prepare("SELECT metadata FROM contracts").all() as {
@@ -190,7 +207,7 @@ export function createStore(filename: string, seed = false) {
       );
       if (hasChildren)
         throw new DomainError(
-          "Este contrato já possui aditivos. Reorganize os aditivos antes de vinculá-lo a outro contrato.",
+          "Este TC já possui termos aditivos. Reorganize os vínculos antes de associá-lo a outro TC.",
         );
     }
     const updated = {
@@ -211,9 +228,10 @@ export function createStore(filename: string, seed = false) {
     );
     return updated;
   }
-  function saveAssets(assets: Asset[]) {
+  function saveAssets(assets: Asset[], contractUpdate?: { id: string; extraction: Extraction }) {
     db.exec("BEGIN IMMEDIATE");
     try {
+      if (contractUpdate) saveExtraction(contractUpdate.id, contractUpdate.extraction);
       for (const asset of assets) {
         const {
           coverages,
@@ -294,7 +312,7 @@ export function createStore(filename: string, seed = false) {
       const principalId = base?.parentContractId || base?.id || null;
       if (!principalId)
         throw new DomainError(
-          "O equipamento precisa ter um contrato de origem antes de receber um arquivo de manutenção.",
+          "Vincule o equipamento a um Termo de Contrato (TC) antes de adicionar um documento de manutenção.",
         );
       const fileContract = upload(file.name, file.mime, file.bytes);
       const duplicate = documents.find(
@@ -304,14 +322,14 @@ export function createStore(filename: string, seed = false) {
         const parentId = principalId;
         if (parentId === fileContract.id)
           throw new DomainError(
-            "Este arquivo já é o contrato principal. Escolha o termo aditivo ou o contrato terceirizado.",
+            "Este arquivo já é o Termo de Contrato (TC) principal. Selecione o termo aditivo ou o contrato de manutenção.",
           );
         if (
           fileContract.parentContractId &&
           fileContract.parentContractId !== parentId
         )
           throw new DomainError(
-            "Este arquivo pertence a outro contrato. Organize o vínculo antes de adicioná-lo ao equipamento.",
+            "Este documento está vinculado a outro TC. Organize o vínculo antes de adicioná-lo ao equipamento.",
           );
         if (
           fileContract.documentKind &&
@@ -331,7 +349,7 @@ export function createStore(filename: string, seed = false) {
           )
         )
           throw new DomainError(
-            "Este arquivo já é um contrato principal. Envie o termo aditivo ou o contrato terceirizado.",
+            "Este arquivo já é um Termo de Contrato (TC) principal. Envie o termo aditivo ou o contrato de manutenção.",
           );
         if (parentId) setContractParent(fileContract.id, parentId);
         const organized = {

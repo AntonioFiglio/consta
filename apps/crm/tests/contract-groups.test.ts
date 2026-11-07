@@ -94,11 +94,11 @@ test("impede ciclos, pai inexistente e aditivo dentro de aditivo; permite mover 
     store.setContractParent(child.id, main.id);
     assert.throws(
       () => store.setContractParent(third.id, child.id),
-      /outro aditivo/,
+      /outro termo aditivo/,
     );
     assert.throws(
       () => store.setContractParent(main.id, other.id),
-      /já possui aditivos/,
+      /já possui termos aditivos/,
     );
     assert.throws(() => store.setContractParent(main.id, child.id));
     assert.equal(store.getContract(main.id)?.parentContractId, undefined);
@@ -194,8 +194,8 @@ test("tipo de arquivo vinculado persiste sem alterar bytes e impede aditivo sem 
       assert.equal(contractFamily(child.id, store.listContracts()).principal?.id, main.id);
     }
     const orphan = store.upload("orfao.txt", "text/plain", Buffer.from("Outro arquivo"));
-    assert.throws(() => store.setContractParent(orphan.id, null, "amendment"), /principal/);
-    assert.throws(() => store.setContractParent(main.id, null, "outsourced"), /possui aditivos/);
+    assert.throws(() => store.setContractParent(orphan.id, null, "amendment"), /Termo de Contrato/);
+    assert.throws(() => store.setContractParent(main.id, null, "outsourced"), /possui termos aditivos/);
     assert.equal(store.listAssets().length, 0);
   } finally { store.close(); }
 });

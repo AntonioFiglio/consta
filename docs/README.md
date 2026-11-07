@@ -8,6 +8,7 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 - [Visão, público e escopo](produto/visao.md)
 - [Requisitos e critérios de aceite](produto/requisitos.md)
 - [Fluxos de documentos, manutenção e localização](produto/fluxos.md)
+- [Cadastro por documentos: pesquisa e prompt de implementação](produto/fluxo-documental-e-prompt-cadastro.md) — proposta com TC obrigatório, manutenção/aditivos opcionais e múltiplos equipamentos
 - [Demonstração e discurso do projeto](produto/demonstracao.md)
 - [Glossário](../GLOSSARY.md)
 

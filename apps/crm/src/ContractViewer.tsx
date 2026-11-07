@@ -22,7 +22,7 @@ import {
 import type { OnBreakdown } from "./breakdowns";
 import { AssetOverview } from "./AssetOverview";
 import { ContractBriefPanel } from "./ContractBriefPanel";
-import { ContractOrganization } from "./ContractOrganization";
+import { ContractAttachment } from "./ContractAttachment";
 import { brandAndModel } from "./equipment-identity";
 import { api } from "./api";
 
@@ -72,10 +72,7 @@ export function ContractViewer({
   const [resource, setResource] = useState<Resource | null>(null);
   const [retry, setRetry] = useState(0);
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
-  const [organization, setOrganization] = useState<{
-    principal?: ContractSummary;
-    document?: ContractSummary;
-  } | null>(null);
+  const [addingTo, setAddingTo] = useState<ContractSummary | null>(null);
   const [localContracts, setLocalContracts] = useState<ContractSummary[]>([]);
   const lastAssetButton = useRef<HTMLButtonElement | null>(null);
   const now = new Date();
@@ -193,7 +190,7 @@ export function ContractViewer({
       <div className="contract-workspace-layout">
         <aside
           className="contract-document-sidebar"
-          aria-label="Arquivos deste contrato"
+          aria-label="Documentos contratuais vinculados"
         >
           <div className="contract-sidebar-heading">
             <FolderOpen size={17} aria-hidden="true" />
@@ -275,7 +272,7 @@ export function ContractViewer({
               <button
                 type="button"
                 className="button secondary contract-add-document"
-                onClick={() => setOrganization({ principal: family.principal })}
+                onClick={() => setAddingTo(family.principal)}
               >
                 <Plus size={15} /> {contractCopy.addFile}
               </button>
@@ -300,7 +297,7 @@ export function ContractViewer({
             <div
               className="equipment-sheet-tabs contract-view-tabs"
               role="tablist"
-              aria-label="Informações do contrato"
+              aria-label="Informações do documento contratual"
             >
               {views.map((view, index) => (
                 <button
@@ -369,19 +366,10 @@ export function ContractViewer({
                 >
                   <FileText size={17} />
                   <span>
-                    <small>Contrato de origem</small>
+                    <small>Termo de Contrato (TC) principal</small>
                     <strong>{family.principal.name}</strong>
                   </span>
                   <ArrowRight size={15} />
-                </button>
-              )}
-              {contract && (
-                <button
-                  type="button"
-                  className="button secondary"
-                  onClick={() => setOrganization({ document: contract })}
-                >
-                  Organizar vínculo
                 </button>
               )}
             </div>
@@ -445,7 +433,7 @@ export function ContractViewer({
                         <th>Equipamento</th>
                         <th>Número de tombamento</th>
                         <th>Setor</th>
-                        <th>Período do contrato</th>
+                        <th>Cobertura de manutenção</th>
                         <th>Revisão</th>
                       </tr>
                     </thead>
@@ -516,7 +504,7 @@ export function ContractViewer({
                                         : "Fim não informado"}
                                     </div>
                                   ))
-                                : "Datas do contrato não informadas"}
+                                : "Datas da cobertura de manutenção não informadas"}
                             </td>
                             <td>
                               <span
@@ -573,16 +561,15 @@ export function ContractViewer({
           }}
         />
       )}
-      {organization && (
-        <ContractOrganization
-          key={organization.document?.id || organization.principal?.id}
-          {...organization}
-          contracts={[...known.values()]}
-          onClose={() => setOrganization(null)}
+      {addingTo && (
+        <ContractAttachment
+          key={addingTo.id}
+          principal={addingTo}
+          onClose={() => setAddingTo(null)}
           onUploaded={changed}
           onSaved={(document) => {
             changed(document);
-            setOrganization(null);
+            setAddingTo(null);
             selectDocument(document.id);
           }}
         />

@@ -101,7 +101,7 @@ test("anexo persiste com descrição e principal sem modificar contrato, marca, 
       assert.equal(
         (db.prepare("PRAGMA user_version").get() as { user_version: number })
           .user_version,
-        5,
+        6,
       );
     } finally {
       db.close();
@@ -155,7 +155,7 @@ test("falha de vínculo faz rollback do arquivo e da responsabilidade; documento
           file("aditivo-sem-principal"),
           { kind: "amendment" },
         ),
-      /contrato de origem/,
+      /Termo de Contrato/,
     );
     assert.equal(store.listContracts().length, 0);
     assert.equal(store.listAssets()[0].maintenanceProvider, "internal");
@@ -179,7 +179,7 @@ test("falha de vínculo faz rollback do arquivo e da responsabilidade; documento
         store.attachMaintenanceDocument(withMain.id, mainFile, {
           kind: "amendment",
         }),
-      /já é o contrato principal/,
+      /já é o Termo de Contrato/,
     );
     assert.equal(store.listContracts().length, 1);
     assert.deepEqual(store.listAssets()[0], before);
@@ -197,7 +197,7 @@ test("falha de vínculo faz rollback do arquivo e da responsabilidade; documento
         store.attachMaintenanceDocument(withMain.id, conflictFile, {
           kind: "amendment",
         }),
-      /outro contrato/,
+      /outro TC/,
     );
     assert.equal(store.getContract(conflict.id)?.parentContractId, other.id);
     assert.deepEqual(store.listAssets()[0], before);
@@ -295,7 +295,7 @@ test("migração da versão 3 preserva aditivos e aceita contrato terceirizado s
     assert.equal(store.getContract(externalId)?.parentContractId, main.id);
     assert.equal(
       documentKindLabel(store.getContract(externalId)!),
-      "Contrato terceirizado",
+      "Contrato de manutenção",
     );
     store.setContractParent(externalId, main.id);
     assert.equal(store.getContract(externalId)?.documentKind, "outsourced");

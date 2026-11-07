@@ -1,5 +1,10 @@
 import type { OnBreakdown } from "./breakdowns";
 import { ManagedDialog } from "./DialogManager";
+import { equipmentImportWarnings } from "./equipment-import";
+import {
+  ContractImportProgress,
+  type ContractImportState,
+} from "./ContractImportProgress";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
@@ -17,6 +22,7 @@ import type {
   Asset,
   Contract,
   ContractSummary,
+  ContractImportResult,
   EquipmentExtraction,
   Extraction,
   PeriodUnit,
@@ -38,15 +44,15 @@ const pretty = (date?: string | null) =>
   date
     ? new Date(date + "T12:00:00").toLocaleDateString("pt-BR")
     : "não informado";
-const labels: Record<Exclude<keyof EquipmentExtraction, "warnings">, string> = {
+const labels: Record<Exclude<keyof EquipmentExtraction, "warnings" | "importUnit">, string> = {
   equipment: "Equipamento",
   patrimony: "Número de tombamento",
   serial: "Número de série",
   sector: "Setor",
   brand: "Marca",
-  maintenanceCompany: "Empresa de manutenção",
-  maintenancePhone: "Telefone da manutenção",
-  maintenanceEmail: "E-mail da manutenção",
+  maintenanceCompany: "Empresa responsável pela manutenção",
+  maintenancePhone: "Telefone da assistência técnica",
+  maintenanceEmail: "E-mail da assistência técnica",
   model: "Modelo",
   notes: "Observações",
   quantity: "Quantidade",
@@ -55,8 +61,8 @@ const labels: Record<Exclude<keyof EquipmentExtraction, "warnings">, string> = {
   firstDueDate: "Primeira manutenção",
   anchorDate: "Data de referência",
   anchorType: "Referência",
-  validFrom: "Início do contrato",
-  validUntil: "Fim do contrato",
+  validFrom: "Início da cobertura de manutenção",
+  validUntil: "Fim da cobertura de manutenção",
 };
 export function AssetDialog({
   asset,
@@ -65,6 +71,7 @@ export function AssetDialog({
   contracts = [],
   onClose,
   onSaved,
+  onImported,
   onBreakdown,
 }: {
   asset: Asset | null;
@@ -73,12 +80,14 @@ export function AssetDialog({
   contracts?: ContractSummary[];
   onClose: () => void;
   onSaved: () => void;
+  onImported?: (result: ContractImportResult) => void;
   onBreakdown?: OnBreakdown;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const [step, setStep] = useState<1 | 2>(asset ? 2 : 1);
+  const [autoRegistered, setAutoRegistered] = useState(false);
   const [rows, setRows] = useState<EquipmentDraft[]>([
     asset ? draftFromAsset(asset) : emptyDraft(crypto.randomUUID()),
   ]);
@@ -87,6 +96,8 @@ export function AssetDialog({
   );
   const [contract, setContract] = useState<Contract | null>(null);
   const [busy, setBusy] = useState<"upload" | "extract" | "save" | null>(null);
+  const [importProgress, setImportProgress] =
+    useState<ContractImportState | null>(null);
   const [loading, setLoading] = useState(Boolean(asset?.contractId));
   const [error, setError] = useState("");
   const [dragging, setDragging] = useState(false);
@@ -163,17 +174,22 @@ export function AssetDialog({
       ),
     );
   }
-  function applyExtraction(data: Extraction) {
+  function applyExtraction(data: Extraction, imported: Asset[] = [], sourceContractId = contract?.id) {
     const items = extractionItems(data);
-    const target = assets.find((item) => item.id === renewTargetId) || asset;
+    const knownAssets = [...assets.filter(item => !imported.some(saved => saved.id === item.id)), ...imported];
+    const target = knownAssets.find((item) => item.id === renewTargetId) || asset;
     const drafts = items.map((item) => {
       const row = draftFromExtraction(item, crypto.randomUUID());
-      const matched = existingForDraft(row, assets);
+      const matched = existingForDraft(row, knownAssets, sourceContractId);
       if (matched)
         return {
-          ...row,
-          brand: row.brand || matched.brand || "",
+          ...(imported.length ? draftFromAsset(matched) : row),
+          brand: imported.length ? matched.brand : row.brand || matched.brand || "",
           assetId: matched.id,
+          key: row.key,
+          quantity: row.quantity,
+          evidence: row.evidence,
+          importUnit: row.importUnit,
         };
       // Mantém a identificação já cadastrada somente quando o contrato aponta uma unidade única.
       if (
@@ -206,6 +222,27 @@ export function AssetDialog({
     setRows(drafts);
     setAdvancedRows(new Set());
   }
+  async function registerUploadedTC(selected: Contract) {
+    setBusy("extract");
+    setImportProgress({ phase: "extract", startedAt: Date.now() });
+    setError("");
+    try {
+      const result = await api<ContractImportResult>(`/contracts/${selected.id}/import`, { method: "POST" });
+      setContract(result.contract);
+      applyExtraction(result.contract.extraction!, result.assets, result.contract.id);
+      setAutoRegistered(true);
+      setImportProgress({ phase: "ready", startedAt: Date.now() });
+      onImported?.(result);
+      goToStep(2);
+      return true;
+    } catch (error) {
+      setError((error as Error).message);
+      setImportProgress(current => current ? { ...current, failed: true } : null);
+      return false;
+    } finally {
+      setBusy(null);
+    }
+  }
   async function upload(file?: File) {
     if (!file || busy) return;
     if (file.size > 15 * 1024 * 1024 || !/\.(pdf|txt)$/i.test(file.name)) {
@@ -213,7 +250,9 @@ export function AssetDialog({
       return;
     }
     setError("");
+    setAutoRegistered(false);
     setBusy("upload");
+    setImportProgress({ phase: "upload", startedAt: Date.now() });
     const targetId =
       uploadTarget.current || (asset && step === 1 ? asset.id : null);
     try {
@@ -230,7 +269,7 @@ export function AssetDialog({
           target.coverages?.some((plan) => plan.contractId === uploaded.id))
       )
         throw new Error(
-          "Este contrato já está vinculado ao equipamento. Selecione o novo contrato.",
+          "Este documento já está vinculado ao equipamento. Selecione outro documento de manutenção.",
         );
       if (targetId) {
         if (!renewalBackup.current)
@@ -241,6 +280,19 @@ export function AssetDialog({
         setRenewTargetId(targetId);
       }
       setContract(uploaded);
+      if (!targetId && !asset && (uploaded.extraction || aiReady)) {
+        await registerUploadedTC(uploaded);
+        return;
+      }
+      if (!targetId && !asset && !aiReady)
+        setError("O TC foi salvo, mas a leitura por IA não está configurada. Preencha os equipamentos manualmente para cadastrá-los.");
+      setImportProgress(
+        uploaded.extraction
+          ? { phase: "ready", startedAt: Date.now() }
+          : aiReady
+            ? { phase: "uploaded", startedAt: Date.now() }
+            : null,
+      );
       if (uploaded.extraction) applyExtraction(uploaded.extraction);
       else {
         setRows([emptyDraft(crypto.randomUUID())]);
@@ -249,6 +301,9 @@ export function AssetDialog({
       if (targetId) setStep(1);
     } catch (e) {
       setError((e as Error).message);
+      setImportProgress((current) =>
+        current ? { ...current, failed: true } : null,
+      );
     } finally {
       setBusy(null);
       uploadTarget.current = null;
@@ -258,6 +313,7 @@ export function AssetDialog({
   async function readContract() {
     if (!contract) return false;
     setBusy("extract");
+    setImportProgress({ phase: "extract", startedAt: Date.now() });
     setError("");
     try {
       const result = await api<Contract>(`/contracts/${contract.id}/extract`, {
@@ -265,9 +321,13 @@ export function AssetDialog({
       });
       setContract(result);
       applyExtraction(result.extraction!);
+      setImportProgress({ phase: "ready", startedAt: Date.now() });
       return true;
     } catch (e) {
       setError((e as Error).message);
+      setImportProgress((current) =>
+        current ? { ...current, failed: true } : null,
+      );
       return false;
     } finally {
       setBusy(null);
@@ -275,6 +335,10 @@ export function AssetDialog({
   }
   async function nextStep() {
     if (!contract || busy || loading) return;
+    if (!asset && !renewTargetId && !autoRegistered && (contract.extraction || aiReady)) {
+      await registerUploadedTC(contract);
+      return;
+    }
     if (
       aiReady &&
       (!contract.extraction || !isMultiExtraction(contract.extraction)) &&
@@ -284,6 +348,7 @@ export function AssetDialog({
     goToStep(2);
   }
   function cancelRenewal() {
+    setImportProgress(null);
     if (renewalBackup.current) {
       setRows(renewalBackup.current.rows);
       setContract(renewalBackup.current.contract);
@@ -294,10 +359,11 @@ export function AssetDialog({
   }
   const extraction = contract?.extraction;
   const globalWarnings = [
-    ...(extraction?.warnings || []),
+    ...(extraction && isMultiExtraction(extraction)
+      ? equipmentImportWarnings(extraction) : extraction?.warnings || []),
     ...(extraction && !isMultiExtraction(extraction)
       ? [
-          "Leitura antiga: releia o contrato para identificar todos os equipamentos.",
+          "Leitura antiga: releia o documento para identificar todos os equipamentos.",
         ]
       : []),
   ];
@@ -321,7 +387,7 @@ export function AssetDialog({
       if (!field.reportValidity()) return;
     }
     const missingStart = rows.find((row) => {
-      const existing = existingForDraft(row, assets);
+      const existing = existingForDraft(row, assets, contract?.id);
       return (
         existing &&
         contract &&
@@ -333,16 +399,16 @@ export function AssetDialog({
       setAdvancedTab("coverage");
       setAdvancedRows(new Set([missingStart.key]));
       setError(
-        `Informe quando começa o contrato de ${missingStart.name || "equipamento"} nas configurações avançadas.`,
+        `Informe o início da cobertura de manutenção de ${missingStart.name || "equipamento"} nos detalhes.`,
       );
       return;
     }
     if (
       renewTargetId &&
-      !rows.some((row) => existingForDraft(row, assets)?.id === renewTargetId)
+      !rows.some((row) => existingForDraft(row, assets, contract?.id)?.id === renewTargetId)
     ) {
       setError(
-        "Complete o número de tombamento do equipamento escolhido para vinculá-lo ao novo contrato. Os demais equipamentos do contrato também podem ser incluídos.",
+        "Complete o número de tombamento do equipamento escolhido para vinculá-lo ao novo documento de manutenção. Os demais equipamentos abrangidos também podem ser incluídos.",
       );
       return;
     }
@@ -355,12 +421,18 @@ export function AssetDialog({
           evidence: _evidence,
           quantity: _quantity,
           assetId: _assetId,
+          importUnit: _importUnit,
           ...fields
         } = row;
-        const existing = existingForDraft(row, assets);
+        const existing = existingForDraft(row, assets, contract?.id);
         const contractId = contract?.id || existing?.contractId || null;
         return {
           ...fields,
+          importSource: existing?.importSource || row.importSource ||
+            (contract && row.importUnit ? {
+              contractId: contract.id, unitKey: row.importUnit.key,
+              position: row.importUnit.position, total: row.importUnit.total,
+            } : undefined),
           ...(existing ? { id: existing.id } : {}),
           renew: Boolean(existing && existing.contractId !== contractId),
           periodValue: row.periodValue ? Number(row.periodValue) : null,
@@ -403,33 +475,46 @@ export function AssetDialog({
       <header className="dialog-header">
         <div>
           <h2 id="dialog-title">
-            {step === 1 ? "Envie o contrato" : "Confira os equipamentos"}
+            {step === 1
+              ? renewTargetId ? "Envie o documento de manutenção" : "Envie o Termo de Contrato (TC)"
+              : "Confira os equipamentos"}
           </h2>
           <p>
             {step === 1
               ? aiReady
                 ? "A IA preenche os dados de cada equipamento descrito no arquivo."
-                : "Envie o contrato e complete os dados a seguir."
-              : contract?.extraction
-                ? "Confira os dados preenchidos pelo contrato e complete o que faltar."
+                : renewTargetId
+                  ? "Envie o contrato de manutenção ou termo aditivo e confira os dados a seguir."
+                  : "O Termo de Contrato (TC) é o contrato principal dos equipamentos. Envie o arquivo e confira os dados a seguir."
+              : autoRegistered
+                ? "Os equipamentos já estão cadastrados. Complete a identificação e confira os dados de manutenção."
+                : contract?.extraction
+                ? "Confira os dados extraídos pela IA e complete o número de tombamento, se necessário."
                 : "Complete os dados de cada equipamento e confira a manutenção."}
           </p>
         </div>
       </header>
       <form onSubmit={save} noValidate>
+        {importProgress && step === 1 && (
+            <ContractImportProgress
+              registered={autoRegistered}
+              progress={importProgress}
+              itemCount={rows.length}
+            />
+          )}
         <fieldset disabled={Boolean(busy) || loading}>
           <input
             className="visually-hidden"
             ref={input}
             type="file"
             accept=".pdf,.txt,application/pdf,text/plain"
-            aria-label="Selecionar contrato"
+            aria-label={renewTargetId ? "Selecionar contrato de manutenção ou termo aditivo" : "Selecionar Termo de Contrato (TC)"}
             onChange={(e) => upload(e.target.files?.[0])}
           />
           {step === 1 ? (
             <section className="form-section contract-step">
               <h3 ref={heading} tabIndex={-1} className="visually-hidden">
-                Enviar contrato
+                {renewTargetId ? "Enviar documento de manutenção" : "Enviar Termo de Contrato (TC)"}
               </h3>
               <button
                 type="button"
@@ -447,9 +532,7 @@ export function AssetDialog({
                 }}
               >
                 <span className="upload-icon">
-                  {busy === "upload" ? (
-                    <LoaderCircle className="spin" size={23} />
-                  ) : contract ? (
+                  {contract ? (
                     <FileText size={23} />
                   ) : (
                     <UploadCloud size={23} />
@@ -457,13 +540,13 @@ export function AssetDialog({
                 </span>
                 <strong>
                   {busy === "upload"
-                    ? "Enviando contrato…"
-                    : contract?.name || "Arraste o PDF aqui"}
+                    ? "Enviando documento…"
+                    : contract?.name || (renewTargetId ? "Selecione o documento de manutenção" : "Selecione o Termo de Contrato (TC)")}
                 </strong>
                 <span>
                   {contract
                     ? "Clique para trocar o arquivo"
-                    : "ou clique para selecionar"}
+                    : "Clique para selecionar ou arraste o arquivo"}
                 </span>
                 <small>PDF ou TXT · até 15 MB</small>
               </button>
@@ -480,7 +563,7 @@ export function AssetDialog({
           ) : (
             <section className="form-section simple-config">
               <h3 ref={heading} tabIndex={-1} className="visually-hidden">
-                Equipamentos do contrato
+                Equipamentos do documento contratual
               </h3>
               <div className="equipment-table-toolbar">
                 {!contract && (
@@ -523,14 +606,14 @@ export function AssetDialog({
               </div>
               {renewTargetId && (
                 <div className="renewal-notice">
-                  O novo contrato será vinculado aos equipamentos conferidos
+                  O novo documento contratual será vinculado aos equipamentos conferidos
                   abaixo. Os arquivos anteriores serão preservados.
                   <button
                     type="button"
                     className="text-button"
                     onClick={cancelRenewal}
                   >
-                    Cancelar novo contrato
+                    Cancelar novo documento
                   </button>
                 </div>
               )}
@@ -544,19 +627,9 @@ export function AssetDialog({
                     className="text-button show-contract-items"
                     onClick={() => applyExtraction(extraction)}
                   >
-                    Mostrar todos os equipamentos deste contrato
+                    Mostrar todos os equipamentos deste documento
                   </button>
                 )}
-              {globalWarnings.length > 0 && (
-                <details className="document-warnings">
-                  <summary>O contrato tem informações para conferir</summary>
-                  {globalWarnings.map((warning, index) => (
-                    <p className="field-hint" key={index}>
-                      {warning}
-                    </p>
-                  ))}
-                </details>
-              )}
               {!rows.length && (
                 <div className="empty-extraction">
                   <FileText size={24} />
@@ -570,12 +643,22 @@ export function AssetDialog({
                 className="equipment-editor-scroll"
                 ref={tableRegion}
                 role="region"
-                aria-label="Tabela de equipamentos do contrato"
+                aria-label="Tabela de equipamentos do documento contratual"
                 tabIndex={0}
               >
+                {globalWarnings.length > 0 && (
+                  <details className="document-warnings">
+                    <summary>O documento contratual tem informações para conferir</summary>
+                    {globalWarnings.map((warning, index) => (
+                      <p className="field-hint" key={index}>
+                        {warning}
+                      </p>
+                    ))}
+                  </details>
+                )}
                 <table className="equipment-editor-table">
                   <caption className="visually-hidden">
-                    Equipamentos identificados no contrato. Confira cada linha
+                    Equipamentos identificados no documento. Confira cada linha
                     antes de salvar.
                   </caption>
                   <thead>
@@ -592,7 +675,7 @@ export function AssetDialog({
                   </thead>
                   <tbody>
                     {rows.map((row, index) => {
-                      const existing = existingForDraft(row, assets);
+                      const existing = existingForDraft(row, assets, contract?.id);
                       const renewing = Boolean(
                         existing &&
                         contract &&
@@ -625,7 +708,7 @@ export function AssetDialog({
                               maxLength={160}
                               placeholder={
                                 row.evidence
-                                  ? "Não informado no contrato"
+                                  ? "Não informado no documento"
                                   : "Ex.: Bomba de infusão"
                               }
                               onChange={(e) =>
@@ -640,28 +723,26 @@ export function AssetDialog({
                             {existing && (
                               <small className="editor-row-hint">
                                 {renewing
-                                  ? "Já cadastrado · novo contrato"
+                                  ? "Já cadastrado · novo documento"
                                   : "Equipamento já cadastrado"}
                               </small>
                             )}
-                            {Number(row.quantity) > 1 && (
+                            {row.importUnit && row.importUnit.total > 1 ? (
                               <small className="editor-row-hint">
-                                Contrato menciona {row.quantity} unidades ·
-                                confira em Detalhes
+                                Unidade {row.importUnit.position} de {row.importUnit.total}
+                              </small>
+                            ) : Number(row.quantity) > 1 && (
+                              <small className="editor-row-hint">
+                                Confira a identificação das demais unidades em Detalhes
                               </small>
                             )}
                           </td>
                           <td>
                             <input
-                              required
                               aria-label={`Número de tombamento de ${row.name || index + 1}`}
                               value={row.patrimony}
                               maxLength={80}
-                              placeholder={
-                                row.evidence
-                                  ? "Não informado no contrato"
-                                  : "Número de tombamento"
-                              }
+                              placeholder="Completar depois"
                               onChange={(e) =>
                                 change(row.key, "patrimony", e.target.value)
                               }
@@ -717,12 +798,12 @@ export function AssetDialog({
                               {!ready
                                 ? "Cadastro incompleto"
                                 : renewing
-                                  ? "Novo contrato"
+                                  ? "Novo documento de manutenção"
                                   : "Conferir dados"}
                             </span>
                             {(warnings.length > 0 || incompleteEvidence) && (
                               <small className="editor-row-hint warning-text">
-                                Conferir dados do contrato
+                                Conferir dados da manutenção
                               </small>
                             )}
                           </td>
@@ -797,7 +878,7 @@ export function AssetDialog({
                   .filter((row) => advancedRows.has(row.key))
                   .slice(0, 1)
                   .map((row) => {
-                    const existing = existingForDraft(row, assets);
+                    const existing = existingForDraft(row, assets, contract?.id);
                     const renewing = Boolean(
                       existing &&
                       contract &&
@@ -863,7 +944,7 @@ export function AssetDialog({
                             {(
                               [
                                 ["identity", "Identificação"],
-                                ["coverage", "Contrato"],
+                                ["coverage", "Manutenção"],
                                 ["evidence", "Dados da IA"],
                               ] as const
                             ).map(([tab, label]) => (
@@ -881,10 +962,10 @@ export function AssetDialog({
                               </button>
                             ))}
                           </div>
-                          {Number(row.quantity) > 1 && (
+                          {Number(row.quantity) > 1 && (!row.importUnit || row.importUnit.total === 1) && (
                             <div className="quantity-hint">
                               <p>
-                                O contrato menciona {row.quantity} unidades
+                                O documento menciona {row.quantity} unidades
                                 deste equipamento. Identifique cada unidade pelo
                                 número de tombamento.
                               </p>
@@ -899,6 +980,8 @@ export function AssetDialog({
                                         ...row,
                                         key: crypto.randomUUID(),
                                         assetId: undefined,
+                                        importUnit: undefined,
+                                        importSource: undefined,
                                         patrimony: "",
                                         serial: "",
                                         quantity: "",
@@ -934,7 +1017,7 @@ export function AssetDialog({
                                   maxLength={160}
                                   placeholder={
                                     row.evidence
-                                      ? "Não informada no contrato"
+                                      ? "Não informada no documento"
                                       : "Marca do equipamento"
                                   }
                                   onChange={(e) =>
@@ -949,7 +1032,7 @@ export function AssetDialog({
                                   maxLength={160}
                                   placeholder={
                                     row.evidence
-                                      ? "Não informado no contrato"
+                                      ? "Não informado no documento"
                                       : "Modelo"
                                   }
                                   onChange={(e) =>
@@ -964,7 +1047,7 @@ export function AssetDialog({
                                   maxLength={100}
                                   placeholder={
                                     row.evidence
-                                      ? "Não informado no contrato"
+                                      ? "Não informado no documento"
                                       : "Série do fabricante"
                                   }
                                   onChange={(e) =>
@@ -979,7 +1062,7 @@ export function AssetDialog({
                                   maxLength={100}
                                   placeholder={
                                     row.evidence
-                                      ? "Não informado no contrato"
+                                      ? "Não informado no documento"
                                       : "Setor"
                                   }
                                   onChange={(e) =>
@@ -1007,7 +1090,7 @@ export function AssetDialog({
                               hidden={advancedTab !== "coverage"}
                             >
                               <label>
-                                Início do contrato
+                                Início da cobertura de manutenção
                                 <input
                                   type="date"
                                   min="1900-01-01"
@@ -1019,7 +1102,7 @@ export function AssetDialog({
                                 />
                               </label>
                               <label>
-                                Até
+                                Fim da cobertura de manutenção
                                 <input
                                   type="date"
                                   min={row.validFrom || "1900-01-01"}
@@ -1049,7 +1132,7 @@ export function AssetDialog({
                                 />
                               </label>
                               <label>
-                                Telefone para manutenção
+                                Telefone da assistência técnica
                                 <input
                                   type="tel"
                                   value={row.maintenancePhone}
@@ -1064,7 +1147,7 @@ export function AssetDialog({
                                 />
                               </label>
                               <label>
-                                E-mail para manutenção
+                                E-mail da assistência técnica
                                 <input
                                   type="email"
                                   value={row.maintenanceEmail}
@@ -1084,7 +1167,7 @@ export function AssetDialog({
                               hidden={advancedTab !== "coverage"}
                             >
                               Sem fim informado, não há vencimento conhecido.
-                              Confira quando o contrato começa e termina.
+                              Confira o período de cobertura de manutenção no TC, no contrato de manutenção ou no termo aditivo.
                             </p>
                             <div
                               role="tabpanel"
@@ -1123,7 +1206,7 @@ export function AssetDialog({
                                                 ? field.value
                                                 : field.status === "conflict"
                                                   ? "Informações divergentes — conferir"
-                                                  : "Não encontrado no contrato"}
+                                                  : "Não encontrado no documento"}
                                             </p>
                                             {field.quote && (
                                               <blockquote>
@@ -1154,7 +1237,7 @@ export function AssetDialog({
                             </div>
                             {advancedTab === "coverage" && existing && (
                               <div className="coverage-history">
-                                <h4>Contratos desta unidade</h4>
+                                <h4>Histórico contratual desta unidade</h4>
                                 {(existing.coverages || []).map(
                                   (plan, position, all) => {
                                     const next = all
@@ -1177,7 +1260,7 @@ export function AssetDialog({
                                           >
                                             <FileText size={14} />
                                             {plan.contractName ||
-                                              "Contrato anterior"}
+                                              "Documento contratual anterior"}
                                           </button>
                                         ) : (
                                           <strong>Cadastro manual</strong>
@@ -1211,7 +1294,7 @@ export function AssetDialog({
                                     }}
                                   >
                                     <Plus size={14} />
-                                    Adicionar novo contrato
+                                    Adicionar documento de manutenção
                                   </button>
                                 )}
                               </div>
@@ -1232,23 +1315,6 @@ export function AssetDialog({
                     );
                   })}
               </ManagedDialog>
-              {!advancedRows.size && contract && aiReady && (
-                <details className="extraction-controls">
-                  <summary>Leitura do arquivo</summary>
-                  <button
-                    type="button"
-                    className="text-button"
-                    onClick={readContract}
-                  >
-                    <Sparkles size={14} />
-                    Preencher novamente pelo contrato
-                  </button>
-                  <p className="field-hint">
-                    Uma nova leitura substitui os campos deste formulário. Os
-                    cadastros só mudam após confirmar e salvar.
-                  </p>
-                </details>
-              )}
             </section>
           )}
         </fieldset>
@@ -1278,13 +1344,9 @@ export function AssetDialog({
                     void nextStep();
                   }}
                 >
-                  {busy ? (
-                    <LoaderCircle size={16} className="spin" />
-                  ) : (
-                    <ArrowRight size={16} />
-                  )}
+                  {!busy && <ArrowRight size={16} />}
                   {busy === "extract"
-                    ? "Lendo contrato…"
+                    ? "Lendo documento…"
                     : busy === "upload"
                       ? "Enviando…"
                       : "Continuar"}
@@ -1318,7 +1380,7 @@ export function AssetDialog({
                     ? "Salvando…"
                     : readyCount
                       ? "Confirmar e salvar"
-                      : "Salvar cadastros"}
+                      : autoRegistered ? "Salvar alterações" : "Salvar cadastros"}
                 </button>
               </>
             )}

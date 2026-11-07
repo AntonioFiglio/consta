@@ -1,10 +1,10 @@
 export const maintenanceStatusLabels = {
     unassigned: "Responsável não definido",
-    uncovered: "Sem contrato ativo",
-    expired: "Contrato vencido",
-    review: "Dados do contrato a conferir",
-    dates: "Prazo do contrato a confirmar",
-    covered: "Manutenção por contrato",
+    uncovered: "Sem cobertura de manutenção",
+    expired: "Cobertura de manutenção encerrada",
+    review: "Conferir cobertura de manutenção",
+    dates: "Vigência da manutenção a confirmar",
+    covered: "Manutenção com cobertura contratual",
     internal: "Manutenção interna",
 };
 const pretty = (date) => new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR");
@@ -31,7 +31,7 @@ export function maintenanceStatus(asset, today) {
             kind: "unassigned",
             group: "attention",
             label: maintenanceStatusLabels.unassigned,
-            detail: "Escolha contrato ou aditivo, equipe do hospital ou responsável ainda não definido",
+            detail: "Defina a empresa responsável pela manutenção ou a Oficina do hospital",
         };
     const plans = asset.coverages?.length
         ? asset.coverages
@@ -62,7 +62,7 @@ export function maintenanceStatus(asset, today) {
             kind: "covered",
             group: "covered",
             label: maintenanceStatusLabels.covered,
-            detail: `Contrato válido até ${pretty(confirmed.validUntil)}`,
+            detail: `Cobertura de manutenção válida até ${pretty(confirmed.validUntil)}`,
             contractId: confirmed.contractId,
         };
     const candidate = [...current].reverse().find((plan) => plan.contractId);
@@ -73,10 +73,10 @@ export function maintenanceStatus(asset, today) {
             label: maintenanceStatusLabels.dates,
             coverageId: candidate.id,
             detail: !candidate.validFrom && !candidate.validUntil
-                ? "Sem as datas de início e fim, não sabemos se a manutenção está incluída no contrato hoje."
+                ? "Sem as datas de início e fim, não sabemos se a cobertura de manutenção está vigente hoje."
                 : !candidate.validFrom
-                    ? "Sem a data de início, não sabemos se a manutenção está incluída no contrato hoje."
-                    : "Sem a data de término, não sabemos se a manutenção está incluída no contrato hoje.",
+                    ? "Sem a data de início, não sabemos se a cobertura de manutenção está vigente hoje."
+                    : "Sem a data de término, não sabemos se a cobertura de manutenção está vigente hoje.",
             contractId: candidate.contractId,
         };
     if (candidate)
@@ -84,7 +84,7 @@ export function maintenanceStatus(asset, today) {
             kind: "review",
             group: "attention",
             label: maintenanceStatusLabels.review,
-            detail: "Confira os dados do contrato ou aditivo",
+            detail: "Confira a cobertura no TC, no contrato de manutenção ou no termo aditivo",
             contractId: candidate.contractId,
         };
     const pendingDocument = asset.maintenanceDocuments?.find((record) => record.kind !== "complement");
@@ -102,7 +102,7 @@ export function maintenanceStatus(asset, today) {
             kind: "uncovered",
             group: "attention",
             label: maintenanceStatusLabels.uncovered,
-            detail: `Contrato começa em ${pretty(future.validFrom)}`,
+            detail: `Cobertura de manutenção começa em ${pretty(future.validFrom)}`,
             contractId: future.contractId,
         };
     const expired = [...plans]
@@ -113,13 +113,13 @@ export function maintenanceStatus(asset, today) {
             kind: "expired",
             group: "attention",
             label: maintenanceStatusLabels.expired,
-            detail: `Contrato encerrado em ${pretty(expired.validUntil)}`,
+            detail: `Cobertura de manutenção encerrada em ${pretty(expired.validUntil)}`,
             contractId: expired.contractId,
         };
     return {
         kind: "uncovered",
         group: "attention",
         label: maintenanceStatusLabels.uncovered,
-        detail: "Vincule um contrato ou aditivo, ou escolha a equipe do hospital",
+        detail: "Vincule o documento de manutenção ou defina a Oficina do hospital",
     };
 }

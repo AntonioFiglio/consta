@@ -17,6 +17,7 @@ export type LegacyExtraction = {
   warnings: string[];
 };
 export type EquipmentExtraction = LegacyExtraction & {
+  importUnit?: { key: string; position: number; total: number };
   maintenanceCompany?: Evidence;
   maintenancePhone?: Evidence;
   maintenanceEmail?: Evidence;
@@ -45,6 +46,12 @@ export type Contract = {
   createdAt: string;
   extraction: Extraction | null;
 };
+export type ContractImportResult = {
+  contract: Contract;
+  assets: Asset[];
+  createdCount: number;
+  existingCount: number;
+};
 export type MaintenanceProvider = "contract" | "internal" | "unassigned";
 export type EquipmentBreakdown = {
   id: string;
@@ -58,6 +65,7 @@ export type MaintenanceContact = {
   maintenanceEmail?: string;
 };
 export type Asset = MaintenanceContact & {
+  importSource?: { contractId: string; unitKey: string; position?: number; total?: number };
   breakdowns?: EquipmentBreakdown[];
   maintenanceProvider?: MaintenanceProvider;
   id: string;

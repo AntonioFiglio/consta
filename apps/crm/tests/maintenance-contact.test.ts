@@ -144,7 +144,7 @@ test("quem atende usa o vínculo mais recente e não reaproveita telefone ou emp
   assert.equal(maintenanceContactFor(asset).contractId, "latest");
   assert.equal(maintenanceContactFor(asset).maintenancePhone, undefined);
   asset.maintenanceDocuments[1].maintenanceCompany = "";
-  assert.equal(maintenanceContactFor(asset).name, "Empresa terceirizada");
+  assert.equal(maintenanceContactFor(asset).name, "Empresa de manutenção");
   assert.equal(
     maintenanceContactFor({ ...asset, maintenanceProvider: "internal" }).name,
     "Oficina do hospital",

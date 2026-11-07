@@ -1,19 +1,14 @@
 import { SearchField } from "./SearchField";
 import { contractCopy } from "./contract-copy";
 import { Fragment, useEffect, useState } from "react";
-import {
-  FileText,
-  ChevronRight,
-  ChevronDown,
-  Plus,
-} from "lucide-react";
+import { FileText, ChevronRight, ChevronDown, Plus } from "lucide-react";
 import type { Asset, ContractSummary } from "./types";
 import {
   assetHasDocument,
   groupContracts,
   documentKindLabel,
 } from "./contract-groups";
-import { ContractOrganization } from "./ContractOrganization";
+import { ContractAttachment } from "./ContractAttachment";
 
 export function ContractsPage({
   contracts,
@@ -35,7 +30,6 @@ export function ContractsPage({
     new Set(),
   );
   const [adding, setAdding] = useState<ContractSummary | null>(null);
-  const [organizing, setOrganizing] = useState<ContractSummary | null>(null);
   useEffect(() => setSearchCollapsed(new Set()), [query]);
   const groups = groupContracts(contracts, assets, query);
   function toggle(id: string) {
@@ -54,26 +48,28 @@ export function ContractsPage({
       setExpanded((old) => new Set([...old, contract.parentContractId!]));
     onChanged(contract);
     setAdding(null);
-    setOrganizing(null);
   }
   return (
     <section className="inventory-section contracts-section">
       <div className="contracts-list-toolbar">
-        <SearchField value={query} onChange={onQuery} placeholder="Buscar contrato, aditivo ou equipamento" label="Buscar contrato ou aditivo" />
+        <SearchField
+          value={query}
+          onChange={onQuery}
+          placeholder="Buscar TC, contrato de manutenção, termo aditivo ou equipamento"
+          label="Buscar TC, contrato de manutenção ou termo aditivo"
+        />
         <span className="field-hint">
-          Abra o contrato para consultar os arquivos vinculados.
+          Abra um Termo de Contrato (TC) para consultar os documentos e
+          equipamentos vinculados.
         </span>
       </div>
       <div className="table-container">
         <table className="contracts-family-table">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Documento contratual</th>
               <th>Adicionado em</th>
               <th>Equipamentos</th>
-              <th>
-                <span className="visually-hidden">Ações</span>
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -90,7 +86,7 @@ export function ContractsPage({
                           className="icon-button"
                           aria-expanded={open}
                           aria-controls={`amendments-${principal.id}`}
-                          aria-label={`${open ? "Recolher" : "Ver"} arquivos de ${principal.name}`}
+                          aria-label={`${open ? "Recolher" : "Ver"} documentos vinculados a ${principal.name}`}
                           onClick={() => toggle(principal.id)}
                         >
                           {open ? (
@@ -110,8 +106,8 @@ export function ContractsPage({
                           <small className="equipment-secondary">
                             {documentKindLabel(principal)} ·{" "}
                             {amendments.length
-                              ? `${amendments.length} ${amendments.length === 1 ? "arquivo vinculado" : "arquivos vinculados"}`
-                              : "Sem arquivos vinculados"}
+                              ? `${amendments.length} ${amendments.length === 1 ? "documento vinculado" : "documentos vinculados"}`
+                              : "Sem documentos vinculados"}
                           </small>
                         </div>
                       </div>
@@ -136,27 +132,17 @@ export function ContractsPage({
                         {units.length > 2 ? " · e outros" : ""}
                       </small>
                     </td>
-                    <td>
-                      <div className="contract-group-actions">
-                        <button
-                          className="text-button muted-action"
-                          onClick={() => setOrganizing(principal)}
-                        >
-                          Organizar
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                   <tr
                     className="contract-amendments-row"
                     hidden={!open}
                     id={`amendments-${principal.id}`}
                   >
-                    <td colSpan={4}>
+                    <td colSpan={3}>
                       <div
                         className="contract-amendments"
                         role="region"
-                        aria-label={`Arquivos vinculados a ${principal.name}`}
+                        aria-label={`Documentos vinculados a ${principal.name}`}
                       >
                         <div className="contract-amendments-toolbar">
                           <div className="contract-amendments-title">
@@ -165,7 +151,8 @@ export function ContractsPage({
                               {amendments.length}
                             </span>
                             <p>
-                              Aditivos e contratos de manutenção vinculados.
+                              Termos aditivos, contratos de manutenção e anexos
+                              vinculados.
                             </p>
                           </div>
                           {principal.documentKind !== "complement" &&
@@ -241,12 +228,6 @@ export function ContractsPage({
                                       {contractCopy.viewFile}{" "}
                                       <ChevronRight size={14} />
                                     </button>
-                                    <button
-                                      className="text-button muted-action"
-                                      onClick={() => setOrganizing(amendment)}
-                                    >
-                                      Organizar
-                                    </button>
                                   </div>
                                 </li>
                               );
@@ -256,9 +237,10 @@ export function ContractsPage({
                           <div className="amendment-empty">
                             <FileText size={22} aria-hidden="true" />
                             <div>
-                              <strong>Nenhum arquivo vinculado</strong>
+                              <strong>Nenhum documento vinculado</strong>
                               <p>
-                                Reúna aditivos, contratos terceirizados e anexos aqui.
+                                Vincule termos aditivos, contratos de manutenção
+                                e anexos ao TC.
                               </p>
                             </div>
                           </div>
@@ -276,27 +258,22 @@ export function ContractsPage({
             <FileText size={30} />
             <h3>
               {query
-                ? "Nenhum contrato encontrado"
-                : "Seus contratos, em um só lugar."}
+                ? "Nenhum documento contratual encontrado"
+                : "TCs, contratos de manutenção e termos aditivos."}
             </h3>
             <p>
               {query
-                ? "Tente o nome de um contrato, aditivo ou equipamento."
-                : "Os contratos enviados no cadastro aparecem aqui. Depois, vincule os aditivos ao principal."}
+                ? "Busque pelo nome do TC, contrato de manutenção, termo aditivo ou equipamento."
+                : "Os Termos de Contrato (TC) enviados no cadastro aparecem aqui. Contratos de manutenção e termos aditivos são opcionais."}
             </p>
           </div>
         )}
       </div>
-      {(adding || organizing) && (
-        <ContractOrganization
-          key={adding?.id || organizing?.id}
-          contracts={contracts}
-          principal={adding || undefined}
-          document={organizing || undefined}
-          onClose={() => {
-            setAdding(null);
-            setOrganizing(null);
-          }}
+      {adding && (
+        <ContractAttachment
+          key={adding.id}
+          principal={adding}
+          onClose={() => setAdding(null)}
           onSaved={saved}
           onUploaded={onChanged}
         />

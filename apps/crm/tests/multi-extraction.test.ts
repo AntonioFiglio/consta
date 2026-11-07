@@ -157,7 +157,7 @@ test("schema e preenchimento mantêm todos os equipamentos, identidades e regras
     store.close();
   }
 });
-test("quantidade sem identificação não inventa patrimônios nem replica unidades automaticamente", () => {
+test("quantidade explícita prepara todas as unidades sem inventar identificadores", () => {
   const group = item({
     patrimony: missing,
     serial: missing,
@@ -178,8 +178,9 @@ test("quantidade sem identificação não inventa patrimônios nem replica unida
   const rows = extractionItems(source).map((value) =>
     draftFromExtraction(value, "group"),
   );
-  assert.equal(rows.length, 1);
+  assert.equal(rows.length, 10);
   assert.equal(rows[0].quantity, "10");
+  assert.equal(new Set(rows.map(row => row.importUnit!.key)).size, 10);
   assert.equal(rows[0].patrimony, "");
   assert.equal(rows[0].serial, "");
   assert.equal(rows[0].periodValue, "");

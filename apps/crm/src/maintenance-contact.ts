@@ -85,7 +85,7 @@ export function maintenanceContactFor(
     maintenanceCompany: contact.maintenanceCompany,
     maintenancePhone: contact.maintenancePhone,
     maintenanceEmail: contact.maintenanceEmail,
-    name: contact.maintenanceCompany?.trim() || "Empresa terceirizada",
+    name: contact.maintenanceCompany?.trim() || "Empresa de manutenção",
     contractId: latest?.contractId || asset.contractId,
   };
 }

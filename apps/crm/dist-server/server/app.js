@@ -9,6 +9,7 @@ import { breakdownInput, updateBreakdown } from "./breakdowns.js";
 import { contractFile } from "./contract-file.js";
 import { createStore } from "./store.js";
 import { createContractBriefService, ContractBriefError } from "./contract-summary.js";
+import { importContractEquipment } from "./contract-import.js";
 export function createApp(options) {
     const store = createStore(options.database, options.seed);
     const getContractBrief = createContractBriefService(store);
@@ -173,10 +174,11 @@ export function createApp(options) {
         if (input.contractId && !store.getContract(input.contractId))
             return res
                 .status(400)
-                .json({ error: "Contrato não encontrado. Envie o arquivo novamente." });
+                .json({ error: "Documento contratual não encontrado. Envie o arquivo novamente." });
         if (store
             .listAssets()
-            .some((asset) => asset.id !== existing?.id &&
+            .some((asset) => Boolean(input.patrimony) &&
+            asset.id !== existing?.id &&
             asset.patrimony.toLocaleUpperCase("pt-BR") ===
                 input.patrimony.toLocaleUpperCase("pt-BR")))
             return res.status(409).json({
@@ -203,7 +205,9 @@ export function createApp(options) {
         const all = store.listAssets();
         const entries = input.assets.map((entry, index) => ({
             ...entry,
-            id: entry.id || (index === 0 ? input.existingId : undefined),
+            id: entry.id || (index === 0 ? input.existingId : undefined) ||
+                (entry.importSource ? all.find((asset) => asset.importSource?.contractId === entry.importSource.contractId &&
+                    asset.importSource.unitKey === entry.importSource.unitKey)?.id : undefined),
         }));
         const ids = entries
             .map((entry) => entry.id)
@@ -217,11 +221,14 @@ export function createApp(options) {
             .map((asset) => asset.patrimony.toLocaleUpperCase("pt-BR")));
         for (const entry of entries) {
             const key = entry.patrimony.toLocaleUpperCase("pt-BR");
-            if (known.has(key))
+            if (key && known.has(key))
                 throw new DomainError(`O número de tombamento ${entry.patrimony} já está cadastrado ou foi repetido.`);
-            known.add(key);
+            if (key)
+                known.add(key);
             if (entry.contractId && !store.getContract(entry.contractId))
-                throw new DomainError("Contrato não encontrado.");
+                throw new DomainError("Documento contratual não encontrado.");
+            if (entry.importSource && !store.getContract(entry.importSource.contractId))
+                throw new DomainError("O TC de origem da importação não foi encontrado.");
         }
         const updated = entries.map(({ id, renew, ...data }) => prepareAsset(id ? all.find((asset) => asset.id === id) : undefined, data, renew === true));
         res.status(201).json(store.saveAssets(updated));
@@ -237,7 +244,7 @@ export function createApp(options) {
         const ids = z.array(z.string().uuid()).max(49).parse(additionalAssetIds);
         const input = assetInput.parse(body);
         if (!input.contractId || !store.getContract(input.contractId))
-            throw new DomainError("Envie o novo contrato antes de salvar.");
+            throw new DomainError("Envie o novo documento de manutenção antes de salvar.");
         const existing = store.listAssets();
         const targetIds = [...new Set([String(req.params.id), ...ids])];
         const updated = targetIds.map((id) => {
@@ -263,9 +270,10 @@ export function createApp(options) {
             ...updated,
         ]) {
             const key = asset.patrimony.toLocaleUpperCase("pt-BR");
-            if (patrimonies.has(key))
+            if (key && patrimonies.has(key))
                 throw new DomainError("Este número de tombamento já pertence a outro equipamento.");
-            patrimonies.add(key);
+            if (key)
+                patrimonies.add(key);
         }
         res.json(store.saveAssets(updated));
     });
@@ -327,7 +335,7 @@ export function createApp(options) {
     app.get("/api/contracts/:id", (req, res) => {
         const contract = store.getContract(req.params.id);
         if (!contract)
-            return res.status(404).json({ error: "Contrato não encontrado." });
+            return res.status(404).json({ error: "Documento contratual não encontrado." });
         res.json(contract);
     });
     app.post("/api/contracts/:id/summary", async (req, res) => {
@@ -345,7 +353,7 @@ export function createApp(options) {
         const contract = store.getContract(req.params.id);
         const bytes = store.getBytes(req.params.id);
         if (!contract || !bytes)
-            return res.status(404).json({ error: "Contrato não encontrado." });
+            return res.status(404).json({ error: "Documento contratual não encontrado." });
         res
             .set({
             "Content-Type": contract.mime,
@@ -354,11 +362,40 @@ export function createApp(options) {
         })
             .send(bytes);
     });
+    app.post("/api/contracts/:id/import", async (req, res) => {
+        const contract = store.getContract(req.params.id);
+        if (!contract)
+            return res.status(404).json({ error: "Termo de Contrato (TC) não encontrado." });
+        if (contract.parentContractId || (contract.documentKind && contract.documentKind !== "contract"))
+            throw new DomainError("Selecione o Termo de Contrato (TC) principal.");
+        if (contract.extraction)
+            return res.json(importContractEquipment(store, contract.id));
+        if (!aiReady())
+            return res.status(503).json({ error: "O TC foi salvo. Configure a leitura por IA ou preencha os equipamentos manualmente para concluir o cadastro." });
+        if (extracting.size)
+            return res.status(409).json({ error: "Já existe uma leitura em andamento. Aguarde e tente novamente." });
+        const bytes = store.getBytes(contract.id);
+        if (!bytes)
+            return res.status(404).json({ error: "Arquivo do TC não encontrado." });
+        extracting.add(contract.id);
+        try {
+            const extraction = await extractContract(bytes, contract.name, contract.mime);
+            res.json(importContractEquipment(store, contract.id, extraction));
+        }
+        catch (error) {
+            if (error instanceof DomainError || error instanceof z.ZodError)
+                throw error;
+            res.status(502).json({ error: "O TC foi preservado, mas o cadastro automático não foi concluído. Tente novamente ou confira os dados manualmente." });
+        }
+        finally {
+            extracting.delete(contract.id);
+        }
+    });
     app.post("/api/contracts/:id/extract", async (req, res) => {
         const contract = store.getContract(req.params.id);
         const bytes = store.getBytes(req.params.id);
         if (!contract || !bytes)
-            return res.status(404).json({ error: "Contrato não encontrado." });
+            return res.status(404).json({ error: "Documento contratual não encontrado." });
         if (!aiReady())
             return res.status(503).json({
                 error: "Leitura por IA ainda não configurada. Você pode preencher os dados manualmente.",
@@ -373,7 +410,7 @@ export function createApp(options) {
         }
         catch {
             res.status(502).json({
-                error: "Não foi possível ler o contrato. Confira a configuração do provedor ou tente novamente. Seu arquivo foi preservado e o cadastro manual continua disponível.",
+                error: "Não foi possível ler o documento contratual. Confira a configuração do provedor ou tente novamente. Seu arquivo foi preservado e o cadastro manual continua disponível.",
             });
         }
         finally {

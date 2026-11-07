@@ -2,13 +2,13 @@ import { ContextHelp } from "./ContextHelp";
 import type { MaintenanceStatus, MaintenanceStatusKind } from "./maintenance-status";
 
 const guidance: Record<MaintenanceStatusKind, string> = {
-  unassigned: "Escolha quem atende: contrato, aditivo ou Oficina do hospital.",
+  unassigned: "Defina a empresa responsável pela manutenção ou a Oficina do hospital.",
   internal: "Manutenção sob responsabilidade da Oficina do hospital.",
-  covered: "O contrato cobre a manutenção neste período.",
-  uncovered: "Sem contrato válido hoje. Defina contrato, aditivo ou Oficina.",
-  expired: "Contrato terminou. Informe a renovação ou escolha a Oficina.",
-  review: "Confira os dados de manutenção do contrato ou aditivo.",
-  dates: "Informe início e fim do atendimento, conforme o contrato ou aditivo.",
+  covered: "A manutenção está coberta neste período, conforme o documento revisado.",
+  uncovered: "Não há cobertura contratual de manutenção vigente. Confira o contrato de manutenção ou defina a Oficina do hospital.",
+  expired: "A cobertura de manutenção terminou. Vincule a renovação ou defina a Oficina do hospital.",
+  review: "Confira as condições de manutenção no TC, no contrato de manutenção ou no termo aditivo.",
+  dates: "Confira a vigência da manutenção no TC, no contrato de manutenção ou no termo aditivo.",
 };
 
 export function StatusHelp({ status }: { status: MaintenanceStatus }) {

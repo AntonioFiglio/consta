@@ -1,3 +1,4 @@
+import { equipmentTombamentoLabel } from "./equipment-import";
 import { SearchField } from "./SearchField";
 import { useState } from "react";
 import {
@@ -165,7 +166,7 @@ export function EquipmentPage({
                           </small>
                           <small className="equipment-secondary">
                             <span className="mono">
-                              Tombamento {asset.patrimony}
+                              Tombamento {equipmentTombamentoLabel(asset)}
                             </span>
                             <span aria-hidden="true"> · </span>
                             {asset.sector || "Setor não informado"}
