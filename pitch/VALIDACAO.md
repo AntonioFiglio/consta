@@ -166,3 +166,5 @@ Após mover o fluxo da IA antes do CRM, o salto de índice16→8 recebia a class
 QR SVG e PNG regenerados para `https://consta2.vercel.app`; PNG decodificado por OpenCV e payload conferido. Link, texto visível, alt e fala atualizados. Destino HTTP 200 confirmado em 07/11/2026. Registros anteriores de 451 referem-se ao endereço antigo, `consta.vercel.app`.
 
 Verificação da correção: QR SVG efetivamente renderizado no CTA foi capturado e decodificado por OpenCV para o endereço exato; href, texto e alt alinhados. Testes da landing e build da landing aprovados, com cópia do pitch atualizado. Fala no clipboard conferida por leitura de retorno.
+
+Rótulos do impacto ampliados para PACIENTES e RECEITA E CUSTOS. O valor financeiro continua identificado imediatamente como economia potencial, referente à dispensa condicional de locação; não foi convertido em faturamento.

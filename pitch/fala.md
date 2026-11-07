@@ -52,7 +52,7 @@ Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas vis
 
 ## Tela 13 · atendimento e economia potencial · 22 s
 
-> O objetivo é manter a capacidade de atender e evitar custos extras. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
+> Para os pacientes, capacidade de atendimento. Para o hospital, receita e custos sob controle. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
 
 ## Tela 14 · equipe e convite · 9 s
 
