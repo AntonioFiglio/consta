@@ -17,6 +17,8 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 
 ### Fase 1 do CRM — implementação local em 07/11/2026
 
+O acesso local foi restabelecido pelo servidor de interface e API em `http://127.0.0.1:3007`. No diagnóstico, `/api/config` em 5173 retornava HTML da interface, enquanto a API em 3007 respondia JSON; login e sessão após recarregar foram confirmados no Chrome em 3007, sem alterar senha ou proteção. O cliente agora rejeita respostas HTML mesmo com status 200, evitando interpretá-las como configuração ou login válido. Testes de regressão cobrem HTML no lugar da API, configuração autenticada e senha incorreta. O servidor de 5173 precisa ser iniciado com o proxy correto para uso em desenvolvimento.
+
 Enviar contrato compartilha o estilo das opções selecionadas da navegação: fundo laranja claro, texto laranja escuro, peso 600, ícone de 19 px e alinhamento à esquerda. O destaque é permanente, inclusive em hover/pressionado, sem marcar a ação como página atual. Medidas e cores usam as mesmas regras CSS do menu. Verificação: build/TypeScript e verificação documental aprovados; conferência visual pendente.
 
 A entrada de cadastro na lateral foi simplificada para um único botão Enviar contrato: laranja da marca, texto/ícone escuros, peso 600 e altura mínima de 52 px. O título concorrente, o fundo preto e a seta foram removidos. A linha secundária informa PDF ou TXT e reúne a ajuda Floating UI sobre cadastrar e conferir os equipamentos do contrato. As divisórias e a ausência de caixa externa permanecem. Verificação: build/TypeScript e verificação documental aprovados; conferência visual pendente.
