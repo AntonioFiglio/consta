@@ -1,0 +1,8 @@
+/* Paleta Business: origem compartilhada entre o pitch e a landing page. */
+.layer-business,
+.consta-business-theme {
+  --bs-green: #166534;
+  --bs-green-deep: #14532d;
+  --bs-mint: #dcfce7;
+  --bs-border: #d6e5d9;
+}

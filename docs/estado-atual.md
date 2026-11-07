@@ -31,6 +31,8 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 
 ### Landing page e lista de interesse — 07/11/2026
 
+A LP acompanha as cores atuais do Business do pitch: cards claros, valores e rótulos verdes, plano Expansão em verde escuro, benefícios com marcadores menta. A paleta foi extraída sem mudança de valores para `pitch/business-colors.css`, carregado pelo deck e importado pela LP, mantendo a origem das cores em `/pitch`. Preto/vermelho da abertura também usam os tokens da marca. Quatro testes da landing, build e verificador do repositório aprovados; cards conferidos no Chrome desktop. Visual móvel pendente.
+
 Sincronização após a atualização `fa962d3` do pitch: conflitos de HTML e QR decorrentes da reaplicação local resolvidos com a versão atualizada, preservando o cenário de capacidade anual de RMN e o destino `consta2.vercel.app`. Especialidade de Nicolas na LP corrigida para engenheiro de software. A LP não apresenta a projeção de RMN como resultado próprio. Cópias para desenvolvimento/produção regeneradas; quatro testes da landing, build e verificador do repositório aprovados. O stash original foi mantido.
 
 Atualizado o CTA do pitch distribuído junto da LP para `https://consta2.vercel.app/`, incluindo texto visível, destino do link, rótulos acessíveis e QR code em SVG/PNG. O QR foi regenerado e seu destino conferido por decodificação. Quatro testes da landing, build Vite e verificação do repositório aprovados; disponibilidade do endereço e leitura por câmera física não foram verificadas.
