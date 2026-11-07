@@ -83,6 +83,8 @@ npm start
 
 Depois do build, `http://127.0.0.1:3007` serve interface e API juntas. Para parar, use Ctrl+C. `npm run dev` observa alterações de frontend/backend.
 
+Se o login informar falha de conexão e `http://127.0.0.1:5173/api/config` mostrar a própria interface em vez de JSON, o servidor dessa porta não está encaminhando as chamadas à API. Com o backend e o build disponíveis, acesse `http://127.0.0.1:3007` para usar interface e API juntas. Para desenvolvimento, encerre o servidor incorreto de 5173 e inicie `npm run dev` na raiz. Uma resposta HTML não é aceita como configuração de autenticação nem como sucesso de login; a senha continua exigida quando configurada.
+
 ## Configuração do SDK
 
 Preencha as variáveis em `apps/crm/.env.local` e reinicie a aplicação:
