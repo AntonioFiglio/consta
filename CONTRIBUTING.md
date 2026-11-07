@@ -51,4 +51,4 @@ Esse é o fluxo de trabalho documentado. Proteções obrigatórias de branch, ap
 
 ## Dados e propriedade intelectual
 
-Este é um repositório público. Use amostras sintéticas ou materiais públicos autorizados, preservando sua atribuição. Dados hospitalares reais exigem autorização e ambiente adequado. A licença Manrope está incluída em [brand/fonts/OFL.txt](brand/fonts/OFL.txt); ela não licencia automaticamente o código do Consta. A licença do projeto ainda precisa ser escolhida pelos titulares.
+Este é um repositório público. Use amostras sintéticas ou materiais públicos autorizados, preservando sua atribuição. Dados hospitalares reais exigem autorização e ambiente adequado. A apresentação da marca usa DM Mono e Inter via Google Fonts; ao distribuir fontes com o produto, inclua suas licenças correspondentes. A licença do projeto ainda precisa ser escolhida pelos titulares.

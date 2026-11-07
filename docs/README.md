@@ -45,5 +45,5 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 
 ## Marca e dados
 
-- [Identidade visual](../brand/README.md) e [galeria](../brand/index.html)
+- [Identidade visual](../brand/README.md) e [identidade atual](../brand/identity.html)
 - [Dados de demonstração e seus limites](../data/README.md)

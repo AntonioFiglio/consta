@@ -4,7 +4,7 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 
 ## Direção definida por Matheus
 
-- Nome **Consta** e identidade visual em azul profundo, azul gelo, preto e branco.
+- Nome **CONSTA.** na marca, com o rebranding de Pedro: preto, laranja, vermelho e branco; DM Mono e Inter.
 - Construir o CRM neste repositório com a equipe de software.
 - Núcleo: gestão de ativos, documentos e manutenção preventiva, acompanhada até execução e comprovante.
 - Localização automática de equipamentos móveis por **BLE**, com tags a bateria e receptores distribuídos. Sem QR ou escaneamento para atualizar movimentações.
@@ -18,7 +18,7 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 | Área | Entrega disponível | Evidência e limite |
 | --- | --- | --- |
 | Documentação | Escopo, fluxos, arquitetura proposta, fontes e backlog | Descreve o projeto; não demonstra software em operação |
-| Marca | SVGs, PNGs, fonte, tokens, galeria e gerador | [Kit da marca](../brand/README.md); não comprova registro de marca |
+| Marca | Wordmarks SVG, tokens e apresentação da identidade | [Kit atual da marca](../brand/README.md); versões anteriores preservadas no Git |
 | Dados | Cenários financeiros fictícios e metadados de documentos públicos auditados | [Dados](../data/README.md); distinguir cenário simulado, documento real e resultado operacional ainda não medido |
 | Verificação | Validador de referências locais e configuração para CI | `python3 scripts/verificar_repositorio.py`; não testa comportamento de CRM ou hardware |
 | Histórico | Experimentos ópticos e pesquisa anterior no Git | Apenas registro; sem integração com a arquitetura vigente |

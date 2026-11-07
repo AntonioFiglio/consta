@@ -21,7 +21,7 @@ O verificador usa apenas a biblioteca padrão do Python. Confere arquivos refere
 
 ### Marca
 
-Abra [brand/index.html](../../brand/index.html) em um navegador para consultar o kit local, ou use diretamente os SVGs e PNGs. Gerar a marca de novo não é necessário para desenvolver o CRM. Se precisar reconstruí-la, siga o [guia da marca](../../brand/README.md).
+Abra [brand/index.html](../../brand/index.html) em um navegador para consultar o kit local, ou use as wordmarks SVG atuais. A apresentação carrega fontes pelo Google Fonts e depende de internet para essa tipografia. Consulte o [guia da marca](../../brand/README.md).
 
 ### Integração sem hardware
 

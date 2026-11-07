@@ -1,6 +1,6 @@
 # Consta
 
-![Consta](brand/logo/svg/consta-horizontal-on-ice.svg)
+![Consta](brand/logo/svg/consta-wordmark-on-white.svg)
 
 **Gestão de ativos hospitalares: dos documentos à manutenção concluída, com localização automática dos equipamentos móveis.**
 
@@ -30,7 +30,7 @@ services/localizacao/     Recepção e estimativa de localização — implement
 packages/contratos/       Especificação das interfaces entre software e receptores
 hardware/                 Especificações de tag e receptor — fabricação pendente
 docs/                     Produto, arquitetura, desenvolvimento, fontes e decisões
-brand/                    Marca, fonte licenciada, galeria e gerador
+brand/                    Wordmarks atuais, tokens e apresentação da identidade
 data/                     Exemplos e cenários exclusivamente fictícios
 scripts/                  Verificação do repositório
 .github/                  Verificação automatizada e modelo de pull request
@@ -59,4 +59,4 @@ O comando verifica referências locais da documentação e recursos da marca. Ai
 
 [Galeria e downloads](brand/index.html) · [Guia de marca](brand/README.md)
 
-Azul profundo `#154F6F`, azul gelo `#D3EFFF`, preto e branco; tipografia Manrope. O [símbolo na raiz](consta-logo.svg) é mantido por compatibilidade com a entrega original. A referência ao hackathon HCFMUSP não representa aprovação institucional ou parceria de implantação.
+Identidade de Pedro: **CONSTA.**, sem símbolo floral. Preto `#0A0A0A`, laranja `#F97316`, vermelho `#E63946` e branco `#FAFAF9`; DM Mono na marca e nos dados, Inter na interface. O [logo na raiz](consta-logo.svg) usa a wordmark atual. A referência ao hackathon HCFMUSP não representa aprovação institucional ou parceria de implantação.
