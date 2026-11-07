@@ -175,14 +175,15 @@
 
   function sync() {
     const beat=Number(stage.dataset.beat);
-    if(beat!==currentBeat)begin(beat,stage.classList.contains('snap'));
+    // A slide jump may skip the transition; the demo itself must still play.
+    if(beat!==currentBeat)begin(beat);
   }
   function initialize() {
     const data=window.constaNativeDemo;
     frame.addEventListener('load',()=>{
       documentUI=frame.contentDocument;ready=true;
       documentUI.addEventListener('click',event=>event.preventDefault());
-      begin(Number(stage.dataset.beat),stage.classList.contains('snap'));
+      begin(Number(stage.dataset.beat));
     },{once:true});
     frame.srcdoc=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>${data.css}
 html,body{overflow:hidden}body{pointer-events:none}dialog:focus{outline:none}#capture-simulation-label{display:none}
