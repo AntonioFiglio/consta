@@ -1,5 +1,10 @@
 # Estado atual do projeto
 
+### Revisão final do pitch — 07/11/2026
+
+Apresentação com 16 telas: impacto combinado de atendimento e economia potencial; modelo Business de licença anual por parque com 20 tags na contratação inicial e hardware extra separado. Valores comerciais são propostas, não contratos fechados. O impacto mantém produção assistencial externa e cenário de locação dispensada separados, com fontes no rodapé. A bolinha agora anima entre telas adjacentes da rota visível, inclusive saltos de índices legados, entrada do fluxo, mapa e CTA. Verificação: navegação, autoplay e continuidade em WebKit offline, nas três resoluções de apresentação. [Acompanhamento e limites](desenvolvimento/continuidade-pitch-2026-11-07.md).
+
+
 Este é o registro do que está decidido, do que existe no repositório e do que ainda precisa ser entregue. Atualize esta página ao implementar capacidades ou concluir uma validação. Documentos de especificação, por si só, não mudam o estado para implementado.
 
 ## Direção definida por Matheus

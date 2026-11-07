@@ -41,14 +41,14 @@
     { scene: 'benefits', layer: 'care-impact', dot: 'a-care', line: null, tone: 'org', theme: 'dark' },
     { scene: 'benefits', layer: 'impact', dot: 'a-impact', line: null, tone: 'org' },
     { scene: 'team',     layer: 'team',     dot: 'a-team',  line: null, tone: 'org' },
-    { scene: 'cta', layer: 'cta', dot: null, line: null, tone: 'org', theme: 'light', hideDot: true },
+    { scene: 'cta', layer: 'cta', dot: 'a-cta', line: null, tone: 'org', theme: 'light' },
     { scene: 'business', layer: 'business', dot: 'a-business', line: null, tone: 'org', theme: 'light' }
   ];
   var TOTAL = BEATS.length;
   // Beat 2 remains a legacy deep-link alias; news is one presentation slide.
-  var PRESENTATION_ORDER = [0, 1, 4, 5, 16, 8, 9, 10, 11, 13, 14, 15, 18, 19, 20, 21, 22];
+  var PRESENTATION_ORDER = [0, 1, 4, 5, 16, 8, 9, 10, 11, 13, 14, 15, 19, 20, 21, 22];
   var PRESENTATION_TOTAL = PRESENTATION_ORDER.length;
-  function canonicalBeat(b) { return b === 2 ? 1 : b === 3 ? 4 : b === 6 ? 5 : b === 7 || b === 17 ? 16 : b === 12 ? 13 : b; }
+  function canonicalBeat(b) { return b === 2 ? 1 : b === 3 ? 4 : b === 6 ? 5 : b === 7 || b === 17 ? 16 : b === 12 ? 13 : b === 18 ? 19 : b; }
   function adjacentBeat(direction) {
     var position = PRESENTATION_ORDER.indexOf(current);
     return PRESENTATION_ORDER[Math.max(0, Math.min(PRESENTATION_TOTAL - 1, position + direction))];
@@ -660,6 +660,20 @@
       end: function () { hero.route = null; hero.lineFromBrand = false; }
     };
   }
+  // The map camera reframes after the beat changes. Follow the rendered marker
+  // through that reframe instead of handing off to a stale pre-camera coordinate.
+  function planMapArrival() {
+    var start = {x:hero.x, y:hero.y, size:hero.size};
+    return {type:'map-entry', dur:1000,
+      begin:function(){hero.route=null;hero.glyphsOn=false;hero.m=0;},
+      step:function(u){
+        var r=marker.getBoundingClientRect(), sr=stage.getBoundingClientRect(), scale=sr.width/1920;
+        var x=(r.left+r.width/2-sr.left)/scale, y=(r.top+r.height/2-sr.top)/scale;
+        var e=ease(u);hero.x=lerp(start.x,x,e);hero.y=lerp(start.y,y,e);hero.size=lerp(start.size,28,e);
+      },
+      end:function(){}
+    };
+  }
   function planStraight(sim, T) {
     var a = { x: sim.x, y: sim.y, size: sim.size };
     sim.x = T.x; sim.y = T.y; sim.size = T.size;
@@ -770,14 +784,16 @@
     };
   }
   // One native timeline: point → exact logo outlines → the existing flow route.
-  function startFlowIntro() {
+  function startFlowIntro(continueArrival) {
     flowGeo = buildFlow();
     if (!flowGeo) return;
     var word = byId('flow-brand'), logo = stagePos(byId('flow-logo-dot'));
     word.classList.remove('is-forming');
     var T = {x: logo.x + logo.w / 2, y: logo.y + logo.h / 2, size: logo.w};
     var finish = routeAt(flowGeo.R, flowGeo.end);
-    heroSettle(T, false);
+    var arrival = continueArrival ? hero.phases.slice() : [];
+    if (hero.raf) { cancelAnimationFrame(hero.raf); hero.raf = 0; }
+    if (!continueArrival) heroSettle(T, false);
     flowSemantic(FLOW_FIRST);
     hero.target = {T: {x:finish[0], y:finish[1], size:28}, morphHere:false, beat:FLOW_LAST};
     if (reduced.matches || !GLYPHS) {
@@ -785,15 +801,14 @@
     }
     var M = measureMorph(word, T.y, T.x);
     if (!M) { flowSemantic(FLOW_LAST); return; }
-    hero.morph = M; ensureGlyphEls(M); readColors();
-    hero.x = T.x; hero.y = T.y; hero.size = T.size;
+    hero.morph = M; ensureGlyphEls(M); readColors(); setForming(true);
     hero.flowS = 0; hero.flowCheck = 0;
     var baseline = makeRoute([[M.x0,T.y],[T.x,T.y]]);
     var origin = routeAt(flowGeo.R, 0);
     var transfer = makeRoute(rounded([[T.x,T.y],[T.x,390],[origin[0],390],origin]));
     var sim = {x:T.x,y:T.y,size:T.size,m:0};
     var unfold = {type:'logo-line',dur:480,
-      begin:function(){setForming(true);hero.route=baseline;hero.head=hero.front=baseline.len;},
+      begin:function(){hero.x=T.x;hero.y=T.y;hero.size=T.size;setForming(true);hero.route=baseline;hero.head=hero.front=baseline.len;},
       step:function(u){hero.tail=baseline.len*(1-ease(u));},
       end:function(){hero.route=null;}};
     var form = planForm(sim);
@@ -801,7 +816,7 @@
       begin:function(){hero.m=0;hero.route=null;},
       step:function(u){var p=routeAt(transfer,transfer.len*ease(u));hero.x=p[0];hero.y=p[1];hero.size=lerp(T.size,28,ease(u));},
       end:function(){hero.x=origin[0];hero.y=origin[1];hero.size=28;}};
-    hero.phases=[unfold,form,travel,planFlow(sim,true)];
+    hero.phases=arrival.concat([unfold,form,travel,planFlow(sim,true)]);
     hero.pi=0;hero.t0=performance.now();beginPhase();hero.raf=requestAnimationFrame(tick);
   }
 
@@ -816,6 +831,11 @@
     if (hero.raf) { cancelAnimationFrame(hero.raf); hero.raf = 0; }
     hero.target = { T: T, morphHere: !!ctx.morphEl, beat: ctx.to };
     if (ctx.instant || reduced.matches || !GLYPHS) { heroSettle(T, !!ctx.morphEl); flowGeo = buildFlow(); flowSemantic(ctx.to); return 0; }
+    if (ctx.mapArrival) {
+      flowSemantic(ctx.to);
+      hero.phases=[planMapArrival()];hero.pi=0;hero.t0=performance.now();
+      beginPhase();hero.raf=requestAnimationFrame(tick);return hero.phases[0].dur;
+    }
     // 13 ↔ 14: o ponto percorre a rota da IA a partir do progresso apresentado.
     var flowStep = (ctx.to === FLOW_FIRST || ctx.to === FLOW_LAST) && (ctx.from === FLOW_FIRST || ctx.from === FLOW_LAST);
     if (!flowGeo) flowGeo = buildFlow();
@@ -869,6 +889,7 @@
         hero.phases = [];
         if (!hero.glyphsOn) setForming(false);
         wireSvg.dataset.phase = 'idle';
+        if (BEATS[current].map) { dot.classList.add('hero-hidden'); marker.style.visibility = ''; }
         drawHero();
         return;
       }
@@ -879,7 +900,10 @@
   }
   function onReducedChange() {
     syncAmbient();
-    if (reduced.matches && hero.target) { heroSettle(hero.target.T, hero.target.morphHere); flowSemantic(hero.target.beat); }
+    if (reduced.matches && hero.target) {
+      heroSettle(hero.target.T, hero.target.morphHere); flowSemantic(hero.target.beat);
+      if (BEATS[current].map) { dot.classList.add('hero-hidden'); marker.style.visibility = ''; }
+    }
   }
 
   /* ── Ambiente de rádio: só com o mapa visível e a aba ativa ── */
@@ -892,9 +916,11 @@
   function render(b, instant) {
     var prev = current;
     var B = BEATS[b];
+    var previousMap = prev >= 0 && BEATS[prev].layer === 'map';
+    var markerOwned = previousMap && marker.style.visibility !== 'hidden';
     // Leave the indoor map from the displayed asset, including camera pan/zoom.
     var mapDeparture = null;
-    if (prev >= 0 && BEATS[prev].layer === 'map' && B.layer !== 'map') {
+    if (markerOwned && B.layer !== 'map') {
       var mr = marker.getBoundingClientRect(), sr = stage.getBoundingClientRect();
       var scale = sr.width / 1920;
       mapDeparture = { x: (mr.left + mr.width / 2 - sr.left) / scale, y: (mr.top + mr.height / 2 - sr.top) / scale };
@@ -928,12 +954,30 @@
     });
 
     var dotC = placeHero(B);
+    if (b === FLOW_FIRST) {
+      var logo = stagePos(byId('flow-logo-dot'));
+      dotC = {x:logo.x + logo.w / 2, y:logo.y + logo.h / 2, r:logo.w / 2};
+    }
+    if (B.map) {
+      if (!markerOwned) mapStatic(B.map);
+      var targetMarker = marker.getBoundingClientRect(), stageRect = stage.getBoundingClientRect();
+      var mapScale = stageRect.width / 1920;
+      var mapLayerRect = layers.map.getBoundingClientRect(), mapBase = stagePos(layers.map);
+      var shiftX = (mapLayerRect.left - stageRect.left) / mapScale - mapBase.x;
+      var shiftY = (mapLayerRect.top - stageRect.top) / mapScale - mapBase.y;
+      dotC = {x:(targetMarker.left + targetMarker.width / 2 - stageRect.left) / mapScale - shiftX, y:(targetMarker.top + targetMarker.height / 2 - stageRect.top) / mapScale - shiftY, r:14};
+    }
     // Ponto, fio entre cenas e morfose da marca: um só controlador (heroTo).
-    var routed = !instant && prev >= 0 && BEATS[prev].scene !== B.scene && B.layer !== 'map';
-    if (mapDeparture) { hero.x = mapDeparture.x; hero.y = mapDeparture.y; }
-    var eta = dotC ? heroTo({ x: dotC.x, y: dotC.y, size: dotC.r * 2 }, { instant: instant || prev < 0, routed: routed, from: prev, to: b, morphEl: B.morph || null }) : 0;
+    var routed = !instant && prev >= 0 && BEATS[prev].layer !== B.layer;
+    if (mapDeparture) { hero.x = mapDeparture.x; hero.y = mapDeparture.y; hero.size = 28; drawHero(); }
+    var eta = dotC ? heroTo({ x: dotC.x, y: dotC.y, size: dotC.r * 2 }, { instant: instant || prev < 0, routed: routed, from: prev, to: b, morphEl: B.morph || null, mapArrival: !!B.map && !markerOwned }) : 0;
 
-    if (b === FLOW_FIRST) startFlowIntro();
+    if (b === FLOW_FIRST) startFlowIntro(!instant && prev >= 0);
+    if (B.map) {
+      var arriving = !markerOwned && !instant && !reduced.matches;
+      dot.classList.toggle('hero-hidden', !arriving);
+      marker.style.visibility = arriving ? 'hidden' : '';
+    } else { marker.style.visibility = ''; }
 
     // O fio recolhe antes de mudar de origem e só cresce depois que o ponto chegou:
     // nunca varre texto durante a viagem do ponto.
@@ -965,8 +1009,8 @@
 
     if (B.map) {
       var prevMap = prev >= 0 ? BEATS[prev].map : null;
-      if (!instant && prevMap === 'A' && B.map === 'C') mapMove(true);
-      else if (!instant && prevMap === 'C' && B.map === 'A') mapMove(false);
+      if (!instant && markerOwned && prevMap === 'A' && B.map === 'C') mapMove(true);
+      else if (!instant && markerOwned && prevMap === 'C' && B.map === 'A') mapMove(false);
       else if (!(prevMap === B.map && routeAnim)) mapStatic(B.map);
     } else {
       // Fora do mapa, o estado oculto do demonstrador depende só do beat.
@@ -993,7 +1037,8 @@
   function goTo(i, opts) {
     i = canonicalBeat(Math.max(0, Math.min(TOTAL - 1, Math.floor(Number(i) || 0))));
     if (i === current) return getState();
-    var instant = (opts && opts.instant) || Math.abs(i - current) > 1;
+    var visibleDistance = Math.abs(PRESENTATION_ORDER.indexOf(i) - PRESENTATION_ORDER.indexOf(current));
+    var instant = !!(opts && opts.instant) || visibleDistance > 1;
     render(i, instant);
     return getState();
   }
@@ -1003,9 +1048,6 @@
     if (playback && playback.getState && playback.finishCurrent) {
       var state = playback.getState();
       if (state.beat === current && state.running) { playback.finishCurrent(); return goTo(adjacentBeat(1)); }
-    }
-    if (hero.phases.length && hero.phases[hero.pi] && hero.phases[hero.pi].type === 'flow') {
-      heroSettle(hero.target.T, hero.target.morphHere); flowSemantic(current); return goTo(adjacentBeat(1));
     }
     return goTo(adjacentBeat(1));
   }
