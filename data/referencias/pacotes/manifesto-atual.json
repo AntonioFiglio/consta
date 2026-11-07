@@ -1,0 +1,812 @@
+{
+  "origem": "Pasta CONSTA-pesquisas-hackathon fornecida por Matheus em 2026-11-07; conteúdo preservado, exceto metadados .DS_Store/._.",
+  "escopo": "Integridade e correspondência por hash; não constitui auditoria integral de conteúdo ou validade jurídica.",
+  "pacote": {
+    "arquivo": "consta-pesquisas.zip",
+    "raiz": "CONSTA-pesquisas-hackathon",
+    "sha256": "06b0263db6b02425273309229effc9a105d1c6c2a59076495bbeddeb092ef3c3"
+  },
+  "substitui_sha256": "9be910eb8c3dd74a9221301ff940e1f404023c5b7d7e2cb23bb3d71b2d457ef1",
+  "arquivos": [
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/01_CONTRATO-MANUTENCAO_HCRP-USP_Contrato-89-2026_SPECT-GE-NM830_serie+patrimonio.pdf",
+      "sha256": "0e32dd7c63caba220a8a8b1708a5b5266a702c059ef61e741f4434a93c493436",
+      "bytes": 8110720
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/02_CONTRATO-MANUTENCAO_HCRP-USP_Contrato-47-2026_acelerador-Varian-Halcyon_serie+patrimonio.pdf",
+      "sha256": "29e54e147bb4033d74beb77486b7a102e89ae7d7227548c72e1383dc33bf6e39",
+      "bytes": 955838
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/03_CONTRATO-MANUTENCAO_HCRP-USP_Contrato-05-2026_hemodinamica-Philips-Azurion_serie.pdf",
+      "sha256": "527e8c3eff69fff21b5a904f3569fad3dbafa05bb5f61e67aec7faca2fa49ab3",
+      "bytes": 947921
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/04_CONTRATO-MANUTENCAO_HC-UFG-EBSERH_Contrato-049-2025_hemodinamica-Philips_serie+patrimonio.pdf",
+      "sha256": "f59b260b1f327b899b1c19e62c9186552e180f61caa852b28cf3d73cfb848ea2",
+      "bytes": 235163
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/05_TERMO-ADITIVO-MANUTENCAO_HC-UFG-EBSERH_1o-aditivo-Contrato-049-2025_TABELA-equipamentos_serie+patrimonio.pdf",
+      "sha256": "e83e012694276d0e307f88923ebd69dfc2369d10c4e82b55b27fc09ae8000d56",
+      "bytes": 211345
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/06_CONTRATO-MANUTENCAO_HC-UFMG-EBSERH_Contrato-720-2026_simulador-robotico_serie.pdf",
+      "sha256": "1bb56c68d8d2f26b01546607fdc0c3814dbd3175a439684d34b6377763740bac",
+      "bytes": 380525
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/07_TERMO-REFERENCIA-MANUTENCAO-CORRETIVA_HULW-UFPB-EBSERH_monitor-RM-Philips_serie.pdf",
+      "sha256": "4c62a47651f74b3ebcf0606c5143b55c1c2e68bca89de61c7b8cef4d557fdeb5",
+      "bytes": 189418
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/08_CONTRATO-MANUTENCAO_FHEMIG-Barbacena_Contrato-9519080-2026_ultrassom-Philips_serie+patrimonio.pdf",
+      "sha256": "71fabd42eaa8c14c469d6a675196efe5a06292bd8a33a525c93c7b85d6e9e8f0",
+      "bytes": 119166
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/09_TERMO-REFERENCIA-MANUTENCAO_HU-Londrina-UEL_tomografos-e-RM-Canon_serie+patrimonio.pdf",
+      "sha256": "93a167c920884090ee0456bc5aefd1311a4a369a5c075823eeb98e6a7306ed89",
+      "bytes": 500900
+    },
+    {
+      "arquivo": "01-contratos-manutencao-com-serie-patrimonio/indice.csv",
+      "sha256": "f221a79e68dd6036d9a0848dc4843c5336328995b49e56e0d029e9ed7403924d",
+      "bytes": 3961
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-11_ecocardiografo_Philips.pdf",
+      "sha256": "0c4f9a5f8bf3efa321ef20a1ae0d8158cc963928b3a7173f50c6f80baa8a6b3d",
+      "bytes": 5335114,
+      "arquivo_manifesto_anterior": "fz-11-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-12_4-ultrassons_Konimagem.pdf",
+      "sha256": "4287bd4cbcaec79d2b79a90788455aebef61616ba14eb2461de701e59d94bc90",
+      "bytes": 5329587,
+      "arquivo_manifesto_anterior": "fz-12-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-15_2-ultrassons-leito_Konimagem.pdf",
+      "sha256": "b999a06a10dbf59e120cbf246db5356c994324a9cd0348d0812034268f7e74d6",
+      "bytes": 14428602,
+      "arquivo_manifesto_anterior": "fz-15-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-17_ultrassom-doppler_PauloCamargo.pdf",
+      "sha256": "ed47abb7fbbde711749e73c02b4a09c24021cfc38587446e94672d9154539032",
+      "bytes": 4651201,
+      "arquivo_manifesto_anterior": "fz-17-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-19_10-ventiladores-transporte_Brazil3.pdf",
+      "sha256": "46253bedae4abf67cbb0c2b62587d9216c5cfae47010eb537af5b0ca1b5c994e",
+      "bytes": 4772637,
+      "arquivo_manifesto_anterior": "fz-19-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-24_monitor-RM_Philips.pdf",
+      "sha256": "63c2cf41cdf6918c8cf363e5bc0bcee70f79f04014ac8b61c7dd17ba98d52a3b",
+      "bytes": 5355933,
+      "arquivo_manifesto_anterior": "fz-24-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-25_monitores-UTI_NihonKohden.pdf",
+      "sha256": "0b7ee4006f7ea6b1978ba19e7c2d64efc02c3df721060e0da77567aa54adcb38",
+      "bytes": 4760994,
+      "arquivo_manifesto_anterior": "fz-25-contrato.pdf"
+    },
+    {
+      "arquivo": "02-contratos-aquisicao-InCor/CONTRATO-AQUISICAO_FZ-32_2-mesas-cirurgicas_Brazil3.pdf",
+      "sha256": "d40f32ad21182359c3e55b8a75cd2b1bb0e55be1c6eaf26d737d7c49e29e03ea",
+      "bytes": 15857441,
+      "arquivo_manifesto_anterior": "fz-32-contrato.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_1330.pdf",
+      "sha256": "ca56c64b92482884c0dc03c6eceab79c5a3a219367eea0f0a24f979420dd1718",
+      "bytes": 415649,
+      "arquivo_manifesto_anterior": "icesp-1330.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_2306.pdf",
+      "sha256": "40682a9c2c9327afd3f42732354ce092833be832bf07a540a30b0d8ec12a5cb6",
+      "bytes": 1095531,
+      "arquivo_manifesto_anterior": "icesp-2306.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_2406.pdf",
+      "sha256": "dc4c3cbfcc8b657b8567e01206395db212644dc327d833a9407a58824a21a72a",
+      "bytes": 550355,
+      "arquivo_manifesto_anterior": "icesp-2406.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_2680.pdf",
+      "sha256": "dcd3a554cd310d52258b4749764469d675e9ee966bfa541323169e4f753d8516",
+      "bytes": 547941,
+      "arquivo_manifesto_anterior": "icesp-2680.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_2690.pdf",
+      "sha256": "0dd9a3b2563ea56b754fadaf991b423a6af96c03a73b79a9a627c5695fc2f9c1",
+      "bytes": 193908,
+      "arquivo_manifesto_anterior": "icesp-2690.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_748.pdf",
+      "sha256": "df3805b5085184674d16c64b3ff64a0711655e02aedf9514700c5411c746613a",
+      "bytes": 425284,
+      "arquivo_manifesto_anterior": "icesp-748.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_ICESP_ec0374.pdf",
+      "sha256": "6be318312cfa8fec2fd4429e368a57f34f78025a649c0d5833e33bbafe9f8fcd",
+      "bytes": 649043,
+      "arquivo_manifesto_anterior": "icesp-ec0374.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_10-edital.pdf",
+      "sha256": "55d91bfdb05a4d621117d3439220079790f8cf768aaa06816de1b95b0c1842b8",
+      "bytes": 1181081,
+      "arquivo_manifesto_anterior": "fz-10-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_11-edital.pdf",
+      "sha256": "7aef9079511f301c59df43048bccb8bffcc93afe0eaa09a2273ab2a56d4b1210",
+      "bytes": 646007,
+      "arquivo_manifesto_anterior": "fz-11-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_12-edital.pdf",
+      "sha256": "2902f96eb36d799112368cc00fb00ff5676949039ec13b29d6da57c992b0c3a9",
+      "bytes": 817612,
+      "arquivo_manifesto_anterior": "fz-12-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_13-edital.pdf",
+      "sha256": "ee7650468727effc3dd437e3fd17252af0c8729dd82e3fdecacdc024a7b2f5d5",
+      "bytes": 647617,
+      "arquivo_manifesto_anterior": "fz-13-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_15-edital.pdf",
+      "sha256": "4ae7f3b37fa0e9f4dc4cb6827a8a8c70a2f7e9bffdc5e752bd2bd5f117419bfb",
+      "bytes": 1146431,
+      "arquivo_manifesto_anterior": "fz-15-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_16-edital.pdf",
+      "sha256": "123516fd73fe5b09ea1ced5cb2b6ae589e0afe93b621cba48633f2cadf7df061",
+      "bytes": 891068,
+      "arquivo_manifesto_anterior": "fz-16-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_17-edital.pdf",
+      "sha256": "126341546d617097e5fb2647d6e507b366e63848e478d5395d8874aec58ddd49",
+      "bytes": 922157,
+      "arquivo_manifesto_anterior": "fz-17-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_18-edital.pdf",
+      "sha256": "3ae95b17c4636d52454b05c99314291e64e8c4e91c9538772b568e7925117786",
+      "bytes": 813781,
+      "arquivo_manifesto_anterior": "fz-18-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_19-edital.pdf",
+      "sha256": "f84f459c0639e8271068c6878227b41896c1ed122cf750ce166d8682edc6a8ea",
+      "bytes": 1100666,
+      "arquivo_manifesto_anterior": "fz-19-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_20-edital.pdf",
+      "sha256": "d88eb712c45191dd45f7ce2fc5ae71d2c2dd0804cfd2789876d5d90182ff9cc6",
+      "bytes": 692059,
+      "arquivo_manifesto_anterior": "fz-20-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_2026-2.pdf",
+      "sha256": "2a224430bb87b7947fe7af7619c6d6d3bae1f7d5df0e6b1ec88222a708192162",
+      "bytes": 647454,
+      "arquivo_manifesto_anterior": "fz-2026-2.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_21-edital.pdf",
+      "sha256": "1e698ad613f4da9039c3897c3f9e6955ad49e513f59a7fc30cbfc0567911b078",
+      "bytes": 687830,
+      "arquivo_manifesto_anterior": "fz-21-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_23-edital.pdf",
+      "sha256": "c3ef3c947b2c1f49052febe51c529259be36e76a648ed6b3038a29d151d50052",
+      "bytes": 1043784,
+      "arquivo_manifesto_anterior": "fz-23-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_24-edital.pdf",
+      "sha256": "81b69ce0cee182c1eb6076e835a2ab5c996de07d6e7861d69c569fb7d15be732",
+      "bytes": 651135,
+      "arquivo_manifesto_anterior": "fz-24-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_25-edital.pdf",
+      "sha256": "eafd268cb8a2ee7b7cb79d09d1f0a5fa6f7ccf13b1b81c25b2fe665719ea8cfc",
+      "bytes": 1173322,
+      "arquivo_manifesto_anterior": "fz-25-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_3-edital.pdf",
+      "sha256": "05268ae91f7d203ed9016d5da77483e9db46840c1afcdebcbbf7c4b18702a853",
+      "bytes": 1045752,
+      "arquivo_manifesto_anterior": "fz-3-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_30-edital.pdf",
+      "sha256": "aecd6f9be25d46ce915ec5233f256f43174df2baee2e684cd471fc7f19881681",
+      "bytes": 698731,
+      "arquivo_manifesto_anterior": "fz-30-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_31-edital.pdf",
+      "sha256": "8d4048f850db8c380288f4dfc9265660c74301f6a78bab54821c3366712fd9d4",
+      "bytes": 1086901,
+      "arquivo_manifesto_anterior": "fz-31-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_InCor-FZ_32-edital.pdf",
+      "sha256": "84dc41712e6e9fc99f58c9d750b0607b507621c112613f5b8a166982eed7abaf",
+      "bytes": 673435,
+      "arquivo_manifesto_anterior": "fz-32-edital.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_PNCP_2026-144.pdf",
+      "sha256": "220c17a881e98c78af3572558da58470d3c4270ff9911c20264117ef171c3010",
+      "bytes": 226576,
+      "arquivo_manifesto_anterior": "pncp-2026-144.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_PNCP_2026-170.pdf",
+      "sha256": "e4d5be126e4f2b5def1324e9507b3d42446ec82469f8914de35c558e2b59da2f",
+      "bytes": 358044,
+      "arquivo_manifesto_anterior": "pncp-2026-170.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_PNCP_2026-210.pdf",
+      "sha256": "41c4438363060e4bac0934d7e218e45af37d735b34afc56f89d2e3f2481bcddb",
+      "bytes": 180437,
+      "arquivo_manifesto_anterior": "pncp-2026-210.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_PNCP_2026-615.pdf",
+      "sha256": "cecec1be73593e19939d4037cd50802992ffb3b4c2135101b903ca3e919d737a",
+      "bytes": 559759,
+      "arquivo_manifesto_anterior": "pncp-2026-615.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/EDITAL-TR_PNCP_2026-638.pdf",
+      "sha256": "b0f398aa9dfb6ef68e7baabfb1b3d364edd86336512f1db9dce45b77aad800a0",
+      "bytes": 481749,
+      "arquivo_manifesto_anterior": "pncp-2026-638.pdf"
+    },
+    {
+      "arquivo": "03-editais-e-termos-de-referencia/RELACAO-CONTRATOS_FFM-ICESP_2024-12.pdf",
+      "sha256": "c4e5b919d625752fa338bbc62a750756438ac1bdd73a59ee4b0809e841abe24d",
+      "bytes": 196939,
+      "arquivo_manifesto_anterior": "ffm-icesp-2024-12.pdf"
+    },
+    {
+      "arquivo": "04-normas-e-tabelas-SUS/NORMA_ANVISA-RDC-509-2021.pdf",
+      "sha256": "7f7bd4f70b9213a1e780ed3efabbdb62836f37f9c955c35e3227a42a27779fc2",
+      "bytes": 130530,
+      "arquivo_manifesto_anterior": "rdc509.pdf"
+    },
+    {
+      "arquivo": "04-normas-e-tabelas-SUS/NORMA_Portaria-4282-2026-anexo.pdf",
+      "sha256": "52f361e1562e33bc6deb29a9f2d0d554219acffdee4fa8e676fa0ae74fe19c45",
+      "bytes": 79065,
+      "arquivo_manifesto_anterior": "portaria4282-2026-anexo.pdf"
+    },
+    {
+      "arquivo": "04-normas-e-tabelas-SUS/TABELA-PRECO_Holter.pdf",
+      "sha256": "6129903a1b0b7524e22a0e1e4fc79d93c0ecb9521580cc8c561b5ee89758be99",
+      "bytes": 60972,
+      "arquivo_manifesto_anterior": "economia-holter.pdf"
+    },
+    {
+      "arquivo": "04-normas-e-tabelas-SUS/TABELA-SUS_Camacari.pdf",
+      "sha256": "17bbc4a8a5a684fa3394fbac18e728a592de65c2cb24cdcef5e1aaa90a7a0ca2",
+      "bytes": 266342,
+      "arquivo_manifesto_anterior": "sus-camacari.pdf"
+    },
+    {
+      "arquivo": "04-normas-e-tabelas-SUS/TABELA-SUS_Teresina-2026.pdf",
+      "sha256": "c2bee0e085e2230cc9fa91b45537e4ff6e4b0aebcd63499f7201c0a948f77ea6",
+      "bytes": 3295865,
+      "arquivo_manifesto_anterior": "sus-teresina-2026.pdf"
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/LEIA-ME.md",
+      "sha256": "ea6ebdf1ce6c3f11b1449c8633381e694f41606783fd801179f7fb584f33ca51",
+      "bytes": 3556
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/aquisicoes_hcfmusp.csv",
+      "sha256": "e225ace0f2726a80bbb3101d4c6be9e9e3f63b071174083a1e7a110e68484c0f",
+      "bytes": 20428
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/custos_ociosidade.csv",
+      "sha256": "32cef3d1df812f677109c51f26da02774c1d64fd5b75260807b7bfc35c056569",
+      "bytes": 8833
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/custos_ociosidade.json",
+      "sha256": "15b857b436eb18b5301c0cf09739bc837db3e30bf1916f4a537e0c86310106d2",
+      "bytes": 18458
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/custos_ociosidade.md",
+      "sha256": "0f69261ca645842ab37d654d8e67f1e667406d6062f8097afe4534d89e7a7f48",
+      "bytes": 4611
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/evidencias_extravio_rastreabilidade.csv",
+      "sha256": "15d2f3b9433cb56d2f948a4f6b8146d9214b28f72e2d3a550b5b5cebf5b1563c",
+      "bytes": 12722
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/evidencias_extravio_rastreabilidade.json",
+      "sha256": "d42ee513fcecb2845cefc8c332cb5006262cb6d286ed931d14d187c0bd68f397",
+      "bytes": 16603
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/evidencias_extravio_rastreabilidade.md",
+      "sha256": "ace866bc04032fc2016fa1152337b3df489e71fd0fa441c889e3aeff9ca9b9e7",
+      "bytes": 15430
+    },
+    {
+      "arquivo": "05-planilhas-e-relatorios/levantamento.md",
+      "sha256": "0d2d1a372c15c41c61aaa6217a085d01bf3b47332a6fb577817aced780668e61",
+      "bytes": 14342
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/downloads.json",
+      "sha256": "e871e16003839c225656c3952fd7f65e3a1089ca33f992c4a8f3939ca7e63eee",
+      "bytes": 6377
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/economia-ecg-bloqueio.html",
+      "sha256": "80a265bed528211aa708dcd58f7a95db36eeb7f873c6fe4ddab0b3a1dc0973a4",
+      "bytes": 226
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/economia-hemo-bloqueio.html",
+      "sha256": "32f2fa940d4b4fe19aca1e53a24e5aac29c57b7c5ee78588325b87f1b649c864",
+      "bytes": 146
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/ffm-icesp-2024-12.txt",
+      "sha256": "d49930206f0094b4d785de2268e9f646ec2d81eea0a2ab7c4169a073f220ecc2",
+      "bytes": 20740
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-10-edital.txt",
+      "sha256": "d1487c19a740a4642448a5ba7139fab28fced81d5c6051a3ba7b6a0028006e65",
+      "bytes": 114186
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-11-contrato.txt",
+      "sha256": "c9a2860c8be5e8676c939faa3ce6c2854117512ddf83ff61a94699b7a08948de",
+      "bytes": 159074
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-11-edital.txt",
+      "sha256": "b560f52e9fccc1ec50c5b48de021ccd65bd435e607b49203787cbce904a49e0b",
+      "bytes": 111300
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-12-contrato.txt",
+      "sha256": "5a0fa71dfe8e2dd54e9e8f78c8d984d39b8cd0dcdf447dc62e43afb5b1510475",
+      "bytes": 175108
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-12-edital.txt",
+      "sha256": "b94d19a6ba6e69c99cec378aea6867431b6e08d7430030d945ea009ffed426a1",
+      "bytes": 113842
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-13-edital.txt",
+      "sha256": "4c764953711ab5b8e8ce162b75f1cffbf6cbe4a0aeacf40f40a4c69675b158df",
+      "bytes": 113091
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-15-contrato.txt",
+      "sha256": "79070393442f66dfaf293b56b69041311b0ee4f4cd8a89bf27ac19bc03a640dd",
+      "bytes": 130449
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-15-edital.txt",
+      "sha256": "e0ab07bc5c4d2e86503f5cc16c7ec576e9cd551f4665ef87c58d216db3f80369",
+      "bytes": 113821
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-16-edital.txt",
+      "sha256": "2301071144f28754607625600f4e56d2b41369a58f60b2260b7ca208c98637d1",
+      "bytes": 111788
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-17-contrato.txt",
+      "sha256": "ebd942e47d87efbf44b3ef58b68314dc63663b0dc7a582c8ea380f9389d9df6f",
+      "bytes": 162279
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-17-edital.txt",
+      "sha256": "9f97ba6fbe9572ea7e5259c6049f00be59d9d5e69886d8b24801e9d9fa995999",
+      "bytes": 133709
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-18-edital.txt",
+      "sha256": "f1696e2ada01f938c42b905df1fb3eb978b3a10df86255f5aea00b063106957b",
+      "bytes": 146494
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-19-contrato.txt",
+      "sha256": "bac73e8e5d0502cae3490d5e2a0617d2a437fb20599903f18494f207e4f80cdc",
+      "bytes": 14
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-19-edital.txt",
+      "sha256": "5b9a13759b557a8296f893261f7ad0cd6e1ab2c389725a97671fd08c8ac66b82",
+      "bytes": 114050
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-20-edital.txt",
+      "sha256": "b2ecb4042e5ed409e417a2b9fe169e252ae69fd12f6b2bd4c9b9aafe42c78ae3",
+      "bytes": 120320
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-2026-2.txt",
+      "sha256": "8883727e964d0efc35f6024b86b8af8db82c67133e61af5acbd6a190da248322",
+      "bytes": 114402
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-21-edital.txt",
+      "sha256": "392cbd9f5b85eab304e660af9a03fe41ff433c8f6ee930c21e3ca06a28d4ebb8",
+      "bytes": 118401
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-23-edital.txt",
+      "sha256": "141ba673b8de353cfba37ff48b47485336396ffe35acf7ca1c54dc28b5e4b059",
+      "bytes": 115636
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-24-contrato.txt",
+      "sha256": "052ed3ac191a698c0cf6399a572c60b9c5e814a47fae8280b78f846f7552d654",
+      "bytes": 160698
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-24-edital.txt",
+      "sha256": "55b07d4087498f66120b5c8a08dcf39276d30c8becb642406f9df7e4273f1c90",
+      "bytes": 114018
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-25-contrato.txt",
+      "sha256": "bac73e8e5d0502cae3490d5e2a0617d2a437fb20599903f18494f207e4f80cdc",
+      "bytes": 14
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-25-edital.txt",
+      "sha256": "4ebd5e66705ed8e1ca0e3a05a46db7d9691529d0213548161672fcccdf89ecdd",
+      "bytes": 147247
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-3-edital.txt",
+      "sha256": "eb7d2f11db165a8cc6f416b49aa312096707227020b3957e495f37840107364f",
+      "bytes": 113158
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-30-edital.txt",
+      "sha256": "8a1ffcf56e48d30adfd28bead1df8336c161ce9417d3d7e19d37131dceeeafef",
+      "bytes": 114433
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-31-edital.txt",
+      "sha256": "52b80a937cec882c160d0b1118ae0e94e7b90de11de5b4649de2b08bbfb25c29",
+      "bytes": 115572
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-32-contrato.txt",
+      "sha256": "19a20bab052b8515229b5561609e96f2bb841dae12aee2213c577162f2741ffa",
+      "bytes": 25300
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-32-edital.txt",
+      "sha256": "5cb7b35d054770146d5c1bd4430e853aeda775b0b03de59a93d2a29294fa1291",
+      "bytes": 113544
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-0.txt",
+      "sha256": "172ebb20d9e067209e16b903cca43eeeeba70392fa2297693ab5a3713500b3e2",
+      "bytes": 6279
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-1.txt",
+      "sha256": "9fe3512058e3c3aa4bf4fccd6de9bc7d4a7adbc235b0ab1ad7da034d8cecbc45",
+      "bytes": 3225
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-10.txt",
+      "sha256": "4af68039069c7b168933ecb73674af107008d2ceda5b1bfedea632963bfbaca5",
+      "bytes": 5500
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-11.txt",
+      "sha256": "88417b2399274f3704e73df7b80ddc0c520a7259973db82b0fa12e5b95c1c0ba",
+      "bytes": 7800
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-12.txt",
+      "sha256": "b85e4e953190827004a823ee2b7624ba0d228de781a268f28deba0e1bfc8e83c",
+      "bytes": 5811
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-13.txt",
+      "sha256": "9d70bfc2a6e51ccd8a1d6ea6ba9e9bb1f99514125e46a0b472af4945d2d6d16d",
+      "bytes": 3196
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-14.txt",
+      "sha256": "06415a4b0dde85272f13b8d7043ba907d3fb773dc7cd54ca4ac8f0787c869ae1",
+      "bytes": 2720
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-15.txt",
+      "sha256": "e45c9a47ba18557694d902749414a57dab4a587a7651befc600050469e3e9cb4",
+      "bytes": 3414
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-16.txt",
+      "sha256": "d2f759af02ba127debd3b2e45f8595cff5ddcfa9f23e2cb9a3fc7204a28f736b",
+      "bytes": 1718
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-17.txt",
+      "sha256": "3ec3d1d5ca4ec8fe831dd027fabe1ab6b7fe38728dd91c083950f9b85bc53348",
+      "bytes": 1715
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-18.txt",
+      "sha256": "250c6befc209c470fa00efca1112477c1c2df47ecf0a51be46992c53da2bdd43",
+      "bytes": 2084
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-19.txt",
+      "sha256": "1068bdc79a1ba8b8d69a6617859f6a683d0934832c666c84bce32bfe76099eb4",
+      "bytes": 3318
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-2.txt",
+      "sha256": "86ce6ccd796daba0282d53c80dcd39ed877f488d148185e5626ec24095da4e2f",
+      "bytes": 5936
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-20.txt",
+      "sha256": "7aa56c3977dd7eef26fb274ab29b916ff2d3c67e791654234d41e0f22e098b1f",
+      "bytes": 2258
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-21.txt",
+      "sha256": "24d2fde844d6d38d04819c55e640390219b1f338fbb57871583922bf2714191c",
+      "bytes": 2265
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-22.txt",
+      "sha256": "9afad455245fca96b635f65e49e6dc08b5571c6c31c1d713cc4e5d38f38dca4f",
+      "bytes": 3844
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-23.txt",
+      "sha256": "6f23e8bc504cda9cf38e22504fd562b72295d5ba1360fcaaee536a6d4d1d27fc",
+      "bytes": 5377
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-24.txt",
+      "sha256": "9d71aa75025ad0a1ed373eefac10626991eb90920c741c8d3d045d0224d9ede1",
+      "bytes": 2762
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-25.txt",
+      "sha256": "e155b1b2af027e23f1a36a97f41a96d44313474f920f7c2afac8f1ce5b2bcc0f",
+      "bytes": 2384
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-26.txt",
+      "sha256": "6fdad48d0ca3eea2f5400225525ae3249c28cf5acf3d2f357728db6ea14dff1f",
+      "bytes": 5552
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-27.txt",
+      "sha256": "f0d1ddeb280406a4aa13c9f42f358aa7774fcd64ba7ff232bd42797090e737e2",
+      "bytes": 3550
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-28.txt",
+      "sha256": "22fed9f9858b3fad92aeb6ad9f244eed3e61abc52fc524f6a36820f3af991128",
+      "bytes": 1889
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-29.txt",
+      "sha256": "f203b1c739f24d6979914b79e3e85fb55aff6889d9806cfaa3e5779b7eb6a9a6",
+      "bytes": 3846
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-3.txt",
+      "sha256": "07a154ee2d68b77346c6eb678cf82ff73d1457b6725fc573c7eea9fa2e8a2d55",
+      "bytes": 4735
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-30.txt",
+      "sha256": "100cb1d297bb2b99536c5f543efbda2cd94a496eff12914207a9b3c1945b7eea",
+      "bytes": 3093
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-31.txt",
+      "sha256": "bf4320c33f7c83054424e5fba6d2c0a40a2b10c113713ae0e1144d54143561c3",
+      "bytes": 6704
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-32.txt",
+      "sha256": "6c97bdbf0ee13891c7970ecf7dd6194b755801ff8e0e29727e92b0a0d26e61f2",
+      "bytes": 8104
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-4.txt",
+      "sha256": "6ebf5c4e65a4bd381cb4d2565f3b1158dbcca01bfb608189d9b28ce6095ed085",
+      "bytes": 6696
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-5.txt",
+      "sha256": "cc2e06dcdafa26c79804de59d25f77b0bde74bf34757718e1451b5d5f6eece3a",
+      "bytes": 6929
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-6.txt",
+      "sha256": "532b10bae6442b65ec03cbc89893fa75fedb5acb04d30e3c97955ea3250e2092",
+      "bytes": 2367
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-7.txt",
+      "sha256": "6502cd01f9e52fe36daf8f6db693820a26f9286eb148dec1dac9288668a669dc",
+      "bytes": 9251
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-8.txt",
+      "sha256": "e4d9fff878cf3f2fbb8eace0f8420efb55c51f184349d6ae4dcf0130694d6436",
+      "bytes": 5067
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-page-9.txt",
+      "sha256": "3208739b7bd4a68f8cbb3a5a6c77544f3e677b77bfdf079ef3ef132582900266",
+      "bytes": 8892
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-pages.json",
+      "sha256": "38b3b7178acfb83ed4a6231ffa8fb4547f7e30632e2b3aef56dee7504f94a19e",
+      "bytes": 194323
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/fz-search.json",
+      "sha256": "9350cabd6aaf38a566f1b53dfcb3950232bbce51e1adebe19bc2c7d32d6d88a4",
+      "bytes": 5931
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-1330.txt",
+      "sha256": "ea2f69ae6c4692ee3e71032ef1bac7bfe48c18e7e6382fd90f1d078e8f368270",
+      "bytes": 22281
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-2306.txt",
+      "sha256": "dca7f0cf04e4a43039e568eaf3e2069fb0d0a994c6b0acd7118ca84ead63815c",
+      "bytes": 254782
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-2406.txt",
+      "sha256": "24a650721f8f6d0134aa25689e0a016381ace79e9fd453e2d07d8f377f77ed44",
+      "bytes": 58754
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-2680.txt",
+      "sha256": "f1b51b6e2964025e349fe63dfcd2b3ff986ea36a26bb66adf5ddfe0df44819d5",
+      "bytes": 63419
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-2690.txt",
+      "sha256": "605e2366041916bc7223e5fd5a727e51fc0a1af94cf6adf30c8dd3c9eb63296b",
+      "bytes": 25801
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-748.txt",
+      "sha256": "eec9eb38367f53e21d10d16a5871dede2338ab3f5b74bccd0ae08330c06960c0",
+      "bytes": 18578
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-ec0374.txt",
+      "sha256": "57d949cef08f6952acb371920fecddd897c76b08abc8f07ab768b42eb78b52b2",
+      "bytes": 146981
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/icesp-lista.txt",
+      "sha256": "d9f0ca5facad99ab50609ae28c8b9fa9c138ae5536f816d7dab954e9d198b84f",
+      "bytes": 17
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/manifesto_pdfs.json",
+      "sha256": "9ff4d3d6733880aee40b8ee4fbf3c359e53bc16494bab4a8864e4ef439271e48",
+      "bytes": 6009
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/pncp-2026-144.txt",
+      "sha256": "d97908b33a300e03054244e96c4916a7aa6697417b652ab62b276af3c52471fb",
+      "bytes": 100941
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/pncp-2026-170.txt",
+      "sha256": "3425a133b11d09a9d339cef1549e8f53ab6a6e5c575a4a6aa753d56afec4aeaa",
+      "bytes": 26770
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/pncp-2026-210.txt",
+      "sha256": "827535eff972c3fb63e954b2261da308bfee0b8a4704e18535688f8b246da5aa",
+      "bytes": 94481
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/pncp-2026-615.txt",
+      "sha256": "6e8100f207998eff2841535152ee99193af92b515501306086abc9163332ce2e",
+      "bytes": 292019
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/pncp-2026-638.txt",
+      "sha256": "53853b46635761a71f16e1d19a45d9f892e6444d97c4281894111bb87a0d3286",
+      "bytes": 259907
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/portaria4282-2026-anexo.txt",
+      "sha256": "33afc7f0be8ff0b2b57ee2ca54992eb4d02f2ffcb491b0a4f0cc7914101e88de",
+      "bytes": 42474
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/precos-zdi-2026.txt",
+      "sha256": "2f0cdf38625cbd8ebc87a8a46736a16c2c5bc1b0cc86455b4329e5c5bfb45c06",
+      "bytes": 84674
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/rdc509.txt",
+      "sha256": "eb50cdf996d0c5771d31ecc381a551cf06f1ee817ad4ac1de82b695d4fc4ed39",
+      "bytes": 16888
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/registros.json",
+      "sha256": "266b5acaea07ba56a13b176d1341304d0721d9c0baa4da6489620357e0c0edee",
+      "bytes": 27209
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/sus-camacari.txt",
+      "sha256": "d2d8927b04180e0ba255d1dbd3643f4d8c0a6b5a18cd7bfb596a5616913007f2",
+      "bytes": 466142
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/sus-teresina-2026.txt",
+      "sha256": "c2c8542d1d8512ad86b9e3db63747d2054c1207c1950d4caba740ecdee8c7bc9",
+      "bytes": 554291
+    },
+    {
+      "arquivo": "06-textos-extraidos-e-auxiliares/verified-urls.json",
+      "sha256": "a841d019e4300a1922d87861d54c401d295d6aa9e3b31e276a97db7134bfb5ee",
+      "bytes": 810
+    }
+  ]
+}
