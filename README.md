@@ -6,13 +6,25 @@
 
 O Consta reúne cadastro de ativos, contratos, planos de manutenção, responsáveis, tarefas e comprovantes. A IA auxilia a extração documental com revisão humana. O rastreamento seguirá com **tags BLE a bateria, receptores fixos e processamento na rede local**, limitado aos equipamentos e às áreas aprovados pelo hospital.
 
-**Estado real:** este repositório contém documentação, identidade visual e dados fictícios. O CRM, o serviço de localização e o hardware ainda serão construídos. A escolha de BLE é uma direção de desenvolvimento; compatibilidade hospitalar, precisão, autonomia e atualização ainda precisam de validação. Consulte o [estado atual](docs/estado-atual.md).
+**Estado real:** a fase 1 do CRM possui aplicação local com React 19 e Vite: upload de contrato, cadastro por patrimônio, revisão e calendário de manutenções previstas. O SDK está integrado com configuração pendente pelo usuário; não foi validado com um provedor real. Localização e hardware BLE continuam pendentes. Consulte o [estado atual](docs/estado-atual.md).
+
+## Executar o CRM
+
+Com Node.js 22.17 ou posterior e npm, na raiz:
+
+```sh
+npm ci
+npm run dev
+```
+
+Abra `http://127.0.0.1:5173`. A aplicação começa com três equipamentos sintéticos identificados. O [guia do CRM](apps/crm/README.md) explica configuração do SDK, senha local, persistência e testes. O [diagrama da fase 1](docs/produto/fase-1-cadastro-e-calendario.md) apresenta o fluxo simplificado.
 
 ## Comece por aqui
 
 | Preciso… | Leia |
 | --- | --- |
 | Entender o produto e seu escopo | [Visão do produto](docs/produto/visao.md) e [requisitos](docs/produto/requisitos.md) |
+| Entender a primeira fase simplificada | [Contrato → cadastro → calendário](docs/produto/fase-1-cadastro-e-calendario.md) |
 | Começar a desenvolver com a equipe | [Primeiros passos](docs/desenvolvimento/primeiros-passos.md) e [contribuição](CONTRIBUTING.md) |
 | Trabalhar com uma LLM | [Instruções para agentes](AGENTS.md) |
 | Entender as partes e suas interfaces | [Arquitetura](docs/arquitetura/visao-geral.md) e [contratos de integração](packages/contratos/README.md) |
@@ -25,7 +37,7 @@ O Consta reúne cadastro de ativos, contratos, planos de manutenção, responsá
 ## Organização do repositório
 
 ```text
-apps/crm/                 Aplicação de gestão — implementação pendente
+apps/crm/                 CRM local React 19/Vite, API e SQLite — fase 1
 services/localizacao/     Recepção e estimativa de localização — implementação pendente
 packages/contratos/       Especificação das interfaces entre software e receptores
 hardware/                 Especificações de tag e receptor — fabricação pendente
@@ -36,7 +48,7 @@ scripts/                  Verificação do repositório
 .github/                  Verificação automatizada e modelo de pull request
 ```
 
-As pastas de aplicação, serviço e hardware têm guias de escopo, não aplicações executáveis. A stack permanece [em decisão](docs/arquitetura/visao-geral.md). O CRM poderá ser desenvolvido e demonstrado com um adaptador de localização simulado, identificado como tal.
+O CRM tem comandos de execução e testes. Serviço de localização e hardware permanecem como especificações. A [decisão da stack inicial](docs/adr/0004-crm-fase-1.md) delimita a implementação local e seus limites.
 
 ## Direção atual
 
@@ -53,7 +65,7 @@ Na raiz, com Python 3.9 ou posterior:
 python3 scripts/verificar_repositorio.py
 ```
 
-O comando verifica referências locais da documentação e recursos da marca. Ainda não existem comandos para executar ou testar o CRM; eles deverão acompanhar sua implementação.
+O comando verifica referências locais da documentação e recursos da marca. Para o CRM, use `npm test` e `npm run build`; consulte seus limites no [guia da aplicação](apps/crm/README.md).
 
 ## Identidade visual
 

@@ -26,10 +26,31 @@ A marca usa o nome em caixa alta **CONSTA** com um ponto final que muda de cor c
 
 | Papel    | Fonte   | Peso | Uso                         |
 |----------|---------|------|-----------------------------|
-| Wordmark | DM Mono | 500  | Apenas o logotipo           |
-| Headings | Inter   | 700+ | Títulos de página e seção   |
-| Body     | Inter   | 400  | Todo texto de interface     |
-| Dados    | DM Mono | 400  | Nº de série, datas, códigos |
+| Wordmark | DM Mono | 500 | Apenas o logotipo |
+| Títulos | Inter | 600 | Páginas, diálogos e seções |
+| Interface | Inter | 400/500/600 | Texto, campos, tabelas, datas e códigos |
+| Arquivo técnico | DM Mono | 400 | Texto original na prévia TXT |
+
+### Padrão visual da aplicação
+
+Os [tokens compartilhados](tokens.css) são a fonte dos estilos do CRM. Use Inter em todas as telas e controles; datas, contagens e números de tombamento usam a mesma família com algarismos tabulares. DM Mono fica restrita à wordmark e à leitura de arquivos técnicos. As fontes do CRM são empacotadas localmente.
+
+| Papel | Tamanho padrão | Peso |
+| --- | --- | --- |
+| Título de página | 24 px | 600 |
+| Título de diálogo | 20 px | 600 |
+| Título de seção | 16 px | 600 |
+| Corpo, campos e navegação | 14 px | 400/500 |
+| Rótulos e ações compactas | 13 px | 500/600 |
+| Metadados e calendário | 12 px | 400/500 |
+
+Os tamanhos são definidos em `rem`, respeitando o tamanho de texto configurado no navegador. Evite textos abaixo de 12 px, inclusive em telas pequenas. Use entrelinha de 1,6 para leitura e 1,35 para títulos; reserve 1,8 para texto documental extenso. O peso 600 estabelece hierarquia sem espalhar negrito pelo corpo.
+
+Use texto principal `--consta-text-primary` e secundário `--consta-text-secondary` sobre fundos claros. O laranja da marca continua em acentos e seleção; botões de ação usam o tom mais escuro `--consta-action`, com texto branco legível. Vermelho e demais cores semânticas continuam associados a rótulos explícitos.
+
+Mantenha superfícies claras, bordas discretas e sombra apenas onde ajuda a distinguir sobreposições. Use raios de 4 px para detalhes, 8 px para campos/botões/cards e 12 px para diálogos. O espaçamento segue múltiplos de 4 px, com 16–24 px entre blocos e 24 px no conteúdo dos diálogos. Os tokens de espaço não substituem medidas específicas de grades e posicionamento.
+
+Controles comuns têm altura mínima de 40 px; ações compactas podem usar 32 px. Preserve foco visível por teclado, estados selecionados, rótulos de status e rolagem interna das tabelas e leitores. Em telas pequenas, reorganize ou permita rolagem do conteúdo em vez de reduzir a fonte. Não adicione cards, efeitos ou novos controles quando texto e as ações existentes resolverem a tarefa.
 
 ## Wordmark
 

@@ -4,11 +4,14 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 
 ## Produto
 
+- [Fase 1 — Cadastro por contrato e calendário, com diagrama simples](produto/fase-1-cadastro-e-calendario.md)
 - [Visão, público e escopo](produto/visao.md)
 - [Requisitos e critérios de aceite](produto/requisitos.md)
 - [Fluxos de documentos, manutenção e localização](produto/fluxos.md)
 - [Demonstração e discurso do projeto](produto/demonstracao.md)
 - [Glossário](../GLOSSARY.md)
+
+- [Registro de quebra: pesquisa de mercado e integração](produto/registro-de-quebra-pesquisa-e-fluxo.md)
 
 ## Arquitetura e desenvolvimento
 
@@ -35,6 +38,7 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 - [ADR 0001 — BLE e descontinuação da óptica](adr/0001-rastreamento-ble.md)
 - [ADR 0002 — Repositório único e fronteiras de desenvolvimento](adr/0002-monorepo.md)
 - [ADR 0003 — Gitflow para colaboração](adr/0003-gitflow.md)
+- [ADR 0004 — CRM local da fase 1 com React 19 e Vite](adr/0004-crm-fase-1.md)
 - [Fontes técnicas e estudos internacionais](referencias/README.md)
 - [Estudo do pacote de pesquisas fornecido por Matheus](referencias/estudo-pacote-pesquisas.md) — síntese do que agrega e do que não se pode concluir
 - Auditorias do pacote: [documentos](referencias/auditoria-corpus-documental.md), [rastreabilidade](referencias/auditoria-rastreabilidade.md) e [economia](referencias/auditoria-economia-ociosidade.md)

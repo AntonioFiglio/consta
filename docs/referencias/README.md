@@ -8,6 +8,8 @@ O [estudo do pacote fornecido por Matheus](estudo-pacote-pesquisas.md) consolida
 
 ## Contexto do produto
 
+- [Vocabulário de manutenção usado na interface](../../GLOSSARY.md): termos técnicos baseados no manual do Ministério da Saúde e no glossário de engenharia clínica da Ebserh, com frases próprias de linguagem clara para pendências de cadastro. Não constitui classificação oficial de status hospitalares.
+
 - [Catálogo de alegações e limites](alegacoes-e-limites.md): contexto hospitalar brasileiro, manutenção, concorrência e enquadramento. Conserva a identificação das fontes e dos recortes originais.
 - [Descoberta no hackathon](descoberta-hackathon.md): síntese de gravações fornecidas por Matheus. Falas são relatos/sugestões, não validação de mercado ou requisito aprovado automaticamente.
 - [Notícias para o pitch](noticias-para-pitch.md): reportagens do G1, UOL e outros veículos, com datas, contraditório e ligação limitada ao produto. Casos de indisponibilidade não demonstram que software evitaria a falha.
