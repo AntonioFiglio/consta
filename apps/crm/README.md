@@ -85,6 +85,20 @@ Depois do build, `http://127.0.0.1:3007` serve interface e API juntas. Para para
 
 Se o login informar falha de conexão e `http://127.0.0.1:5173/api/config` mostrar a própria interface em vez de JSON, o servidor dessa porta não está encaminhando as chamadas à API. Com o backend e o build disponíveis, acesse `http://127.0.0.1:3007` para usar interface e API juntas. Para desenvolvimento, encerre o servidor incorreto de 5173 e inicie `npm run dev` na raiz. Uma resposta HTML não é aceita como configuração de autenticação nem como sucesso de login; a senha continua exigida quando configurada.
 
+## Navegação por URL
+
+A navegação usa [React Router](https://reactrouter.com/start/declarative/routing), com as páginas carregadas sob demanda:
+
+| URL | Página |
+| --- | --- |
+| `/calendario` | Calendário e agenda |
+| `/contratos` | Contratos e arquivos vinculados |
+| `/equipamentos` | Inventário e situação da manutenção |
+
+O endereço `/` abre Calendário. Links antigos `/#calendario`, `/#contratos` e `/#equipamentos` redirecionam para a página correspondente, substituindo a entrada antiga do histórico. Caminhos desconhecidos voltam a Calendário. O menu usa links do roteador, com seleção automática, suporte a voltar/avançar e abertura em outra aba. A troca de página atualiza o título da janela e o foco no título da tela; a sessão e os diálogos continuam compartilhados.
+
+`CalendarPage`, `ContractsPage` e `EquipmentPage` têm arquivos de build separados, carregados com `React.lazy` e `Suspense`. A navegação não recarrega a aplicação inteira. O servidor Express já oferece fallback para `index.html`, permitindo abrir e recarregar essas URLs diretamente; `/api` continua reservado às respostas JSON. Em outro servidor de hospedagem, configure o mesmo fallback para as rotas da interface.
+
 ## Configuração do SDK
 
 Preencha as variáveis em `apps/crm/.env.local` e reinicie a aplicação:
