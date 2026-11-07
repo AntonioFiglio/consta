@@ -1,0 +1,275 @@
+{
+  "origem": "Pacote consta-pesquisas fornecido por Matheus; originais preservados fora do repositório.",
+  "data_auditoria": "2026-11-06",
+  "escopo": "Identidade de arquivos; não valida assinatura, contratação, entrega, execução ou vigência.",
+  "csv_avulso_identico_ao_csv_no_zip": true,
+  "pacotes": [
+    {
+      "arquivo": "consta-pdfs-1.zip",
+      "sha256": "b2106bfaa3eb031dbf71ff722589813ecf557b6675f44f33e9ac61bcbe53c72f"
+    },
+    {
+      "arquivo": "consta-pdfs-2.zip",
+      "sha256": "e2505be406372e7bd023c1c1f6cce9273fe5c127c3add438eb857549d3fdd096"
+    },
+    {
+      "arquivo": "consta-pdfs-3.zip",
+      "sha256": "83ce9b41c1f88ba2e7279d4aecfcf1aecb989322c15e5f1824bac8e61a83c33f"
+    },
+    {
+      "arquivo": "consta-pdfs-4.zip",
+      "sha256": "d75fe85f6ab225d7d5fc44e5ed3c1fd251edd674eeb0114ce4bd5d5e23a36f27"
+    },
+    {
+      "arquivo": "consta-pdfs-5.zip",
+      "sha256": "ca22c4276541f88eacec4ab8cd32465a2d4e0359db63e566b6a0d280b1c1f4e0"
+    },
+    {
+      "arquivo": "consta-pdfs-6.zip",
+      "sha256": "6add65b0a0a3bd12fdc68373fb7b0574881166bf1499bc9822df8e8406d55312"
+    },
+    {
+      "arquivo": "consta-pdfs-7.zip",
+      "sha256": "39ff9f6538685c4f97229d878bb8911504f67a7ea647a389e9f90d5b5cf8c84c"
+    },
+    {
+      "arquivo": "consta-pdfs-8.zip",
+      "sha256": "c70336942ee133480465201709772550fbcf04d30f1f99780de6ac03a30a0624"
+    },
+    {
+      "arquivo": "consta-pdfs-9.zip",
+      "sha256": "e5f577b2ff46a7545f632fa77c183dd3b1e03d6358590db552a246c17f3d2d06"
+    },
+    {
+      "arquivo": "consta-tabelas-e-textos.zip",
+      "sha256": "3d61e5bd1bdf3b1f118345c8f5970ca7f3733df4cda5edcc6d5395979496832d"
+    }
+  ],
+  "pdfs": [
+    {
+      "arquivo": "economia-holter.pdf",
+      "pacote": "consta-pdfs-1.zip",
+      "sha256": "6129903a1b0b7524e22a0e1e4fc79d93c0ecb9521580cc8c561b5ee89758be99"
+    },
+    {
+      "arquivo": "ffm-icesp-2024-12.pdf",
+      "pacote": "consta-pdfs-1.zip",
+      "sha256": "c4e5b919d625752fa338bbc62a750756438ac1bdd73a59ee4b0809e841abe24d"
+    },
+    {
+      "arquivo": "fz-10-edital.pdf",
+      "pacote": "consta-pdfs-1.zip",
+      "sha256": "55d91bfdb05a4d621117d3439220079790f8cf768aaa06816de1b95b0c1842b8"
+    },
+    {
+      "arquivo": "fz-11-contrato.pdf",
+      "pacote": "consta-pdfs-1.zip",
+      "sha256": "0c4f9a5f8bf3efa321ef20a1ae0d8158cc963928b3a7173f50c6f80baa8a6b3d"
+    },
+    {
+      "arquivo": "fz-11-edital.pdf",
+      "pacote": "consta-pdfs-1.zip",
+      "sha256": "7aef9079511f301c59df43048bccb8bffcc93afe0eaa09a2273ab2a56d4b1210"
+    },
+    {
+      "arquivo": "fz-12-contrato.pdf",
+      "pacote": "consta-pdfs-2.zip",
+      "sha256": "4287bd4cbcaec79d2b79a90788455aebef61616ba14eb2461de701e59d94bc90"
+    },
+    {
+      "arquivo": "fz-12-edital.pdf",
+      "pacote": "consta-pdfs-2.zip",
+      "sha256": "2902f96eb36d799112368cc00fb00ff5676949039ec13b29d6da57c992b0c3a9"
+    },
+    {
+      "arquivo": "fz-13-edital.pdf",
+      "pacote": "consta-pdfs-2.zip",
+      "sha256": "ee7650468727effc3dd437e3fd17252af0c8729dd82e3fdecacdc024a7b2f5d5"
+    },
+    {
+      "arquivo": "fz-15-contrato.pdf",
+      "pacote": "consta-pdfs-3.zip",
+      "sha256": "b999a06a10dbf59e120cbf246db5356c994324a9cd0348d0812034268f7e74d6"
+    },
+    {
+      "arquivo": "fz-15-edital.pdf",
+      "pacote": "consta-pdfs-4.zip",
+      "sha256": "4ae7f3b37fa0e9f4dc4cb6827a8a8c70a2f7e9bffdc5e752bd2bd5f117419bfb"
+    },
+    {
+      "arquivo": "fz-16-edital.pdf",
+      "pacote": "consta-pdfs-4.zip",
+      "sha256": "123516fd73fe5b09ea1ced5cb2b6ae589e0afe93b621cba48633f2cadf7df061"
+    },
+    {
+      "arquivo": "fz-17-contrato.pdf",
+      "pacote": "consta-pdfs-4.zip",
+      "sha256": "ed47abb7fbbde711749e73c02b4a09c24021cfc38587446e94672d9154539032"
+    },
+    {
+      "arquivo": "fz-17-edital.pdf",
+      "pacote": "consta-pdfs-4.zip",
+      "sha256": "126341546d617097e5fb2647d6e507b366e63848e478d5395d8874aec58ddd49"
+    },
+    {
+      "arquivo": "fz-18-edital.pdf",
+      "pacote": "consta-pdfs-4.zip",
+      "sha256": "3ae95b17c4636d52454b05c99314291e64e8c4e91c9538772b568e7925117786"
+    },
+    {
+      "arquivo": "fz-19-contrato.pdf",
+      "pacote": "consta-pdfs-5.zip",
+      "sha256": "46253bedae4abf67cbb0c2b62587d9216c5cfae47010eb537af5b0ca1b5c994e"
+    },
+    {
+      "arquivo": "fz-19-edital.pdf",
+      "pacote": "consta-pdfs-5.zip",
+      "sha256": "f84f459c0639e8271068c6878227b41896c1ed122cf750ce166d8682edc6a8ea"
+    },
+    {
+      "arquivo": "fz-20-edital.pdf",
+      "pacote": "consta-pdfs-5.zip",
+      "sha256": "d88eb712c45191dd45f7ce2fc5ae71d2c2dd0804cfd2789876d5d90182ff9cc6"
+    },
+    {
+      "arquivo": "fz-2026-2.pdf",
+      "pacote": "consta-pdfs-5.zip",
+      "sha256": "2a224430bb87b7947fe7af7619c6d6d3bae1f7d5df0e6b1ec88222a708192162"
+    },
+    {
+      "arquivo": "fz-21-edital.pdf",
+      "pacote": "consta-pdfs-5.zip",
+      "sha256": "1e698ad613f4da9039c3897c3f9e6955ad49e513f59a7fc30cbfc0567911b078"
+    },
+    {
+      "arquivo": "fz-23-edital.pdf",
+      "pacote": "consta-pdfs-5.zip",
+      "sha256": "c3ef3c947b2c1f49052febe51c529259be36e76a648ed6b3038a29d151d50052"
+    },
+    {
+      "arquivo": "fz-24-contrato.pdf",
+      "pacote": "consta-pdfs-6.zip",
+      "sha256": "63c2cf41cdf6918c8cf363e5bc0bcee70f79f04014ac8b61c7dd17ba98d52a3b"
+    },
+    {
+      "arquivo": "fz-24-edital.pdf",
+      "pacote": "consta-pdfs-6.zip",
+      "sha256": "81b69ce0cee182c1eb6076e835a2ab5c996de07d6e7861d69c569fb7d15be732"
+    },
+    {
+      "arquivo": "fz-25-contrato.pdf",
+      "pacote": "consta-pdfs-6.zip",
+      "sha256": "0b7ee4006f7ea6b1978ba19e7c2d64efc02c3df721060e0da77567aa54adcb38"
+    },
+    {
+      "arquivo": "fz-25-edital.pdf",
+      "pacote": "consta-pdfs-6.zip",
+      "sha256": "eafd268cb8a2ee7b7cb79d09d1f0a5fa6f7ccf13b1b81c25b2fe665719ea8cfc"
+    },
+    {
+      "arquivo": "fz-3-edital.pdf",
+      "pacote": "consta-pdfs-7.zip",
+      "sha256": "05268ae91f7d203ed9016d5da77483e9db46840c1afcdebcbbf7c4b18702a853"
+    },
+    {
+      "arquivo": "fz-30-edital.pdf",
+      "pacote": "consta-pdfs-7.zip",
+      "sha256": "aecd6f9be25d46ce915ec5233f256f43174df2baee2e684cd471fc7f19881681"
+    },
+    {
+      "arquivo": "fz-31-edital.pdf",
+      "pacote": "consta-pdfs-7.zip",
+      "sha256": "8d4048f850db8c380288f4dfc9265660c74301f6a78bab54821c3366712fd9d4"
+    },
+    {
+      "arquivo": "fz-32-contrato.pdf",
+      "pacote": "consta-pdfs-8.zip",
+      "sha256": "d40f32ad21182359c3e55b8a75cd2b1bb0e55be1c6eaf26d737d7c49e29e03ea"
+    },
+    {
+      "arquivo": "fz-32-edital.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "84dc41712e6e9fc99f58c9d750b0607b507621c112613f5b8a166982eed7abaf"
+    },
+    {
+      "arquivo": "icesp-1330.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "ca56c64b92482884c0dc03c6eceab79c5a3a219367eea0f0a24f979420dd1718"
+    },
+    {
+      "arquivo": "icesp-2306.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "40682a9c2c9327afd3f42732354ce092833be832bf07a540a30b0d8ec12a5cb6"
+    },
+    {
+      "arquivo": "icesp-2406.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "dc4c3cbfcc8b657b8567e01206395db212644dc327d833a9407a58824a21a72a"
+    },
+    {
+      "arquivo": "icesp-2680.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "dcd3a554cd310d52258b4749764469d675e9ee966bfa541323169e4f753d8516"
+    },
+    {
+      "arquivo": "icesp-2690.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "0dd9a3b2563ea56b754fadaf991b423a6af96c03a73b79a9a627c5695fc2f9c1"
+    },
+    {
+      "arquivo": "icesp-748.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "df3805b5085184674d16c64b3ff64a0711655e02aedf9514700c5411c746613a"
+    },
+    {
+      "arquivo": "icesp-ec0374.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "6be318312cfa8fec2fd4429e368a57f34f78025a649c0d5833e33bbafe9f8fcd"
+    },
+    {
+      "arquivo": "pncp-2026-144.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "220c17a881e98c78af3572558da58470d3c4270ff9911c20264117ef171c3010"
+    },
+    {
+      "arquivo": "pncp-2026-170.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "e4d5be126e4f2b5def1324e9507b3d42446ec82469f8914de35c558e2b59da2f"
+    },
+    {
+      "arquivo": "pncp-2026-210.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "41c4438363060e4bac0934d7e218e45af37d735b34afc56f89d2e3f2481bcddb"
+    },
+    {
+      "arquivo": "pncp-2026-615.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "cecec1be73593e19939d4037cd50802992ffb3b4c2135101b903ca3e919d737a"
+    },
+    {
+      "arquivo": "pncp-2026-638.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "b0f398aa9dfb6ef68e7baabfb1b3d364edd86336512f1db9dce45b77aad800a0"
+    },
+    {
+      "arquivo": "portaria4282-2026-anexo.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "52f361e1562e33bc6deb29a9f2d0d554219acffdee4fa8e676fa0ae74fe19c45"
+    },
+    {
+      "arquivo": "rdc509.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "7f7bd4f70b9213a1e780ed3efabbdb62836f37f9c955c35e3227a42a27779fc2"
+    },
+    {
+      "arquivo": "sus-camacari.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "17bbc4a8a5a684fa3394fbac18e728a592de65c2cb24cdcef5e1aaa90a7a0ca2"
+    },
+    {
+      "arquivo": "sus-teresina-2026.pdf",
+      "pacote": "consta-pdfs-9.zip",
+      "sha256": "c2bee0e085e2230cc9fa91b45537e4ff6e4b0aebcd63499f7201c0a948f77ea6"
+    }
+  ]
+}

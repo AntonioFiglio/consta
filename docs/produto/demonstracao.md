@@ -38,3 +38,5 @@ O [dossiê de notícias](../referencias/noticias-para-pitch.md) reúne G1, UOL e
 | Funciona sem internet? | É requisito do caminho local de localização e consulta, ainda pendente de implementação e ensaio. IA externa pode depender da internet. |
 
 As [fontes e limites](../referencias/README.md) orientam as afirmações. Evite números de economia, precisão ou autonomia sem evidência produzida para o Consta.
+
+O [pacote auditado](../referencias/estudo-pacote-pesquisas.md) acrescenta precedentes de RFID no InCor e retoma a gestão de engenharia clínica já documentada no HCFMUSP. Apresente a lacuna que será investigada e o fluxo proposto; não parta de ausência de sistemas no complexo. Os casos de documentos reais servem à avaliação da extração, enquanto a história operacional da demo continua sintética.

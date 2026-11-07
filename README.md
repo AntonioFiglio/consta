@@ -20,6 +20,7 @@ O Consta reúne cadastro de ativos, contratos, planos de manutenção, responsá
 | Escolher a próxima entrega | [Backlog](docs/desenvolvimento/backlog.md) |
 | Encontrar uma decisão ou uma fonte | [Índice da documentação](docs/README.md) |
 | Preparar o problema do pitch com casos reais | [Notícias, respostas dos hospitais e limites](docs/referencias/noticias-para-pitch.md) |
+| Usar o corpus público para avaliar o CRM | [Estudo do pacote de pesquisas](docs/referencias/estudo-pacote-pesquisas.md) e [casos de avaliação](data/referencias/README.md) |
 
 ## Organização do repositório
 

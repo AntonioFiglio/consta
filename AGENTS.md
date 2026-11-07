@@ -18,9 +18,11 @@
 | Prioridades e colaboração | [Backlog](docs/desenvolvimento/backlog.md) e [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Interface e identidade visual | [Guia da marca](brand/README.md) e [tokens](brand/tokens.css) |
 | Pitch e afirmações externas | [Demo](docs/produto/demonstracao.md), [fontes](docs/referencias/README.md) e [limites das alegações](docs/referencias/alegacoes-e-limites.md) |
+| Corpus público e avaliação de extração | [Estudo do pacote](docs/referencias/estudo-pacote-pesquisas.md), [auditoria documental](docs/referencias/auditoria-corpus-documental.md) e [casos estruturados](data/referencias/README.md) |
 
 ## Regras do projeto
 
+- Gitflow: faça fetch e trabalhe em `feature/<tema>` baseada em `develop`, com PR para `develop`. A promoção para `main` faz parte de uma release, com escopo e revisão próprios; consulte [CONTRIBUTING.md](CONTRIBUTING.md). Preserve mudanças remotas e trabalho paralelo.
 - Escreva documentação, interfaces com usuários e relatos de entrega em pt-BR. Identificadores de código seguem a convenção da implementação; APIs literais e títulos de referências preservam sua origem.
 - O estado atual separa **decisão**, **proposta**, **implementação** e **validação**. Atualize-o quando entregar uma capacidade real; informe a evidência da verificação.
 - A direção de rastreamento é BLE para equipamentos móveis em áreas aprovadas. A óptica foi descontinuada; consulte o histórico apenas em tarefas explicitamente históricas. QR e leitura manual não atendem ao rastreamento operacional definido.

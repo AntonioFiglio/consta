@@ -17,6 +17,10 @@ Requisitos de construção, ainda não capacidades implementadas. A prioridade e
 | CRM-09 | Preservar histórico | Revisar um plano não apaga tarefas, documentos ou execuções anteriores |
 | CRM-10 | Controlar acesso por instituição e responsabilidade | Usuário sem autorização não consulta nem altera ativo, arquivo ou histórico de outra instituição |
 
+## Casos reais para avaliar a extração documental
+
+O [corpus público auditado](../referencias/auditoria-corpus-documental.md) acrescenta casos para verificar CRM-02 a CRM-05: instrumento assinado versus minuta/TR/extrato; garantia divergente entre contrato e anexo; SLA em horas úteis versus corridas; marco de instalação ausente; periodicidade dependente de manual; e número de processo inconsistente. Os [casos estruturados](../../data/referencias/casos-avaliacao-extracao.json) são critérios propostos de avaliação, ainda sem execução de LLM. Um contrato não comprova execução de manutenção ou ausência de falhas.
+
 ## Localização automática
 
 | ID | Requisito | Critério de aceite observável |

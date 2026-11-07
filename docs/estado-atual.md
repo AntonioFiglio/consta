@@ -19,9 +19,11 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 | --- | --- | --- |
 | Documentação | Escopo, fluxos, arquitetura proposta, fontes e backlog | Descreve o projeto; não demonstra software em operação |
 | Marca | SVGs, PNGs, fonte, tokens, galeria e gerador | [Kit da marca](../brand/README.md); não comprova registro de marca |
-| Dados | Cenários financeiros fictícios herdados da preparação do hackathon | [Dados](../data/README.md); não são preço, orçamento ou ROI medido |
+| Dados | Cenários financeiros fictícios e metadados de documentos públicos auditados | [Dados](../data/README.md); distinguir cenário simulado, documento real e resultado operacional ainda não medido |
 | Verificação | Validador de referências locais e configuração para CI | `python3 scripts/verificar_repositorio.py`; não testa comportamento de CRM ou hardware |
 | Histórico | Experimentos ópticos e pesquisa anterior no Git | Apenas registro; sem integração com a arquitetura vigente |
+
+O [estudo do pacote de pesquisas](referencias/estudo-pacote-pesquisas.md) acrescentou inventário público, auditorias e casos esperados de extração. São referências para desenvolver e avaliar o CRM, não integração com uma LLM ou execução de manutenção. O fluxo de colaboração segue [Gitflow](../CONTRIBUTING.md).
 
 ## O que ainda não existe
 
