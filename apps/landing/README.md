@@ -53,8 +53,14 @@ Verificação da abertura: build, testes de contato, links locais e diff aprovad
 
 ## Pitch HTML no navegador
 
+O CTA e o QR code dentro do pitch apontam para `https://consta2.vercel.app`, com o texto visível `consta2.vercel.app ↗`. A geração do QR foi conferida por decodificação; a disponibilidade do deploy não foi verificada nesta alteração.
+
 O link **Ver o pitch**, na barra superior (inclusive em telas pequenas), leva a `./pitch/deck.html#b=0` em uma nova aba. Em desenvolvimento, a URL padrão é `http://127.0.0.1:5174/pitch/deck.html#b=0`; em produção, use `/pitch/deck.html#b=0` no domínio que hospeda a LP.
 
 Antes de iniciar, testar ou gerar o build, o script [copiar-pitch.mjs](scripts/copiar-pitch.mjs) copia a pasta original `pitch/` para `public/pitch/`, preservando o conteúdo dos arquivos. A configuração [static-copies.json](static-copies.json) declara a origem. Documentos públicos referenciados pelos HTMLs de apoio também são copiados. O Vite inclui esses arquivos em `dist/`, mantendo a demo, fontes, estilos, imagens e scripts. As cópias são geradas e ignoradas pelo Git; edite o pitch original para atualizar a apresentação. Nenhum serviço adicional é necessário.
 
 Verificação: quatro testes da landing aprovados, incluindo igualdade do deck/demonstração copiados e existência das dependências estáticas; build e verificador do repositório aprovados. Isso não valida o avanço de slides nem integrações físicas.
+
+### Sincronização com o pitch mais recente
+
+A versão atual preserva o cenário de capacidade anual de RMN do pitch e seus limites (projeção com fontes distintas, sem receita ou resultado medidos pelo Consta). A LP não reproduz esses valores como benefícios próprios. A especialidade de Nicolas foi alinhada a engenheiro de software. O link da topbar, a cópia de produção e os recursos do pitch permanecem sincronizados pelo processo de build. Conflitos da reaplicação local foram resolvidos mantendo HTML/QR mais recentes; o stash original foi preservado.
