@@ -134,6 +134,26 @@ export function createApp(options: {
         }),
   );
   app.get("/api/assets", (_req, res) => res.json(store.listAssets()));
+  app.patch("/api/assets/:id/maintenance-responsibility", (req, res) => {
+    const { maintenanceProvider } = z
+      .object({
+        maintenanceProvider: z.enum(["contract", "internal", "unassigned"]),
+      })
+      .strict()
+      .parse(req.body);
+    const existing = store
+      .listAssets()
+      .find((asset) => asset.id === req.params.id);
+    if (!existing)
+      return res.status(404).json({ error: "Equipamento não encontrado." });
+    res.json(
+      store.saveAsset({
+        ...existing,
+        maintenanceProvider,
+        updatedAt: new Date().toISOString(),
+      }),
+    );
+  });
   app.get("/api/events", (req, res) => {
     const from = String(req.query.from || "");
     const to = String(req.query.to || "");

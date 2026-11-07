@@ -3,6 +3,7 @@ import { FileText, GripHorizontal, Pencil, X } from "lucide-react";
 import type { RefObject } from "react";
 import { useDraggablePanel } from "./useDraggablePanel";
 import type { Asset } from "./types";
+import { maintenanceStatus } from "./maintenance-status";
 import { nextMaintenanceDate } from "./schedule";
 
 const pretty = (date?: string | null) =>
@@ -41,6 +42,7 @@ export function AssetOverview({
       panel.current.showModal();
     if (floating) closeButton.current?.focus({ preventScroll: true });
   }, [floating]);
+  const responsibility = maintenanceStatus(asset, today);
   const next = nextMaintenanceDate(asset, today);
   const plans = asset.coverages || [];
   return (
@@ -125,6 +127,13 @@ export function AssetOverview({
         </section>
         <section>
           <h3>Manutenção</h3>
+          <div className="overview-maintenance-status">
+            <span className={`maintenance-status ${responsibility.group}`}>
+              <i />
+              {responsibility.label}
+            </span>
+            <p>{responsibility.detail}</p>
+          </div>
           <dl className="asset-facts">
             <div>
               <dt>Periodicidade do último plano</dt>

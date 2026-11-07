@@ -6,7 +6,6 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
-  ClipboardList,
   FileText,
   LayoutGrid,
   LoaderCircle,
@@ -25,8 +24,9 @@ import type {
 import { ContractsPage } from "./ContractsPage";
 import { ContractViewer } from "./ContractViewer";
 import { AssetOverview } from "./AssetOverview";
+import { EquipmentPage } from "./EquipmentPage";
+import { MaintenanceAssignment } from "./MaintenanceAssignment";
 import { AssetDialog } from "./AssetDialog";
-import { nextMaintenanceDate } from "./schedule";
 import { api } from "./api";
 
 const dateKey = (date: Date) =>
@@ -40,11 +40,6 @@ const prettyDate = (date: string) =>
   });
 const monthName = (date: Date) =>
   date.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
-const intervalLabel = (asset: Asset) =>
-  asset.periodValue
-    ? `A cada ${asset.periodValue} ${asset.periodUnit === "days" ? (asset.periodValue === 1 ? "dia" : "dias") : asset.periodUnit === "years" ? (asset.periodValue === 1 ? "ano" : "anos") : asset.periodValue === 1 ? "mês" : "meses"}`
-    : "Intervalo pendente";
-
 // SVG estático versionado no repositório; inline para usar DM Mono local.
 const Brand = () => (
   <span className="wordmark" dangerouslySetInnerHTML={{ __html: logo }} />
@@ -55,6 +50,8 @@ export function App() {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [contracts, setContracts] = useState<ContractSummary[]>([]);
   const [viewingContract, setViewingContract] = useState<string | null>(null);
+  const [assigningMaintenance, setAssigningMaintenance] =
+    useState<Asset | null>(null);
   const [viewingAsset, setViewingAsset] = useState<Asset | null>(null);
   const [events, setEvents] = useState<MaintenanceEvent[]>([]);
   const [month, setMonth] = useState(
@@ -159,13 +156,6 @@ export function App() {
       .toLocaleLowerCase("pt-BR")
       .includes(query.toLocaleLowerCase("pt-BR")),
   );
-  const nextDates = useMemo(
-    () =>
-      new Map(
-        assets.map((asset) => [asset.id, nextMaintenanceDate(asset, today)]),
-      ),
-    [assets, today],
-  );
   const visibleIds = new Set(filteredAssets.map((asset) => asset.id));
   const filteredEvents = events.filter((event) =>
     visibleIds.has(event.assetId),
@@ -176,7 +166,6 @@ export function App() {
   const agenda = selection
     ? filteredEvents.filter((event) => event.date === selection)
     : monthEvents;
-  const pending = assets.filter((asset) => !asset.reviewed).length;
   const changeMonth = (offset: number) => {
     setMonth(
       (current) =>
@@ -268,18 +257,18 @@ export function App() {
             Calendário<span className="nav-count">{monthEvents.length}</span>
           </a>
           <a
-            href="#equipamentos"
-            aria-current={view === "assets" ? "page" : undefined}
-          >
-            <LayoutGrid size={19} />
-            Equipamentos<span className="nav-count">{assets.length}</span>
-          </a>
-          <a
             href="#contratos"
             aria-current={view === "contracts" ? "page" : undefined}
           >
             <FileText size={19} />
             Contratos<span className="nav-count">{contracts.length}</span>
+          </a>
+          <a
+            href="#equipamentos"
+            aria-current={view === "assets" ? "page" : undefined}
+          >
+            <LayoutGrid size={19} />
+            Equipamentos
           </a>
         </nav>
         <div className="sidebar-note">
@@ -339,16 +328,18 @@ export function App() {
           {view !== "calendar" && (
             <div className="page-heading">
               <div>
-                <div className="eyebrow">GESTÃO DE EQUIPAMENTOS</div>
+                {view !== "assets" && (
+                  <div className="eyebrow">GESTÃO DE EQUIPAMENTOS</div>
+                )}
                 <h1>
                   {view === "contracts"
                     ? "Seus contratos, sempre à mão."
-                    : "Seu inventário, organizado."}
+                    : "Equipamentos"}
                 </h1>
                 <p>
                   {view === "contracts"
                     ? "Consulte o documento original e os equipamentos de cada contrato."
-                    : "Contratos e previsões conectados ao equipamento certo."}
+                    : "Veja quem cuida da manutenção e o que precisa de atenção."}
                 </p>
               </div>
               <button
@@ -389,53 +380,6 @@ export function App() {
                 Tentar novamente
               </button>
             </div>
-          )}
-          {view === "assets" && (
-            <section className="stats" aria-label="Resumo">
-              <div className="stat">
-                <div>
-                  <span>Previsões neste mês</span>
-                  <strong>
-                    {String(monthEvents.length).padStart(2, "0")}
-                    <small>manutenções</small>
-                  </strong>
-                  <p>Conforme as regras revisadas</p>
-                </div>
-                <span className="stat-icon orange">
-                  <CalendarDays size={20} />
-                </span>
-              </div>
-              <div className="stat">
-                <div>
-                  <span>Equipamentos cadastrados</span>
-                  <strong>
-                    {String(assets.length).padStart(2, "0")}
-                    <small>no inventário</small>
-                  </strong>
-                  <p>Identificados pelo número de tombamento</p>
-                </div>
-                <span className="stat-icon">
-                  <LayoutGrid size={20} />
-                </span>
-              </div>
-              <div className="stat">
-                <div>
-                  <span>Pendentes de revisão</span>
-                  <strong>
-                    {String(pending).padStart(2, "0")}
-                    <small>cadastros</small>
-                  </strong>
-                  <p>
-                    {pending
-                      ? "Complete os dados para gerar previsões"
-                      : "Tudo conferido por aqui"}
-                  </p>
-                </div>
-                <span className="stat-icon">
-                  <ClipboardList size={20} />
-                </span>
-              </div>
-            </section>
           )}
           {view === "calendar" ? (
             <section className="calendar-section">
@@ -641,144 +585,16 @@ export function App() {
               onOpen={setViewingContract}
             />
           ) : (
-            <section className="inventory-section">
-              <div className="section-toolbar">
-                <div className="section-title">
-                  <h2>Equipamentos</h2>
-                  <span className="badge neutral">
-                    {filteredAssets.length} cadastros
-                  </span>
-                </div>
-                <label className="search">
-                  <Search size={16} />
-                  <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Buscar equipamento, série ou contrato"
-                    aria-label="Buscar equipamento"
-                  />
-                </label>
-              </div>
-              <div className="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Equipamento / modelo</th>
-                      <th>Número de tombamento</th>
-                      <th>Setor</th>
-                      <th>Último contrato / cobertura</th>
-                      <th>Periodicidade</th>
-                      <th>Próxima manutenção</th>
-                      <th>Revisão</th>
-                      <th>
-                        <span className="visually-hidden">Ações</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredAssets.map((asset) => (
-                      <tr key={asset.id}>
-                        <td>
-                          <div className="asset-name">
-                            <span className="equipment-icon">
-                              <LayoutGrid size={18} />
-                            </span>
-                            <div>
-                              <button onClick={() => setViewingAsset(asset)}>
-                                {asset.name}
-                              </button>
-                              <small>
-                                {asset.model || "Modelo não informado"}
-                                {asset.simulated ? " · Simulado" : ""}
-                              </small>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="mono">
-                          {asset.patrimony}
-                          {asset.serial && (
-                            <small className="inventory-serial">
-                              Série: {asset.serial}
-                            </small>
-                          )}
-                        </td>
-                        <td>{asset.sector || "—"}</td>
-                        <td>
-                          <div className="inventory-contract">
-                            {asset.contractId ? (
-                              <button
-                                className="text-button"
-                                onClick={() =>
-                                  setViewingContract(asset.contractId)
-                                }
-                                title={asset.contractName || "Ver contrato"}
-                              >
-                                {asset.contractName || "Ver contrato"}
-                              </button>
-                            ) : (
-                              <span>Sem contrato</span>
-                            )}
-                            <small>
-                              {asset.validUntil
-                                ? `Até ${prettyDate(asset.validUntil)}`
-                                : "Vencimento não informado"}
-                              {asset.validUntil && asset.validUntil < today
-                                ? " · Vencido"
-                                : ""}
-                            </small>
-                          </div>
-                        </td>
-                        <td>{intervalLabel(asset)}</td>
-                        <td className="mono">
-                          {nextDates.get(asset.id)
-                            ? prettyDate(nextDates.get(asset.id)!)
-                            : "Sem previsão"}
-                        </td>
-                        <td>
-                          <span
-                            className={`badge ${asset.reviewed ? "reviewed" : "warning"}`}
-                          >
-                            {asset.reviewed ? <Check size={12} /> : null}
-                            {asset.reviewed ? "Conferido" : "Pendente"}
-                          </span>
-                        </td>
-                        <td>
-                          <button
-                            className="icon-button"
-                            onClick={() => setEditing(asset)}
-                            aria-label={`Editar ${asset.name}`}
-                          >
-                            <ChevronRight size={17} />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                {!filteredAssets.length && (
-                  <div className="empty-inventory">
-                    <LayoutGrid size={32} />
-                    <h3>
-                      {query
-                        ? "Nenhum equipamento encontrado"
-                        : "Seu primeiro equipamento começa aqui."}
-                    </h3>
-                    <p>
-                      {query
-                        ? "Tente outro nome ou número de tombamento."
-                        : "Envie um contrato ou preencha o cadastro manualmente."}
-                    </p>
-                    <button
-                      className="button primary"
-                      onClick={() => setEditing(null)}
-                    >
-                      <Plus size={16} />
-                      Novo equipamento
-                    </button>
-                  </div>
-                )}
-              </div>
-            </section>
+            <EquipmentPage
+              assets={filteredAssets}
+              query={query}
+              onQuery={setQuery}
+              today={today}
+              onView={setViewingAsset}
+              onContract={setViewingContract}
+              onAssign={setAssigningMaintenance}
+              onCreate={() => setEditing(null)}
+            />
           )}
           {view !== "calendar" && (
             <footer className="page-footer">
@@ -829,6 +645,25 @@ export function App() {
             setEditing(asset);
           }}
           onContract={setViewingContract}
+        />
+      )}
+      {assigningMaintenance && (
+        <MaintenanceAssignment
+          key={assigningMaintenance.id}
+          asset={assigningMaintenance}
+          onClose={() => setAssigningMaintenance(null)}
+          onSaved={(updated) => {
+            setAssets((current) =>
+              current.map((asset) =>
+                asset.id === updated.id ? updated : asset,
+              ),
+            );
+            setViewingAsset((current) =>
+              current?.id === updated.id ? updated : current,
+            );
+            setAssigningMaintenance(null);
+            setToast("Responsável pela manutenção atualizado.");
+          }}
         />
       )}
       {toast && (

@@ -37,7 +37,9 @@ export type Contract = {
   createdAt: string;
   extraction: Extraction | null;
 };
+export type MaintenanceProvider = "contract" | "internal" | "unassigned";
 export type Asset = {
+  maintenanceProvider?: MaintenanceProvider;
   id: string;
   name: string;
   model: string;

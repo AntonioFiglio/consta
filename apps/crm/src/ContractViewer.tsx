@@ -274,7 +274,10 @@ export function ContractViewer({
       </footer>
       {selectedAsset && (
         <AssetOverview
-          asset={selectedAsset}
+          asset={
+            assets.find((asset) => asset.id === selectedAsset.id) ||
+            selectedAsset
+          }
           today={today}
           floating
           containerRef={dialog}

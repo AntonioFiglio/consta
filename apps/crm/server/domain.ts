@@ -26,6 +26,9 @@ export const assetInput = z
     model: z.string().trim().max(160).default(""),
     patrimony: z.string().trim().min(1).max(80),
     serial: z.string().trim().max(100).default(""),
+    maintenanceProvider: z
+      .enum(["contract", "internal", "unassigned"])
+      .optional(),
     sector: z.string().trim().max(100).default(""),
     contractId: z.string().uuid().nullable(),
     periodValue: z.number().int().min(1).max(366).nullable(),
@@ -171,6 +174,10 @@ export function prepareAsset(
   else plans[plans.length - 1] = coverage;
   return {
     ...input,
+    maintenanceProvider:
+      input.maintenanceProvider ??
+      existing?.maintenanceProvider ??
+      (input.contractId ? "contract" : "unassigned"),
     id: existing?.id || randomUUID(),
     simulated: existing?.simulated || false,
     updatedAt: now,

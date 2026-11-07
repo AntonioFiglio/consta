@@ -3270,3 +3270,192 @@ label > small {
     margin: auto !important;
   }
 }
+
+/* Lista clínica: responsabilidade e cobertura, sem indicadores decorativos. */
+.equipment-list-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 4px 0 20px;
+}
+.equipment-list-toolbar .search {
+  flex: 1;
+  max-width: 420px;
+}
+.equipment-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #8b7966;
+}
+.equipment-filter select {
+  margin: 0;
+  width: auto;
+  min-width: 210px;
+  font-size: 11px;
+  padding: 10px 12px;
+}
+.clinical-equipment-table {
+  width: 100%;
+}
+.clinical-equipment-table td {
+  vertical-align: middle;
+  white-space: normal;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.clinical-equipment-table th {
+  font-size: 9px;
+}
+.clinical-equipment-table td:nth-child(1) {
+  min-width: 190px;
+}
+.clinical-equipment-table td:nth-child(4) {
+  min-width: 220px;
+}
+.equipment-name-link {
+  background: transparent;
+  border: 0;
+  color: #40382f;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+}
+.equipment-name-link:hover {
+  color: #b17b4d;
+  text-decoration: underline;
+}
+.equipment-secondary {
+  display: block;
+  color: #9d8e7f;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.7;
+  margin-top: 5px;
+}
+.maintenance-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #544a40;
+  font-size: 11px;
+  font-weight: 500;
+}
+.maintenance-status i {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a59685;
+}
+.maintenance-status.covered i {
+  background: #6c936b;
+}
+.maintenance-status.attention {
+  color: #a7703d;
+}
+.maintenance-status.attention i {
+  background: #cf935e;
+}
+.maintenance-contract-link {
+  font-size: 10px;
+  margin-top: 7px;
+}
+.equipment-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+.equipment-row-actions > .text-button {
+  white-space: nowrap;
+  font-size: 10px;
+}
+.overview-maintenance-status {
+  margin-bottom: 22px;
+  padding-left: 12px;
+  border-left: 2px solid #e9dfd3;
+}
+.overview-maintenance-status p {
+  color: #9d8e7f;
+  font-size: 11px;
+  margin-top: 6px;
+}
+.maintenance-assignment-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-width: 520px;
+  width: calc(100vw - 30px);
+  padding: 0;
+  border: 1px solid #e7e0d7;
+  border-radius: 12px;
+  box-shadow: 0 20px 90px #21170b30;
+  color: var(--consta-black);
+  background: #fff;
+  max-height: 92dvh;
+  overflow: auto;
+}
+.maintenance-assignment-dialog::backdrop {
+  background: #211a1259;
+  backdrop-filter: blur(3px);
+}
+.maintenance-options {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 26px;
+}
+.maintenance-options > label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 0;
+  cursor: pointer;
+}
+.maintenance-options > label + label {
+  border-top: 1px solid #eee7de;
+}
+.maintenance-options input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  padding: 0;
+  accent-color: var(--consta-orange);
+  flex-shrink: 0;
+}
+.maintenance-options strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #544a40;
+}
+.maintenance-options small {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #9d8e7f;
+  line-height: 1.6;
+}
+.maintenance-assignment-dialog .error-message {
+  margin: 0 26px 16px;
+}
+@media (max-width: 760px) {
+  .equipment-list-toolbar {
+    flex-wrap: wrap;
+  }
+  .equipment-list-toolbar .search {
+    max-width: none;
+    flex-basis: 100%;
+  }
+  .equipment-filter {
+    width: 100%;
+  }
+  .equipment-filter select {
+    flex: 1;
+  }
+}
