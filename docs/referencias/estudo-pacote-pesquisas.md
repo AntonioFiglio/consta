@@ -1,5 +1,7 @@
 # O que o pacote de pesquisas agrega ao Consta
 
+**Atualização de 07/11/2026:** o [pacote vigente](../../data/referencias/pacotes/README.md) substitui a distribuição anterior e acrescenta documentos de manutenção com identificação por série/patrimônio. O índice atualizado e a correspondência por hash permitem localizar as fontes com os novos nomes. A análise abaixo mantém o recorte auditado em 06/11; os novos documentos não foram incorporados automaticamente às contagens ou às expectativas dos casos existentes.
+
 **Agrega principalmente ao CRM e ao desenho da validação.** O pacote fornecido por Matheus reúne documentos públicos reais e fontes econômicas/técnicas rastreáveis. A auditoria encontrou casos que um protótipo simplificado de extração não trataria bem. Isso melhora os critérios de construção; não demonstra desempenho do produto ou compatibilidade do BLE.
 
 Análise em 06/11/2026. Os originais de `consta-pesquisas` foram preservados. Trabalhamos com cópias e publicamos apenas metadados, casos de avaliação e sínteses; PDFs, textos extraídos e tabelas brutas não foram importados indiscriminadamente para o repositório.
