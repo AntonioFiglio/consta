@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONSTA — Slide 01</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+    }
+
+    body {
+      background: #0A0A0A;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 48px;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 16 / 9;
+      background: #0A0A0A;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 80px 96px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* linha de acento esquerda */
+    .slide::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 10%; bottom: 10%;
+      width: 3px;
+      background: #F97316;
+    }
+
+    .block-top {
+      margin-bottom: 52px;
+    }
+
+    .number-main {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: clamp(72px, 10vw, 120px);
+      letter-spacing: -0.03em;
+      color: #FAFAF9;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .label-main {
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 400;
+      color: #78716C;
+      letter-spacing: 0.01em;
+      line-height: 1.4;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: #1F1F1F;
+      margin-bottom: 52px;
+    }
+
+    .block-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .number-sub {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: clamp(40px, 5.5vw, 64px);
+      letter-spacing: -0.03em;
+      color: #E63946;
+      line-height: 1;
+    }
+
+    .label-sub {
+      font-size: clamp(13px, 1.4vw, 18px);
+      font-weight: 400;
+      color: #78716C;
+      letter-spacing: 0.01em;
+    }
+
+    .label-sub em {
+      font-style: normal;
+      color: #E63946;
+      font-weight: 500;
+    }
+
+    /* wordmark canto inferior direito */
+    .wordmark {
+      position: absolute;
+      bottom: 36px;
+      right: 48px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      color: #2A2A2A;
+    }
+
+    .wordmark .dot { color: #F97316; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+
+    <div class="block-top">
+      <div class="number-main">293.000</div>
+      <div class="label-main">
+        equipamentos médico-hospitalares<br>em uso no Brasil
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="block-bottom">
+      <div class="number-sub">43.000</div>
+      <div class="label-sub">
+        estão fora de serviço <em>nesse exato momento.</em>
+      </div>
+    </div>
+
+    <div class="wordmark">CONSTA<span class="dot">.</span></div>
+
+  </div>
+</body>
+</html>
