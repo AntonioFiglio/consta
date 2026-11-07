@@ -1,5 +1,8 @@
 # Estado atual do projeto
 
+CTA do pitch atualizado para **https://consta2.vercel.app** em 07/11/2026, substituindo o endereço anterior. QR regenerado e decodificado, link e fala alinhados; HTTP 200 confirmado. A alteração não configura hospedagem ou conta Vercel.
+
+
 ### Revisão final do pitch — 07/11/2026
 
 Apresentação com 16 telas: impacto combinado de atendimento e economia potencial; modelo Business de licença anual por parque com 20 tags na contratação inicial e hardware extra separado. Valores comerciais são propostas, não contratos fechados. O impacto mantém produção assistencial externa e cenário de locação dispensada separados, com fontes no rodapé. A bolinha agora anima entre telas adjacentes da rota visível, inclusive saltos de índices legados, entrada do fluxo, mapa e CTA. Verificação: navegação, autoplay e continuidade em WebKit offline, nas três resoluções de apresentação. [Acompanhamento e limites](desenvolvimento/continuidade-pitch-2026-11-07.md).
