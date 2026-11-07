@@ -25,9 +25,11 @@ flowchart LR
 
 O CRM é a autoridade para cadastro de ativos e associação temporal tag–ativo. A localização é responsável pelas observações e pela estimativa. O mecanismo de sincronização da associação ainda será definido; sem associação confiável, a observação fica não resolvida, em vez de ser atribuída por suposição.
 
-## Stack: recomendação e escolha pendente
+## Stack inicial e evolução
 
-Recomenda-se aplicação web com TypeScript, banco relacional PostgreSQL, armazenamento privado de arquivos e processamento persistente para extração, prazos e notificações. Framework, ORM, autenticação, gerenciador de pacotes, provedor de IA e hospedagem ainda não foram escolhidos. Não há `package.json`, ambiente de banco ou aplicação inicializados nesta reorganização.
+A fase 1 usa React 19 + Vite + TypeScript, API Express, SQLite local e npm, conforme o [ADR 0004](../adr/0004-crm-fase-1.md). O SDK de extração fica no backend, com URL, chave e modelo a configurar pelo usuário. Há manifesto/lockfile, build e testes. Arquivos e dados ficam no SQLite, sem serviço externo contratado.
+
+Para evolução institucional, PostgreSQL, autorização por instituição/usuário/papel, versionamento completo de planos, jobs persistentes e armazenamento privado com política de retenção permanecem trabalho próprio. A senha opcional e o espaço local único do protótipo não cumprem esses requisitos institucionais. Provedor/modelo de IA e hospedagem não foram escolhidos.
 
 Começar com o backend de gestão na aplicação do CRM reduz fronteiras de implantação. Processos em background e a recepção de observações poderão ser separados quando seus requisitos justificarem. As pastas marcam fronteiras lógicas e permitem coordenação, sem impor banco ou fila independentes para cada uma.
 

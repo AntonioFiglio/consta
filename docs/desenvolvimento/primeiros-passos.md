@@ -2,9 +2,9 @@
 
 ## Entenda o estado antes de instalar
 
-Leia a [visão do produto](../produto/visao.md), o [estado atual](../estado-atual.md) e o [backlog](backlog.md). O repositório ainda não tem aplicação executável, dependências de frontend, banco ou infraestrutura provisionada. Não há comando `npm install`, migração ou servidor de CRM a executar nesta etapa.
+Leia a [fase 1](../produto/fase-1-cadastro-e-calendario.md), o [estado atual](../estado-atual.md) e o [backlog](backlog.md). O CRM local já é executável; na raiz, com Node.js 22.17 ou posterior e npm, execute `npm ci` e `npm run dev`. O [guia da aplicação](../../apps/crm/README.md) descreve configuração, banco local e testes. Hardware e serviço de localização continuam sem implementação.
 
-As decisões de stack serão registradas com a primeira implementação. Preserve essa separação: **pasta documentada não equivale a componente implementado**.
+A stack inicial está no [ADR 0004](../adr/0004-crm-fase-1.md). Preserve a separação: **pasta documentada não equivale a componente implementado**; a aplicação local não demonstra implantação hospitalar.
 
 ## O que já pode ser usado
 
@@ -17,7 +17,7 @@ git status --short --branch
 python3 scripts/verificar_repositorio.py
 ```
 
-O verificador usa apenas a biblioteca padrão do Python. Confere arquivos referenciados por links locais Markdown, recursos HTML/CSS da marca, sintaxe XML dos SVGs e sintaxe JSON dos exemplos compartilhados. Não verifica âncoras de seção, disponibilidade dos links externos, precisão científica ou comportamento de software ainda não implementado. A CI está em [.github/workflows/documentacao.yml](../../.github/workflows/documentacao.yml).
+O verificador usa apenas a biblioteca padrão do Python. Confere links locais Markdown, recursos HTML/CSS da marca, XML dos SVGs e JSON. Não verifica âncoras, links externos ou comportamento do CRM. Use também `npm test` e `npm run build`. A CI está em [.github/workflows/documentacao.yml](../../.github/workflows/documentacao.yml).
 
 ### Marca
 

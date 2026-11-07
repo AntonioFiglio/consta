@@ -15,6 +15,18 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 
 ## O que existe
 
+### Fase 1 do CRM — implementação local em 07/11/2026
+
+O usuário delimitou a primeira entrega a cadastro por contrato/patrimônio e calendário, com React 19 e Vite. Há [aplicação executável](../apps/crm/README.md), API Express, SQLite, upload PDF/TXT, revisão manual, edição, busca e projeções mensais. Logo/tokens são os existentes; fontes são locais. A [decisão da stack](adr/0004-crm-fase-1.md) registra escopo e limites.
+
+O SDK OpenAI está integrado no backend com URL, chave e modelo configuráveis pelo usuário. Não foi criada chave nem executada chamada real. Sem configuração, a leitura automática fica desabilitada e o preenchimento manual funciona. Não há extração fictícia apresentada como leitura de documento.
+
+Verificações realizadas: build e TypeScript; testes de calendário, validação, SQLite após reabrir e SDK com transporte simulado; prévia no Chrome com edição, revisão pendente/confirmada e recarregamento. A suíte HTTP isolada encontrou `EPERM` ao abrir portas e ficou explicitamente marcada como não executada nesse ambiente. Servidor de desenvolvimento e interface responderam HTTP normalmente. Integração com provedor real e implantação hospitalar seguem pendentes.
+
+O banco inicial tem três equipamentos/contratos sintéticos identificados. O aplicativo é um espaço local único, com senha opcional e escuta em loopback; não implementa autorização multi-instituição ou papéis. Planos versionados, tarefas até execução, comprovantes, rastreamento e operação hospitalar permanecem no backlog.
+
+O cadastro separa envio do contrato e configuração em duas telas, sem indicador de etapas ou numeração. Os campos opcionais ficam recolhidos em Mais informações. Verificação no Chrome: avanço bloqueado antes do upload, envio de contrato sintético, navegação até os campos e retorno preservando arquivo e preenchimento; edição existente começa nos campos. A leitura real da IA continua sem validação, pois não há credencial configurada.
+
 | Área | Entrega disponível | Evidência e limite |
 | --- | --- | --- |
 | Documentação | Escopo, fluxos, arquitetura proposta, fontes e backlog | Descreve o projeto; não demonstra software em operação |
@@ -23,12 +35,12 @@ Este é o registro do que está decidido, do que existe no repositório e do que
 | Verificação | Validador de referências locais e configuração para CI | `python3 scripts/verificar_repositorio.py`; não testa comportamento de CRM ou hardware |
 | Histórico | Experimentos ópticos e pesquisa anterior no Git | Apenas registro; sem integração com a arquitetura vigente |
 
-O [estudo do pacote de pesquisas](referencias/estudo-pacote-pesquisas.md) acrescentou inventário público, auditorias e casos esperados de extração. São referências para desenvolver e avaliar o CRM, não integração com uma LLM ou execução de manutenção. O fluxo de colaboração segue [Gitflow](../CONTRIBUTING.md).
+O [estudo do pacote de pesquisas](referencias/estudo-pacote-pesquisas.md) acrescentou inventário público, auditorias e casos esperados de extração. Esses casos ainda não foram avaliados com uma LLM real. O fluxo de colaboração segue [Gitflow](../CONTRIBUTING.md).
 
 ## O que ainda não existe
 
-- Aplicação executável do CRM, API, banco, autenticação e armazenamento de documentos.
-- Extração de documentos integrada a uma LLM ou motor de prazos implementado.
+- Autorização por usuário/papel/instituição, isolamento institucional e implantação hospitalar do CRM.
+- Extração validada com provedor real; motor completo de obrigações condicionais/por uso, planos versionados e execução até comprovante.
 - Serviço de localização, firmware, placas fabricadas ou receptores instalados.
 - Ensaio BLE em bancada, teste de perda de internet ou teste com equipamentos hospitalares.
 - Aprovação de compatibilidade eletromagnética, de áreas hospitalares ou de uso em RM.
@@ -45,6 +57,6 @@ O [estudo do pacote de pesquisas](referencias/estudo-pacote-pesquisas.md) acresc
 
 ## Decisões abertas
 
-Stack e gerenciador de pacotes; autenticação; armazenamento de arquivos; provedor/modelo de extração; execução da IA com internet indisponível; protocolo de transporte dos receptores; componentes, bateria e gabinete; critério de localização e metas de aceitação; instalação piloto e custos; licença do projeto e disponibilidade jurídica da marca.
+Stack/armazenamento para expansão além do protótipo local; autorização institucional; provedor/modelo e avaliação da extração; execução da IA com internet indisponível; protocolo de transporte dos receptores; componentes, bateria e gabinete; critério de localização e metas de aceitação; instalação piloto e custos; licença do projeto e disponibilidade jurídica da marca.
 
 As interfaces de [packages/contratos](../packages/contratos/README.md) são propostas para coordenar a primeira implementação. O [backlog](desenvolvimento/backlog.md) organiza a sequência de construção.
