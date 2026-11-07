@@ -1,0 +1,65 @@
+{
+  "status": "gabarito documental conferido visualmente; extração real da LLM ainda não avaliada",
+  "contract": "HCFMUSP 05/2026",
+  "source_url": "https://pncp.gov.br/pncp-api/v1/orgaos/60448040000122/contratos/2026/40/arquivos/1",
+  "source_sha256": "4891f323325c3fe7a75b3b6d575a525fe067843413c6a91996195fc59567dd5f",
+  "public_sha256": "12caec825a94bd34a8a5556a306570ef0627c1f4d0f40c244a2b9ace0e474b9a",
+  "public_treatment": "derivado_com_cpf_alvo_ocultado",
+  "physical_page": 2,
+  "equipment_count": 5,
+  "equipment": [
+    {
+      "tag": "SAUT0019",
+      "serial": "14155",
+      "patrimony": "HC156593",
+      "model": "AV-50",
+      "manufacturer": "PHOENIX LUFERCO",
+      "institute": "ICHC",
+      "physical_page": 2
+    },
+    {
+      "tag": "SAUT0050",
+      "serial": "20366",
+      "patrimony": "HC163231",
+      "model": "VERTICAL 19L (AV-18)",
+      "manufacturer": "PHOENIX LUFERCO",
+      "institute": "ICHC",
+      "physical_page": 2
+    },
+    {
+      "tag": "SAUT0014",
+      "serial": "04389",
+      "patrimony": "FZ18204",
+      "model": "39206",
+      "manufacturer": "PHOENIX LUFERCO",
+      "institute": "ICHC",
+      "physical_page": 2
+    },
+    {
+      "tag": "SAUT0016",
+      "serial": "05452",
+      "patrimony": "HC 137224",
+      "model": "39206",
+      "manufacturer": "PHOENIX LUFERCO",
+      "institute": "ICHC",
+      "physical_page": 2
+    },
+    {
+      "tag": "SAUT0013",
+      "serial": "04388",
+      "patrimony": "HC087274",
+      "model": "39206",
+      "manufacturer": "PHOENIX LUFERCO",
+      "institute": "ICHC",
+      "physical_page": 2
+    }
+  ],
+  "maintenance_interval": null,
+  "validity_start": null,
+  "limits": [
+    "Vigência depende de termo de início não fornecido como fato neste gabarito.",
+    "Não deduzir preventiva da palavra PERIODICIDADE do formulário de avaliação.",
+    "Não associar autoclaves a rastreamento BLE de ativos móveis.",
+    "Não preencher série/patrimônio como CPF nem descartar zeros à esquerda."
+  ]
+}

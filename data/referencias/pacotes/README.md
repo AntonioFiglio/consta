@@ -1,37 +1,39 @@
-# Pacote de pesquisas fornecido por Matheus
+# Contratos reais para avaliação do CRM
 
-[consta-pesquisas.zip](consta-pesquisas.zip) é o pacote vigente, atualizado a partir da pasta `CONSTA-pesquisas-hackathon` fornecida por Matheus em 7 de novembro de 2026. Substitui o ZIP anterior no mesmo caminho, agora com PDFs organizados e nomes descritivos, contratos de manutenção com série/patrimônio e materiais auxiliares. A estrutura interna usa a raiz `CONSTA-pesquisas-hackathon/`; scripts que extraíam os ZIPs internos da versão anterior precisam ajustar seus caminhos.
+O [ZIP vigente](consta-pesquisas.zip) substitui o pacote anterior e deriva da pasta `CONSTA-pesquisas-hackathon` fornecida por Matheus em 07/11/2026. Inclui os novos dossiês por contrato e o recorte HCFMUSP. Os originais permanecem intactos em Downloads; esta distribuição pública é curada, não uma cópia integral da pasta.
 
-SHA-256: `06b0263db6b02425273309229effc9a105d1c6c2a59076495bbeddeb092ef3c3`.
+## O que foi preparado
 
-O conteúdo fornecido foi preservado, exceto metadados do macOS (`.DS_Store` e `._*`). A versão anterior permanece no histórico Git/LFS. O [manifesto atual](manifesto-atual.json) identifica cada arquivo por SHA-256 e registra os nomes anteriores quando o conteúdo é idêntico. O [manifesto anterior](../manifesto-pacote-pesquisas.json) continua válido para a auditoria histórica; não foi sobrescrito.
+- PDFs textuais, textos e índices auxiliares com nomes e organização de origem.
+- Cópias com CPFs-alvo ocultados irreversivelmente no PDF e nos textos auxiliares. Séries e patrimônios não são tratados como CPF. PDFs alterados são derivados para teste: não conservam a validade da assinatura digital do original.
+- Plantas internas, metadados ocultos, `_raw`, pacotes aninhados e formatos auxiliares ficaram fora. PDFs com página de imagem sem texto foram retidos na origem para revisão local, em vez de serem publicados sem triagem.
 
-## Encontrar documentos
+O [manifesto vigente](manifesto-atual.json) registra incluídos/excluídos, motivo, hash original e hash do derivado público. Os hashes e números nos índices internos recebidos correspondem à coleta original; não substituem este manifesto nem são gabarito de extração. O mascaramento é uma precaução automatizada específica, não auditoria integral de dados pessoais ou validade jurídica de todo o corpus.
 
-| Pasta interna | Conteúdo |
-| --- | --- |
-| `01-contratos-manutencao-com-serie-patrimonio/` | Contratos, aditivo e termos de referência com identificação dos equipamentos |
-| `02-contratos-aquisicao-InCor/` | Contratos de aquisição antes presentes no pacote anterior |
-| `03-editais-e-termos-de-referencia/` | Editais, TRs e relação de contratos |
-| `04-normas-e-tabelas-SUS/` | Normas e tabelas de referência |
-| `05-planilhas-e-relatorios/` | Levantamentos, custos e referências de rastreabilidade |
-| `06-textos-extraidos-e-auxiliares/` | Textos extraídos e registros auxiliares da pesquisa |
+## Documento recomendado para o primeiro ensaio
 
-O [índice de manutenção com caminhos atuais](indice-manutencao.csv) relaciona os nomes do índice original aos PDFs efetivamente presentes, preservando as URLs e classificações fornecidas. O índice original dentro do ZIP usa nomes de download antigos e inclui também uma referência ao contrato de aquisição FZ-19; essa linha foi mapeada para a pasta de aquisições, sem tratá-la como contrato de manutenção com série.
+Há também um [PDF direto para o primeiro teste](../casos/hcfmusp-05-2026/README.md), sem precisar baixar todo o ZIP.
 
-Os PDFs de manutenção foram submetidos a extração textual independente: foi conferida a presença de série/patrimônio nos trechos de identificação. Isso não é um inventário completo dos equipamentos nem avaliação integral de cláusulas, assinatura ou vigência. As URLs públicas constam no índice fornecido; não houve nova conferência online de todos os documentos. Identificadores públicos reais servem à avaliação documental; a demonstração operacional continua com dados sintéticos.
+Dentro do ZIP:
 
-## Baixar
+`CONSTA-pesquisas-hackathon/08-hospital-unico-HCFMUSP/01-contratos-por-numero/2026_CONTRATO-00005_PNCP-40/001_CONTRATO_Contrato-00005-2026.pdf`
 
-O arquivo permanece em **Git LFS**, como a versão anterior. Com Git LFS instalado, atualize a branch com as mudanças da equipe e execute na raiz do clone:
+Contrato HCFMUSP **05/2026**, manutenção de **cinco autoclaves**. A página física 2 individualiza TAG, série, patrimônio, modelo e fabricante. A [auditoria seletiva](../../../docs/referencias/novos-contratos-demo-2026-11-07.md) conferiu a tabela visualmente e o original contra o [PDF oficial do PNCP](https://pncp.gov.br/pncp-api/v1/orgaos/60448040000122/contratos/2026/40/arquivos/1). O TXT auxiliar perde um modelo: use o PDF para o ensaio.
+
+Não inventar a data inicial da vigência: ela depende do termo de início. Não foi encontrada periodicidade preventiva explícita nesse contrato; a palavra “PERIODICIDADE” em formulário de avaliação não autoriza criar calendário semestral/trimestral. As autoclaves sustentam o caso de cadastro, não uma demonstração de BLE em ativos móveis.
+
+Outro caso simples: `07-dossies-por-contrato/FHEMIG-Barbacena_contrato-9519080-2026/03_CONTRATO_2026-08-04.pdf`, com identidade de um ultrassom.
+
+## Usar no CRM
+
+Baixe o LFS, extraia fora da árvore versionada e envie o PDF pelo cadastro do CRM. Não importe todas as linhas das planilhas como ativos: há extrações heurísticas, duplicações e colunas deslocadas. Conferir cada equipamento contra o PDF. Nenhuma execução real da LLM é demonstrada por disponibilizar este pacote.
 
 ```sh
-git lfs install --local
 git lfs pull --include="data/referencias/pacotes/consta-pesquisas.zip"
 unzip -tq data/referencias/pacotes/consta-pesquisas.zip
-shasum -a 256 data/referencias/pacotes/consta-pesquisas.zip
+unzip data/referencias/pacotes/consta-pesquisas.zip -d /tmp/consta-corpus-crm
 ```
 
-Quem trabalha apenas no CRM não precisa baixar o pacote: pode clonar com `GIT_LFS_SKIP_SMUDGE=1`. A configuração LFS se aplica exclusivamente a esse ZIP, sem alterar fontes, contratos, dependências ou execução da aplicação. Extraia o conteúdo fora da árvore versionada para evitar inclusão acidental de cópias e metadados do macOS.
+Para medir ganhos, use tarefas equivalentes: os mesmos documentos e campos, tempo completo incluindo conferência/correções e número de equipamentos aceitos. Não existe baseline brasileiro recente comparável que autorize um multiplicador de velocidade sem medição própria.
 
-Os relatórios originais do pacote são fontes de pesquisa e podem conter resumos já corrigidos na auditoria, como a divergência de garantia no FZ-24. Para conclusões já auditadas, consulte o [estudo](../../../docs/referencias/estudo-pacote-pesquisas.md) e a [auditoria documental](../../../docs/referencias/auditoria-corpus-documental.md). O novo material não substitui silenciosamente essas correções.
+O ZIP segue em Git LFS. A versão anterior e os manifestos históricos permanecem no Git/LFS para rastrear as auditorias anteriores; não são o pacote vigente para novos testes. Não foi alterado o banco de dados do CRM nem executado upload a um provedor externo de IA nesta preparação.
