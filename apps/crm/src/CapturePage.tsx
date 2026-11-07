@@ -19,6 +19,7 @@ export function CapturePage({ token }: { token: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const aliveRef = useRef(true);
+  const openingCamera = useRef(false);
   const [view, setView] = useState<CaptureView | null>(null);
   const [blocked, setBlocked] = useState("");
   const [error, setError] = useState("");
@@ -32,7 +33,6 @@ export function CapturePage({ token }: { token: string }) {
       const data = await api<CaptureView>(`/captures/${token}`);
       setView(data);
       setBlocked("");
-      setError("");
     } catch (e) {
       const message = (e as Error).message;
       if (
@@ -74,22 +74,99 @@ export function CapturePage({ token }: { token: string }) {
     const id = window.setInterval(() => void load(), 2000);
     return () => window.clearInterval(id);
   }, [load, blocked]);
-  useEffect(() => {
-    const video = videoRef.current;
+  const showStream = useCallback((node: HTMLVideoElement) => {
     const stream = streamRef.current;
-    if (!video || !stream || !cameraKey) return;
-    video.srcObject = stream;
-    const ready = () => setCameraReady(true);
-    if (video.readyState >= 1) ready();
-    else video.addEventListener("loadedmetadata", ready);
-    void video.play().catch(() => {
-      setError("Não foi possível mostrar a imagem da câmera.");
-    });
-    return () => video.removeEventListener("loadedmetadata", ready);
-  }, [cameraKey]);
+    if (!stream) return;
+    node.muted = true;
+    node.defaultMuted = true;
+    node.playsInline = true;
+    if (node.srcObject !== stream) node.srcObject = stream;
+    const markReady = () => {
+      if (node.videoWidth > 0) setCameraReady(true);
+    };
+    node.onloadedmetadata = markReady;
+    node.onloadeddata = markReady;
+    node.onplaying = () => setCameraReady(true);
+    const track = stream.getVideoTracks()[0];
+    if (track)
+      track.onunmute = () => {
+        void node.play().catch(() => undefined);
+        markReady();
+      };
+    void node
+      .play()
+      .then(markReady)
+      .catch(() => {
+        node.muted = true;
+        void node.play().then(markReady).catch(() => {
+          setError(
+            "Não foi possível mostrar a imagem da câmera. Feche outros aplicativos que estejam usando a câmera e tente de novo.",
+          );
+        });
+      });
+  }, []);
+  const attachVideo = useCallback(
+    (node: HTMLVideoElement | null) => {
+      videoRef.current = node;
+      if (node) showStream(node);
+    },
+    [showStream],
+  );
 
+  function cameraErrorName(error: unknown) {
+    if (error instanceof DOMException) return error.name;
+    if (
+      error &&
+      typeof error === "object" &&
+      "name" in error &&
+      typeof error.name === "string"
+    )
+      return error.name;
+    return "";
+  }
+  function cameraUnavailable(error: unknown) {
+    const name = cameraErrorName(error);
+    return (
+      name === "NotFoundError" ||
+      name === "DevicesNotFoundError" ||
+      name === "NotReadableError" ||
+      name === "TrackStartError" ||
+      name === "OverconstrainedError" ||
+      name === "AbortError"
+    );
+  }
+  async function openDeviceCamera() {
+    // Sem facingMode nem resolução: no Mac isso deixa a prévia do Chrome
+    // girando e, ao permitir, o pedido falha mesmo com a FaceTime presente.
+    const simple = { audio: false, video: true } as const;
+    try {
+      return await navigator.mediaDevices.getUserMedia(simple);
+    } catch (error) {
+      if (!cameraUnavailable(error)) throw error;
+      await new Promise((resolve) => window.setTimeout(resolve, 400));
+      const cameras = (await navigator.mediaDevices.enumerateDevices()).filter(
+        (device) => device.kind === "videoinput" && device.deviceId,
+      );
+      for (const camera of cameras) {
+        try {
+          return await navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: { deviceId: camera.deviceId },
+          });
+        } catch (retryError) {
+          if (!cameraUnavailable(retryError)) throw retryError;
+        }
+      }
+      try {
+        return await navigator.mediaDevices.getUserMedia(simple);
+      } catch {
+        throw error;
+      }
+    }
+  }
   async function openCamera(rowKey: string) {
     setError("");
+    if (openingCamera.current) return;
     if (streamRef.current) {
       setCameraKey(rowKey);
       return;
@@ -100,11 +177,9 @@ export function CapturePage({ token }: { token: string }) {
       );
       return;
     }
+    openingCamera.current = true;
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: { facingMode: { ideal: "environment" } },
-      });
+      const stream = await openDeviceCamera();
       if (!aliveRef.current) {
         stream.getTracks().forEach((track) => track.stop());
         return;
@@ -112,15 +187,16 @@ export function CapturePage({ token }: { token: string }) {
       streamRef.current = stream;
       setCameraReady(false);
       setCameraKey(rowKey);
+      if (videoRef.current) showStream(videoRef.current);
     } catch (e) {
-      const name = e instanceof DOMException ? e.name : "";
+      const name = cameraErrorName(e);
       setError(
         name === "NotAllowedError" || name === "PermissionDeniedError"
           ? "Permita o uso da câmera para fotografar a etiqueta."
-          : name === "NotFoundError" || name === "DevicesNotFoundError"
-            ? "Nenhuma câmera foi encontrada neste dispositivo."
-            : "Não foi possível abrir a câmera. Tente novamente.",
+          : "A câmera existe, mas o navegador não conseguiu abri-la. No Mac, libere este navegador em Ajustes do Sistema, Privacidade e Segurança, Câmera. Feche outros programas que usem a câmera, recarregue a página e toque em Fotografar de novo.",
       );
+    } finally {
+      openingCamera.current = false;
     }
   }
   async function shoot() {
@@ -204,7 +280,7 @@ export function CapturePage({ token }: { token: string }) {
                   </strong>
                   .
                 </p>
-                <video ref={videoRef} autoPlay muted playsInline />
+                <video ref={attachVideo} autoPlay muted playsInline />
                 <div className="capture-camera-actions">
                   <button
                     type="button"

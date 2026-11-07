@@ -1,3 +1,7 @@
+export function captureTokenFromPath(pathname: string) {
+  return /^\/captura\/([a-f0-9]{64})$/.exec(pathname)?.[1] ?? null;
+}
+
 export const routePaths = {
   calendar: "/calendario",
   contracts: "/contratos",
