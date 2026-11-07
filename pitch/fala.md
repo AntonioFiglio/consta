@@ -52,7 +52,7 @@ Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas vis
 
 ## Tela 13 · atendimento e economia potencial · 22 s
 
-> O objetivo é manter a capacidade de atender e evitar custos extras. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
+> Para os pacientes, capacidade de atendimento. Para o hospital, receita e custos sob controle. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
 
 ## Tela 14 · equipe e convite · 9 s
 
@@ -60,9 +60,9 @@ Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas vis
 
 ## Tela 15 · CTA · QR do sistema
 
-> Conheça o Consta em consta ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
+> Conheça o Consta em consta dois ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
 
-**Acesso:** verificar o deploy antes do palco. Na checagem local, o endereço retornou451/DEPLOYMENT_DISABLED. Não anunciar sistema acessível enquanto isso persistir.
+**Acesso:** CTA atualizado para https://consta2.vercel.app; QR decodificado e destino HTTP 200 confirmado em 07/11/2026. Conferir novamente antes do palco.
 
 ## Tela 16 · modelo de negócio · apoio após o CTA
 
