@@ -1,5 +1,11 @@
 # Estado atual do projeto
 
+Atualização mais recente do impacto: projeção da **capacidade integral anual** de uma RM, com valores ampliados: 1.050 atendimentos/mês, 12.600/ano e R$ 6.772.500 brutos/ano (≈ R$ 6,8 mi). Não é perda observada ou ganho do Consta. O cálculo semanal anterior fica no apoio. [Fontes e limites](referencias/cenario-rmn-parada-2026.md).
+
+
+Impacto atual do pitch: cenário de **uma semana de RMN parada**, com bloco vermelho por hora/semana e seta para capacidade e receita bruta preserváveis em verde. Sem anualização; não há ganho comprovado do Consta. [Fontes, fórmulas e premissas](referencias/cenario-rmn-parada-2026.md). Esta versão substitui no palco os destaques de 2 mil endoscopias/mês e R$ 500 mil/ano de locação.
+
+
 CTA do pitch atualizado para **https://consta2.vercel.app** em 07/11/2026, substituindo o endereço anterior. QR regenerado e decodificado, link e fala alinhados; HTTP 200 confirmado. A alteração não configura hospedagem ou conta Vercel.
 
 

@@ -50,9 +50,9 @@ Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas vis
 
 > No próprio HC, a FMUSP acertou o setor em cem por cento dos testes: noventa medições, com trinta etiquetas. É resultado do estudo.
 
-## Tela 13 · atendimento e economia potencial · 22 s
+## Tela 13 · RMN: risco e capacidade anual · 22 s
 
-> Para os pacientes, capacidade de atendimento. Para o hospital, receita e custos sob controle. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
+> Uma RM parada põe cerca de dois mil reais de receita bruta em risco por hora de agenda. Na capacidade publicada de mil e cinquenta exames por mês, e com o preço público de referência, são doze mil e seiscentos atendimentos e aproximadamente seis milhões e oitocentos mil reais por ano. É uma projeção da capacidade integral, não ganho já obtido pelo Consta. A gestão da manutenção busca preservar essa capacidade; o piloto medirá quanto conseguimos recuperar.
 
 ## Tela 14 · equipe e convite · 9 s
 
@@ -72,8 +72,9 @@ Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas vis
 
 ## Precisão para a banca
 
-- ≈R$500mil/ano é equivalência de12mensalidades deR$41.190,95 em Suzano, não economia comprovada. Natal é outro caso; não somar.
-- HMB/IMED: cerca70exames/dia e até2milprocedimentos/mês, em outro hospital. Atendimentos significa procedimentos, não pacientes únicos ou pacientes adicionais recuperados pelo Consta. Não há conversão dos aparelhos do HC-UFG.
+- RMN: o slide projeta a capacidade integral de 1.050 exames/mês por 12 meses, a R$ 537,50 por exame: 12.600 atendimentos e R$ 6.772.500 brutos, arredondados para R$ 6,8 milhões. Não é uma semana multiplicada por ano, nem um resultado do Consta.
+- O horário equivale a 44 exames na janela de 12 horas anunciada para fins de semana, a R$ 537,50: R$ 1.970,83/h, arredondado para R$ 2 mil/h. O anual utiliza a capacidade mensal publicada, não esse arredondamento multiplicado por todas as horas do calendário. Horas equivalentes da capacidade anual: 37800/11, aproximadamente 3436,36; não é jornada anual observada.
+- São Caetano fornece capacidade; Campinápolis fornece preço público. São referências distintas. Indisponibilidade do ano inteiro é teto de risco da capacidade integral, não perda observada ou provável. Exames não são pacientes únicos. Vermelho e verde são duas leituras do mesmo valor, não somar. Receita bruta não é custo operacional, lucro ou economia líquida. Ganho efetivo = horas de agenda realmente recuperadas × ritmo × preço aplicável, medido no piloto. RMN exemplifica manutenção e contratos, sem instalar BLE em sala de RM.
 - FMUSP:100%por setor nos testes externos,90medições com30etiquetas. Não valida rastreamento do Consta ou precisão por sala.
 - A demo usa cenário sintético completo, extração preparada e interface real. API exercitada não comprova IA externa, OCR físico ou BLE.
 - Especialidades: Matheus Godoi, engenheiro biomédico; Pedro Morais, engenheiro de software; Antonio Figlio, engenheiro de produto; Nicolas Braga, engenheiro de software.

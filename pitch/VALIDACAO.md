@@ -168,3 +168,20 @@ QR SVG e PNG regenerados para `https://consta2.vercel.app`; PNG decodificado por
 Verificação da correção: QR SVG efetivamente renderizado no CTA foi capturado e decodificado por OpenCV para o endereço exato; href, texto e alt alinhados. Testes da landing e build da landing aprovados, com cópia do pitch atualizado. Fala no clipboard conferida por leitura de retorno.
 
 Rótulos do impacto ampliados para PACIENTES e RECEITA E CUSTOS. O valor financeiro continua identificado imediatamente como economia potencial, referente à dispensa condicional de locação; não foi convertido em faturamento.
+
+
+## Terceira frente do impacto — custo de equipamento parado
+
+Adicionado terceiro bloco EQUIPAMENTO PARADO / Custo extra em vermelho, após os dois blocos verdes. Sem estimativa numérica nova. O caso de locação após falhas do Walfredo Gurgel/Agora RN permanece como fonte específica no rodapé. Não somar esse caso à equivalência anual de Suzano. Fala alinhada; publicação direta em main solicitada por Matheus.
+
+
+## RMN — hora → uma semana → agenda recuperada
+
+Matheus substituiu a terceira via qualitativa por cálculo de RMN e definiu explicitamente não usar ano. Ordem: risco vermelho primeiro, seta, PACIENTES e RECEITA em verde. SciMath: 44/12×537,50 = 11825/6 reais/h; 44×7 = 308 atendimentos; 44×7×537,50 = R$ 165.550, arredondado no palco para R$ 166 mil. Hipótese de 7 dias com agenda ocupada de 12 horas/dia; não converter para perda anual ou ganho comprovado. [Memória de cálculo](../docs/referencias/cenario-rmn-parada-2026.md).
+
+
+## Revisão final: projeção anual de capacidade e escala visual
+
+Matheus voltou a pedir escala anual e valores maiores após o cenário semanal. O slide passou a explicitar projeção da capacidade integral, sem usar 24h×365 ou converter uma semana isolada em perda anual. SciMath: 1.050×12=12.600 atendimentos; ×R$537,50=R$6.772.500, exibidos como≈R$6,8mi/ano. Figuras com142px e moeda48px. Vermelho primeiro, seta, pacientes/receita verdes. A indisponibilidade da capacidade anual inteira é teto hipotético de risco, não fato observado ou ganho do Consta.
+
+Conferência final: WebKit offline em1920×1080,1280×720e1024×768, ordemvermelho→seta→verdes, semoverflowdosvaloresousobreposiçãocomfontes. Testes/build da landing, verificador do repositório e diff aprovados. Fala/clipboard atualizados e leitura de retorno conferida.

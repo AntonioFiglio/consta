@@ -1,0 +1,40 @@
+{
+  "scenario": "Annual MRI capacity projection and hourly reference; weekly model retained as support",
+  "sources": {
+    "capacity": "https://www.saocaetanodosul.sp.gov.br/noticia/6689",
+    "price": "https://www.campinapolis.mt.gov.br/publicacoes/publicacao/18817"
+  },
+  "inputs": {
+    "exams_per_day": 44,
+    "scheduled_hours_per_day": 12,
+    "days": 7,
+    "reference_brl_per_exam": "537.50"
+  },
+  "scimath": {
+    "hourly_expression": "44/(19-7)*537.5",
+    "hourly_exact": "11825/6",
+    "hourly_display_brl": "2000",
+    "hours_expression": "7*12",
+    "hours": 84,
+    "exams_expression": "44*7",
+    "exams": 308,
+    "weekly_expression": "44*7*537.5",
+    "weekly_exact_brl": "165550",
+    "weekly_display_brl": "166000"
+  },
+  "annualized": true,
+  "add_loss_and_preserved_value": false,
+  "active_model": "Annual capacity projection; weekly model below retained as support",
+  "annual_capacity_model": {
+    "monthly_exams": 1050,
+    "months": 12,
+    "annual_exams": 12600,
+    "annual_equivalent_hours_exact": "37800/11",
+    "annual_gross_brl": "6772500",
+    "annual_display_brl": "6800000",
+    "formula": "1050*12*537.5",
+    "assume_full_capacity_unavailable_for_red_risk": true,
+    "observed_loss_or_consta_gain": false
+  },
+  "weekly_model_is_not_annualized": true
+}

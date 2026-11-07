@@ -44,9 +44,9 @@ Tela 12 · evidência do HC · 10 s
 
 No próprio HC, a FMUSP acertou o setor em cem por cento dos testes: noventa medições, com trinta etiquetas. É resultado do estudo.
 
-Tela 13 · atendimento e economia potencial · 22 s
+Tela 13 · RMN: risco e capacidade anual · 22 s
 
-Para os pacientes, capacidade de atendimento. Para o hospital, receita e custos sob controle. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
+Uma RM parada põe cerca de dois mil reais de receita bruta em risco por hora de agenda. Na capacidade publicada de mil e cinquenta exames por mês, e com o preço público de referência, são doze mil e seiscentos atendimentos e aproximadamente seis milhões e oitocentos mil reais por ano. É uma projeção da capacidade integral, não ganho já obtido pelo Consta. A gestão da manutenção busca preservar essa capacidade; o piloto medirá quanto conseguimos recuperar.
 
 Tela 14 · equipe e convite · 9 s
 

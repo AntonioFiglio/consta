@@ -34,7 +34,7 @@ As faixas dão desconto de volume sem reduzir todo o parque à assinatura de ent
 
 ## Relação com o slide de impacto
 
-R$ 500 mil/ano refere-se a um cenário bruto de locação adicional dispensada, não receita do Consta ou faturamento hospitalar. Não usar essa referência como retorno garantido da assinatura. Até 2 mil atendimentos de endoscopia/mês é produção externa publicada, não resultado do produto.
+O modelo atual de RM projeta a capacidade integral de 1.050 atendimentos/mês por doze meses com preço público de referência de R$ 537,50 por exame: R$ 6.772.500 brutos/ano. Esse teto de valor da agenda não é receita do Consta, economia líquida, perda observada ou retorno garantido da licença. O resultado efetivo depende de horas de agenda recuperadas e dos custos incrementais. [Pesquisa, premissas e cálculos](cenario-rmn-parada-2026.md).
 
 ## CTA
 

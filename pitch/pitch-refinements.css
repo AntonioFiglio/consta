@@ -59,19 +59,42 @@
 .cta-qr span {font:500 30px/1.3 var(--mono);}
 .cta-qr:focus-visible {outline:3px solid #f97316;outline-offset:10px;}
 
-/* Combined impact: care first, then the conditional financial scenario. */
+/* MRI capacity scenario: downtime risk first, then care and revenue. */
 .layer-impact .im-title {font-size:72px;}
-.im-metrics {position:absolute;left:100px;right:100px;top:420px;display:grid;grid-template-columns:1fr 1fr;gap:90px;}
-.im-metric {border-top:1px solid #d6d3d1;padding-top:28px;}
+.im-metrics {position:absolute;left:100px;right:100px;top:380px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:60px;}
+.im-metric {position:relative;border-top:1px solid #d6d3d1;padding-top:28px;}
 .im-metric-label {font:600 30px/1.3 var(--mono);color:#0a0a0a;letter-spacing:.05em;}
-.im-metric-value {margin-top:30px;color:#15803d;font:600 125px/1 var(--sans);letter-spacing:-.065em;white-space:nowrap;}
-.im-metric-value small {font-size:39px;letter-spacing:-.04em;}
-.im-metric-value span {font-size:37px;letter-spacing:-.04em;}
-.im-metric h3 {margin-top:28px;font:500 35px/1.2 var(--sans);letter-spacing:-.03em;}
-.im-metric-detail {margin-top:18px;font:400 25px/1.4 var(--sans);color:#78716c;max-width:700px;}
-.layer-impact .im-sources {top:890px;gap:70px;}
+.im-metric-value {margin-top:30px;color:#15803d;font:600 90px/1 var(--sans);letter-spacing:-.065em;white-space:nowrap;}
+.im-metric-value small {font-size:30px;letter-spacing:-.04em;}
+.im-metric-value span {font-size:30px;letter-spacing:-.04em;}
+.im-metric h3 {margin-top:18px;font:500 30px/1.2 var(--sans);letter-spacing:-.03em;}
+.im-metric-detail {margin-top:18px;font:400 24px/1.4 var(--sans);color:#78716c;max-width:500px;}
+.layer-impact .im-sources {top:890px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:60px;align-items:start;}
 .layer-impact .im-sources a {font-size:16px;max-width:790px;}
 .layer-impact .im-pilot {top:954px;padding-top:16px;}
 .layer-impact .im-pilot p {font-size:18px;max-width:1400px;}
 .layer-impact .im-method {top:17px;font-size:17px;}
 .cta-brand #a-cta {display:inline-block;position:relative;width:32px;height:32px;margin-left:24px;vertical-align:baseline;}
+
+/* Downtime risk is red; the same capacity and value are green when available. */
+.im-metric-cost {border-top:3px solid #dc2626;}
+.im-metric-cost .im-metric-label,.im-metric-cost .im-metric-value {color:#dc2626;}
+.im-metric-cost .im-metric-value {font-size:90px;line-height:90px;letter-spacing:-.065em;}
+
+.im-metric-cost .im-metric-detail {font-size:22px;}
+.im-impact-arrow {position:absolute;right:-51px;top:145px;color:#78716c;font:400 48px/1 var(--sans);}
+
+/* Large, independently scaled figures keep currency and units legible. */
+.im-metric-value b {font:600 142px/1 var(--sans);letter-spacing:-.075em;}
+.im-metric-value small {font-size:48px;letter-spacing:-.04em;}
+.im-metric-value em {font:600 57px/1 var(--sans);letter-spacing:-.05em;font-style:normal;margin-left:8px;}
+.im-metric-value span {font-size:31px;}
+.im-metric-value {line-height:142px;}
+.im-metric-cost .im-metric-value {line-height:142px;}
+.im-annual-risk {margin-top:14px;color:#dc2626;font:600 62px/1.1 var(--sans);letter-spacing:-.05em;white-space:nowrap;}
+.im-annual-risk small {font-size:30px;}
+.im-annual-risk span {font-size:29px;}
+.im-capacity-year {margin-top:14px;color:#15803d;font:600 48px/1.1 var(--sans);letter-spacing:-.04em;}
+.im-capacity-year span {font-size:28px;}
+.im-metric-cost .im-metric-detail {margin-top:14px;}
+.im-impact-arrow {top:180px;}
