@@ -36,3 +36,20 @@ jobs:
         run: npm test
       - name: Verificar tipos e build
         run: npm run build
+
+  landing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter o repositório
+        uses: actions/checkout@v4
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - name: Instalar dependências
+        run: npm ci
+      - name: Testar contato e cópia do pitch
+        run: npm run test:landing
+      - name: Gerar landing e apresentação estáticas
+        run: npm run build:landing

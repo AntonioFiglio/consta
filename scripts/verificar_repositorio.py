@@ -36,10 +36,26 @@ def local_link_error(root, source, target):
         return None
     path = unquote(parsed.path)
     # A entrada HTML do Vite usa a raiz da aplicação, inclusive em URLs aninhadas.
-    web_root = source.parent if source.suffix == '.html' and (source.parent / 'vite.config.ts').is_file() else root
+    is_vite_entry = source.suffix == '.html' and any((source.parent / name).is_file() for name in ('vite.config.ts', 'vite.config.js'))
+    web_root = source.parent if is_vite_entry else root
     destination = (web_root / path.lstrip('/') if path.startswith('/') else source.parent / path).resolve()
     if not destination.is_relative_to(root.resolve()):
         return f'destino fora do repositório: {target}'
+    if not destination.exists() and is_vite_entry:
+        public_destination = (source.parent / 'public' / path.lstrip('/')).resolve()
+        if public_destination.is_relative_to(root.resolve()) and public_destination.exists():
+            destination = public_destination
+    # Cópias estáticas geradas pelo build são verificadas pela origem declarada,
+    # permitindo validar um checkout limpo antes de executar Node/Vite.
+    manifest = source.parent / 'static-copies.json'
+    if not destination.exists() and is_vite_entry and manifest.is_file():
+        requested = Path(path.lstrip('/'))
+        for mount, origin in json.loads(manifest.read_text(encoding='utf-8')).items():
+            if requested.is_relative_to(Path(mount)):
+                copied_source = (source.parent / origin / requested.relative_to(mount)).resolve()
+                if copied_source.is_relative_to(root.resolve()) and copied_source.exists():
+                    destination = copied_source
+                    break
     if not destination.exists():
         return f'destino local inexistente: {target}'
     return None
