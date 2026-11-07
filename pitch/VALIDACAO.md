@@ -141,3 +141,7 @@ Impactos: verde, textos reduzidos, painel financeiro direito removido.2mil é re
 ## Verificação da entrega para integração
 
 Clone limpo baseado na develop remota c97be02, com alterações locais selecionadas sem bancos, cópias de sincronização ou artefatos de build.93testes do CRM aprovados sem skips; build/TypeScript aprovados;3testes da preparação do corpus aprovados. Navegação em ordem final, retorno do mapa, caneta/foco/repetição, recursos offline, demo automática e apoio BLE aprovados no WebKit. QA adicional aprovou logo+fluxo automático, gaveta em looping, movimento reduzido e time→CTA→Business em três viewports. QR decodificado para o endereço solicitado. Publicação autorizada explicitamente por Matheus após os ajustes.
+
+## Correção da entrada automática na demo
+
+Após mover o fluxo da IA antes do CRM, o salto de índice16→8 recebia a classe snap. O controlador da demo interpretava isso como pedido de exibir o estado final estático, sem emitir conclusão ou avançar. O mesmo ocorria em abertura direta por#b=8. A entrada agora inicia o playback mesmo quando a transição entre slides é instantânea; apenas movimento reduzido ou finishCurrent continuam estáticos. Regressão reproduziu running=false antes da correção e passou depois sem restart manual. A suíte cobre entrada natural, link direto, avanço automático, antecipação e cancelamento.

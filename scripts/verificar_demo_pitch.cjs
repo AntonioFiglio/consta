@@ -11,6 +11,14 @@ const {webkit} = require(process.env.CONSTA_PLAYWRIGHT_MODULE || 'playwright');
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(pathToFileURL(`${process.cwd()}/pitch/deck.html`).href);
     await page.waitForFunction(() => window.constaProductDemo?.getState);
+    // Natural entry and a direct deep link must autoplay without a manual restart.
+    await page.evaluate(() => { constaPitch.goTo(16); constaPitch.next(); });
+    await page.waitForFunction(() => constaProductDemo.getState().beat === 8 && constaProductDemo.getState().running, {}, {timeout: 3000});
+    const direct = await browser.newPage({viewport: {width: 1280, height: 720}, offline: true});
+    await direct.goto(pathToFileURL(`${process.cwd()}/pitch/deck.html`).href + '#b=8');
+    await direct.waitForFunction(() => window.constaProductDemo?.getState().beat === 8 && constaProductDemo.getState().running, {}, {timeout: 3000});
+    await direct.close();
+
     await page.evaluate(() => {
       window.demoCompletions = [];
       document.addEventListener('consta:demo-complete', event => demoCompletions.push(event.detail.beat));
