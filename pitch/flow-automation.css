@@ -1,0 +1,66 @@
+/* Scoped automation sequence; 1920 × 1080 stage, beats 13 and 14. */
+.layer-benefits.flow-automation { background: var(--wht, #FAFAF9); color: var(--blk, #0A0A0A); }
+.flow-automation .kicker { left: 88px; top: 80px; color: #615a54; font: 500 24px/1.2 var(--mono); letter-spacing: .06em; }
+.flow-automation .flow-title { position: absolute; left: 80px; top: 142px; margin: 0; font: 600 118px/.98 var(--sans); letter-spacing: -.065em; }
+.flow-title span { color: #c2410c; }
+.flow-process { position: absolute; left: 88px; top: 444px; width: 1744px; height: 450px; }
+.flow-upload { position: absolute; left: 0; top: 84px; width: 240px; }
+.flow-upload svg { width: 48px; height: 56px; fill: none; stroke: currentColor; stroke-width: 3; margin-bottom: 23px; }
+.flow-upload h3, .flow-review h3 { font: 600 42px/1.08 var(--sans); letter-spacing: -.035em; }
+.flow-upload p { margin-top: 19px; color: #615a54; font: 400 26px/1.2 var(--sans); }
+.flow-start-dot { left: -14px; top: 6px; }
+.flow-manual { position: absolute; left: 280px; top: 0; width: 738px; }
+.flow-manual-label { font: 500 20px/1 var(--mono); letter-spacing: .08em; color: #78716c; margin-bottom: 31px; }
+.flow-manual ol { display: flex; gap: 30px; padding: 0; margin: 0; }
+.flow-manual li { position: relative; flex: 1; font: 500 29px/1.2 var(--sans); letter-spacing: -.025em; color: #292524; transition: color 240ms ease; }
+.flow-manual li::after { content: ''; position: absolute; left: -5px; right: 0; top: 33px; height: 2px; background: #a8a29e; transform: rotate(-12deg) scaleX(0); transform-origin: left center; transition: transform 220ms ease-out; }
+.flow-bypass { position: absolute; left: 202px; top: 103px; width: 840px; height: 270px; }
+.flow-bridge { position: absolute; inset: 0; width: 840px; height: 190px; fill: none; stroke: var(--org, #F97316); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.flow-ai { position: absolute; left: 120px; top: 175px; }
+.flow-ai b { font: 600 40px/1.1 var(--sans); letter-spacing: -.035em; }
+.flow-ai p { margin-top: 17px; font: 400 26px/1.38 var(--sans); color: #615a54; }
+.flow-review { position: absolute; left: 1070px; top: 144px; width: 230px; }
+.flow-gate { display: block; width: 48px; height: 48px; margin-bottom: 22px; border: 2px solid currentColor; border-radius: 50%; text-align: center; font: 500 31px/44px var(--sans); }
+.flow-review p { font: 400 23px/1.35 var(--sans); color: #615a54; margin-top: 22px; }
+.flow-after-review { position: absolute; left: 1310px; top: 220px; font: 400 48px/1 var(--sans); }
+.flow-management { position: absolute; left: 1380px; top: 68px; width: 364px; height: 370px; padding: 34px 30px; background: var(--blk, #0A0A0A); color: var(--wht, #FAFAF9); border-radius: 8px; }
+.flow-management-label { font: 500 18px/1 var(--mono); letter-spacing: .05em; color: #F97316; }
+.flow-management h3 { margin-top: 27px; font: 600 43px/1.12 var(--sans); letter-spacing: -.035em; }
+.flow-management p { margin-top: 30px; font: 400 25px/1.25 var(--sans); color: #d6d3d1; }
+.flow-end-dot { right: 20px; top: 23px; }
+.flow-evidence { position: absolute; left: 88px; top: 942px; font: 400 25px/1.3 var(--sans); color: #615a54; }
+.flow-details { position: absolute; right: 88px; top: 938px; padding: 10px 0; border: 0; background: transparent; border-bottom: 1px solid #a8a29e; color: #292524; font: 500 21px/1.2 var(--sans); }
+.flow-details span { margin-left: 12px; }
+.flow-details:focus-visible { outline: 3px solid #c2410c; outline-offset: 6px; }
+@media (prefers-reduced-motion: reduce) { .flow-automation .r { transform: none !important; transition: opacity 120ms linear !important; } }
+
+/* Motion owns these states. Never strike the human review gate. */
+.flow-step[data-state="bypassed"] { color: #8a837c; }
+.flow-step[data-state="bypassed"]::after { transform: rotate(-12deg) scaleX(1); }
+.flow-bridge [data-flow-route] { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--flow-route-progress, 0)); }
+.flow-bridge .flow-arrow { opacity: 0; transition: opacity 120ms linear; }
+.flow-automation[data-flow-phase="review"] .flow-arrow,
+.flow-automation[data-flow-phase="complete"] .flow-arrow { opacity: 1; }
+.flow-ai { opacity: 0; transition: opacity 240ms ease; }
+.flow-automation[data-flow-phase="bypass"] .flow-ai,
+.flow-automation[data-flow-phase="review"] .flow-ai,
+.flow-automation[data-flow-phase="complete"] .flow-ai { opacity: 1; }
+.flow-review-anchor { left: -34px; top: 10px; }
+.flow-automation[data-flow-phase="review"] .flow-gate { outline: 5px solid #F97316; outline-offset: 7px; }
+.flow-automation[data-flow-phase]:not([data-flow-phase="complete"]) .flow-management.r,
+.flow-automation[data-flow-phase]:not([data-flow-phase="complete"]) .flow-evidence.r,
+.flow-automation[data-flow-phase]:not([data-flow-phase="complete"]) .flow-after-review { opacity: 0; }
+.flow-automation[data-flow-phase="complete"] .flow-management.r.is-on,
+.flow-automation[data-flow-phase="complete"] .flow-evidence.r.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .flow-step, .flow-step::after, .flow-ai, .flow-bridge .flow-arrow { transition: none !important; }
+}
+
+/* The point merges into the gate, completes it, then emerges toward management. */
+.flow-gate { position: relative; isolation: isolate; overflow: hidden; }
+.flow-gate::before { content: ''; position: absolute; inset: -1px; border-radius: 50%; background: #f97316; transform: scale(var(--flow-check-progress, 0)); transform-origin: center; z-index: -1; }
+.flow-check { display: block; width: 32px; height: 32px; margin: 6px auto; fill: none; }
+.flow-check path { stroke: #292524; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--flow-check-progress, 0)); }
+.flow-automation[data-flow-phase="manual"] .flow-check path,
+.flow-automation[data-flow-phase="bypass"] .flow-check path { stroke: #a8a29e; stroke-dashoffset: 0; }
+.flow-automation[data-flow-checked="true"] .flow-gate { border-color: #c2410c; outline: none; }

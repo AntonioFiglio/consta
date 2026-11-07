@@ -1,118 +1,86 @@
+# Fala principal — três minutos
 
-Slide 1 — Não é um caso isolado
+Roteiro anterior à reestruturação comercial, alinhado às dezessete telas visíveis. A capa é de espera. Logo formado pela bolinha e fluxo da IA automáticos no mesmo slide; agenda preservada. Celular, custoR$75mil e logo isolado fora da sequência. Extração demonstrativa simulada, interface real. Ensaiar com a caneta antes do palco.
 
-“Quando uma máquina para no hospital, não é só ela que fica parada. A rotina da equipe muda, os exames precisam ser reorganizados e o paciente pode ter que esperar.
+## Tela 1 · capa · antes da fala
 
-Em 2022, o Hospital de Câncer Alfredo Abrão chegou a ficar 48 dias sem seu tomógrafo, segundo uma das reportagens. Antes da falha, aquele equipamento fazia cerca de 900 exames por mês. E o conserto foi estimado em 600 mil reais.
 
-O hospital buscou apoio de outras unidades para continuar os atendimentos. Mas olha o trabalho que uma única máquina indisponível pode gerar.
 
-E as outras notícias mostram que essa dificuldade aparece em diferentes hospitais.
+## Tela 2 · notícias e consequências · 10 s
 
-Isso traz uma pergunta: como acompanhar os equipamentos e suas pendências antes que o problema fique mais difícil de resolver?”
+> Quando um equipamento para, o paciente continua precisando do exame. Em casos brasileiros, pacientes precisaram de outros serviços. A rotina do hospital não espera.
 
-Slide 2 — O custo de esperar pela falha
+## Tela 3 · paciente e gestor · 12 s
 
-“Agora imagina acompanhar centenas ou milhares de equipamentos, cada um com um contrato, um histórico e uma data de manutenção.
+> A pane é só o que aparece. O paciente enfrenta adiamentos. O gestor precisa encontrar o ativo, acionar a manutenção e conferir a cobertura, enquanto o atendimento continua. A pressão chega à pessoa e à operação.
 
-Se essas informações estão espalhadas, fica difícil saber o que precisa de atenção primeiro.
+## Tela 4 · gaveta do gestor · 8 s
 
-E esperar a máquina quebrar pode sair caro. A referência comercial que usamos aponta que uma manutenção corretiva emergencial pode custar de três a cinco vezes mais que uma preventiva planejada.
+> A informação existe, mas está na gaveta do gestor. Ele precisa juntar documentos, equipamentos e prazos para fazer a manutenção acontecer. É esse esforço que queremos reduzir.
 
-Além do conserto, tem o impacto na operação: equipamento parado, equipe reorganizando a agenda e atendimento sendo remarcado.
+## Tela 5 · CONSTA e fluxo automático · 12 s
 
-Por isso, queremos ajudar o hospital a acompanhar o que precisa ser feito, quem é o responsável e qual é o prazo.”
+> O Consta transforma o contrato em uma base para gerir. A IA lê e preenche, retirando o trabalho de localizar e redigitar dados. A equipe confirma e acompanha inventário, agenda e pendências.
 
-Slide 3 — A informação existe. Está numa gaveta.
+## Tela 6 · demo: documento · 9 s
 
-“Muitas vezes, a informação que a equipe precisa já existe.
+> Esta é a interface real. Neste cenário sintético completo, um contrato reúne cinco equipamentos. Enviamos o arquivo, sem cadastrar uma unidade por vez.
 
-Está no manual, na nota fiscal ou no contrato de manutenção.
+## Tela 7 · demo: dados prontos · 9 s
 
-Só que ela está guardada numa gaveta, numa pasta ou em um arquivo que ninguém lembra onde salvou.
+> A extração desta demonstração é simulada. Identidade, patrimônio, contrato e manutenção aparecem preenchidos. Com poucos cliques, a equipe confirma.
 
-[Avançar a animação.]
+## Tela 8 · demo: inventário e previsões · 9 s
 
-Aí, quando aparece um problema, começa a procura: quem faz a manutenção? Esse equipamento ainda está na garantia? Quando foi a última revisão?
+> O sistema real salvou cinco equipamentos e gerou cinco previsões de manutenção. O cadastro vira uma base para gerir.
 
-O que queremos é deixar essas informações acessíveis e ligadas às próximas ações, para que a equipe consiga acompanhar cada pendência até a conclusão.”
+## Tela 9 · Smart Agenda e visão do dia · 13 s
 
-Slide 4 — CONSTA
+> Neste contrato de exemplo, vinte equipamentos têm preventiva no mesmo dia. A Smart Agenda propõe quatro por dia, dentro da janela autorizada e da capacidade da equipe. A Engenharia Clínica confirma.
 
-“É aí que entra o CONSTA.
+## Tela 10 · etiqueta BLE · 8 s
 
-Estamos desenvolvendo uma forma de reunir as informações dos equipamentos e facilitar o acompanhamento da manutenção.
+> Uma etiqueta BLE no equipamento. Receptores fixos permitem registrar o último setor detectado. O mapa mostra essa proposta em uma simulação.
 
-Primeiro, a inteligência artificial ajuda a organizar os documentos e identificar informações como modelo, número de série, garantia e prazos, com revisão da equipe responsável.
+## Tela 11 · mapa e atualização · 6 s
 
-Depois, o rastreamento por BLE foi pensado para ajudar a localizar os equipamentos móveis nas áreas aprovadas do hospital.
+> Os receptores poderão atualizar o último setor automaticamente, sem registrar cada movimentação à mão. Aqui, mapa e rastreamento são simulados.
 
-E, quando uma manutenção estiver chegando, o gestor recebe uma notificação com as informações daquele equipamento, o responsável e o contato do fornecedor.
+## Tela 12 · evidência do HC · 10 s
 
-Assim, ele consegue acompanhar a pendência desde o aviso até o registro de que o serviço foi feito.”
+> No próprio HC, a FMUSP acertou o setor em cem por cento dos testes: noventa medições, com trinta etiquetas. É resultado do estudo.
 
-Slide 5 — Introdução aos impactos
+## Tela 13 · impacto no atendimento · 12 s
 
-“E como isso ajuda dentro do hospital?
+> Mais equipamentos disponíveis criam condições para atender. Como referência de escala, o Hospital da Brasilândia realiza até dois mil procedimentos de endoscopia por mês. É produção daquele serviço, não pacientes recuperados pelo Consta.
 
-Vamos passar por cinco áreas. Os números na tela são exemplos simulados para mostrar o que queremos avaliar; ainda não são resultados medidos do CONSTA.”
+## Tela 14 · economia potencial · 15 s
 
-Slide 5 — UTI
+> Se a gestão permitir dispensar uma locação adicional por doze meses, essa referência representa aproximadamente quinhentos mil reais brutos de economia potencial. Reduzir despesa libera orçamento. Ainda precisamos medir esse ganho e descontar os custos do Consta.
 
-“Na UTI, pensa numa equipe precisando encontrar uma bomba de infusão ou um ventilador.
+## Tela 15 · equipe e convite · 9 s
 
-Sem saber onde o equipamento está, alguém precisa sair procurando ou ligar para outros setores.
+> Somos Matheus, Pedro, Antonio e Nicolas. Buscamos um piloto com a Engenharia Clínica para medir cadastro, busca, disponibilidade e custos. Menos redigitação, mais gestão. Consta.
 
-Com a localização disponível, a ideia é encurtar essa busca e facilitar a organização dos equipamentos.
+## Tela 16 · CTA · QR do sistema
 
-É menos tempo procurando uma máquina e mais tempo disponível para o trabalho da equipe.”
+> Conheça o Consta em consta ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
 
-Slide 5 — Diagnóstico
+**Acesso:** verificar o deploy antes do palco. Na checagem local, o endereço retornou451/DEPLOYMENT_DISABLED. Não anunciar sistema acessível enquanto isso persistir.
 
-“No diagnóstico, um tomógrafo parado pode mexer com a agenda de vários pacientes.
+## Tela 17 · modelo de negócio · apoio após o CTA
 
-O CONSTA foi pensado para ajudar a equipe a acompanhar as revisões, consultar o histórico e entrar em contato com quem faz a manutenção.
+> O Plano Business é uma licença anual por unidade hospitalar e faixa do parque: seis mil reais para até cem equipamentos, doze mil para até quinhentos e vinte e quatro mil para até dois mil. Tags, receptores e implantação são vendidos à parte. São preços propostos para validação comercial.
 
-Com isso, fica mais fácil se organizar antes de uma intervenção e acompanhar o reparo quando houver uma falha.
+**Uso no palco:** esta tela fica depois do CTA, conforme pedido. Pode ser usada na discussão com a banca; para encerramento principal, permaneça no QR.
 
-O impacto que buscamos é ter menos interrupções e menos exames precisando ser remarcados.”
+## Precisão para a banca
 
-Slide 5 — Cirurgia
+- ≈R$500mil/ano é equivalência de12mensalidades deR$41.190,95 em Suzano, não economia comprovada. Natal é outro caso; não somar.
+- HC-UFG:13→34aparelhos disponíveis, parque42. Resultado da manutenção daquela instituição.
+- HMB/IMED: cerca70exames/dia e até2milprocedimentos/mês, em outro hospital. Não são pacientes únicos nem conversão dos aparelhos do HC-UFG.
+- FMUSP:100%por setor nos testes externos,90medições com30etiquetas. Não valida rastreamento do Consta ou precisão por sala.
+- A demo usa cenário sintético completo, extração preparada e interface real. API exercitada não comprova IA externa, OCR físico ou BLE.
+- Especialidades: Matheus Godoi, engenheiro biomédico; Pedro Morais, engenheiro de software; Antonio Figlio, engenheiro de produto; Nicolas Braga, engenheiro de dados.
 
-“No centro cirúrgico, a equipe precisa conseguir se planejar com os equipamentos de que vai precisar.
-
-Se um aparelho de anestesia ou um monitor tem uma manutenção pendente, essa informação precisa chegar a quem organiza a agenda.
-
-O CONSTA ajuda a reunir essas pendências e acompanhar o que precisa ser resolvido pela equipe técnica.
-
-A ideia é dar mais previsibilidade à rotina e reduzir os atrasos relacionados à indisponibilidade dos equipamentos.”
-
-Slide 5 — Manutenção
-
-“Para quem cuida da manutenção, faz diferença conseguir enxergar o que está pendente, o que está perto do prazo e o que já foi concluído.
-
-No CONSTA, cada tarefa fica ligada ao equipamento, com responsável, prazo e histórico do serviço.
-
-As notificações ajudam a lembrar o que precisa de atenção. E o registro da execução permite acompanhar se aquela pendência foi realmente resolvida.
-
-Isso dá mais organização para a equipe e ajuda a evitar que uma manutenção fique esquecida.”
-
-Slide 5 — Gestão
-
-“Para o gestor, o CONSTA reúne uma visão do que está acontecendo com as máquinas do hospital.
-
-Ele consegue acompanhar os problemas, as manutenções e os custos de cada equipamento, com as informações no mesmo lugar.
-
-E as notificações ajudam a lembrar dos prazos e das pendências que precisam de atenção.
-
-Assim, fica mais fácil organizar prioridades, acompanhar o trabalho das equipes e planejar os gastos. É mais controle para tomar decisões e melhorar a operação do hospital.”
-
-Slide 5 — Fechamento
-
-“É esse o impacto que queremos construir: equipamentos mais bem acompanhados, equipes mais organizadas e mais tempo disponível para cuidar.”
-
-Slide 6 — Time
-
-“Matheus Godoi, Pedro Morais, Antonio Figlio e Nicolas Braga.
-
-Esse é o time que CONSTOU para fazer essa ideia acontecer.”
+[Fontes e critérios](metodo.html) · [Apoio técnico BLE](apoio-tecnico.html).

@@ -1,0 +1,76 @@
+{
+  "status": "conceito de bancada; montagem física não verificada",
+  "units": "mm",
+  "case": {
+    "length": 52,
+    "width": 36,
+    "height": 12,
+    "wall": 1.5,
+    "corner_radius": 6
+  },
+  "battery_reserved": {
+    "position": [
+      3,
+      6,
+      2.5
+    ],
+    "size": [
+      26,
+      24,
+      5
+    ],
+    "status": "reserva provisória de CR2032 com retentor Keystone 3034; contato negativo na PCB própria, ainda a projetar"
+  },
+  "board_reserved": {
+    "position": [
+      31,
+      12.5,
+      3
+    ],
+    "size": [
+      16,
+      11,
+      3.5
+    ],
+    "status": "reserva do módulo Raytac e montagem; PCB completa e componentes auxiliares ainda a definir"
+  },
+  "not_modelled": [
+    "PCB própria roteada e contato negativo do retentor",
+    "curso de troca da pilha",
+    "componentes auxiliares e solda",
+    "tolerâncias",
+    "retenção e fixadores da tampa",
+    "base removível e fixação ao ativo",
+    "zona RF validada"
+  ],
+  "calculations_checked_with_scimath": {
+    "nominal_inner": [
+      49,
+      33,
+      9
+    ],
+    "reserved_longitudinal_gap": 2,
+    "reserved_end_clearance": 3.5,
+    "battery_top_clearance_for_reserved_envelope": 3
+  },
+  "sources": [
+    "https://energy.panasonic.com/eu/business/products/lithium/coin-cr-standard/models/CR2032",
+    "https://industrial.panasonic.com/cdbs/www-data/pdf2/AAA4000/AAA4000C496.pdf",
+    "https://www.keyelco.com/product.cfm/product_id/798",
+    "https://www.mouser.com/datasheet/3/1361/1/nRF52840_MDBT50Q_1MV2_MDBT50Q_P1MV2_Ver.L_spec.pdf"
+  ],
+  "known_module_dimensions": [
+    15.5,
+    10.5,
+    2.05
+  ],
+  "battery": {
+    "type": "CR2032 primária",
+    "nominal_voltage": "3 V",
+    "nominal_dimensions_mm": [
+      20,
+      3.2
+    ],
+    "rechargeable": false
+  }
+}

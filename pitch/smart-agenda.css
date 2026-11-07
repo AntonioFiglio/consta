@@ -1,0 +1,47 @@
+/* Synthetic scheduling proposal; does not modify the CRM calendar. */
+.layer-smart-agenda { background:#fafaf9; color:#0a0a0a; font-family:var(--sans,'Inter',sans-serif); }
+.sa-kicker { position:absolute; left:100px; top:104px; font:500 22px/1.3 var(--mono,monospace); color:#6b655e; letter-spacing:.06em; }
+.sa-title { position:absolute; left:100px; top:168px; font-size:72px; line-height:1.08; letter-spacing:-.045em; font-weight:600; margin:0; }
+.sa-title span { color:#c2410c; }
+.sa-anchor { left:1630px; top:225px; }
+.sa-window { position:absolute; left:100px; top:355px; width:1720px; height:530px; overflow:visible; isolation:isolate; }
+.sa-toolbar { height:77px; padding:0 35px; border-bottom:1px solid #e7e5e4; display:flex; align-items:center; justify-content:space-between; }
+.sa-toolbar strong { font-size:28px; font-weight:600; }
+.sa-badge { font-size:20px; padding:8px 14px; background:#fff0e5; color:#9a3412; border-radius:6px; }
+.sa-board { position:absolute; left:110px; top:95px; width:1500px; height:420px; }
+.sa-days { position:absolute; inset:0; display:grid; grid-template-columns:repeat(5,1fr); opacity:0; transition:opacity 250ms; }
+.sa-day { border-left:1px solid #e7e5e4; padding:4px 16px; font:500 22px/1.4 var(--sans,sans-serif); color:#57534e; }
+.sa-day:last-child { border-right:1px solid #e7e5e4; }
+.sa-day strong { display:block; color:#292524; font-size:26px; }
+.sa-origin { position:absolute; top:0; left:0; right:0; text-align:center; font-size:26px; color:#9a3412; transition:opacity 200ms; }
+.sa-tile { position:absolute; top:82px; left:16px; width:268px; height:66px; display:flex; align-items:center; justify-content:space-between; padding:0 18px; border:1px solid #fdba74; border-left:5px solid #f97316; border-radius:6px; background:#fff7ed; color:#9a3412; font:500 24px/1 var(--mono,monospace); transform:translate(var(--from-x),var(--from-y)) scale(.48); transform-origin:top left; transition:transform 700ms cubic-bezier(.65,0,.35,1); transition-delay:var(--delay); }
+.sa-tile::after { content:'Preventiva'; font:400 18px/1 var(--sans,sans-serif); }
+.layer-smart-agenda.is-distributed .sa-tile { transform:translate(var(--to-x),var(--to-y)) scale(1); }
+.layer-smart-agenda.is-distributed .sa-days { opacity:1; }
+.layer-smart-agenda.is-distributed .sa-origin { opacity:0; }
+.sa-conclusion { position:absolute; left:100px; top:916px; margin:0; font-size:32px; font-weight:500; color:#292524; }
+.sa-conclusion span { color:#c2410c; }
+.sa-condition { position:absolute; left:100px; top:974px; margin:0; font-size:20px; line-height:1.4; color:#6b655e; }
+.layer-smart-agenda.is-settled *, .stage.snap .layer-smart-agenda * { transition:none!important; }
+@media (prefers-reduced-motion:reduce) { .layer-smart-agenda * { transition:none!important; } }
+
+
+/* One paper surface opens into the calendar; glyphs are never scaled by the surface. */
+.sa-window::before { content:''; position:absolute; inset:0; z-index:-1; background:#fff; border:1px solid #dedbd6; clip-path:inset(0 500px 0 500px round 5px); transition:clip-path 850ms cubic-bezier(.65,0,.35,1); }
+.sa-document { position:absolute; left:540px; top:30px; width:640px; transition:opacity 240ms,transform 500ms cubic-bezier(.65,0,.35,1); }
+.sa-doc-label { display:flex; justify-content:space-between; color:#78716c; font:500 18px/1.4 var(--mono,monospace); border-bottom:1px solid #e7e5e4; padding-bottom:16px; }
+.sa-doc-title { margin:22px 0 12px; font-size:32px; line-height:1.2; font-weight:500; }
+.sa-doc-title strong { color:#c2410c; font-size:44px; }
+.sa-doc-details { display:flex; gap:40px; font-size:21px; line-height:1.5; color:#57534e; }
+.sa-doc-details strong { display:block; color:#292524; font-weight:500; }
+.sa-doc-list-label { margin-top:18px; color:#78716c; font:400 17px/1.4 var(--mono,monospace); }
+.sa-toolbar { opacity:0; transform:translateY(-12px); transition:opacity 300ms 350ms,transform 550ms 250ms; }
+.sa-origin { opacity:0; transition:opacity 250ms; }
+.sa-conclusion,.sa-condition { opacity:0; transition:opacity 300ms; }
+.layer-smart-agenda.is-calendar .sa-window::before { clip-path:inset(0 0 0 0 round 15px); }
+.layer-smart-agenda.is-calendar .sa-document { opacity:0; transform:translateY(-24px); pointer-events:none; }
+.layer-smart-agenda.is-calendar .sa-toolbar { opacity:1; transform:none; }
+.layer-smart-agenda.is-calendar:not(.is-distributed) .sa-origin { opacity:1; transition-delay:600ms; }
+.layer-smart-agenda.is-calendar .sa-conclusion,.layer-smart-agenda.is-calendar .sa-condition { opacity:1; transition-delay:600ms; }
+.layer-smart-agenda.is-settled .sa-window::before,.stage.snap .layer-smart-agenda .sa-window::before { transition:none!important; }
+@media(prefers-reduced-motion:reduce) { .sa-window::before { transition:none!important; } }

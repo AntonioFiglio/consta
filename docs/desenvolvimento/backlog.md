@@ -8,6 +8,8 @@ O [cadastro por contrato e calendário](../produto/fase-1-cadastro-e-calendario.
 
 ## Base compartilhada
 
+Para o hackathon, priorizar o [recorte da demonstração](../produto/demonstracao.md): fluxo integrado de manutenção com localização por setor, real em bancada ou simulada de forma explícita. A implementação do produto segue as entregas abaixo; ensaios de implantação hospitalar acompanham o piloto posterior.
+
 | Entrega | Depende de | Pronta quando |
 | --- | --- | --- |
 | Escolher e inicializar stack do CRM | Revisão da arquitetura com a equipe | Decisão registrada, execução local reproduzível e comandos reais documentados |

@@ -634,8 +634,7 @@ export function App() {
           {view !== "calendar" && (
             <footer className="page-footer">
               <span>
-                CONSTA<span className="orange-dot">.</span> Clareza para cuidar
-                do que importa.
+                CONSTA<span className="orange-dot">.</span> Gestão de ativos e manutenção hospitalar.
               </span>
               <span>
                 Previsão de manutenção não equivale a liberação técnica.

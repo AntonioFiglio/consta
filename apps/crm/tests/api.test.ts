@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createServer } from "node:http";
+import { createServer, request } from "node:http";
 import { once } from "node:events";
 import type { AddressInfo } from "node:net";
 import { createApp } from "../server/app.js";
@@ -101,9 +101,18 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
           ).status,
           403,
         );
+        // Node fetch may ignore a custom Host. Exercise the actual HTTP boundary.
         assert.equal(
-          (await send("/assets", { headers: { Host: "untrusted.example" } }))
-            .status,
+          await new Promise<number>((resolve, reject) => {
+            const req = request(new URL(base + "/assets"), {
+              headers: { Host: "untrusted.example" },
+            }, (res) => {
+              res.resume();
+              res.on("end", () => resolve(res.statusCode!));
+            });
+            req.on("error", reject);
+            req.end();
+          }),
           403,
         );
       },
@@ -509,11 +518,10 @@ test("fluxo integrado com arquivo privado, edição, persistência e SDK contra 
         assert.equal(assets[0].id, assetId);
         assert.equal(assets[0].periodValue, 2);
         assert.equal((await send(`/contracts/${contractId}/file`)).status, 200);
-        assert.equal(
-          (await (await send(`/contracts/${contractId}`)).json()).extraction
-            .periodValue.value,
-          "6",
-        );
+        const persisted = (await (await send(`/contracts/${contractId}`)).json()).extraction;
+        assert.equal(persisted.version, 2);
+        assert.equal(persisted.equipments.length, 1);
+        assert.equal(persisted.equipments[0].periodValue.value, "6");
       },
     );
     await t.test("importação em lote sem tombamento é idempotente e permite completar identificação", async () => {

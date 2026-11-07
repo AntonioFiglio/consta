@@ -1,0 +1,184 @@
+{
+  "pais_das_fontes": "Brasil",
+  "consulta": "2026-11-07",
+  "indicadores": [
+    {
+      "id": "localizacao-ble",
+      "area": "Localização",
+      "icon": "hospital",
+      "title": "Encontrar o equipamento",
+      "mechanism": [
+        "Tag vinculada ao ativo",
+        "Receptores detectam a presença",
+        "CRM mostra setor e última leitura"
+      ],
+      "metric": "Acerto por setor e tempo para encontrar o ativo",
+      "source": "https://teses.usp.br/teses/disponiveis/5/5174/tde-30112023-155658/pt-br.html",
+      "source_label": "Barbosa · FMUSP, 2023 · pp. 24–25 e 29",
+      "kind": "Ensaio externo de BLE",
+      "scope": "Os mesmos 30 beacons, em três setores; 90 medições. Não mediu economia de busca.",
+      "proof": "ble",
+      "consta_status": "Fluxo proposto; ganho ainda não medido",
+      "projection": null
+    },
+    {
+      "id": "cadastro-documental",
+      "area": "Cadastro",
+      "icon": "scan-line",
+      "title": "Do documento ao cadastro",
+      "mechanism": [
+        "IA sugere campos com página e trecho",
+        "Pessoa responsável confere",
+        "Cadastro preserva a origem"
+      ],
+      "metric": "Tempo de cadastro com revisão e erros por campo",
+      "source": "https://www.fz.org.br/wp-content/uploads/2026/07/edital-completo-processo-no-43644-26.pdf",
+      "source_label": "Fundação Zerbini · edital 43644/2026 · p. 31",
+      "kind": "Exigência documental real",
+      "scope": "Fonte de obrigações para extrair; não é ensaio da IA do Consta.",
+      "proof": "document",
+      "consta_status": "Fluxo proposto; ganho ainda não medido",
+      "projection": null
+    },
+    {
+      "id": "manutencao-planejada",
+      "area": "Manutenção",
+      "icon": "wrench",
+      "title": "Transformar obrigação em tarefa",
+      "mechanism": [
+        "Documento informa a obrigação",
+        "Plano passa por revisão humana",
+        "Tarefa recebe prazo e responsável"
+      ],
+      "metric": "Tarefas concluídas no prazo e horas indisponíveis",
+      "source": "https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf",
+      "source_label": "HC-UFG · Relatório de Gestão 2025 · p. 87",
+      "kind": "Resultado de manutenção de outra instituição",
+      "scope": "Resultado de equipe e processos; não efeito isolado de software.",
+      "proof": "endoscopes",
+      "consta_status": "Fluxo proposto; ganho ainda não medido",
+      "projection": null
+    },
+    {
+      "id": "execucao-comprovada",
+      "area": "Execução",
+      "icon": "clipboard-list",
+      "title": "Acompanhar até a conclusão",
+      "mechanism": [
+        "Pendência recebe responsável",
+        "Execução gera comprovante",
+        "Decisão técnica fica registrada"
+      ],
+      "metric": "Tempo até conclusão e tarefas sem comprovante",
+      "source": "https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf",
+      "source_label": "HC-UFG · Relatório de Gestão 2025 · p. 89",
+      "kind": "Volume de trabalho de outra instituição",
+      "scope": "Quantidade de serviços atendidos; não ganho ou economia.",
+      "proof": "orders",
+      "consta_status": "Fluxo proposto; ganho ainda não medido",
+      "projection": null
+    },
+    {
+      "id": "contratos-cobertura",
+      "area": "Contratos",
+      "icon": "building-2",
+      "title": "Conferir a cobertura antes de gastar",
+      "mechanism": [
+        "Contrato e anexos ficam vinculados",
+        "Conflitos aparecem com sua fonte",
+        "Pessoa responsável decide a cobertura"
+      ],
+      "metric": "Acertos de cobertura e despesas conferidas por documento",
+      "source": "https://www.fz.org.br/wp-content/uploads/2025/07/contrato-philips-medical-system-ltda.pdf",
+      "source_label": "Fundação Zerbini · contrato FZ-C-0177/25 · pp. 2, 5 e 35",
+      "kind": "Conflito documental real",
+      "scope": "Contrato exige 24 meses e anexo reproduz 12; não é redução de custo.",
+      "proof": "contract",
+      "consta_status": "Fluxo proposto; ganho ainda não medido",
+      "projection": null
+    }
+  ],
+  "referencias_complementares": [
+    {
+      "id": "inventario-hcpa",
+      "area": "Inventário",
+      "title": "Menos tempo no inventário",
+      "hero": "12",
+      "hero_unit": "min",
+      "impact": "no inventário de OPMEs do estudo",
+      "metric": "Inventário de materiais de hemodinâmica",
+      "before": 720,
+      "after": 12,
+      "before_text": "720 min",
+      "after_text": "12 min",
+      "x": "48.6667",
+      "arrow": "68.6667",
+      "unit": "minutos por inventário",
+      "source": "https://cqh.org.br/ojs-2.4.8/index.php/ras/article/view/418/618",
+      "source_label": "Packeiser et al. · HCPA · RAS, 2025 · tabela 1",
+      "scope": "Armários RFID e OPMEs; não equipamentos móveis.",
+      "bridge": "identificação e registros ligados ao ativo"
+    },
+    {
+      "id": "abastecimento-hcpa",
+      "area": "Abastecimento",
+      "title": "Reposição mais ágil",
+      "hero": "25",
+      "hero_unit": "min",
+      "impact": "no abastecimento do armário estudado",
+      "metric": "Abastecimento de materiais de hemodinâmica",
+      "before": 210,
+      "after": 25,
+      "before_text": "210 min",
+      "after_text": "25 min",
+      "x": "101.905",
+      "arrow": "121.905",
+      "unit": "minutos por abastecimento",
+      "source": "https://cqh.org.br/ojs-2.4.8/index.php/ras/article/view/418/618",
+      "source_label": "Packeiser et al. · HCPA · RAS, 2025 · tabela 1",
+      "scope": "Mesmo relato do inventário; não evidência independente.",
+      "bridge": "reduzir etapas manuais de identificação"
+    }
+  ],
+  "limite": "Não há projeção numérica de ganhos do Consta. Referências externas não são baseline do produto.",
+  "calculos_referencias": [
+    {
+      "id": "ble-acerto",
+      "expressao": "90 / 90 * 100",
+      "resultado_exato": "100",
+      "unidade": "% das medições do ensaio",
+      "limite": "30 beacons reutilizados em três setores; não são medições independentes de 90 equipamentos."
+    },
+    {
+      "id": "inventario-diferenca",
+      "expressao": "720 min - 12 min",
+      "resultado": "708 min",
+      "expressao_percentual": "(720 - 12) / 720 * 100",
+      "percentual_exato": "295/3",
+      "percentual_aproximado": "98.3333",
+      "limite": "Resultado externo de armários RFID no HCPA; não transferível ao cadastro do Consta."
+    },
+    {
+      "id": "reposicao-diferenca",
+      "expressao": "210 min - 25 min",
+      "resultado": "185 min",
+      "expressao_percentual": "(210 - 25) / 210 * 100",
+      "percentual_exato": "1850/21",
+      "percentual_aproximado": "88.0952",
+      "limite": "Resultado externo do mesmo estudo; não é melhoria proposta para o escopo atual do Consta."
+    },
+    {
+      "id": "endoscopios-diferenca",
+      "expressao": "34 - 13",
+      "resultado_exato": "21",
+      "unidade": "aparelhos adicionais disponíveis",
+      "limite": "Mudança agregada da instituição; não causalidade de um software ou projeção do Consta."
+    }
+  ],
+  "verificacao_calculos": {
+    "ferramenta": "SciMath.calculate",
+    "data": "2026-11-07",
+    "precisao_percentuais_algarismos_significativos": 6,
+    "aviso_unidades": "As magnitudes com unidade seguem a precisão numérica do backend Pint; precision controla a exibição. Resultados unitários preservados como retornados."
+  }
+}

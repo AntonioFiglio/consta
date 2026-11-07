@@ -4,672 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CONSTA — Pitch</title>
-
-
-
-
 <style>
-@font-face {
-  font-family: 'DM Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(assets/font-0.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'DM Mono';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(assets/font-1.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(assets/font-2.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(assets/font-3.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(assets/font-4.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(assets/font-5.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(assets/font-6.ttf) format('truetype');
-}
-
-/* ── Reset ───────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 100%; height: 100%; overflow: hidden; }
-
-/* ── Tokens ──────────────────────────────────────────── */
-:root {
-  --blk:  #0A0A0A;
-  --org:  #F97316;
-  --verm: #E63946;
-  --wht:  #FAFAF9;
-  --dim:  #78716C;
-  --mono: 'DM Mono', monospace;
-  --ui:   'Inter', system-ui, sans-serif;
-}
-
-/* ── Body ────────────────────────────────────────────── */
-body { background: var(--wht); font-family: var(--ui); cursor: none; user-select: none; }
-
-/* ── Cursor ──────────────────────────────────────────── */
-#cursor {
-  position: fixed; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--org); pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .3s, height .3s, opacity .3s;
-  opacity: .65;
-}
-#cursor.big { width: 36px; height: 36px; opacity: .12; }
-
-/* ── Deck ─────────────────────────────────────────────── */
-.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-
-/* ── Slides ───────────────────────────────────────────── */
-.slide {
-  position: absolute; inset: 0;
-  background: var(--wht);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(56px, 9vw, 120px);
-  opacity: 0; pointer-events: none;
-  transition: opacity .55s cubic-bezier(.4,0,.2,1);
-  will-change: opacity; z-index: 1;
-}
-.slide.active  { opacity: 1; pointer-events: all; z-index: 10; }
-.slide.exiting { opacity: 0; z-index: 9; }
-
-/* ── Step reveal system ───────────────────────────────── */
-[data-step] {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity  .72s cubic-bezier(.16,1,.3,1),
-    transform .72s cubic-bezier(.16,1,.3,1);
-  will-change: opacity, transform;
-}
-[data-step].on { opacity: 1; transform: translateY(0); }
-
-/* ── Typography ───────────────────────────────────────── */
-.n-hero {
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(96px, 16vw, 200px);
-  line-height: .88; letter-spacing: -.04em; color: var(--blk);
-}
-.n-xl {
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(60px, 10vw, 128px);
-  line-height: .9; letter-spacing: -.035em; color: var(--blk);
-}
-.n-lg {
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(44px, 7.5vw, 100px);
-  line-height: .92; letter-spacing: -.03em; color: var(--blk);
-}
-.lbl {
-  font-size: clamp(13px, 1.5vw, 19px); font-weight: 400;
-  color: var(--dim); line-height: 1.5; margin-top: 10px;
-}
-.c-o  { color: var(--org);  }
-.c-v  { color: var(--verm); }
-
-/* ── Left accent bar ─────────────────────────────────── */
-.bar {
-  position: absolute; left: clamp(28px,4vw,52px); top: 16%; bottom: 16%; width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--org) 30%, var(--org) 70%, transparent);
-  opacity: .4;
-}
-
-/* ── Slide logo (slides 2–5) ─────────────────────────── */
-.slide-logo {
-  position: absolute;
-  top: clamp(28px, 3.5vh, 44px);
-  right: clamp(28px, 3vw, 48px);
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(13px, 1.2vw, 17px); letter-spacing: .1em;
-  color: rgba(10,10,10,.18); pointer-events: none;
-}
-.slide-logo .dot { color: rgba(249,115,22,.65); }
-
-/* ═══════════════════════════════════════════════════════
-   SLIDE 1 — GUAMÁ
-══════════════════════════════════════════════════════════ */
-.s1-sep {
-  width: 1px; height: clamp(20px,3.5vh,36px);
-  background: rgba(249,115,22,.18);
-  margin-left: 2px;
-  margin-top: 10px; margin-bottom: 2px;
-}
-
-/* ═══════════════════════════════════════════════════════
-   SLIDE 2 — DATA
-══════════════════════════════════════════════════════════ */
-#s2 {
-  padding:clamp(48px,7vh,76px) clamp(40px,7vw,108px) clamp(28px,4vh,46px);
-  justify-content:flex-start;
-}
-.s2-title { font-size:clamp(28px,3.1vw,44px); font-weight:600; line-height:1.12; letter-spacing:-.04em; margin:0 0 clamp(22px,4vh,44px); }
-.s2-grid { display:grid; grid-template-columns:1.15fr 1fr; gap:7vw; flex:1; min-height:0; align-items:center; }
-.s2-hero { padding-bottom:10px; }
-.s2-hero-number { font:500 clamp(150px,20vw,290px)/.78 var(--mono); letter-spacing:-.09em; }
-.s2-hero-number sup { font:400 clamp(14px,1.5vw,22px)/1 var(--ui); vertical-align:top; margin-left:12px; letter-spacing:0; }
-.s2-hero strong { display:block; font-size:clamp(28px,3.3vw,46px); font-weight:600; letter-spacing:-.04em; margin-top:24px; }
-.s2-hero p { font-size:clamp(16px,1.7vw,24px); line-height:1.4; margin-top:9px; max-width:410px; color:var(--dim); }
-.s2-context { display:flex; flex-direction:column; gap:clamp(24px,4.5vh,48px); border-left:1px solid #dedbd7; padding-left:clamp(28px,4vw,58px); }
-.s2-context-number { font:500 clamp(40px,5.2vw,76px)/1 var(--mono); letter-spacing:-.045em; white-space:nowrap; }
-.s2-context-number sup { font:400 14px var(--ui); vertical-align:top; margin-left:4px; }
-.s2-context .lbl { font-size:clamp(15px,1.5vw,21px); line-height:1.35; margin-top:10px; max-width:350px; }
-.s2-context-meta { font:400 10px/1.3 var(--mono); color:var(--dim); margin-top:8px; }
-.s2-cost { display:flex; align-items:center; gap:clamp(28px,4vw,60px); border-top:2px solid var(--verm); padding-top:clamp(16px,2.8vh,28px); margin-top:clamp(24px,4vh,42px); }
-.s2-cost-number { font:500 clamp(38px,5.7vw,82px)/1 var(--mono); color:var(--verm); white-space:nowrap; letter-spacing:-.055em; }
-.s2-cost-number small { font-size:.4em; letter-spacing:-.02em; }
-.s2-cost-copy { font-size:clamp(16px,1.7vw,24px); line-height:1.3; max-width:330px; }
-.s2-cost-copy span { display:block; font:500 10px var(--mono); letter-spacing:.06em; color:var(--verm); margin-bottom:7px; }
-.s2-sources { font-size:clamp(9px,.75vw,11px); line-height:1.45; color:var(--dim); margin-top:clamp(12px,2vh,20px); max-width:1100px; }
-.s2-sources a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
-@media(max-height:700px) and (min-width:721px) {
- #s2 { padding-top:42px; padding-bottom:24px; }
- .s2-title { font-size:30px; margin-bottom:22px; }
- .s2-hero-number { font-size:min(18vw,200px); }
- .s2-hero strong { margin-top:18px; font-size:32px; }
- .s2-hero p { font-size:18px; }
- .s2-context { gap:24px; }
- .s2-context-number { font-size:54px; }
- .s2-context .lbl { font-size:16px; }
- .s2-cost { margin-top:22px; padding-top:16px; }
- .s2-cost-number { font-size:56px; }
- .s2-cost-copy { font-size:18px; }
- .s2-sources { margin-top:12px; font-size:9px; }
-}
-@media(max-width:720px) {
- #s2 { padding:64px 28px 28px; overflow-y:auto; }
- .s2-title { font-size:28px; margin-bottom:32px; }
- .s2-grid { grid-template-columns:1fr; gap:32px; flex:none; }
- .s2-hero-number { font-size:150px; }
- .s2-hero strong { margin-top:18px; font-size:32px; }
- .s2-context { border-left:0; border-top:1px solid #dedbd7; padding:24px 0 0; flex-direction:row; gap:20px; }
- .s2-context > div { flex:1; }
- .s2-context-number { font-size:clamp(30px,7.5vw,50px); }
- .s2-context .lbl { font-size:14px; }
- .s2-cost { display:block; margin-top:28px; }
- .s2-cost-number { font-size:clamp(40px,11vw,64px); }
- .s2-cost-copy { margin-top:16px; font-size:18px; }
- .s2-sources { font-size:10px; margin-top:20px; }
-}
-
-/* ═══════════════════════════════════════════════════════
-   SLIDE 3 — INSIGHT
-══════════════════════════════════════════════════════════ */
-.s3-line {
-  font-family: var(--ui); font-weight: 700;
-  font-size: clamp(40px, 6.5vw, 92px);
-  line-height: 1.08; letter-spacing: -.035em; color: var(--blk);
-}
-.s3-line.hl { color: var(--org); }
-.s3-sub {
-  font-size: clamp(14px,1.5vw,20px); color: var(--dim);
-  line-height: 1.65; max-width: 540px;
-  margin-top: clamp(28px,4.5vh,52px);
-}
-.s3-layout { display:grid; grid-template-columns:1.2fr .8fr; gap:clamp(30px,4vw,64px); align-items:center; }
-#s3 .s3-line { font-size:clamp(36px,4.5vw,72px); }
-.s3-visual { width:100%; max-width:480px; justify-self:center; }
-.s3-visual svg { display:block; width:100%; overflow:visible; }
-.drawer-papers { transform-origin:230px 200px; transition:transform 1.1s cubic-bezier(.22,1,.36,1),opacity .7s; }
-.drawer-front { transition:transform .9s cubic-bezier(.22,1,.36,1); }
-.drawer-status { opacity:0; transition:opacity .6s .5s; }
-#s3[data-phase="2"] .drawer-papers { transform:translateY(105px) scale(.9); }
-#s3[data-phase="2"] .drawer-front { transform:translateY(30px); }
-#s3[data-phase="3"] .drawer-papers { transform:translateY(185px) scale(.85); opacity:0; }
-#s3[data-phase="3"] .drawer-front { transition-delay:.35s; }
-#s3[data-phase="3"] .drawer-status { opacity:1; }
-@media(max-width:800px) {
- #s3 { padding:68px 32px 36px; overflow-y:auto; }
- .s3-layout { grid-template-columns:1fr; gap:24px; }
- #s3 .s3-line { font-size:clamp(34px,6.5vw,56px); }
- #s3 .s3-sub { margin-top:22px; font-size:15px; }
- .s3-visual { max-width:300px; }
-}
-@media(prefers-reduced-motion:reduce) {
- #s3 [data-step],.drawer-papers,.drawer-front,.drawer-status { transition:none!important; }
-}
-
-/* ═══════════════════════════════════════════════════════
-   SLIDE 4 — SOLUTION
-══════════════════════════════════════════════════════════ */
-#slide-4 { background: var(--wht); }
-
-.s4-bg  { display: none; }
-.s4-scrim { display: none; }
-.s4-inner { position: relative; z-index: 2; }
-
-.s4-wm {
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(52px, 8.5vw, 112px);
-  letter-spacing: .04em; color: var(--blk);
-  line-height: 1; margin-bottom: clamp(36px,5.5vh,64px);
-}
-.s4-wm .dot { color: var(--org); }
-
-.s4-steps { display: flex; flex-direction: column; gap: clamp(18px,3vh,32px); }
-.s4-step  { display: flex; align-items: flex-start; gap: 20px; max-width: 580px; }
-.s4-idx {
-  font-family: var(--mono); font-size: clamp(11px,1.1vw,14px);
-  color: var(--org); letter-spacing: .08em; margin-top: 5px; flex-shrink: 0;
-}
-.s4-txt {
-  font-size: clamp(16px,1.9vw,24px); font-weight: 500;
-  color: var(--blk); line-height: 1.35;
-}
-.s4-txt .arr  { color: var(--org); margin: 0 5px; font-weight: 300; }
-.s4-txt small {
-  display: block; font-size: .72em; font-weight: 400;
-  color: var(--dim); margin-top: 4px;
-}
-
-/* ═══════════════════════════════════════════════════════
-   SLIDE 5 — ESCALA
-══════════════════════════════════════════════════════════ */
-.s5-sectors {
-  display: flex; align-items: center;
-  gap: clamp(12px,2vw,28px); flex-wrap: wrap;
-  margin-bottom: clamp(48px,8vh,96px);
-}
-.s5-sector { font-weight: 600; font-size: clamp(14px,1.8vw,24px); color: rgba(10,10,10,.38); }
-.s5-sector.hi { color: var(--blk); }
-.s5-sep { color: rgba(249,115,22,.5); font-size: .8em; font-weight: 300; }
-
-.s5-tagline {
-  font-weight: 700; font-size: clamp(36px,5.5vw,80px);
-  line-height: 1.1; letter-spacing: -.035em;
-  color: var(--blk); max-width: 860px;
-}
-.s5-tagline em { font-style: normal; color: var(--org); }
-
-.s5-fin {
-  margin-top: clamp(28px,4.5vh,56px);
-  font-family: var(--mono); font-size: clamp(12px,1.2vw,16px);
-  letter-spacing: .1em; color: rgba(10,10,10,.32);
-}
-.s5-fin span { color: var(--org); }
-
-/* ═══════════════════════════════════════════════════════
-   PERSISTENT UI
-══════════════════════════════════════════════════════════ */
-#wm {
-  position: fixed; bottom: clamp(18px,2.8vh,36px); right: clamp(20px,2.5vw,36px);
-  font-family: var(--mono); font-weight: 500;
-  font-size: clamp(11px,1vw,14px); letter-spacing: .1em;
-  color: rgba(10,10,10,.12); z-index: 100; pointer-events: none;
-}
-#wm span { color: rgba(249,115,22,.4); }
-
-#fsbtn {
-  position: fixed; top: clamp(18px,2.8vh,36px); left: clamp(20px,2.5vw,36px);
-  font-size: 14px; color: rgba(10,10,10,.12); z-index: 100;
-  cursor: pointer; transition: color .25s; padding: 4px;
-}
-#fsbtn:hover { color: rgba(10,10,10,.4); }
-
-/* Sector showcase: five scenes within the final slide. */
-#s5 { padding: clamp(60px,8vh,100px) clamp(40px,8vw,120px); }
-.s5-sectors { display:flex; gap:clamp(18px,3vw,48px); margin:0 0 5vh; flex-wrap:wrap; }
-.s5-sector { display:flex; align-items:center; gap:10px; border:0; background:none; padding:12px 0; border-bottom:2px solid transparent; color:var(--dim); font-family:var(--ui); font-size:clamp(15px,1.6vw,24px); cursor:pointer; transition:color .2s; }
-.s5-sector img { width:26px; height:26px; opacity:.55; }
-#sector-tab-3 img, #sector-tab-4 img { width:20px; height:20px; }
-.s5-sector[aria-selected="true"] { color:var(--blk); border-color:var(--org); }
-.s5-sector[aria-selected="true"] img { opacity:1; }
-.s5-sector:focus-visible { outline:2px solid var(--org); outline-offset:5px; }
-.sector-stage { position:relative; height:51vh; min-height:330px; }
-.sector-scene { display:grid; grid-template-columns:1fr 1fr; gap:5vw; align-items:center; position:absolute; inset:0; visibility:hidden; opacity:0; transform:translateY(12px); transition:opacity .32s,transform .32s; pointer-events:none; }
-.sector-scene.selected { visibility:visible; opacity:1; transform:none; pointer-events:auto; }
-.sector-kicker { font:500 clamp(11px,1vw,15px) var(--mono); letter-spacing:.1em; color:var(--org); margin-bottom:18px; }
-.sector-title { font-size:clamp(32px,4vw,64px); line-height:1.06; letter-spacing:-.04em; margin-bottom:18px; }
-.sector-examples { font-size:clamp(15px,1.6vw,23px); line-height:1.45; color:var(--dim); margin-bottom:28px; }
-.sector-use { border-left:2px solid var(--org); padding-left:18px; font-size:clamp(14px,1.3vw,20px); line-height:1.55; max-width:500px; }
-.sector-use strong { display:block; font-weight:600; margin-bottom:5px; }
-.sector-visual { height:100%; min-height:0; display:flex; flex-direction:column; justify-content:center; }
-.sector-visual img { width:100%; height:calc(100% - 35px); max-height:45vh; object-fit:contain; mix-blend-mode:multiply; }
-.sector-visual figcaption { margin-top:12px; font:400 12px var(--mono); color:var(--dim); }
-.sector-footer { display:flex; justify-content:space-between; align-items:center; gap:28px; margin-top:4vh; padding-top:20px; border-top:1px solid #e7e5e4; }
-.sector-footer p { font-size:clamp(13px,1.15vw,18px); line-height:1.5; color:var(--dim); max-width:820px; }
-.sector-footer b { color:var(--blk); font-weight:500; }
-.sector-progress { white-space:nowrap; font:13px var(--mono); color:var(--org); }
-.s5-close { display:none; height:51vh; align-items:center; }
-#s5.closing .sector-stage { display:none; }
-#s5.closing .s5-close { display:flex; }
-#s5.closing .s5-sector { border-color:transparent; }
-@media(max-width:720px) {
- #s5 { padding:60px 26px 35px; overflow-y:auto; justify-content:flex-start; }
- .s5-sectors { gap:8px 18px; margin-bottom:24px; }
- .s5-sector { font-size:14px; gap:6px; padding:8px 0; }
- .s5-sector img { width:20px; height:20px; }
- .sector-stage { height:650px; min-height:650px; }
- .sector-scene { grid-template-columns:1fr; grid-template-rows:auto 260px; gap:22px; }
- .sector-visual img { max-height:230px; }
- .sector-title { font-size:38px; }
- .sector-footer { margin-top:18px; }
- .s5-close { min-height:450px; }
-}
-@media(prefers-reduced-motion:reduce) { .sector-scene { transition:none; } }
-
-
-/* Benefícios simulados: barras positivas e foto no mesmo eixo à direita. */
-#s5 { padding-top:clamp(48px,7vh,80px); padding-bottom:32px; }
-#s5 .s5-sectors { margin-bottom:clamp(24px,4vh,44px); }
-#s5 .sector-stage { height:56vh; min-height:370px; }
-#s5 .sector-scene { grid-template-columns:.85fr 1.15fr; gap:clamp(36px,6vw,88px); }
-#s5 .sector-title { font-size:clamp(30px,3.5vw,54px); max-width:490px; margin:0 0 clamp(24px,5vh,54px); }
-.outcome-nature { font:500 10px/1.4 var(--mono); letter-spacing:.08em; color:var(--org); margin-bottom:18px; }
-.outcome-gain { font:500 clamp(64px,8.2vw,118px)/.95 var(--mono); letter-spacing:-.07em; color:var(--blk); white-space:nowrap; }
-.outcome-gain small { font:500 clamp(21px,2.1vw,32px)/1 var(--ui); letter-spacing:-.025em; margin-left:12px; }
-.outcome-impact { font-size:clamp(16px,1.5vw,22px); line-height:1.35; color:var(--dim); margin-top:15px; max-width:360px; }
-.outcome-visual { height:100%; min-height:0; display:grid; grid-template-rows:minmax(150px,1fr) auto; gap:20px; }
-.outcome-photo { width:100%; height:100%; min-height:0; display:block; object-fit:cover; object-position:center; }
-.outcome-chart { margin:0; padding:0; border:0; }
-#s5 .outcome-title { font:500 clamp(13px,1.2vw,17px)/1.3 var(--ui); color:var(--blk); margin:0 0 14px; }
-.outcome-row + .outcome-row { margin-top:14px; }
-.outcome-row-label { display:flex; justify-content:space-between; gap:12px; align-items:baseline; margin-bottom:7px; font-size:clamp(11px,1vw,14px); color:var(--dim); }
-.outcome-row-label b { font:500 clamp(13px,1.2vw,17px) var(--mono); color:var(--blk); white-space:nowrap; }
-.outcome-track { height:20px; background:#eeece9; }
-.outcome-bar { height:100%; width:var(--bar-width); transform-origin:left; }
-.outcome-bar.reference { background:#b9b2ac; }
-.outcome-bar.improvement { background:var(--org); }
-.sector-scene.selected .outcome-bar { animation:outcome-enter .55s cubic-bezier(.22,1,.36,1) both; }
-.outcome-scale { display:flex; justify-content:space-between; margin-top:8px; font:400 10px var(--mono); color:var(--dim); }
-.outcome-context { font:400 clamp(10px,.85vw,12px)/1.4 var(--mono); color:var(--dim); margin-top:11px; }
-#s5 .sector-footer { margin-top:clamp(24px,4vh,42px); padding-top:16px; gap:24px; }
-#s5 .sector-footer p { font-size:clamp(10px,.9vw,13px); max-width:760px; }
-.sector-steppers { display:flex; gap:8px; flex-shrink:0; }
-.sector-stepper { width:26px; min-height:36px; border:0; background:transparent; display:flex; align-items:center; cursor:pointer; }
-.sector-stepper::after { content:""; width:100%; height:4px; border-radius:2px; background:#d6d3d1; transition:background .2s; }
-.sector-stepper.complete::after { background:#fdba74; }
-.sector-stepper[aria-current="step"]::after { background:var(--org); }
-.sector-stepper:focus-visible { outline:2px solid var(--org); outline-offset:3px; }
-@keyframes outcome-enter { from { transform:scaleX(0); } to { transform:scaleX(1); } }
-@media(max-height:700px) and (min-width:721px) {
- #s5 { padding-top:38px; padding-bottom:24px; }
- #s5 .s5-sectors { margin-bottom:20px; }
- #s5 .sector-stage { height:54vh; min-height:300px; }
- #s5 .sector-title { font-size:32px; margin-bottom:28px; }
- .outcome-gain { font-size:76px; }
- .outcome-impact { font-size:17px; }
- .outcome-visual { gap:14px; }
- .outcome-track { height:16px; }
- #s5 .sector-footer { margin-top:20px; padding-top:12px; }
-}
-@media(max-width:720px) {
- #s5 { padding:60px 26px 30px; }
- #s5 .sector-stage { height:auto; min-height:0; }
- #s5 .sector-scene { position:static; display:none; grid-template-columns:1fr; gap:28px; }
- #s5 .sector-scene.selected { display:grid; }
- #s5 .sector-title { font-size:34px; margin-bottom:24px; }
- .outcome-gain { font-size:80px; }
- .outcome-gain small { font-size:25px; }
- .outcome-impact { font-size:18px; }
- .outcome-visual { grid-template-rows:210px auto; gap:20px; }
- #s5 .sector-footer { align-items:flex-start; flex-direction:column; gap:12px; }
- .sector-stepper { width:32px; }
-}
-@media(prefers-reduced-motion:reduce) { .sector-scene.selected .outcome-bar { animation:none; } }
-
-/* First slide: numbers on the left, cumulative news references on the right. */
-#s1 { padding:clamp(38px,6vh,72px) clamp(40px,7vw,108px); }
-.s1-context { margin-bottom:clamp(20px,3.5vh,38px); }
-.s1-context > span { font:500 clamp(10px,.85vw,13px) var(--mono); letter-spacing:.1em; color:var(--org); }
-.s1-context h1 { font-size:clamp(18px,2vw,28px); font-weight:500; margin-top:9px; letter-spacing:-.025em; }
-.s1-evidence-grid { display:grid; grid-template-columns:.85fr 1.15fr; column-gap:clamp(36px,7vw,108px); row-gap:clamp(20px,3.5vh,38px); align-items:center; }
-#s1 .n-hero, #s1 .n-xl { font-size:clamp(54px,7.3vw,108px); line-height:1; display:flex; align-items:baseline; gap:.12em; }
-#s1 .n-hero small, #s1 .n-xl small { font-size:.34em; font-weight:400; letter-spacing:-.03em; }
-#s1 .lbl { font-size:clamp(13px,1.25vw,18px); line-height:1.4; margin-top:6px; }
-.news-reference { border-top:1px solid #d6d3d1; padding-top:14px; }
-.news-meta { font:500 clamp(9px,.8vw,12px) var(--mono); letter-spacing:.04em; color:var(--org); display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:space-between; }
-.news-meta span { color:var(--dim); font-weight:400; }
-.news-reference h2 { font-size:clamp(17px,1.65vw,25px); font-weight:600; line-height:1.25; letter-spacing:-.025em; margin-top:10px; }
-.news-reference h2 a { color:var(--blk); text-decoration:none; cursor:pointer; }
-.news-reference h2 a span { color:var(--org); white-space:nowrap; }
-.news-reference h2 a:hover { text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
-.news-reference p { margin-top:8px; color:var(--dim); font-size:clamp(12px,1.05vw,16px); line-height:1.45; }
-.s1-context-note { margin-top:clamp(20px,3vh,34px); font-size:clamp(10px,.9vw,13px); line-height:1.5; color:var(--dim); }
-.s1-context-note a { color:inherit; text-underline-offset:3px; cursor:pointer; }
-#s1 [data-step] { visibility:hidden; }
-#s1 [data-step].on { visibility:visible; }
-#s1 a:focus-visible { outline:2px solid var(--org); outline-offset:4px; }
-@media(max-width:720px) {
- #s1 { justify-content:flex-start; padding:55px 28px; overflow-y:auto; }
- .s1-evidence-grid { grid-template-columns:1fr; gap:18px; }
- .news-reference { margin-bottom:20px; }
- #s1 .n-hero,#s1 .n-xl { font-size:64px; }
- .news-reference h2 { font-size:21px; }
-}
-@media(max-height:700px) and (min-width:721px) {
- #s1 { padding-top:30px; padding-bottom:30px; }
- .s1-context { margin-bottom:18px; }
- .s1-evidence-grid { row-gap:16px; }
- #s1 .n-hero,#s1 .n-xl { font-size:clamp(52px,7vw,82px); }
- .news-reference h2 { font-size:20px; margin-top:6px; }
- .news-reference p { font-size:13px; margin-top:5px; }
- .s1-context-note { margin-top:16px; }
-}
-
-/* Team: photo spaces ready to receive the four portraits. */
-.team-heading { font-size:clamp(36px,4.8vw,72px); line-height:1.08; letter-spacing:-.04em; font-weight:700; margin-bottom:clamp(32px,6vh,64px); }
-.team-heading span { color:var(--org); }
-.team-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,3vw,48px); }
-.team-photo { aspect-ratio:4/5; max-height:40vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; border:1px solid #D6D3D1; border-radius:4px; background:#F5F5F4; color:#A8A29E; }
-.team-photo svg { width:42px; height:42px; stroke-width:1; }
-.team-photo span { font:400 10px var(--mono); letter-spacing:.16em; }
-.team-member figcaption { font-size:clamp(16px,1.7vw,26px); font-weight:500; letter-spacing:-.025em; line-height:1.3; margin-top:18px; }
-@media(max-width:720px) {
- #s6 { padding:68px 28px 36px; overflow-y:auto; justify-content:flex-start; }
- .team-heading { font-size:38px; margin-bottom:32px; }
- .team-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 18px; }
- .team-photo { max-height:25vh; }
- .team-member figcaption { font-size:17px; margin-top:12px; }
-}
-
-
-/* Opening: related facts and a deliberate, lightly unsettled news composition. */
-#s1 { padding-top:32px; padding-bottom:32px; }
-#s1 .s1-context { margin-bottom:20px; }
-#s1 .s1-evidence-grid { --news-gap:2.5rem; --news-size:min(calc(22vw - 2rem),calc((100vh - 245px - var(--news-gap))/2.03),300px); position:relative; display:block; width:100%; height:calc(var(--news-size)*2.03 + var(--news-gap)); margin:0; }
-.s1-case-caption { position:absolute; top:0; left:0; color:var(--dim); font:400 clamp(9px,.8vw,12px)/1.55 var(--mono); letter-spacing:.08em; }
-#s1 .s1-fact { position:absolute; left:0; width:34%; padding:0; margin:0; }
-#s1 .s1-fact[data-step="1"] { top:24%; }
-#s1 .s1-fact[data-step="2"] { top:51%; }
-#s1 .s1-fact[data-step="3"] { top:78%; }
-#s1 .s1-fact .n-hero,#s1 .s1-fact .n-xl { translate:0 -50%; font-size:clamp(54px,7.3vw,108px); }
-#s1 .s1-fact[data-step="1"] .n-hero { transform:rotate(-.35deg); }
-#s1 .s1-fact[data-step="2"] .n-xl { margin-left:4%; transform:rotate(.3deg); }
-#s1 .s1-fact[data-step="3"] .n-xl { transform:rotate(-.25deg); }
-#s1 .s1-fact small { display:inline-block; flex-shrink:0; transform-origin:center; }
-#s1 .s1-fact[data-step="1"] small { transform:translate(.05em,-.6em) rotate(3.5deg); }
-#s1 .s1-fact[data-step="2"] small { transform:translate(0,.15em) rotate(-3deg); }
-#s1 .s1-fact[data-step="3"] small:first-child { transform:translate(0,-.7em) rotate(-4deg); font-size:.29em; }
-#s1 .s1-fact[data-step="3"] small:last-child { transform:translate(.05em,.18em) rotate(3deg); font-size:.36em; }
-#s1 .news-reference[data-news] { position:absolute; left:38%; width:var(--news-size); margin:0; padding:0; border:0; }
-#s1 .news-reference[data-news="1"] { left:calc(38% + var(--news-size)*.15 + var(--news-gap)*.5); top:0; z-index:3; }
-#s1 .news-reference[data-news="3"] { left:calc(38% + var(--news-size)*1.15 + var(--news-gap)*1.5); top:calc(var(--news-size)*.03); z-index:3; }
-#s1 .news-reference[data-news="4"] { left:calc(38% + var(--news-size)*.65 + var(--news-gap)); top:calc(var(--news-size)*1.03 + var(--news-gap)); z-index:4; }
-#s1 .news-reference[data-news="2"] { left:38%; top:calc(var(--news-size)*1.10 + var(--news-gap)); width:calc(var(--news-size)*.65); z-index:2; }
-#s1 .news-reference[data-news="5"] { left:calc(38% + var(--news-size)*1.65 + var(--news-gap)*2); top:calc(var(--news-size)*1.07 + var(--news-gap)); width:calc(var(--news-size)*.65); z-index:5; }
-.news-photo-card { position:relative; display:flex; flex-direction:column; justify-content:flex-end; width:100%; aspect-ratio:1; overflow:hidden; border-radius:2px; background:var(--blk); color:white; text-decoration:none; cursor:pointer; box-shadow:0 5px 17px rgba(10,10,10,.12); }
-.news-photo-card > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; }
-.news-photo-card::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.16) 25%,rgba(0,0,0,.92) 100%); }
-.news-photo-kicker { position:absolute; z-index:1; top:12px; left:13px; padding:5px 7px; background:var(--verm); color:white; font:500 clamp(7px,.65vw,10px) var(--mono); letter-spacing:.05em; }
-.news-photo-card h2 { position:relative; z-index:1; margin:0; color:white; font-weight:700; line-height:1.12; letter-spacing:-.025em; text-wrap:balance; }
-#s1 .news-major .news-photo-card h2 { padding:34px 16px 18px; font-size:clamp(18px,1.65vw,25px); max-width:97%; }
-#s1 .news-minor .news-photo-card h2 { padding:28px 12px 12px; font-size:clamp(12px,1.05vw,16px); max-width:100%; }
-#s1 .news-minor .news-photo-kicker { top:9px; left:10px; padding:4px 5px; font-size:clamp(6px,.47vw,7px); }
-#s1 .news-reference[data-news="1"] .news-photo-card { transform:rotate(-.65deg); }
-#s1 .news-reference[data-news="3"] .news-photo-card { transform:rotate(.45deg); }
-#s1 .news-reference[data-news="4"] .news-photo-card { transform:rotate(-.35deg); }
-#s1 .news-reference[data-news="2"] .news-photo-card { transform:rotate(-1.05deg); }
-#s1 .news-reference[data-news="5"] .news-photo-card { transform:rotate(.9deg); }
-#s1 .news-reference[data-news="1"] .news-photo-card > img { object-position:45% 50%; }
-#s1 .news-reference[data-news="2"] .news-photo-card > img { object-position:58% 50%; }
-#s1 .news-reference[data-news="3"] .news-photo-card > img { object-position:35% 50%; }
-#s1 .news-sources { margin-top:18px; padding-top:12px; border-top:1px solid #e7e5e4; font-size:clamp(8px,.7vw,10px); line-height:1.55; }
-.news-sources p + p { margin-top:3px; }
-.news-sources p > span { font:500 9px var(--mono); letter-spacing:.08em; color:var(--org); margin-right:8px; }
-.news-sources i { font-style:normal; padding:0 6px; }
-.news-sources .news-photo-credits { font-size:.9em; opacity:.85; }
-@media(max-height:700px) and (min-width:721px) {
- #s1 { padding-top:24px; padding-bottom:24px; }
- #s1 .s1-context { margin-bottom:14px; }
- #s1 .s1-evidence-grid { --news-size:min(calc(22vw - 2rem),calc((100vh - 225px - var(--news-gap))/2.03),285px); }
- #s1 .s1-fact .n-hero,#s1 .s1-fact .n-xl { font-size:clamp(48px,6.5vw,88px); }
- #s1 .news-major .news-photo-card h2 { padding:30px 13px 14px; font-size:clamp(16px,1.5vw,21px); }
- #s1 .news-minor .news-photo-card h2 { padding:25px 10px 10px; font-size:clamp(11px,.95vw,14px); }
- #s1 .news-sources { margin-top:15px; padding-top:9px; }
-}
-@media(max-width:720px) {
- #s1 { padding-top:50px; }
- #s1 .s1-evidence-grid { display:grid; grid-template-columns:1fr; height:auto; max-width:380px; gap:2.5rem; margin-inline:auto; }
- .s1-case-caption { position:static; }
- #s1 .s1-fact { position:static; width:100%; margin-top:12px; }
- #s1 .s1-fact .n-hero,#s1 .s1-fact .n-xl { translate:0 0; font-size:64px; }
- #s1 .news-reference[data-news] { position:static; width:96%; margin-bottom:0; }
- #s1 .news-reference.news-minor { width:72%; margin-left:auto; }
- #s1 .news-major .news-photo-card h2 { font-size:25px; }
- #s1 .news-minor .news-photo-card h2 { font-size:20px; }
- #s1 .news-photo-kicker,#s1 .news-minor .news-photo-kicker { font-size:9px; }
- #s1 .news-sources { font-size:10px; }
-}
-
-/* Apenas o primeiro slide abre completo, sem animações. */
-#s1, #s1 *, #s1 *::before, #s1 *::after {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
-}
+@font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/font-0.ttf) format('truetype'); }
+@font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/font-1.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url(assets/font-2.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/font-3.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/font-4.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url(assets/font-5.ttf) format('truetype'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url(assets/font-6.ttf) format('truetype'); }
 </style>
+<link rel="stylesheet" href="palco.css">
+<link rel="stylesheet" href="crm-identity.css">
+<link rel="stylesheet" href="patient-pain.css">
+<link rel="stylesheet" href="flow-automation.css">
+<link rel="stylesheet" href="product-demo.css">
+<link rel="stylesheet" href="camera-demo.css">
+<link rel="stylesheet" href="team-portraits.css">
+<link rel="stylesheet" href="presenter-controls.css">
+<link rel="stylesheet" href="indoor-map.css">
+<link rel="stylesheet" href="impact.css">
+<link rel="stylesheet" href="care-impact.css">
+<link rel="stylesheet" href="cover-slide.css">
+<link rel="stylesheet" href="smart-agenda.css">
+<link rel="stylesheet" href="ble-message.css">
+<link rel="stylesheet" href="pitch-labels.css">
+<link rel="stylesheet" href="pitch-refinements.css">
 </head>
-<body>
+<body data-theme="dark">
 
-<div id="cursor"></div>
+<p class="sr-only" id="live" aria-live="polite"></p>
+<p class="portrait-note" aria-hidden="true">Melhor em tela horizontal.</p>
 
-<div class="deck" id="deck">
+<!--
+  Palco fixo 1920×1080, escalonado para a janela. Cada camada (data-layer) é uma cena visual;
+  data-on/data-off indicam o beat (base zero) em que o elemento aparece/sai. O ponto
+  (#hero-dot) persiste sobre as camadas; o fio (#hero-line) só aparece em conexões reais
+  (documento→IA, documento→tabela, tag isolada→tag instalada). Ambos usam âncoras .anchor medidas.
+-->
+<main class="stage" id="stage" tabindex="-1" aria-roledescription="apresentação">
 
-  <!-- SLIDE 1: HCAA facts with five sourced news items covering three hospitals. -->
-  <section class="slide active" id="s1" aria-label="Indisponibilidade de equipamentos: casos documentados">
-    <div class="bar"></div>
-    <header class="s1-context"><span>CASOS REAIS · HOSPITAIS BRASILEIROS</span><h1>Não é um caso isolado.</h1></header>
-    <div class="s1-evidence-grid"><p class="s1-case-caption">DADOS DO HCAA<br>CAMPO GRANDE · 2022</p>
-      <div class="s1-fact" data-step="1"><div class="n-hero"><span data-cnt="48">48</span><small>dias</small></div></div>
-      <article class="news-reference news-major" data-step="1" data-news="1">
-        <a class="news-photo-card" href="https://www.rcn67.com.br/campo-grande/hcaa-segue-sem-tomografo-a-espera-da-liberacao-de-verba-publica/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/news-tomografo.jpg" alt="Sala de tomografia fotografada na reportagem do RCN67">
-          <span class="news-photo-kicker">01 · TEMPO PARADO</span>
-          <h2>Hospital aguarda reparo após 48 dias sem tomógrafo</h2>
-        </a>
-      </article>
-      <div class="s1-fact" data-step="2"><div class="n-xl"><span data-cnt="900">900</span><small>/mês</small></div></div>
-      <article class="news-reference news-minor" data-step="2" data-news="2">
-        <a class="news-photo-card" href="https://www.campograndenews.com.br/cidades/capital/aparelho-de-r-600-mil-queima-no-hospital-do-cancer-o-que-compromete-exames" target="_blank" rel="noopener noreferrer">
-          <img src="assets/diagnostico.jpg" alt="Imagem ilustrativa de um tomógrafo em sala de diagnóstico">
-          <span class="news-photo-kicker">02 · IMPACTO NOS EXAMES</span>
-          <h2>Falha em tomógrafo afeta rotina de 900 exames por mês</h2>
-        </a>
-      </article>
-      <div class="s1-fact" data-step="3"><div class="n-xl c-v"><small>R$</small><span data-cnt="600">600</span><small>mil</small></div></div>
-      <article class="news-reference news-major" data-step="3" data-news="3">
-        <a class="news-photo-card" href="https://midiamax.com.br/cotidiano/2022/sem-topografo-ha-quase-um-mes-hospital-do-cancer-aguarda-repasse-para-conserto-de-topografo/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/news-hcaa.jpg" alt="Fachada do Hospital de Câncer Alfredo Abrão">
-          <span class="news-photo-kicker">03 · CUSTO DO REPARO</span>
-          <h2>Conserto com peça importada é estimado em R$ 600 mil</h2>
-        </a>
-      </article>
-      <article class="news-reference news-major" data-step="1" data-news="4">
-        <a class="news-photo-card" href="https://g1.globo.com/sp/piracicaba-regiao/noticia/2024/03/07/tomografo-que-estava-quebrado-desde-2022-volta-a-realizar-exames-no-hospital-regional-de-piracicaba.ghtml" target="_blank" rel="noopener noreferrer"><img src="assets/news-piracicaba.jpg" alt="Corredor do Hospital Regional de Piracicaba, Reprodução/EPTV"><span class="news-photo-kicker">04 · PIRACICABA/SP · 2024</span><h2>Parado desde 2022, tomógrafo só volta a operar em 2024</h2></a>
-      </article>
-      <article class="news-reference news-minor" data-step="3" data-news="5">
-        <a class="news-photo-card" href="https://www.band.com.br/nacional/rj/medicos-de-hospital-federal-denunciam-problemas-na-esterilizacao-de-materiais-16612820" target="_blank" rel="noopener noreferrer"><img src="assets/manutencao.jpg" alt="Laboratório de formação em manutenção biomédica, imagem ilustrativa"><span class="news-photo-kicker">05 · IPANEMA/RJ · 2023</span><h2>Médicos relatam aparelhos quebrados na esterilização</h2></a>
-      </article>
-    </div>
-    <footer class="s1-context-note news-sources">
-      <p><span>FONTES</span> <a href="https://www.rcn67.com.br/campo-grande/hcaa-segue-sem-tomografo-a-espera-da-liberacao-de-verba-publica/" target="_blank" rel="noopener noreferrer">RCN67 · 18/05/2022 ↗</a> <i>·</i> <a href="https://www.campograndenews.com.br/cidades/capital/aparelho-de-r-600-mil-queima-no-hospital-do-cancer-o-que-compromete-exames" target="_blank" rel="noopener noreferrer">Campo Grande News · 31/03/2022 ↗</a> <i>·</i> <a href="https://midiamax.com.br/cotidiano/2022/sem-topografo-ha-quase-um-mes-hospital-do-cancer-aguarda-repasse-para-conserto-de-topografo/" target="_blank" rel="noopener noreferrer">Mídiamax · 26/04/2022 ↗</a></p>
-      <p><span>OUTROS CASOS</span> <a href="https://g1.globo.com/sp/piracicaba-regiao/noticia/2024/03/07/tomografo-que-estava-quebrado-desde-2022-volta-a-realizar-exames-no-hospital-regional-de-piracicaba.ghtml" target="_blank" rel="noopener noreferrer">G1/Piracicaba · 07/03/2024 ↗</a> <i>·</i> <a href="https://www.band.com.br/nacional/rj/medicos-de-hospital-federal-denunciam-problemas-na-esterilizacao-de-materiais-16612820" target="_blank" rel="noopener noreferrer">Band/Ipanema · 28/06/2023 ↗</a></p>
-      <p>Casos históricos; datas e desfechos nas fontes. <a href="https://jornaldoonibusms.com.br/cidades/campo-grande/com-parceria-da-prefeitura-hospital-de-cancer-reativa-aparelho-de-tomografia-e-retoma-procedimentos/" target="_blank" rel="noopener noreferrer">HCAA: reativação em 14/06/2022 ↗</a></p>
-      <p class="news-photo-credits">Fotos: Arquivo CBN/RCN67 · Divulgação/HCAA · Reprodução/EPTV. Ilustrativas: <a href="https://hanaokaseishu.com/equipmentlist6" target="_blank" rel="noopener noreferrer">Hospital Hanaoka Seishu (ilustrativa)</a> · <a href="https://www.tstc.edu/programs/biomedicalequipmenttechnology/" target="_blank" rel="noopener noreferrer">TSTC (manutenção)</a>.</p>
-    </footer>
+  <section class="layer layer-cover" data-layer="cover" aria-label="Capa da apresentação Consta">
+    <p class="cv-meta">III HACKATHON SAÚDE HCFMUSP<br><span>São Paulo · 6 e 7 de novembro de 2026</span></p>
+    <h1 class="cv-word" id="t-cover">CONSTA<i class="anchor cv-dot" id="a-cover" aria-hidden="true"></i></h1>
+    <div class="cv-rule"></div>
+    <p class="cv-tagline">Gestão de ativos e manutenção preventiva hospitalar.</p>
+    <p class="cv-summary">Documentos, equipamentos e prazos em um só lugar.</p>
+    <ul class="cv-team" aria-label="Integrantes da equipe"><li>Matheus Godoi</li><li>Pedro Morais</li><li>Antonio Figlio</li><li>Nicolas Braga</li></ul>
+    <p class="cv-hint">Avance para começar <span>→</span></p>
   </section>
 
-  <!-- ═══════ SLIDE 2 — DATA (3 steps) ═══════ -->
-  <section class="slide" id="s2" aria-label="Manutenção e indisponibilidade">
-    <div class="slide-logo">CONSTA<span class="dot">.</span></div>
-    <h1 class="s2-title">O custo de esperar pela falha</h1>
-    <div class="s2-grid">
-      <div class="s2-hero" data-step="2">
-        <div class="s2-hero-number"><span data-cnt="5">5</span>×<sup>*</sup></div>
-        <strong>mais cara</strong>
-        <p>a manutenção curativa<br>em relação à preditiva</p>
-      </div>
-      <div class="s2-context">
-        <div data-step="1">
-          <div class="s2-context-number">293.000</div>
-          <p class="lbl">equipamentos médico-hospitalares<br>no SUS</p>
-          <p class="s2-context-meta">RECORTE HISTÓRICO · 2015</p>
-        </div>
-        <div data-step="1">
-          <div class="s2-context-number c-o">61%<sup>*</sup></div>
-          <p class="lbl">das falhas notificadas<br>sem classificação de tipo</p>
-        </div>
-      </div>
+
+  <!-- ═════════ 01 · NEWS — notícias datadas; não provam que o Consta evitaria os episódios ═════════ -->
+  <section class="layer layer-news" data-layer="news" aria-label="A dor em notícias brasileiras">
+    <figure class="nw-lead r wipe" data-on="1">
+      <img src="assets/news-walfredo-2026.png" alt="Técnicos trabalham no conserto de um tomógrafo do Hospital Walfredo Gurgel, em Natal">
+      <figcaption>Foto: Divulgação / Agora RN</figcaption>
+    </figure>
+    <p class="nw-kicker r fade" data-on="1"><span class="nw-flag"></span>IMPRENSA BRASILEIRA · EPISÓDIOS DATADOS · 2025–2026</p>
+
+    <h1 class="nw-headline r rise" data-on="1" style="--d:1">Quando o<br>equipamento para,<br><span>a rotina não espera.</span></h1>
+
+    <div class="nw-chyron r wipe" data-on="1" style="--d:2" id="nw-chyron">
+      <p class="nw-chy-place">NATAL / RN · HOSPITAL WALFREDO GURGEL</p>
+      <p class="nw-chy-main">Falhas levaram a encaminhamentos<br>e a aluguel emergencial de tomógrafo.</p>
+      <p class="nw-chy-src"><a href="https://agorarn.com.br/ultimas/walfredo-gurgel-recebe-novo-tomografo/" target="_blank" rel="noopener noreferrer">AGORA RN · 19 JUN 2026 · histórico de 2025 ↗</a></p>
+      <i class="anchor anchor-dot" id="a-news"></i>
     </div>
-    <div class="s2-cost" data-step="3">
-      <div class="s2-cost-number"><small>R$</small> 10.000<small>/h</small></div>
-      <p class="s2-cost-copy"><span>ESTIMATIVA</span>de perda com um<br>tomógrafo parado</p>
-    </div>
-    <footer class="s2-sources" data-step="3">
-      293 mil: <a href="https://www.gazetadopovo.com.br/gpbc/pucpr/brasil-precisa-inovar-se-quiser-avancar-na-saude-4ewkb18iencpmzfrdwz89x4fb/" target="_blank" rel="noopener noreferrer">Gazeta do Povo · 03/07/2016</a>, recorte SUS/2015.
-      R$ 10 mil/h: estimativa comercial da <a href="https://www.deskmanager.com.br/blog/o-custo-do-downtime-hospitalar/" target="_blank" rel="noopener noreferrer">Desk Manager · 28/08/2026</a>; varia por operação.<br>
-      * 61%: fonte e recorte a confirmar. Comparação de 5× com preditiva: informada pela equipe, ainda sem referência anexada.
-    </footer>
+
+    <figure class="nw-card nw-celso r wipe" data-on="1">
+      <img src="assets/news-celso-ramos-2026.webp" alt="Paciente com o rosto desfocado na reportagem do SCC SBT sobre o Hospital Celso Ramos">
+      <div class="nw-mini">
+        <p class="nw-mini-place">FLORIANÓPOLIS / SC · HOSPITAL CELSO RAMOS</p>
+        <p class="nw-mini-main">Exames em outro hospital.</p>
+      </div>
+      <figcaption><a href="https://scc10.com.br/cotidiano/saude/scc-sbt-mostra-situacao-do-hospital-celso-ramos/" target="_blank" rel="noopener noreferrer">SCC SBT / SCC10 · 13 AGO 2026 ↗</a> · Imagem: Reprodução / SCC SBT, desfoque do original</figcaption>
+    </figure>
+
+    <figure class="nw-card nw-araras r wipe" data-on="1" style="--d:1">
+      <img src="assets/news-araras-2026.jpg" alt="Tomógrafo sem uso da UPA Mandic, citado na reportagem sobre a Santa Casa de Araras">
+      <div class="nw-mini">
+        <p class="nw-mini-place">ARARAS / SP · SANTA CASA</p>
+        <p class="nw-mini-main">Exames fora. Na UPA,<br>tomógrafo sem uso.</p>
+      </div>
+      <figcaption><a href="https://rca1.com.br/exclusivo-santa-casa-de-araras-esta-com-tomografo-quebrado-enquanto-upa-mandic-possui-mesmo-aparelho-sem-uso/" target="_blank" rel="noopener noreferrer">RCA1 · 06 MAI 2026 ↗</a> · Foto: aparelho sem uso da UPA Mandic, não o tomógrafo da Santa Casa</figcaption>
+    </figure>
+
+    <p class="nw-ticker r fade" data-on="1" style="--d:2"><b>EXAMES FORA · ENCAMINHAMENTOS · DESPESA EMERGENCIAL</b><span>Episódios datados; respostas e desfechos nas fontes. Não são custos evitados pelo Consta. <a href="metodo.html#noticias" target="_blank" rel="noopener">Dossiê ↗</a></span></p>
   </section>
 
-  <!-- ═══════ SLIDE 3 — INSIGHT (3 steps) ═══════ -->
-  <div class="slide" id="s3">
-    <div class="slide-logo">CONSTA<span class="dot">.</span></div>
+  <!-- ═════════ 02 · COST — um impacto documentado, com natureza explícita ═════════ -->
+  <section class="layer layer-cost" data-layer="cost" aria-label="Consequência de um caso documentado">
+    <p class="kicker r fade" data-on="3" data-off="4">DOR</p>
+    <p class="cs-number r rise" data-on="3" data-off="4" id="t-cost"><span class="cs-cur">R$</span>75&nbsp;mil<span class="cs-unit">/mês</span><i class="anchor anchor-dot" id="a-cost"></i></p>
+    <div class="cs-daily r rise" data-on="3" data-off="4" style="--d:2"><p class="cs-daily-label">EQUIVALÊNCIA DO ALUGUEL · MÊS DE 30 DIAS</p><p class="cs-daily-calc">R$ 75.000 ÷ 30 = <b>R$ 2.500/dia</b></p><p class="cs-daily-note">Conta sobre o aluguel anunciado. Não é o custo real da parada nem economia do Consta.</p></div>
+    <p class="cs-what r rise" data-on="3" data-off="4" style="--d:1">no aluguel emergencial anunciado<br>de um tomógrafo, depois de falhas.</p>
+    <p class="cs-context r fade" data-on="3" data-off="4" style="--d:2">Hospital Walfredo Gurgel · Natal/RN · falhas em 2025, histórico retomado pela <a href="https://agorarn.com.br/ultimas/walfredo-gurgel-recebe-novo-tomografo/" target="_blank" rel="noopener noreferrer">Agora RN em 19 jun 2026 ↗</a></p>
 
-    <div class="s3-layout">
-     <div>
-      <div class="s3-line" data-step="1">A informação existe.</div>
-      <div class="s3-line hl" data-step="2">Está numa gaveta.</div>
-      <div class="s3-sub" data-step="3">
-        Nota fiscal. Manual técnico. Contrato de manutenção.<br>
-        Guardados. Nunca ativados.
+    <div class="cost-patient-pain r" data-on="4" aria-label="A pane é a parte visível do impacto no atendimento">
+      <p class="pitch-section-label">DOR</p>
+      <h2 class="patient-pain-title">A pane é só <em>o que aparece.</em></h2>
+      <div class="patient-pain-diagram">
+        <svg class="patient-pain-iceberg" viewBox="0 0 1776 640" fill="none" aria-hidden="true">
+          <!-- Above and below the waterline are one continuous silhouette. -->
+          <path d="M246 176 380 36 430 82 488 0 618 176Z" fill="#FAFAF9"/>
+          <path d="M488 0 470 176H618Z" fill="#D6D3D1"/>
+          <g class="patient-pain-submerged">
+            <path d="M246 176 122 300 240 468 408 614 580 536 774 318 618 176Z" fill="#292524" stroke="#78716C" stroke-width="2"/>
+            <path d="M246 176 408 614 470 176M470 176 580 536M470 176 774 318M122 300 470 176" stroke="#57534E" stroke-width="2"/>
+            <path d="M635 282H944M618 414H944M580 546H944" stroke="#A8A29E" stroke-width="2"/>
+            <circle cx="635" cy="282" r="7" fill="#FAFAF9"/>
+            <circle cx="618" cy="414" r="7" fill="#FAFAF9"/>
+            <circle cx="580" cy="546" r="7" fill="#F97316"/>
+          </g>
+          <path d="M570 100H944" stroke="#E63946" stroke-width="2"/>
+          <circle cx="570" cy="100" r="7" fill="#E63946"/>
+          <g class="patient-pain-water">
+            <path d="M0 176H1776" stroke="#78716C" stroke-width="2"/>
+            <path d="M0 184H1776" stroke="#292524" stroke-width="2"/>
+          </g>
+        </svg>
+        <div class="patient-pain-visible"><small>A PONTA DO ICEBERG</small><strong>Equipamento indisponível</strong></div>
+        <ol class="patient-pain-effects" aria-label="Consequências no atendimento e na operação">
+          <li class="patient-pain-effect" style="--effect-order:1" id="n-chain1"><small>PARA O PACIENTE</small><strong>Cirurgias adiadas</strong></li>
+          <li class="patient-pain-effect patient-pain-manager" style="--effect-order:2"><small>PARA O GESTOR</small><strong>Gestor sob pressão</strong><p>Ativo, contrato e manutenção para resolver.</p></li>
+          <li class="patient-pain-effect" style="--effect-order:3" id="n-chain3"><small>PARA O HOSPITAL</small><strong>Despesa extra</strong></li>
+        </ol>
+        <i class="anchor anchor-dot" id="a-chain" aria-hidden="true"></i>
       </div>
-     </div>
-     <div class="s3-visual" data-step="1" aria-hidden="true">
+      <p class="patient-pain-source">Casos distintos. <a href="https://jblitoral.com.br/cidades/cirurgias-eletivas-estao-suspensas-ha-mais-de-uma-semana-no-hrl-por-problemas-com-esterilizacao-de-instrumentos/" target="_blank" rel="noopener noreferrer">Cirurgias: JB Litoral · 21 dez 2025 ↗</a> · <a href="metodo.html#noticias" target="_blank" rel="noopener noreferrer">Demais casos e contexto ↗</a></p>
+    </div>
+
+  </section>
+
+  <!-- ═════════ 03 · GAP — informação existe, mas não chega à rotina ═════════ -->
+  <section class="layer layer-gap" data-layer="gap" aria-label="A informação existe, mas está desconectada">
+    <p class="pitch-section-label">DOR</p>
+    <h2 class="gp-title r rise" data-on="5" id="t-gap">A informação existe.<br><span>Na gaveta do gestor<i class="anchor anchor-dot" id="a-gap"></i></span></h2>
+    <p class="gp-sub r fade" data-on="5" style="--d:1">Ele precisa encontrar o ativo, conferir o contrato<br>e colocar a manutenção em dia.</p>
+
+    <!-- Gaveta original do Pedro: documentos entram pela abertura e ficam atrás da frente. -->
+    <div class="gp-drawer r fade" data-on="5" aria-hidden="true">
       <svg viewBox="0 0 460 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <defs>
+        <clipPath id="drawer-cavity-clip" clipPathUnits="userSpaceOnUse">
+         <path d="M0 0H460V213H405V391H55V213H0Z"/>
+        </clipPath>
+       </defs>
        <ellipse cx="230" cy="413" rx="196" ry="13" fill="#0A0A0A" opacity=".035"/>
        <path d="M38 249 68 213H392L422 249V391H38Z" fill="#F5F5F4" stroke="#D6D3D1" stroke-width="1.5"/>
        <path d="M38 249H422M68 213V249M392 213V249" stroke="#D6D3D1" stroke-width="1.5"/>
+       <path d="M68 213H392L405 249V300H55V249Z" fill="#D6D3D1"/>
+       <g class="drawer-cavity" clip-path="url(#drawer-cavity-clip)">
        <g class="drawer-papers">
         <g transform="rotate(-12 130 170)">
          <rect x="50" y="70" width="155" height="195" rx="5" fill="#FAFAF9" stroke="#A8A29E" stroke-width="1.4"/>
@@ -687,6 +172,7 @@ body { background: var(--wht); font-family: var(--ui); cursor: none; user-select
         <rect x="171" y="141" width="64" height="49" rx="3" stroke="#D6D3D1" stroke-width="1.4"/>
         <path d="M244 150H288M244 163H279M244 176H288" stroke="#D6D3D1" stroke-width="2"/>
        </g>
+       </g>
        <g class="drawer-front">
         <path d="M38 270H422V391H38Z" fill="#FAFAF9" stroke="#A8A29E" stroke-width="1.5"/>
         <path d="M38 270 55 249H405L422 270" fill="#E7E5E4" stroke="#A8A29E" stroke-width="1.5"/>
@@ -698,341 +184,380 @@ body { background: var(--wht); font-family: var(--ui); cursor: none; user-select
         </g>
        </g>
       </svg>
-     </div>
     </div>
-  </div>
 
-  <!-- ═══════ SLIDE 4 — CONSTA (4 steps) ═══════ -->
-  <div class="slide" id="slide-4">
-    <div class="bar"></div>
-    <div class="s4-bg"></div>
-    <div class="s4-scrim"></div>
-    <div class="slide-logo">CONSTA<span class="dot">.</span></div>
+  </section>
 
-    <div class="s4-inner">
-
-      <div data-step="1">
-        <div class="s4-wm">CONSTA<span class="dot">.</span></div>
-      </div>
-
-      <div class="s4-steps">
-
-        <div class="s4-step" data-step="2">
-          <span class="s4-idx">01</span>
-          <span class="s4-txt">
-            Documento<span class="arr">→</span>Inventário automático
-            <small>AI extrai modelo, nº série, garantia e agenda de manutenção</small>
-          </span>
-        </div>
-
-        <div class="s4-step" data-step="3">
-          <span class="s4-idx">02</span>
-          <span class="s4-txt">
-            BLE<span class="arr">→</span>Rastreamento ao vivo
-            <small>Localização em tempo real — sem scanning manual</small>
-          </span>
-        </div>
-
-        <div class="s4-step" data-step="4">
-          <span class="s4-idx">03</span>
-          <span class="s4-txt">
-            Vencimento<span class="arr">→</span>Notificação completa
-            <small>Gestor recebe histórico, contato do fornecedor e agenda — zero busca</small>
-          </span>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 5: expected healthcare impacts, followed by closing. -->
-  <div class="slide" id="s5">
-   <div class="bar"></div><div class="slide-logo">CONSTA<span class="dot">.</span></div>
-   <nav class="s5-sectors" role="tablist" aria-label="Impactos na saúde"><button type="button" class="s5-sector" role="tab" id="sector-tab-0" aria-controls="sector-0" aria-selected="true" data-sector="0"><img src="assets/hospital.svg" alt="">UTI</button>
-<button type="button" class="s5-sector" role="tab" id="sector-tab-1" aria-controls="sector-1" aria-selected="false" data-sector="1"><img src="assets/scan-line.svg" alt="">Diagnóstico</button>
-<button type="button" class="s5-sector" role="tab" id="sector-tab-2" aria-controls="sector-2" aria-selected="false" data-sector="2"><img src="assets/heart-pulse.svg" alt="">Cirurgia</button>
-<button type="button" class="s5-sector" role="tab" id="sector-tab-3" aria-controls="sector-3" aria-selected="false" data-sector="3"><img src="assets/wrench.svg" alt="">Manutenção</button>
-<button type="button" class="s5-sector" role="tab" id="sector-tab-4" aria-controls="sector-4" aria-selected="false" data-sector="4"><img src="assets/clipboard-list.svg" alt="">Gestão</button>
-</nav>
-   <div class="sector-stage"><article class="sector-scene selected" id="sector-0" role="tabpanel" aria-labelledby="sector-tab-0" aria-hidden="false">
- <div class="outcome-summary"><div class="outcome-nature">SIMULAÇÃO ILUSTRATIVA</div><h2 class="sector-title">Mais tempo para cuidar</h2><div class="outcome-gain">+10<small>min</small></div><p class="outcome-impact">recuperados por busca</p></div>
- <div class="outcome-visual"><img class="outcome-photo" src="assets/saude.png" alt="Bombas de infusão em suporte hospitalar, imagem ilustrativa">
- <figure class="outcome-chart" aria-labelledby="outcome-title-0"><figcaption id="outcome-title-0" class="outcome-title">Tempo recuperado por busca</figcaption>
- <div class="outcome-row"><div class="outcome-row-label"><span>Ganho simulado</span><b>10 min</b></div><div class="outcome-track"><div class="outcome-bar improvement" style="--bar-width:66.6667%"></div></div></div>
- <div class="outcome-scale" aria-hidden="true"><span>0</span><span>15 min</span></div><p class="outcome-context">Busca simulada: 15 → 5 min</p></figure></div>
- </article>
-<article class="sector-scene" id="sector-1" role="tabpanel" aria-labelledby="sector-tab-1" aria-hidden="true">
- <div class="outcome-summary"><div class="outcome-nature">SIMULAÇÃO ILUSTRATIVA</div><h2 class="sector-title">Mais exames na agenda</h2><div class="outcome-gain">+6<small>exames</small></div><p class="outcome-impact">preservados na agenda por mês</p></div>
- <div class="outcome-visual"><img class="outcome-photo" src="assets/diagnostico.jpg" alt="Tomógrafo em sala de diagnóstico, imagem ilustrativa">
- <figure class="outcome-chart" aria-labelledby="outcome-title-1"><figcaption id="outcome-title-1" class="outcome-title">Remarcações evitadas por mês</figcaption>
- <div class="outcome-row"><div class="outcome-row-label"><span>Ganho simulado</span><b>6 exames</b></div><div class="outcome-track"><div class="outcome-bar improvement" style="--bar-width:60%"></div></div></div>
- <div class="outcome-scale" aria-hidden="true"><span>0</span><span>10 exames</span></div><p class="outcome-context">Remarcações simuladas: 10 → 4 / mês</p></figure></div>
- </article>
-<article class="sector-scene" id="sector-2" role="tabpanel" aria-labelledby="sector-tab-2" aria-hidden="true">
- <div class="outcome-summary"><div class="outcome-nature">SIMULAÇÃO ILUSTRATIVA</div><h2 class="sector-title">Mais pontualidade nas cirurgias</h2><div class="outcome-gain">+4<small>cirurgias</small></div><p class="outcome-impact">sem atraso por indisponibilidade, por mês</p></div>
- <div class="outcome-visual"><img class="outcome-photo" src="assets/cirurgia.jpg" alt="Estação de anestesia em centro cirúrgico, imagem ilustrativa">
- <figure class="outcome-chart" aria-labelledby="outcome-title-2"><figcaption id="outcome-title-2" class="outcome-title">Atrasos evitados por mês</figcaption>
- <div class="outcome-row"><div class="outcome-row-label"><span>Ganho simulado</span><b>4 atrasos</b></div><div class="outcome-track"><div class="outcome-bar improvement" style="--bar-width:66.6667%"></div></div></div>
- <div class="outcome-scale" aria-hidden="true"><span>0</span><span>6 atrasos</span></div><p class="outcome-context">Atrasos simulados: 6 → 2 / mês</p></figure></div>
- </article>
-<article class="sector-scene" id="sector-3" role="tabpanel" aria-labelledby="sector-tab-3" aria-hidden="true">
- <div class="outcome-summary"><div class="outcome-nature">SIMULAÇÃO ILUSTRATIVA</div><h2 class="sector-title">Mais manutenções no prazo</h2><div class="outcome-gain">+25<small>p.p.</small></div><p class="outcome-impact">no cumprimento dos prazos</p></div>
- <div class="outcome-visual"><img class="outcome-photo" src="assets/manutencao.jpg" alt="Laboratório de formação em manutenção biomédica da TSTC, imagem ilustrativa">
- <figure class="outcome-chart" aria-labelledby="outcome-title-3"><figcaption id="outcome-title-3" class="outcome-title">Manutenções concluídas no prazo</figcaption>
- <div class="outcome-row"><div class="outcome-row-label"><span>Referência hipotética</span><b>70%</b></div><div class="outcome-track"><div class="outcome-bar reference" style="--bar-width:70%"></div></div></div><div class="outcome-row"><div class="outcome-row-label"><span>Melhoria simulada</span><b>95%</b></div><div class="outcome-track"><div class="outcome-bar improvement" style="--bar-width:95%"></div></div></div>
- <div class="outcome-scale" aria-hidden="true"><span>0%</span><span>100%</span></div><p class="outcome-context">Cumprimento simulado: 70% → 95%</p></figure></div>
- </article>
-<article class="sector-scene" id="sector-4" role="tabpanel" aria-labelledby="sector-tab-4" aria-hidden="true">
- <div class="outcome-summary"><div class="outcome-nature">SIMULAÇÃO ILUSTRATIVA</div><h2 class="sector-title">Mais tempo para gerir custos e máquinas</h2><div class="outcome-gain">+12<small>h</small></div><p class="outcome-impact">recuperadas para a gestão por mês</p></div>
- <div class="outcome-visual"><img class="outcome-photo" src="assets/gestao.png" alt="Central de equipamentos do Hospital da Cruz Vermelha de Maebashi, imagem ilustrativa">
- <figure class="outcome-chart" aria-labelledby="outcome-title-4"><figcaption id="outcome-title-4" class="outcome-title">Tempo recuperado na consolidação de custos</figcaption>
- <div class="outcome-row"><div class="outcome-row-label"><span>Ganho simulado</span><b>12 h</b></div><div class="outcome-track"><div class="outcome-bar improvement" style="--bar-width:75%"></div></div></div>
- <div class="outcome-scale" aria-hidden="true"><span>0</span><span>16 h</span></div><p class="outcome-context">Consolidação simulada: 16 → 4 h / mês</p></figure></div>
- </article>
-</div>
-   <div class="s5-close"><div class="s5-tagline">Mais disponibilidade.<br>Mais tempo para <em>cuidar.</em></div></div>
-   <div class="sector-footer"><p>Valores hipotéticos; não são resultados medidos nem metas validadas do CONSTA.</p><nav class="sector-steppers" aria-label="Etapas dos impactos na saúde"><button type="button" class="sector-stepper" data-sector-step="0" aria-label="Mostrar UTI" aria-current="step"></button><button type="button" class="sector-stepper" data-sector-step="1" aria-label="Mostrar Diagnóstico"></button><button type="button" class="sector-stepper" data-sector-step="2" aria-label="Mostrar Cirurgia"></button><button type="button" class="sector-stepper" data-sector-step="3" aria-label="Mostrar Manutenção"></button><button type="button" class="sector-stepper" data-sector-step="4" aria-label="Mostrar Gestão"></button></nav></div>
-  </div>
-
-  <section class="slide" id="s6" aria-label="Equipe Consta">
-    <div class="slide-logo">CONSTA<span class="dot">.</span></div>
-    <div data-step="1">
-      <h1 class="team-heading">Quem <span>CONSTA</span> com a gente.</h1>
-      <div class="team-grid">
-        <figure class="team-member">
-          <div class="team-photo" role="img" aria-label="Espaço para foto de Matheus Godoi"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="24" cy="16" r="8"/><path d="M8 42V38a16 16 0 0 1 32 0v4"/></svg><span>FOTO</span></div>
-          <figcaption>Matheus Godoi</figcaption>
-        </figure>
-        <figure class="team-member">
-          <div class="team-photo" role="img" aria-label="Espaço para foto de Pedro Morais"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="24" cy="16" r="8"/><path d="M8 42V38a16 16 0 0 1 32 0v4"/></svg><span>FOTO</span></div>
-          <figcaption>Pedro Morais</figcaption>
-        </figure>
-        <figure class="team-member">
-          <div class="team-photo" role="img" aria-label="Espaço para foto de Antonio Figlio"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="24" cy="16" r="8"/><path d="M8 42V38a16 16 0 0 1 32 0v4"/></svg><span>FOTO</span></div>
-          <figcaption>Antonio Figlio</figcaption>
-        </figure>
-        <figure class="team-member">
-          <div class="team-photo" role="img" aria-label="Espaço para foto de Nicolas Braga"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="24" cy="16" r="8"/><path d="M8 42V38a16 16 0 0 1 32 0v4"/></svg><span>FOTO</span></div>
-          <figcaption>Nicolas Braga</figcaption>
-        </figure>
-      </div>
+  <!-- ═════════ 04 · SOLUTION · marca e fluxo ═════════ -->
+  <section class="layer layer-brand" data-layer="brand" aria-label="Consta">
+    <p class="kicker r fade" data-on="7">SOLUÇÃO</p>
+    <div class="br-mark">
+      <p class="br-word" id="t-brand" aria-label="CONSTA."><i class="br-base" aria-hidden="true"></i>CONSTA<i class="anchor br-dot-anchor" id="a-brand"></i></p>
+      <p class="br-claim r rise" data-on="7" style="--d:1">O contrato vira inventário.<br>O mapa mostra onde procurar.</p>
     </div>
   </section>
 
-</div><!-- /.deck -->
+  <!-- Cenário sintético completo; interface real, extração preparada e salvamento exercitado em API isolada. -->
+  <section class="layer layer-crm product-demo" data-layer="crm" aria-label="Demonstração simulada na interface real do Consta">
+    <header class="pd-heading">
+      <p class="pd-eyebrow">DEMONSTRAÇÃO</p>
+      <h2 class="pd-title pd-title-upload">Um contrato.<br><span>Cinco equipamentos.</span></h2>
+      <h2 class="pd-title pd-title-review">A IA preenche.<br><span>Você confirma.</span></h2>
+      <h2 class="pd-title pd-title-inventory">Salvou.<br><span>Já está no inventário.</span></h2>
+      <p class="pd-simulation">Cenário sintético · interface real</p>
+    </header>
+    <div class="pd-screen" aria-label="Demonstração automática com HTML e estilos reais do CRM">
+      <div class="pd-native-world">
+        <iframe class="pd-native-frame" title="CRM — navegação simulada" tabindex="-1"></iframe>
+        <div class="pd-file-picker" hidden><header>Selecionar documento<span>DEMO</span></header><div class="pd-file-row"><b>TXT</b><span>synthetic-contract.txt<small>CONSTA-DEMO-2026-01 · cenário sintético</small></span><i>✓</i></div><footer><span>TXT selecionado</span><button type="button">Abrir</button></footer></div>
+        <div class="pd-focus" aria-hidden="true"></div>
+        <svg class="pd-cursor" viewBox="0 0 28 38" aria-hidden="true"><path d="M3 2v29l7-7 6 12 6-3-6-11h10z"/></svg>
+      </div>
+    </div>
+    <p class="pd-screen-caption">Envie o arquivo do contrato.</p>
+    <div class="pd-rail" aria-hidden="true">
+      <span class="pd-rail-label pd-label-contract">Contrato</span>
+      <i id="cr-doc" class="anchor pd-source-link"></i>
+      <i id="a-read" class="anchor anchor-dot pd-read-anchor"></i>
+      <span id="cr-table" class="pd-rail-label">Dados prontos</span>
+      <i id="a-table" class="anchor anchor-dot pd-table-anchor"></i>
+      <span id="cr-inv" class="pd-rail-label">Inventário</span>
+      <i id="a-inv" class="anchor anchor-dot pd-inventory-anchor"></i>
+    </div>
+    <footer class="pd-footer">
+      <a href="demo/synthetic-contract.html" target="_blank" rel="noopener">Documento de demonstração completo ↗</a>
+      <span class="pd-pending-note">Dados e regras preenchidos no cenário demonstrativo.</span>
+      <a href="demo/native/README.md" target="_blank" rel="noopener">Como a demo foi preparada ↗</a>
+    </footer>
+  </section>
 
-<!-- ── Persistent UI ───────────────────────────────────── -->
-<div id="wm">CONSTA<span>.</span></div>
-<div id="fsbtn" title="Fullscreen (F)">⛶</div>
+<section class="layer layer-smart-agenda" data-layer="smart-agenda" aria-label="Proposta de agenda inteligente com vinte equipamentos fictícios">
+  <p class="sa-kicker">SOLUÇÃO · AGENDA</p>
+  <h2 class="sa-title">20 serviços no mesmo dia?<br><span>Distribua a carga.</span></h2>
+  <i class="anchor anchor-dot sa-anchor" id="a-smart-agenda" aria-hidden="true"></i>
+  <div class="sa-window">
+    <div class="sa-document" aria-label="Contrato fictício de manutenção de vinte equipamentos">
+      <div class="sa-doc-label"><span>CONTRATO DE MANUTENÇÃO</span><span>EXEMPLO FICTÍCIO</span></div>
+      <h3 class="sa-doc-title">Um contrato.<br><strong>20 equipamentos.</strong></h3>
+      <div class="sa-doc-details"><span>Previsão inicial<strong>05/02/2027</strong></span><span>Janela autorizada no exemplo<strong>01–05/02/2027</strong></span></div>
+      <p class="sa-doc-list-label">RELAÇÃO DE EQUIPAMENTOS · EQ-01 A EQ-20</p>
+    </div>
+    <div class="sa-toolbar"><strong>Calendário · fevereiro de 2027</strong><span class="sa-badge">Proposta · planejamento simulado</span></div>
+    <div class="sa-board" role="img" aria-label="Vinte preventivas inicialmente em 5 de fevereiro. Proposta: quatro por dia, de 1 a 5 de fevereiro, dentro da janela autorizada no exemplo.">
+      <div class="sa-origin">Contrato de exemplo · 20 equipamentos · mesma data: 05/02</div>
+      <div class="sa-days" aria-hidden="true">
+        <div class="sa-day">SEG · 01/02<strong>4 serviços</strong></div>
+        <div class="sa-day">TER · 02/02<strong>4 serviços</strong></div>
+        <div class="sa-day">QUA · 03/02<strong>4 serviços</strong></div>
+        <div class="sa-day">QUI · 04/02<strong>4 serviços</strong></div>
+        <div class="sa-day">SEX · 05/02<strong>4 serviços</strong></div>
+      </div>
+    </div>
+  </div>
+  <p class="sa-conclusion">Capacidade considerada no exemplo: <span>4 serviços por dia.</span> Sem ultrapassar o prazo.</p>
+  <p class="sa-condition">Janela autorizada no exemplo: 01–05/02/2027. Confirmar janela e capacidade com a Engenharia Clínica.</p>
+</section>
 
-<script>
-/* ═══════════════════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════════════════ */
-const STEPS = [3, 3, 3, 4, 6, 1];   // steps per slide
-const TOTAL = STEPS.length;
+<section class="layer layer-camera" data-layer="camera" aria-label="Fotografar o patrimônio e conferir">
+  <p class="cd-eyebrow r fade" data-on="12">DEMONSTRAÇÃO · CAPTURA</p>
+  <h2 class="cd-title r rise" data-on="12">Fotografe o<br>patrimônio.<br><span>Confira e salve.</span></h2>
+  <p class="cd-mechanism r rise" data-on="12">Da etiqueta à conferência.<br>A decisão continua com você.</p>
+  <p class="cd-disclosure r fade" data-on="12">Demonstração simulada<br><span>Etiqueta sintética · leitura simulada</span></p>
+  <i class="anchor anchor-dot cd-anchor" id="a-photo" aria-hidden="true"></i>
+  <div class="cd-app cd-phone r rise" data-on="12" data-camera-state="framing" aria-label="Demonstração da página de captura em celular">
+    <div class="cd-phone-side" aria-hidden="true"></div>
+    <div class="cd-phone-display">
+      <div class="cd-status" aria-hidden="true">
+        <span>9:41</span><span class="cd-island"></span>
+        <svg width="68" height="14" viewBox="0 0 68 14" fill="currentColor"><path d="M0 10h3v4H0zm5-3h3v7H5zm5-3h3v10h-3zm5-3h3v13h-3z"/><path d="M25 5q8-8 16 0l-2 2q-6-6-12 0zm4 4q4-4 8 0l-2 2q-2-2-4 0zm3 3h2v2h-2z"/><rect x="47" y="2" width="18" height="10" rx="3" fill="none" stroke="currentColor"/><rect x="49" y="4" width="14" height="6" rx="1"/><path d="M66 5h2v4h-2z"/></svg>
+      </div>
+      <div class="cd-phone-screen">
+        <img class="cd-capture cd-framing" src="demo/camera/framing.png" width="393" height="690" alt="Tela real do CRM de Nicolas: enquadramento de etiqueta sintética e botão Tirar foto.">
+        <img class="cd-capture cd-received" src="demo/camera/received.png" width="393" height="690" alt="Tela real do CRM: tombamento CST0001 recebido por leitura simulada.">
+      </div>
+      <div class="cd-safari" aria-hidden="true">
+        <div class="cd-address"><span>ᴀA</span><span><svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="currentColor"><rect x="1" y="5" width="8" height="6" rx="1.5"/><path d="M3 5V3a2 2 0 0 1 4 0v2"/></svg> consta · captura</span><span>↻</span></div>
+        <div class="cd-toolbar"><span>‹</span><span>›</span><svg width="20" height="22" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 9H3v15h18V9h-4M12 17V1m-5 5 5-5 5 5"/></svg><svg width="22" height="20" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4C8 1 4 1 1 2v17c4-1 7 0 11 2 4-2 7-3 11-2V2c-3-1-7-1-11 2zm0 0v17"/></svg><svg width="21" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="1" width="17" height="17" rx="3"/><path d="M18 21v2H1V6h2"/></svg></div>
+        <span class="cd-home"></span>
+      </div>
+      <span class="cd-cursor" aria-hidden="true"></span>
+    </div>
+  </div>
+  <p class="cd-result" aria-live="polite">Patrimônio recebido.<br><strong>Confira antes de salvar.</strong></p>
+</section>
 
-let cur       = 0;
-let busy      = false;
-let stepState = STEPS.map(() => 0); // current step index per slide
+  <!-- ═════════ 04 · SOLUTION · tag conceitual instalada ═════════ -->
+  <section class="layer layer-tag tag-adhesive" data-layer="tag" aria-label="Conceito de tag BLE instalada em equipamento móvel">
+    <div class="tg-copy">
+      <p class="kicker r fade" data-on="13">SOLUÇÃO · BLE</p>
+      <h2 class="tg-title r rise" data-on="13" id="t-tag">Uma etiqueta<br>BLE no<br>equipamento.</h2>
+    </div>
+    <figure class="tg-asset r rise" data-on="13" style="--d:1" id="tg-asset">
+      <div class="tg-pump">
+        <img src="assets/tag/consta-tag-adesiva-na-bomba-conceito.png" alt="Conceito de etiqueta Bluetooth Consta adesiva sobre a lateral plana de uma bomba de infusão genérica, sem berço ou cinta" onerror="this.closest('.tg-pump').classList.add('missing')">
+        <p class="tg-missing">Imagem em preparação<br><span>assets/tag/consta-tag-adesiva-na-bomba-conceito.png</span></p>
+        <i class="anchor anchor-dot tg-dot" id="a-tag"></i>
+      </div>
+      <figcaption><b>Bomba de infusão BI-07</b></figcaption>
+    </figure>
+    <figure class="tg-figure r fade" data-on="13" style="--d:3" id="tg-figure">
+      <div class="tg-imgbox">
+        <img src="assets/tag/consta-tag-adesiva-isolada-conceito.png" alt="Conceito da cápsula adesiva Consta, sem berço, cinta ou parafusos externos, com liner destacável" onerror="this.closest('.tg-imgbox').classList.add('missing')">
+        <p class="tg-missing">Conceito em preparação</p>
+      </div>
 
-const slides = Array.from(document.querySelectorAll('.slide'));
+    </figure>
+  </section>
 
-/* ═══════════════════════════════════════════════════════
-   NUMBER COUNTER
-═══════════════════════════════════════════════════════ */
-function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  <!-- ═════════ 04 · SOLUTION · mapa simulado (pitch apenas; sem leitura de rádio) ═════════ -->
+  <section class="layer layer-map" data-layer="map" aria-label="Mapa interno fictício com localização simulada por setor">
+    <header class="im-heading"><p>DEMONSTRAÇÃO · LOCALIZAÇÃO</p><h2>Saiba em qual setor procurar.</h2><span class="im-simulation">Rastreamento simulado</span></header>
+    <div class="im-map-frame">
+      <div class="im-map-toolbar"><div class="im-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><span>Bomba de infusão <b>BI-07</b></span></div><span class="im-building">Hospital demonstrador <span> / </span> Bloco principal</span></div>
+      <div class="mp-map" id="map">
+        <div id="indoor-camera" class="im-camera">
+          <svg class="im-floorplan" viewBox="0 0 1180 720" role="img" aria-label="Planta fictícia: internação ao norte, apoio à direita e UTI ao sul; corredores conectam os três setores.">
+            <defs><pattern id="im-landscape" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1" fill="#d9ddd3"/></pattern><filter id="im-building-shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#44403c" flood-opacity=".10"/></filter></defs>
+            <rect width="1180" height="720" fill="#edf0e9"/><rect width="1180" height="720" fill="url(#im-landscape)"/>
+            <path d="M-20 36H1210M-20 686H1210" stroke="#fff" stroke-width="25" fill="none"/>
+            <g fill="#d5dfce" stroke="#c7d4bf" stroke-width="2"><circle cx="38" cy="120" r="22"/><circle cx="36" cy="188" r="17"/><circle cx="1145" cy="88" r="21"/><circle cx="1146" cy="642" r="22"/><circle cx="50" cy="625" r="23"/></g>
+            <path class="im-building-shell" d="M80 90H520V145H650V90H1100V650H650V560H470V650H80Z"/>
+            <path class="mp-zone im-zone-a" data-zone="A" d="M90 100H510V300H90Z"/>
+            <path class="mp-zone im-zone-b" data-zone="B" d="M660 100H1090V300H660Z"/>
+            <path class="mp-zone im-zone-c" data-zone="C" d="M660 385H1090V640H660Z"/>
+            <path class="im-corridor" d="M90 310H1090V375H650V550H470V640H90V385H260V300H325V385H650V155H590V310Z"/>
+            <path class="im-neutral-room" d="M90 395H250V535H90ZM90 550H250V640H90ZM335 100H510V170H335ZM530 165H580V300H530ZM755 100H910V170H755ZM925 100H1090V170H925ZM90 100H245V170H90Z"/>
+            <path class="im-room-lines" d="M90 180H245M90 235H245M165 100V170M335 180H510M335 235H510M420 100V170M755 180H1090M835 180V300M925 180V300M660 100V270M755 100V270M755 395V465M835 395V465M915 395V465M995 395V465M660 465H690M765 465H1090M660 565H690M765 565H1090M755 565V640M835 565V640M915 565V640M995 565V640"/>
+            <path class="im-room-walls" d="M90 300H260M325 300H510M660 300H690M735 300H1090M660 385H690M735 385H1090M260 395V535H90M260 550V640M470 560H650"/>
+            <path class="im-courtyard" d="M280 410H610V530H450V620H280Z"/>
+            <g class="im-garden"><circle cx="330" cy="455" r="20"/><circle cx="555" cy="458" r="24"/><circle cx="330" cy="570" r="20"/><path d="M370 450H480M365 530V575"/></g>
+            <g class="im-lift" transform="translate(110 570)"><rect width="44" height="44" rx="4"/><rect x="59" width="44" height="44" rx="4"/><path d="M22 8V36M81 8V36M12 20l10-10 10 10M71 26l10 10 10-10"/></g>
+            <g class="im-sector-labels"><text x="170" y="211">Internação</text><text class="im-sector-code" x="170" y="237">SETOR A</text><text x="850" y="228">Apoio</text><text class="im-sector-code" x="850" y="254">SETOR B</text><text x="890" y="588">UTI adulto</text><text class="im-sector-code" x="890" y="614">SETOR C</text></g>
+            <g class="im-small-labels"><text x="148" y="467">Recepção</text><text x="450" y="489">Jardim interno</text><text x="590" y="354">Circulação</text><text x="162" y="638">Elevadores</text></g>
+            <path class="mp-trail" id="trail" pathLength="1" d="M285 240V340H728V520H885"/>
+            <g class="mp-rx im-receivers"><g transform="translate(505 340)"><circle r="12"/><path d="M-4-5 4 3-4 10V-10L4-3-4 5"/></g><g transform="translate(1020 340)"><circle r="12"/><path d="M-4-5 4 3-4 10V-10L4-3-4 5"/></g></g>
+          </svg>
+          <span class="mp-marker" id="marker" aria-hidden="true"><span class="im-marker-label">BI-07</span></span>
+          <i class="anchor anchor-dot mp-anchor" id="a-map"></i>
+        </div>
+      </div>
+      <div class="im-floor-control" aria-label="Andar exibido"><span>ANDAR</span><b>1</b><small>Planta fictícia</small></div>
+      <div class="im-zoom-control" aria-label="Controles do mapa"><button type="button" data-map-zoom="in" aria-label="Ampliar mapa">+</button><button type="button" data-map-zoom="out" aria-label="Reduzir mapa">−</button><button type="button" data-map-zoom="reset" aria-label="Enquadrar mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div>
+      <div class="im-map-key"><span><i></i>Último setor detectado</span><small>Planta e percurso ilustrativos · sem leituras de rádio</small></div>
+    </div>
+    <aside class="mp-panel">
+      <div class="im-asset-top"><span class="im-asset-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5v30M11 35h18M13 8h14M12 12h16v15H12zM16 17h8M16 22h5"/></svg></span><div><p class="mp-panel-head">EQUIPAMENTO SELECIONADO</p><p class="mp-asset" id="t-asset">Bomba de infusão<span>BI-07 · ativo fictício</span></p></div></div>
+      <dl class="mp-fields"><dt>Último setor detectado</dt><dd class="mp-sector" id="sector-value">Setor A · Internação</dd><dt>Origem e horário</dt><dd class="im-last-seen">Etiqueta Bluetooth <span>09:41 · simulado</span></dd><dt>Estado da leitura</dt><dd id="read-state">simulada · por setor, não por coordenada</dd></dl>
+      <p class="im-release">Localização não indica liberação técnica.</p>
+      <div class="mp-precedent r fade" data-on="15"><p class="mp-study-label">EVIDÊNCIA · LOCALIZAÇÃO</p><p class="mp-study-value">100<span>%</span></p><h3>de acerto por setor<br>nos testes do estudo</h3><p class="mp-study-sample">90 medições · 30 etiquetas Bluetooth<br>reutilizadas em três setores.</p></div>
+    </aside>
+    <p class="map-study-footer r fade" data-on="15"><a href="https://teses.usp.br/teses/disponiveis/5/5174/tde-30112023-155658/pt-br.html" target="_blank" rel="noopener noreferrer">Barbosa · FMUSP · 2023 · p. 29 ↗</a><br>Estudo externo, não resultado do Consta.<br>Limites por sala disponíveis no apoio.</p>
+    <p class="im-stage-note">Conceito de navegação · integração BLE e implantação hospitalar ainda a validar.</p>
+  </section>
 
-function countUp(el, target, dur = 1300) {
-  const t0 = performance.now();
-  (function tick(now) {
-    const p = Math.min((now - t0) / dur, 1);
-    el.textContent = Math.round(easeOut(p) * target).toLocaleString('pt-BR');
-    if (p < 1) requestAnimationFrame(tick);
-  })(t0);
-}
+  <!-- ═════════ 05 · BENEFITS — mecanismos e métricas de piloto, sem projeção ═════════ -->
+  <section class="layer layer-benefits flow-automation" data-layer="benefits" data-flow-phase="manual" aria-label="Da entrada do contrato à gestão, com IA e revisão humana">
+    <p class="kicker r fade" data-on="16">SOLUÇÃO · AUTOMAÇÃO</p>
+    <h2 class="flow-title flow-logo r fade" data-on="16" id="t-ben"><span class="br-word" id="flow-brand">CONSTA<i class="br-base" aria-hidden="true"></i><i class="anchor br-dot-anchor" id="flow-logo-dot"></i><span class="br-static-dot" aria-hidden="true"></span></span></h2>
 
-/* ═══════════════════════════════════════════════════════
-   STEP ENGINE
-═══════════════════════════════════════════════════════ */
-function resetSlide(slideEl) {
-  if (slideEl.id === 's3') delete slideEl.dataset.phase;
-  const els = slideEl.querySelectorAll('[data-step]');
-  els.forEach(el => { el.style.transition = 'none'; el.classList.remove('on'); });
-  if (els.length) void els[0].offsetHeight; // single reflow
-  els.forEach(el => { el.style.transition = ''; });
-}
+    <div class="flow-process r fade" data-on="16">
+      <div class="flow-upload" id="bn-first">
+        <svg viewBox="0 0 48 56" aria-hidden="true"><path d="M8 2h22l12 12v40H8zM30 2v14h12M17 29h16M17 37h16"/></svg>
+        <h3>Envie<br>o contrato</h3><p>PDF ou TXT</p>
+      </div>
 
-function revealStep(slideEl, stepNum) {
-  if (slideEl.id === 's1') {
-    slideEl.querySelectorAll('[data-step]').forEach(el => el.classList.add('on'));
-    slideEl.querySelectorAll('[data-cnt]').forEach(el => {
-      el.textContent = Number(el.dataset.cnt).toLocaleString('pt-BR');
-    });
-    return;
-  }
-  if (slideEl.id === 's3') slideEl.dataset.phase = String(stepNum);
-  if (slideEl.id === "s5") { showSector(stepNum - 1); return; }
-  let needReflow = false;
-  const els = slideEl.querySelectorAll('[data-step]');
+      <div class="flow-manual" aria-label="Trabalho de leitura e transcrição assumido pela IA">
+        <p class="flow-manual-label">O CAMINHO MANUAL</p>
+        <ol><li class="flow-step" data-flow-step="0" data-state="pending">Ler para<br>extrair</li><li class="flow-step" data-flow-step="1" data-state="pending">Localizar<br>dados</li><li class="flow-step" data-flow-step="2" data-state="pending">Digitar<br>campos</li><li class="flow-step" data-flow-step="3" data-state="pending">Organizar<br>cadastro</li></ol>
+      </div>
 
-  // Snap any steps that should already be visible (handles keyboard jumps)
-  els.forEach(el => {
-    const s = parseInt(el.dataset.step);
-    if (s < stepNum && !el.classList.contains('on')) {
-      el.style.transition = 'none'; el.classList.add('on'); needReflow = true;
-    }
-  });
-  if (needReflow && els.length) {
-    void els[0].offsetHeight;
-    els.forEach(el => { if (el.style.transition === 'none') el.style.transition = ''; });
-  }
+      <div class="flow-bypass" aria-label="A IA ultrapassa as etapas de leitura e transcrição">
+        <i class="anchor anchor-dot flow-start-dot" id="a-ben"></i>
+        <svg class="flow-bridge" viewBox="0 0 840 190" aria-hidden="true"><path id="flow-route" data-flow-route pathLength="1" d="M0 20 C65 20 30 140 118 140 H802"/><path class="flow-arrow" d="m780 118 24 22-24 22"/></svg>
+        <div class="flow-ai"><b>IA lê e preenche</b><p>Equipamentos · série · tombamento<br>Modelo · regras do documento</p></div>
+      </div>
 
-  // Animate the target step in
-  els.forEach(el => {
-    const s = parseInt(el.dataset.step);
-    if (s === stepNum) {
-      el.classList.add('on');
-      el.querySelectorAll('[data-cnt]').forEach(cnt => {
-        if (slideEl.id === 's2') cnt.textContent = Number(cnt.dataset.cnt).toLocaleString('pt-BR');
-        else countUp(cnt, parseInt(cnt.dataset.cnt));
-      });
-    }
-  });
-}
-
-/* ═══════════════════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════════════════ */
-function advance() {
-  if (busy) return;
-  if (stepState[cur] < STEPS[cur]) {
-    stepState[cur]++;
-    revealStep(slides[cur], stepState[cur]);
-  } else {
-    goTo(cur + 1);
-  }
-}
-
-function retreat() {
-  if (cur === 4 && stepState[4] > 1) { stepState[4]--; showSector(stepState[4] - 1); return; }
-  goTo(cur - 1);
-}
-
-function goTo(idx) {
-  if (busy || idx === cur || idx < 0 || idx >= TOTAL) return;
-  busy = true;
-
-  const prev = slides[cur];
-  const next = slides[idx];
-
-  // Reset target slide before it becomes visible
-  resetSlide(next);
-  stepState[idx] = 0;
-
-  prev.classList.remove('active'); prev.classList.add('exiting');
-  next.classList.add('active');
-  cur = idx;
-
-  // O primeiro slide abre completo; os demais preservam as etapas.
-  if (cur === 0) {
-    stepState[0] = STEPS[0];
-    revealStep(slides[0], stepState[0]);
-  } else {
-    setTimeout(() => {
-      stepState[cur] = 1;
-      revealStep(slides[cur], 1);
-    }, 130);
-  }
-
-  setTimeout(() => {
-    prev.classList.remove('exiting');
-    busy = false;
-  }, 640);
-}
-
-
-function showSector(index) {
- const closing = index >= 5;
- document.getElementById('s5').classList.toggle('closing', closing);
- document.querySelectorAll('.sector-scene').forEach((scene,i) => {
-   scene.classList.toggle('selected', i === index);
-   scene.setAttribute('aria-hidden', String(i !== index));
- });
- document.querySelectorAll('[data-sector]').forEach((button,i) => button.setAttribute('aria-selected', String(i === index)));
- document.querySelectorAll('[data-sector-step]').forEach((button,i) => {
-   const active = i === Math.min(index,4);
-   button.classList.toggle('complete', i < index);
-   if(active) button.setAttribute('aria-current','step'); else button.removeAttribute('aria-current');
- });
-}
-document.querySelectorAll('[data-sector]').forEach(button => {
- const select = () => { if(cur !== 4 || busy) return; stepState[4] = Number(button.dataset.sector)+1; showSector(stepState[4]-1); };
- button.addEventListener('pointerenter', e => { if(e.pointerType === 'mouse') select(); });
- button.addEventListener('focus', select);
- button.addEventListener('click', e => { e.stopPropagation(); select(); });
- button.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); select(); } });
-});
+      <div class="flow-review">
+        <i class="anchor anchor-dot flow-review-anchor" id="flow-review-anchor"></i>
+        <span class="flow-gate" aria-hidden="true"><svg class="flow-check" viewBox="0 0 32 32"><path d="m7 16 6 6 12-13" pathLength="1"/></svg></span>
+        <h3>Confirme<br>e salve</h3>
+        <p>Dados preenchidos.<br>Confirme o cadastro.</p>
+      </div>
+      <span class="flow-after-review" aria-hidden="true">→</span>
+      <div class="flow-management r rise" data-on="16" id="bn-last">
+        <i class="anchor anchor-dot flow-end-dot" id="a-ben2"></i>
+        <i class="anchor anchor-dot flow-end-dot" id="flow-final-anchor"></i>
+        <span class="flow-management-label">PRONTO PARA GERIR</span>
+        <h3>Inventário.<br>Agenda.<br>Pendências.</h3>
+        <p>Plano revisado<br>gera previsões.</p>
+      </div>
+    </div>
+    <p class="flow-evidence r fade" data-on="16">Documento completo. Cadastro preparado. Confirme e comece a gerir.</p>
+    <button type="button" class="flow-details r fade" data-on="16" id="open-appendix">Ver detalhes e validação <span aria-hidden="true">↗</span></button>
+  </section>
 
 
-document.querySelectorAll('[data-sector-step]').forEach(button => {
- button.addEventListener('click', e => {
-  e.stopPropagation();
-  if(cur !== 4 || busy) return;
-  const index = Number(button.dataset.sectorStep);
-  stepState[4] = index + 1;
-  showSector(index);
- });
-});
 
-/* Boot */
-stepState[0] = STEPS[0];
-revealStep(slides[0], stepState[0]);
+<section class="layer layer-care-impact" data-layer="care-impact" aria-label="Disponibilidade como objetivo para ampliar a capacidade de atendimento">
+  <p class="ci-kicker r fade" data-on="18">IMPACTO · ATENDIMENTO</p>
+  <h2 class="ci-title r rise" data-on="18">Mais equipamento disponível.<br><span>Mais capacidade para atender<i class="anchor anchor-dot ci-anchor" id="a-care" aria-hidden="true"></i></span></h2>
 
-/* ═══════════════════════════════════════════════════════
-   INPUT
-═══════════════════════════════════════════════════════ */
-document.addEventListener('keydown', e => {
-  if (e.target.closest('button,a')) return;
-  if ([' ','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); advance(); }
-  if (['ArrowLeft','ArrowUp'].includes(e.key))        { e.preventDefault(); retreat(); }
-  if (e.key.toLowerCase() === 'f') toggleFS();
-  if (e.key === 'End') { e.preventDefault(); goTo(TOTAL - 1); }
-  if (e.key === 'Home') { e.preventDefault(); goTo(0); }
-});
+  <div class="ci-evidence r rise" data-on="18" style="--d:1">
 
-document.getElementById('deck').addEventListener('click', e => {
-  if (e.target.closest('a')) return;
-  advance();
-});
+    <div class="ci-evolution" aria-label="De 13 endoscópios disponíveis no início de 2025 para 34 no fim de 2025">
+      <div><span>INÍCIO DE 2025</span><b>13<small>/42</small></b><em>funcionavam</em></div><span class="ci-arrow" aria-hidden="true">→</span><div><span>FIM DE 2025</span><strong>34<small>/42</small></strong><em>disponíveis após manutenção</em></div>
+    </div>
+    <h3>Endoscópios disponíveis</h3>
 
-// Touch swipe
-let tx = 0;
-document.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, {passive:true});
-document.addEventListener('touchend',   e => {
-  const dx = tx - e.changedTouches[0].screenX;
-  if (Math.abs(dx) > 48) dx > 0 ? advance() : retreat();
-}, {passive:true});
 
-/* ═══════════════════════════════════════════════════════
-   CURSOR
-═══════════════════════════════════════════════════════ */
-const curEl = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  curEl.style.left = e.clientX + 'px'; curEl.style.top = e.clientY + 'px';
-});
-document.getElementById('deck').addEventListener('mouseenter', () => curEl.classList.add('big'));
-document.getElementById('deck').addEventListener('mouseleave', () => curEl.classList.remove('big'));
+  </div>
 
-/* ═══════════════════════════════════════════════════════
-   FULLSCREEN
-═══════════════════════════════════════════════════════ */
-const fsbtn = document.getElementById('fsbtn');
-function toggleFS() {
-  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
-  else document.exitFullscreen();
-}
-fsbtn.addEventListener('click', e => { e.stopPropagation(); toggleFS(); });
-</script>
+  <div class="ci-path ci-patients r rise" data-on="18" style="--d:2">
+    <p class="ci-path-label">ESCALA REAL · OUTRO HOSPITAL</p>
+    <strong class="ci-patient-number">Até 2 mil<span>/mês</span></strong>
+    <h3>procedimentos de endoscopia</h3>
+
+    <p class="ci-boundary">Referência de outro hospital; não ganho do Consta.</p>
+
+  </div>
+
+  <div class="ci-bottom r rise" data-on="18" style="--d:3">
+    <p>Casos distintos · impacto do Consta a medir no piloto.</p>
+    <div class="ci-footer-sources"><a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf#page=87" target="_blank" rel="noopener noreferrer">HC-UFG · Relatório de Gestão 2025, p. 87 ↗</a><a class="ci-patient-source" href="https://imed.org.br/hmb-alcanca-a-marca-de-30-mil-endoscopias-realizadas-e-amplia-acesso-a-exames-especializados/" target="_blank" rel="noopener noreferrer">IMED · gestor do hospital · 24/03/2026 ↗</a></div>
+  </div>
+</section>
+
+<section class="layer layer-impact" data-layer="impact" aria-label="Economia potencial condicionada à dispensa efetiva de locação">
+  <p class="im-kicker r fade" data-on="19">IMPACTO · ECONOMIA POTENCIAL</p>
+  <h2 class="im-title r rise" data-on="19">Menos locação.<br>Mais recursos para cuidar<i class="anchor anchor-dot im-anchor" id="a-impact" aria-hidden="true"></i></h2>
+  <div class="im-money r rise" data-on="19" style="--d:1">
+    <p class="im-amount"><span class="im-currency">≈ R$</span><strong>500</strong><span class="im-thousand">mil</span><span class="im-period">/ano</span></p>
+    <p class="im-unit">se uma locação adicional for dispensada por 12 meses</p>
+    <p class="im-monthly">Referência: R$41.190,95/mês · um tomógrafo</p>
+  </div>
+  <div class="im-sources r fade" data-on="19" style="--d:2"><a href="https://hmsuzano.ints.org.br/wp-content/uploads/2026/03/ASAV_CTR-042.2026-C.pdf#page=12" target="_blank" rel="noopener noreferrer">Suzano · Contrato042/2026-C, p.12 · R$494.291,40 em12mensalidades ↗</a><a href="metodo.html#financeiro-cenario" target="_blank">Conta e critérios ↗</a></div>
+  <footer class="im-pilot r rise" data-on="19" style="--d:3"><p>Cenário bruto, não economia comprovada. Descontar implantação e operação.</p></footer>
+</section>
+
+  <!-- ═════════ 06 · TEAM ═════════ -->
+  <section class="layer layer-team team-portraits" data-layer="team" aria-label="Equipe Consta">
+    <p class="pitch-section-label">TIME</p>
+    <h2 class="tm-title r rise" data-on="20">Quem <span>CONSTA</span> com a gente.</h2>
+    <ul class="tm-grid">
+      <li class="r rise" data-on="20" style="--d:1"><div class="tm-monogram tm-photo tm-photo-matheus"><img src="assets/team/matheus.jpg" alt="Matheus Godoi" decoding="async"></div><b>Matheus Godoi</b><span class="tm-role">Engenheiro biomédico</span></li>
+      <li class="r rise" data-on="20" style="--d:2"><div class="tm-monogram tm-photo tm-photo-pedro"><img src="assets/team/pedro.png" alt="Pedro Morais" decoding="async"></div><b>Pedro Morais</b><span class="tm-role">Engenheiro de software</span></li>
+      <li class="r rise" data-on="20" style="--d:3"><div class="tm-monogram tm-photo tm-photo-antonio"><img src="assets/team/antonio.jpg" alt="Antonio Figlio" decoding="async"></div><b>Antonio Figlio</b><span class="tm-role">Engenheiro de produto</span></li>
+      <li class="r rise" data-on="20" style="--d:4"><div class="tm-monogram tm-photo tm-photo-nicolas"><img src="assets/team/nicolas.png" alt="Nicolas Braga" decoding="async"></div><b>Nicolas Braga</b><span class="tm-role">Engenheiro de dados</span></li>
+    </ul>
+    <div class="tm-close">
+      <p class="tm-word" id="t-team" aria-label="CONSTA.">CONSTA<i class="anchor br-dot-anchor" id="a-team"></i></p>
+      <p class="tm-next r fade" data-on="20" style="--d:5">Gestão de ativos e<br>manutenção hospitalar.<span class="tm-pilot">Próximo passo: piloto em equipamentos<br>e áreas aprovados pelo hospital.</span></p>
+    </div>
+  </section>
+
+  <section class="layer layer-cta" data-layer="cta" aria-label="Conheça o Consta no endereço consta.vercel.app">
+    <p class="cta-kicker">PRÓXIMO PASSO</p><h2 class="cta-brand">CONSTA<span>.</span></h2>
+    <p class="cta-title">Conheça o Consta.</p><p class="cta-invite">Vamos validar com a Engenharia Clínica?</p>
+    <a class="cta-qr" href="https://consta.vercel.app" target="_blank" rel="noopener noreferrer"><img src="assets/consta-deploy-qr.svg" alt="QR code para https://consta.vercel.app"><span>consta.vercel.app ↗</span></a>
+  </section>
+  <section class="layer layer-business" data-layer="business" aria-label="Modelo de negócio proposto, Plano Business">
+    <p class="bs-kicker r fade" data-on="22">MODELO DE NEGÓCIO · PROPOSTA</p>
+    <h2 class="bs-title r rise" data-on="22">Plano Business<span>Licença anual por parque de equipamentos.</span><i class="anchor anchor-dot" id="a-business" aria-hidden="true"></i></h2>
+    <div class="bs-grid r rise" data-on="22" style="--d:1">
+      <article><h3>Até 100 equipamentos</h3><p><span>R$</span> 6 mil<small>/ano</small></p><div>Equivalente a R$500/mês</div></article>
+      <article><h3>Até 500 equipamentos</h3><p><span>R$</span> 12 mil<small>/ano</small></p><div>Equivalente a R$1.000/mês</div></article>
+      <article><h3>Até 2.000 equipamentos</h3><p><span>R$</span> 24 mil<small>/ano</small></p><div>Equivalente a R$2.000/mês</div></article>
+    </div>
+    <p class="bs-extra r fade" data-on="22" style="--d:2">CRM por unidade hospitalar. Tags BLE, receptores e implantação à parte.</p>
+    <footer class="bs-footer r fade" data-on="22" style="--d:2">Preços propostos para validação comercial. Acima de2.000equipamentos: proposta personalizada.</footer>
+  </section>
+
+  <!-- Herói persistente: o ponto da marca e seu fio -->
+  <!-- Fio de continuidade entre cenas e morfose em contornos reais da DM Mono 500 (motion.js) -->
+  <svg class="hero-wire" id="hero-wire" viewBox="0 0 1920 1080" aria-hidden="true" focusable="false" data-phase="idle">
+    <path class="hw-wire" id="hero-wire-path" data-motion-wire d=""/>
+    <g class="hw-glyphs" id="hero-glyphs"></g>
+  </svg>
+  <div class="hero-line" id="hero-line" aria-hidden="true"></div>
+  <div class="hero-dot" id="hero-dot" aria-hidden="true"></div>
+</main>
+
+<!-- Controles do apresentador (fora do palco escalonado) -->
+<nav class="controls" aria-label="Navegação da apresentação">
+  <a class="ctl-link" id="cover-link" href="#b=0">Capa</a>
+  <span class="ctl-scene" id="ctl-scene"></span>
+  <span class="ctl-count" id="ctl-count"></span>
+  <button type="button" class="ctl-btn" id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button type="button" class="ctl-btn" id="btn-next" aria-label="Próximo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button type="button" class="ctl-btn ctl-fs" id="btn-fs" aria-label="Tela cheia (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</nav>
+
+<!-- Apoio para perguntas: detalhes das cinco frentes, fora do caminho principal -->
+<div class="appendix" id="appendix" role="dialog" aria-modal="true" aria-labelledby="ap-title" hidden>
+  <div class="ap-sheet">
+    <header class="ap-head">
+      <p id="ap-title">Detalhes das cinco frentes · <span>mecanismo proposto, evidência externa e métrica do piloto</span></p>
+      <button type="button" class="ap-close" id="close-appendix">Fechar <kbd>Esc</kbd></button>
+    </header>
+    <div class="ap-tabs" role="tablist" aria-label="Frentes">
+      <button type="button" role="tab" id="ap-tab-0" aria-controls="ap-0" aria-selected="true" data-tab="0"><img src="assets/hospital.svg" alt="">Localização</button>
+      <button type="button" role="tab" id="ap-tab-1" aria-controls="ap-1" aria-selected="false" tabindex="-1" data-tab="1"><img src="assets/scan-line.svg" alt="">Cadastro</button>
+      <button type="button" role="tab" id="ap-tab-2" aria-controls="ap-2" aria-selected="false" tabindex="-1" data-tab="2"><img src="assets/wrench.svg" alt="">Manutenção</button>
+      <button type="button" role="tab" id="ap-tab-3" aria-controls="ap-3" aria-selected="false" tabindex="-1" data-tab="3"><img src="assets/clipboard-list.svg" alt="">Execução</button>
+      <button type="button" role="tab" id="ap-tab-4" aria-controls="ap-4" aria-selected="false" tabindex="-1" data-tab="4"><img src="assets/building-2.svg" alt="">Contratos</button>
+    </div>
+
+    <article class="ap-panel" role="tabpanel" id="ap-0" aria-labelledby="ap-tab-0">
+      <h3>Encontrar o equipamento</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Tag vinculada ao ativo</li><li>Receptores detectam a presença</li><li>CRM mostra setor e última leitura</li></ol></div>
+        <figure><figcaption class="ap-label">Ensaio externo de BLE</figcaption><p class="ap-big">90<span>/90</span></p><p class="ap-strong">medições com o setor correto</p><p>Os mesmos 30 beacons em três setores. Acerto de sala foi limitado.</p><p class="ap-scope">Não mediu tempo de busca ou desempenho do Consta.</p><p class="ap-src"><a href="https://teses.usp.br/teses/disponiveis/5/5174/tde-30112023-155658/pt-br.html" target="_blank" rel="noopener noreferrer">Barbosa · FMUSP, 2023 · pp. 24–25 e 29 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Acerto por setor e tempo para encontrar o ativo</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-1" aria-labelledby="ap-tab-1" hidden>
+      <h3>Do documento ao cadastro</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>IA sugere campos com página e trecho</li><li>Pessoa responsável confere</li><li>Cadastro preserva a origem</li></ol></div>
+        <figure><figcaption class="ap-label">Exigência documental real</figcaption><p class="ap-strong">A garantia começa na instalação.</p><p>O marco precisa estar comprovado antes de calcular o prazo.</p><p class="ap-scope">Fonte de obrigações para extrair; não é ensaio da IA do Consta.</p><p class="ap-src"><a href="https://www.fz.org.br/wp-content/uploads/2026/07/edital-completo-processo-no-43644-26.pdf" target="_blank" rel="noopener noreferrer">Fundação Zerbini · edital 43644/2026 · p. 31 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Tempo de cadastro com revisão e erros por campo</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-2" aria-labelledby="ap-tab-2" hidden>
+      <h3>Transformar obrigação em tarefa</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Documento informa a obrigação</li><li>Plano passa por revisão humana</li><li>Tarefa recebe prazo e responsável</li></ol></div>
+        <figure><figcaption class="ap-label">Resultado externo · manutenção</figcaption><p class="ap-strong">Endoscópios disponíveis no HC-UFG</p><p class="ap-pair"><span>Início de 2025<b>13</b></span><span class="ap-arrow" aria-hidden="true">→</span><span>Final de 2025<b>34</b></span></p><p class="ap-scope">Resultado de equipe e processos; não efeito isolado de software.</p><p class="ap-src"><a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf" target="_blank" rel="noopener noreferrer">HC-UFG · Relatório de Gestão 2025 · p. 87 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Tarefas concluídas no prazo e horas indisponíveis</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-3" aria-labelledby="ap-tab-3" hidden>
+      <h3>Acompanhar até a conclusão</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Pendência recebe responsável</li><li>Quebra e reparo ficam registrados</li><li>Decisão técnica fica registrada</li></ol></div>
+        <figure><figcaption class="ap-label">Volume de trabalho de outra instituição</figcaption><p class="ap-big">4.128</p><p class="ap-strong">ordens de serviço atendidas</p><p>Engenharia Clínica do HC-UFG, em 2025. Localizado ≠ liberado para uso.</p><p class="ap-scope">Quantidade de serviços atendidos; não ganho ou economia.</p><p class="ap-src"><a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hc-ufg/governanca/gestao-estrategica/relario_gestao_2025_v07.pdf" target="_blank" rel="noopener noreferrer">HC-UFG · Relatório de Gestão 2025 · p. 89 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Tempo até resolução e pendências em aberto</p>
+    </article>
+    <article class="ap-panel" role="tabpanel" id="ap-4" aria-labelledby="ap-tab-4" hidden>
+      <h3>Conferir a cobertura antes de gastar</h3>
+      <div class="ap-cols">
+        <div><p class="ap-label">FLUXO PROPOSTO NO CONSTA</p><ol><li>Contrato e anexos ficam vinculados</li><li>Conflitos aparecem com sua fonte</li><li>Pessoa responsável decide a cobertura</li></ol></div>
+        <figure><figcaption class="ap-label">Conflito documental real</figcaption><p class="ap-pair"><span>Anexo<b>12 meses</b></span><span>Contrato<b>24 meses</b></span></p><p class="ap-strong">O mesmo conjunto tem divergência.</p><p>A fonte e a regra de prevalência precisam aparecer para revisão.</p><p class="ap-scope">Exige revisão de cobertura; não demonstra economia.</p><p class="ap-src"><a href="https://www.fz.org.br/wp-content/uploads/2025/07/contrato-philips-medical-system-ltda.pdf" target="_blank" rel="noopener noreferrer">Fundação Zerbini · contrato FZ-C-0177/25 · pp. 2, 5 e 35 ↗</a></p></figure>
+      </div>
+      <p class="ap-pilot"><span>VALIDAR NO PILOTO</span>Acertos de cobertura e despesas conferidas por documento</p>
+    </article>
+    <p class="ap-rent"><b>Equivalência do aluguel do caso de Natal</b> · R$ 75.000 ÷ 30 dias = R$ 2.500/dia · ÷ 720 horas = R$ 104,17 por hora de calendário. Conta sobre a locação anunciada (<a href="https://agorarn.com.br/ultimas/walfredo-gurgel-recebe-novo-tomografo/" target="_blank" rel="noopener noreferrer">Agora RN, 19 jun 2026, histórico de 2025 ↗</a>); não é custo real da parada nem economia do Consta.</p>
+    <footer class="ap-foot">Ganho do Consta ainda não medido. <a href="metodo.html" target="_blank" rel="noopener">Método, contas e fontes ↗</a> · <a href="apoio-tecnico.html" target="_blank" rel="noopener">Apoio técnico BLE ↗</a> · ← → trocam a frente</footer>
+  </div>
+</div>
+
+<script src="assets/consta-glifos.js"></script>
+<script src="motion.js"></script>
+<script src="product-demo.js"></script>
+<script src="camera-demo.js"></script>
+<script src="indoor-map.js"></script>
+<script src="smart-agenda.js"></script>
+<script src="presenter-controls.js"></script>
 </body>
 </html>

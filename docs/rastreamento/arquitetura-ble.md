@@ -49,6 +49,8 @@ As restrições do host não eliminam a avaliação da tag e dos receptores. Um 
 
 ## Próxima evidência a produzir
 
+A [pesquisa sobre BLE em APs](../referencias/ble-aps-e-pitch.md) documenta alternativas de recepção e exportação em infraestrutura corporativa. Recomenda-se avaliar APs existentes compatíveis e receptores dedicados, inclusive em conjunto, antes de propor substituição da rede. Isso não seleciona fornecedor, não substitui a direção de hardware próprio e não comprova funcionamento local sem WAN.
+
 Antes de definir a implantação, levantar sistemas existentes e interfaces disponíveis com a instituição. O [corpus auditado](../referencias/auditoria-rastreabilidade.md) inclui um relato comercial de RFID no InCor e gestão histórica no HCFMUSP; isso não confirma cobertura atual nem API disponível. A direção de desenvolver hardware próprio não exige ignorar infraestrutura instalada ou duplicá-la sem necessidade.
 
 Recepção física com identidades distintas, associação correta, persistência e consulta pelo CRM; depois, medir acerto de setor e comportamento de falha em cenários controlados. O [plano de validação](validacao.md) separa bancada, localização, operação local e compatibilidade hospitalar.

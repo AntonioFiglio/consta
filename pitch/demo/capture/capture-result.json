@@ -1,0 +1,100 @@
+{
+  "status": "captured",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "deviceScaleFactor": 2,
+  "screenshots": [
+    {
+      "file": "current-01-empty-inventory.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-02-upload.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-03-document-selected.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-04-processing-simulated.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-05-review-five-units.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-05b-review-last-units.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-05c-evidence-page-two.png",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "file": "current-06-inventory-five-units.png",
+      "width": 3840,
+      "height": 2160
+    }
+  ],
+  "simulation": true,
+  "realExternalAI": false,
+  "database": ":memory:",
+  "mockCalls": 1,
+  "assetCount": 5,
+  "assets": [
+    {
+      "name": "Autoclave",
+      "serial": "04389",
+      "patrimony": "FZ18204",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "05452",
+      "patrimony": "HC 137224",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "04388",
+      "patrimony": "HC087274",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "14155",
+      "patrimony": "HC156593",
+      "periodValue": null,
+      "firstDueDate": null
+    },
+    {
+      "name": "Autoclave",
+      "serial": "20366",
+      "patrimony": "HC163231",
+      "periodValue": null,
+      "firstDueDate": null
+    }
+  ],
+  "pageErrors": [],
+  "dateValuesBeforeSave": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

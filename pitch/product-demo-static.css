@@ -1,0 +1,10 @@
+/* Static real-screen states while the requested Opus timeline is unavailable.
+   No animation is authored here; remove this fallback when the Opus component arrives. */
+.product-demo[data-product-static] * { transition: none !important; }
+.product-demo[data-product-static] .pd-shot { opacity: 0; }
+.stage[data-beat="8"] .product-demo[data-product-static] .pd-shot[data-shot="document"],
+.stage[data-beat="9"] .product-demo[data-product-static] .pd-shot[data-shot="review"],
+.stage[data-beat="10"] .product-demo[data-product-static] .pd-shot[data-shot="inventory"] { opacity: 1; }
+.stage[data-beat="8"] .product-demo[data-product-static] .pd-camera { transform: translate(-416px, -354px) scale(1.35); }
+.stage[data-beat="9"] .product-demo[data-product-static] .pd-camera { transform: translate(-800px, -850px) scale(2.4); }
+.stage[data-beat="10"] .product-demo[data-product-static] .pd-camera { transform: translate(-263px, -257px) scale(1.05); }

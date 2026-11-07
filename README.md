@@ -2,7 +2,9 @@
 
 ![Consta](brand/logo/svg/consta-wordmark-on-white.svg)
 
-**Gestão de ativos hospitalares: dos documentos à manutenção concluída, com localização automática dos equipamentos móveis.**
+**Gestão de ativos e manutenção hospitalar.**
+
+Documentos, equipamentos e prazos em um só lugar.
 
 O Consta reúne cadastro de ativos, contratos, planos de manutenção, responsáveis, tarefas e comprovantes. A IA auxilia a extração documental com revisão humana. O rastreamento seguirá com **tags BLE a bateria, receptores fixos e processamento na rede local**, limitado aos equipamentos e às áreas aprovados pelo hospital.
 

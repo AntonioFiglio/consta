@@ -17,6 +17,25 @@ Se a localização vier de um simulador, a interface e a fala devem identificá-
 - **Benefício:** medir tempo de cadastro/revisão e busca, cumprimento de tarefas e gastos documentados.
 - **Pedido:** parceiro e ambiente autorizado para validar o fluxo e, separadamente, a instalação de rastreamento.
 
+## Infraestrutura BLE no pitch
+
+Usar a [pesquisa sobre BLE em APs](../referencias/ble-aps-e-pitch.md) para fundamentar esta formulação:
+
+> O Consta conecta a manutenção à localização dos equipamentos. Propomos usar tags BLE para identificar automaticamente o último setor em que cada ativo foi detectado, com receptores fixos e processamento na rede local. Podemos aproveitar APs compatíveis e complementar a cobertura com gateways dedicados. Começamos por um piloto delimitado, integrado ao CRM, e ampliamos conforme os resultados.
+
+Para a banca, a mensagem central é o fluxo completo: encontrar o equipamento, executar a manutenção e registrar o comprovante. Se perguntarem sobre segurança: **“A implantação será avaliada com TI e engenharia clínica, por equipamentos e áreas.”** A pesquisa técnica fica como apoio para perguntas; os resultados da demonstração devem ser descritos conforme o que estiver funcionando.
+
+Não apresentar troca de todos os APs como pré-requisito, nem BLE como garantia de ausência de interferência ou conformidade automática com IEC 60601-1-2. Reaproveitar APs é possibilidade a verificar; a direção de hardware próprio permanece registrada. Não há fornecedor ou implantação selecionados.
+
+## Recorte executável para o hackathon
+
+- **Fluxo principal:** ativo fictício → documento sintético → sugestão com evidência e revisão → tarefa → último setor detectado → execução e comprovante.
+- **Localização:** integrar um cenário delimitado ao CRM. Se houver hardware disponível, demonstrar recepção e mudança de setor em bancada; caso contrário, usar simulação identificada e explicar a arquitetura prevista.
+- **Evidência da demo:** mostrar origem e horário da localização, além do estado quando a leitura ficar desatualizada. Informar qual parte foi executada com hardware, IA real ou simulação.
+- **Próximo passo:** piloto em área acordada com o hospital para medir localização e atualização e avaliar a instalação. Autonomia prolongada, escala hospitalar e implantação assistencial serão verificadas nessa evolução.
+
+A demonstração entrega evidência do cenário apresentado. A validação hospitalar acompanha a implantação; não é requisito para apresentar a proposta e o protótipo no hackathon.
+
 ## Abertura com notícias
 
 Uma abertura possível, acompanhada das fontes e datas:

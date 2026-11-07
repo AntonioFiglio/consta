@@ -19,6 +19,8 @@ O [estudo do pacote fornecido por Matheus](estudo-pacote-pesquisas.md) consolida
 
 ## BLE e compatibilidade
 
+- [BLE em access points e uso no pitch](ble-aps-e-pitch.md): pesquisa de fontes primárias sobre recepção/exportação em APs, limites de segurança e recomendação de implantação sem exigir troca geral da rede.
+
 | Fonte primária | O que sustenta | Limite |
 | --- | --- | --- |
 | [Bluetooth SIG — Direction Finding](https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/direction-finding/) | Mecanismo AoA/AoD e necessidade de antenas apropriadas | Não demonstra precisão em nosso hospital |

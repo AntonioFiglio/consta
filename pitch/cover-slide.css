@@ -1,0 +1,16 @@
+/* Cover shares the presentation document and its fullscreen lifecycle. */
+.layer-cover { background:#fafaf9; color:#0a0a0a; }
+.layer-cover .cv-meta { position:absolute; left:115px; top:90px; font:500 24px/1.5 var(--mono); letter-spacing:.04em; color:#9a3412; }
+.layer-cover .cv-meta span { color:#78716c; font-size:22px; }
+.layer-cover .cv-word { position:absolute; left:105px; top:290px; margin:0; font:500 230px/1.1 var(--mono); letter-spacing:.06em; }
+.layer-cover .cv-dot { position:relative; width:40px; height:40px; margin-left:18px; }
+.layer-cover .cv-rule { position:absolute; left:115px; right:115px; top:590px; height:1px; background:#d6d3d1; }
+.layer-cover .cv-tagline { position:absolute; left:115px; top:635px; font:400 47px/1.2 var(--sans); letter-spacing:-.025em; }
+.layer-cover .cv-summary { position:absolute; left:115px; top:710px; font:400 30px/1.4 var(--sans); color:#57534e; }
+.layer-cover .cv-team { position:absolute; left:115px; top:800px; font:400 28px/1.5 var(--sans); color:#57534e; }
+.layer-cover .cv-hint { position:absolute; right:115px; top:925px; font:400 23px/1.2 var(--sans); color:#78716c; }
+.layer-cover .cv-hint span { color:#c2410c; margin-left:15px; }
+
+/* Names follow the same order as the team slide. */
+.layer-cover .cv-team { width:1690px; display:grid; grid-template-columns:repeat(4,1fr); gap:26px; list-style:none; padding:0; margin:0; }
+.layer-cover .cv-team li { white-space:nowrap; font-size:28px; }

@@ -1,0 +1,573 @@
+{
+  "version": 2,
+  "equipments": [
+    {
+      "equipment": {
+        "value": "Autoclave",
+        "status": "found",
+        "page": 2,
+        "quote": "Autoclave"
+      },
+      "patrimony": {
+        "value": "HC156593",
+        "status": "found",
+        "page": 2,
+        "quote": "HC156593"
+      },
+      "serial": {
+        "value": "14155",
+        "status": "found",
+        "page": 2,
+        "quote": "14155"
+      },
+      "brand": {
+        "value": "PHOENIX LUFERCO",
+        "status": "found",
+        "page": 2,
+        "quote": "PHOENIX LUFERCO"
+      },
+      "maintenanceCompany": {
+        "value": "PHOENIX LUFERCO LTDA",
+        "status": "found",
+        "page": 1,
+        "quote": "e o CONTRATADO PHOENIX LUFERCO LTDA"
+      },
+      "maintenancePhone": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "maintenanceEmail": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "model": {
+        "value": "AV-50",
+        "status": "found",
+        "page": 2,
+        "quote": "AV-50"
+      },
+      "sector": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "notes": {
+        "value": "TAG documental: SAUT0019. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+        "status": "found",
+        "page": 2,
+        "quote": "O prazo de vigência da contratação é de 5 (cinco) anos, contados do termo de início do contrato"
+      },
+      "quantity": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodValue": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodUnit": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "firstDueDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorType": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validFrom": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validUntil": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "warnings": [
+        "DEMONSTRAÇÃO: resposta preparada à mão a partir do gabarito público. Periodicidade e início de vigência ausentes."
+      ]
+    },
+    {
+      "equipment": {
+        "value": "Autoclave",
+        "status": "found",
+        "page": 2,
+        "quote": "Autoclave"
+      },
+      "patrimony": {
+        "value": "HC163231",
+        "status": "found",
+        "page": 2,
+        "quote": "HC163231"
+      },
+      "serial": {
+        "value": "20366",
+        "status": "found",
+        "page": 2,
+        "quote": "20366"
+      },
+      "brand": {
+        "value": "PHOENIX LUFERCO",
+        "status": "found",
+        "page": 2,
+        "quote": "PHOENIX LUFERCO"
+      },
+      "maintenanceCompany": {
+        "value": "PHOENIX LUFERCO LTDA",
+        "status": "found",
+        "page": 1,
+        "quote": "e o CONTRATADO PHOENIX LUFERCO LTDA"
+      },
+      "maintenancePhone": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "maintenanceEmail": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "model": {
+        "value": "VERTICAL 19L (AV-18)",
+        "status": "found",
+        "page": 2,
+        "quote": "VERTICAL 19L (AV-18)"
+      },
+      "sector": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "notes": {
+        "value": "TAG documental: SAUT0050. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+        "status": "found",
+        "page": 2,
+        "quote": "O prazo de vigência da contratação é de 5 (cinco) anos, contados do termo de início do contrato"
+      },
+      "quantity": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodValue": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodUnit": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "firstDueDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorType": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validFrom": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validUntil": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "warnings": [
+        "DEMONSTRAÇÃO: resposta preparada à mão a partir do gabarito público. Periodicidade e início de vigência ausentes."
+      ]
+    },
+    {
+      "equipment": {
+        "value": "Autoclave",
+        "status": "found",
+        "page": 2,
+        "quote": "Autoclave"
+      },
+      "patrimony": {
+        "value": "FZ18204",
+        "status": "found",
+        "page": 2,
+        "quote": "FZ18204"
+      },
+      "serial": {
+        "value": "04389",
+        "status": "found",
+        "page": 2,
+        "quote": "04389"
+      },
+      "brand": {
+        "value": "PHOENIX LUFERCO",
+        "status": "found",
+        "page": 2,
+        "quote": "PHOENIX LUFERCO"
+      },
+      "maintenanceCompany": {
+        "value": "PHOENIX LUFERCO LTDA",
+        "status": "found",
+        "page": 1,
+        "quote": "e o CONTRATADO PHOENIX LUFERCO LTDA"
+      },
+      "maintenancePhone": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "maintenanceEmail": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "model": {
+        "value": "39206",
+        "status": "found",
+        "page": 2,
+        "quote": "39206"
+      },
+      "sector": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "notes": {
+        "value": "TAG documental: SAUT0014. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+        "status": "found",
+        "page": 2,
+        "quote": "O prazo de vigência da contratação é de 5 (cinco) anos, contados do termo de início do contrato"
+      },
+      "quantity": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodValue": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodUnit": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "firstDueDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorType": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validFrom": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validUntil": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "warnings": [
+        "DEMONSTRAÇÃO: resposta preparada à mão a partir do gabarito público. Periodicidade e início de vigência ausentes."
+      ]
+    },
+    {
+      "equipment": {
+        "value": "Autoclave",
+        "status": "found",
+        "page": 2,
+        "quote": "Autoclave"
+      },
+      "patrimony": {
+        "value": "HC 137224",
+        "status": "found",
+        "page": 2,
+        "quote": "HC 137224"
+      },
+      "serial": {
+        "value": "05452",
+        "status": "found",
+        "page": 2,
+        "quote": "05452"
+      },
+      "brand": {
+        "value": "PHOENIX LUFERCO",
+        "status": "found",
+        "page": 2,
+        "quote": "PHOENIX LUFERCO"
+      },
+      "maintenanceCompany": {
+        "value": "PHOENIX LUFERCO LTDA",
+        "status": "found",
+        "page": 1,
+        "quote": "e o CONTRATADO PHOENIX LUFERCO LTDA"
+      },
+      "maintenancePhone": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "maintenanceEmail": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "model": {
+        "value": "39206",
+        "status": "found",
+        "page": 2,
+        "quote": "39206"
+      },
+      "sector": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "notes": {
+        "value": "TAG documental: SAUT0016. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+        "status": "found",
+        "page": 2,
+        "quote": "O prazo de vigência da contratação é de 5 (cinco) anos, contados do termo de início do contrato"
+      },
+      "quantity": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodValue": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodUnit": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "firstDueDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorType": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validFrom": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validUntil": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "warnings": [
+        "DEMONSTRAÇÃO: resposta preparada à mão a partir do gabarito público. Periodicidade e início de vigência ausentes."
+      ]
+    },
+    {
+      "equipment": {
+        "value": "Autoclave",
+        "status": "found",
+        "page": 2,
+        "quote": "Autoclave"
+      },
+      "patrimony": {
+        "value": "HC087274",
+        "status": "found",
+        "page": 2,
+        "quote": "HC087274"
+      },
+      "serial": {
+        "value": "04388",
+        "status": "found",
+        "page": 2,
+        "quote": "04388"
+      },
+      "brand": {
+        "value": "PHOENIX LUFERCO",
+        "status": "found",
+        "page": 2,
+        "quote": "PHOENIX LUFERCO"
+      },
+      "maintenanceCompany": {
+        "value": "PHOENIX LUFERCO LTDA",
+        "status": "found",
+        "page": 1,
+        "quote": "e o CONTRATADO PHOENIX LUFERCO LTDA"
+      },
+      "maintenancePhone": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "maintenanceEmail": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "model": {
+        "value": "39206",
+        "status": "found",
+        "page": 2,
+        "quote": "39206"
+      },
+      "sector": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "notes": {
+        "value": "TAG documental: SAUT0013. Instituto: ICHC. Vigência: 5 anos contados do termo de início; data não fornecida neste documento.",
+        "status": "found",
+        "page": 2,
+        "quote": "O prazo de vigência da contratação é de 5 (cinco) anos, contados do termo de início do contrato"
+      },
+      "quantity": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodValue": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "periodUnit": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "firstDueDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorDate": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "anchorType": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validFrom": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "validUntil": {
+        "value": null,
+        "status": "missing",
+        "page": null,
+        "quote": null
+      },
+      "warnings": [
+        "DEMONSTRAÇÃO: resposta preparada à mão a partir do gabarito público. Periodicidade e início de vigência ausentes."
+      ]
+    }
+  ],
+  "warnings": [
+    "SIMULAÇÃO LOCAL: sem execução de IA ou validação de extração. Fonte documental: contrato HCFMUSP 05/2026, página 2."
+  ]
+}
