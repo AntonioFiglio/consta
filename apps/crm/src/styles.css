@@ -2524,7 +2524,7 @@ label > small {
 }
 .equipment-editor-table {
   width: 100%;
-  min-width: 1020px;
+  min-width: 900px;
   table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
@@ -3989,10 +3989,10 @@ label > small {
   max-height: min(760px, calc(100dvh - 48px));
 }
 .managed-dialog.asset-dialog {
-  width: min(600px, calc(100vw - 32px));
+  width: min(760px, calc(100vw - 32px));
 }
 .managed-dialog.equipment-table-dialog {
-  width: min(1020px, calc(100vw - 40px));
+  width: min(1240px, calc(100vw - 32px));
 }
 .managed-dialog.asset-overview-dialog {
   width: min(600px, calc(100vw - 32px));

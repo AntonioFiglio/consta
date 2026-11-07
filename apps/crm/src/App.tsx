@@ -1,4 +1,3 @@
-import { SearchField } from "./SearchField";
 import { ContextHelp } from "./ContextHelp";
 import { DayScheduleDialog } from "./DayScheduleDialog";
 import { useSidebarResize } from "./useSidebarResize";
@@ -11,7 +10,25 @@ import {
   type OnBreakdown,
 } from "./breakdowns";
 import { ManagedDialog } from "./DialogManager";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  Link,
+  NavLink,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router";
+import { legacyDestination, pageForPath, routePaths } from "./routes";
 import {
   ArrowRight,
   PanelLeftClose,
@@ -19,8 +36,6 @@ import {
   Wrench,
   CalendarDays,
   Check,
-  ChevronLeft,
-  ChevronRight,
   CircleHelp,
   FileText,
   LayoutGrid,
@@ -37,32 +52,40 @@ import type {
   MaintenanceEvent,
   ContractSummary,
 } from "./types";
-import { ContractsPage } from "./ContractsPage";
 import { ContractViewer } from "./ContractViewer";
 import { AssetOverview } from "./AssetOverview";
 import { CoverageDatesDialog } from "./CoverageDatesDialog";
-import { EquipmentPage } from "./EquipmentPage";
 import { MaintenanceAssignment } from "./MaintenanceAssignment";
 import { AssetDialog } from "./AssetDialog";
 import { api } from "./api";
 
+const ContractsPage = lazy(() =>
+  import("./ContractsPage").then((module) => ({
+    default: module.ContractsPage,
+  })),
+);
+const EquipmentPage = lazy(() =>
+  import("./EquipmentPage").then((module) => ({
+    default: module.EquipmentPage,
+  })),
+);
+const CalendarPage = lazy(() =>
+  import("./CalendarPage").then((module) => ({ default: module.CalendarPage })),
+);
+
 const dateKey = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 const fromKey = (date: string) => new Date(`${date}T12:00:00`);
-const prettyDate = (date: string) =>
-  fromKey(date).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-const monthName = (date: Date) =>
-  date.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
 // SVG estático versionado no repositório; inline para usar DM Mono local.
 const Brand = () => (
   <span className="wordmark" dangerouslySetInnerHTML={{ __html: logo }} />
 );
 
 export function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const view = pageForPath(location.pathname);
+  const pageTitle = useRef<HTMLHeadingElement>(null);
   const sidebar = useSidebarResize();
   const [equipmentInitialFilter, setEquipmentInitialFilter] = useState<
     "all" | "broken"
@@ -87,13 +110,6 @@ export function App() {
   const [events, setEvents] = useState<MaintenanceEvent[]>([]);
   const [month, setMonth] = useState(
     () => new Date(new Date().getFullYear(), new Date().getMonth(), 1, 12),
-  );
-  const [view, setView] = useState<"calendar" | "assets" | "contracts">(() =>
-    location.hash === "#contratos"
-      ? "contracts"
-      : location.hash === "#equipamentos"
-        ? "assets"
-        : "calendar",
   );
   const [query, setQuery] = useState("");
   const [selection, setSelection] = useState<string | null>(null);
@@ -149,19 +165,10 @@ export function App() {
     refreshConfig();
   }, [refreshConfig]);
   useEffect(() => {
-    const changed = () => {
-      setView(
-        location.hash === "#contratos"
-          ? "contracts"
-          : location.hash === "#equipamentos"
-            ? "assets"
-            : "calendar",
-      );
-      setQuery("");
-    };
-    window.addEventListener("hashchange", changed);
-    return () => window.removeEventListener("hashchange", changed);
-  }, []);
+    setQuery("");
+    document.title = `${view === "calendar" ? "Calendário" : view === "contracts" ? "Contratos" : "Equipamentos"} · CONSTA.`;
+    pageTitle.current?.focus({ preventScroll: true });
+  }, [location.pathname, config?.authenticated]);
   useEffect(() => {
     if (!config?.authenticated) return;
     let cancelled = false;
@@ -217,19 +224,6 @@ export function App() {
   const filteredEvents = events.filter((event) =>
     visibleIds.has(event.assetId),
   );
-  const monthEvents = filteredEvents.filter(
-    (event) => event.date.slice(0, 7) === dateKey(month).slice(0, 7),
-  );
-  const agenda = selection
-    ? filteredEvents.filter((event) => event.date === selection)
-    : monthEvents;
-  const changeMonth = (offset: number) => {
-    setMonth(
-      (current) =>
-        new Date(current.getFullYear(), current.getMonth() + offset, 1, 12),
-    );
-    setSelection(null);
-  };
   const openBreakdown: OnBreakdown = (asset, action) => {
     const current = assets.find((item) => item.id === asset.id) || asset;
     setRepairTarget({
@@ -267,8 +261,7 @@ export function App() {
       new Date(fromKey(date).getFullYear(), fromKey(date).getMonth(), 1, 12),
     );
     setSelection(date);
-    setView("calendar");
-    location.hash = "#calendario";
+    navigate(routePaths.calendar);
     setToast("");
   };
   const pendingRepairCount = assets.filter((asset) =>
@@ -356,14 +349,14 @@ export function App() {
         <div className="sidebar-inner">
           <div className="sidebar-top">
             <div className="sidebar-brand-row">
-              <a
-                href="#calendario"
+              <Link
+                to={routePaths.calendar}
                 className="brand-link"
                 aria-label="CONSTA. — início"
                 onClick={sidebar.closeOnMobile}
               >
                 <Brand />
-              </a>
+              </Link>
               <button
                 type="button"
                 className="sidebar-collapse-button"
@@ -374,7 +367,10 @@ export function App() {
                 <PanelLeftClose size={17} />
               </button>
             </div>
-            <section className="sidebar-add-card sidebar-upload-control" aria-label="Envio de contrato">
+            <section
+              className="sidebar-add-card sidebar-upload-control"
+              aria-label="Envio de contrato"
+            >
               <button
                 type="button"
                 className="sidebar-upload-action"
@@ -394,25 +390,25 @@ export function App() {
           </div>
           <div className="sidebar-main">
             <nav aria-label="Navegação principal">
-              <a
-                href="#calendario"
-                aria-current={view === "calendar" ? "page" : undefined}
+              <NavLink
+                to={routePaths.calendar}
+                end
                 onClick={sidebar.closeOnMobile}
               >
                 <CalendarDays size={19} />
                 <span>Calendário</span>
-              </a>
-              <a
-                href="#contratos"
-                aria-current={view === "contracts" ? "page" : undefined}
+              </NavLink>
+              <NavLink
+                to={routePaths.contracts}
+                end
                 onClick={sidebar.closeOnMobile}
               >
                 <FileText size={19} />
                 <span>Contratos</span>
-              </a>
-              <a
-                href="#equipamentos"
-                aria-current={view === "assets" ? "page" : undefined}
+              </NavLink>
+              <NavLink
+                to={routePaths.assets}
+                end
                 onClick={() => {
                   setEquipmentInitialFilter("all");
                   setEquipmentListRevision((value) => value + 1);
@@ -421,13 +417,13 @@ export function App() {
               >
                 <LayoutGrid size={19} />
                 <span>Equipamentos</span>
-              </a>
+              </NavLink>
             </nav>
             {pendingRepairCount > 0 && (
               <div className="sidebar-attention">
                 <span className="sidebar-section-label">Precisa de ação</span>
-                <a
-                  href="#equipamentos"
+                <Link
+                  to={routePaths.assets}
                   onClick={() => {
                     setQuery("");
                     setEquipmentInitialFilter("broken");
@@ -442,7 +438,7 @@ export function App() {
                   >
                     {pendingRepairCount}
                   </strong>
-                </a>
+                </Link>
               </div>
             )}
           </div>
@@ -520,7 +516,7 @@ export function App() {
         <main className="main-content">
           <div className="page-heading">
             <div>
-              <h1>
+              <h1 ref={pageTitle} tabIndex={-1}>
                 {view === "calendar"
                   ? "Calendário"
                   : view === "contracts"
@@ -559,240 +555,83 @@ export function App() {
               </button>
             </div>
           )}
-          {view === "calendar" ? (
-            <section className="calendar-section">
-              <div className="section-toolbar">
-                <SearchField
-                  value={query}
-                  onChange={setQuery}
-                  placeholder="Buscar equipamento ou tombamento"
-                  label="Buscar no calendário"
-                />
+          <Suspense
+            fallback={
+              <div role="status" className="empty-inventory">
+                <LoaderCircle className="spin" size={22} /> Carregando página…
               </div>
-              <div className="calendar-layout">
-                <div className="calendar-card">
-                  <div className="month-toolbar">
-                    <div className="month-navigation">
-                      <h3>{monthName(month)}</h3>
-                      <button
-                        className="icon-button"
-                        aria-label="Mês anterior"
-                        onClick={() => changeMonth(-1)}
-                      >
-                        <ChevronLeft size={18} />
-                      </button>
-                      <button
-                        className="icon-button"
-                        aria-label="Próximo mês"
-                        onClick={() => changeMonth(1)}
-                      >
-                        <ChevronRight size={18} />
-                      </button>
-                      <button
-                        className="today-button"
-                        onClick={() => {
-                          setMonth(
-                            new Date(
-                              new Date().getFullYear(),
-                              new Date().getMonth(),
-                              1,
-                              12,
-                            ),
-                          );
-                          setSelection(today);
-                        }}
-                      >
-                        Hoje
-                      </button>
-                    </div>
-                    <span className="calendar-view">
-                      <CalendarDays size={13} />
-                      Mensal
-                    </span>
-                  </div>
-                  <div className="weekdays">
-                    {["SEG", "TER", "QUA", "QUI", "SEX", "SÁB", "DOM"].map(
-                      (day) => (
-                        <span key={day}>{day}</span>
-                      ),
-                    )}
-                  </div>
-                  <div
-                    className={`calendar-grid ${loading ? "loading" : ""}`}
-                    aria-label={`Calendário de ${monthName(month)}`}
-                  >
-                    {days.map((day) => {
-                      const key = dateKey(day);
-                      const dayEvents = filteredEvents.filter(
-                        (event) => event.date === key,
+            }
+          >
+            <Routes>
+              <Route
+                path={routePaths.calendar}
+                element={
+                  <CalendarPage
+                    query={query}
+                    onQuery={setQuery}
+                    month={month}
+                    onMonth={setMonth}
+                    days={days}
+                    selection={selection}
+                    onSelection={setSelection}
+                    onDay={setViewingDay}
+                    onEvent={openEvent}
+                    events={filteredEvents}
+                    loading={loading}
+                    today={today}
+                  />
+                }
+              />
+              <Route
+                path={routePaths.contracts}
+                element={
+                  <ContractsPage
+                    contracts={contracts}
+                    assets={assets}
+                    query={query}
+                    onQuery={setQuery}
+                    onOpen={openContract}
+                    onChanged={(updated) => {
+                      setContracts((current) =>
+                        current.some((contract) => contract.id === updated.id)
+                          ? current.map((contract) =>
+                              contract.id === updated.id ? updated : contract,
+                            )
+                          : [updated, ...current],
                       );
-                      const outside = day.getMonth() !== month.getMonth();
-                      return (
-                        <div
-                          key={key}
-                          className={`calendar-cell ${outside ? "outside" : ""} ${key === today ? "is-today" : ""} ${key === selection ? "selected" : ""}`}
-                        >
-                          <button
-                            className="day-number"
-                            aria-label={`Ver ${dayEvents.length} manutenções de ${prettyDate(key)}`}
-                            onClick={() => {
-                              setSelection(key);
-                              setViewingDay(key);
-                            }}
-                            aria-pressed={key === selection}
-                          >
-                            {day.getDate()}
-                          </button>
-                          <div className="cell-events">
-                            {dayEvents.slice(0, 2).map((event) => (
-                              <button
-                                key={event.id}
-                                className={`calendar-event ${event.kind === "corrective" ? "corrective" : ""}`}
-                                title={`${event.kind === "corrective" ? "Reparo agendado · Equipamento quebrado" : "Preventiva prevista"} · ${event.name} · ${event.patrimony}`}
-                                onClick={() => openEvent(event)}
-                              >
-                                <i />
-                                <span>
-                                  {event.kind === "corrective"
-                                    ? "Reparo · "
-                                    : ""}
-                                  {event.name}
-                                </span>
-                                <small>{event.patrimony}</small>
-                              </button>
-                            ))}
-                            {dayEvents.length > 2 && (
-                              <button
-                                className="more-events"
-                                aria-label={`Ver todas as ${dayEvents.length} manutenções de ${prettyDate(key)}`}
-                                onClick={() => {
-                                  setSelection(key);
-                                  setViewingDay(key);
-                                }}
-                              >
-                                +{dayEvents.length - 2}{" "}
-                                {dayEvents.length === 3
-                                  ? "manutenção"
-                                  : "manutenções"}
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <footer className="calendar-footer">
-                    <span>
-                      <i className="legend-dot" />
-                      Manutenção prevista
-                    </span>
-                    <span>
-                      <i className="legend-dot corrective" />
-                      Reparo de equipamento quebrado
-                    </span>
-                  </footer>
-                </div>
-                <aside className="agenda">
-                  <div className="agenda-heading">
-                    <div className="eyebrow">SUA AGENDA</div>
-                    <h3>{selection ? prettyDate(selection) : "Neste mês"}</h3>
-                    <p>
-                      {selection
-                        ? `${agenda.length} ${agenda.length === 1 ? "manutenção prevista neste dia" : "manutenções previstas neste dia"}`
-                        : `${monthEvents.length} ${monthEvents.length === 1 ? "manutenção para acompanhar" : "manutenções para acompanhar"}`}
-                    </p>
-                    {selection && (
-                      <button
-                        className="text-button"
-                        onClick={() => setSelection(null)}
-                      >
-                        Ver todo o mês <ArrowRight size={12} />
-                      </button>
-                    )}
-                  </div>
-                  <div className="agenda-events">
-                    {loading ? (
-                      <div className="empty-agenda">
-                        <LoaderCircle className="spin" size={23} />
-                        <span>Carregando calendário…</span>
-                      </div>
-                    ) : agenda.length ? (
-                      agenda.map((event) => (
-                        <button
-                          className={`agenda-event ${event.kind === "corrective" ? "corrective" : ""}`}
-                          key={event.id}
-                          onClick={() => openEvent(event)}
-                        >
-                          <div className="agenda-date">
-                            <span>
-                              {fromKey(event.date)
-                                .toLocaleDateString("pt-BR", { month: "short" })
-                                .replace(".", "")}
-                            </span>
-                            <strong>{event.date.slice(-2)}</strong>
-                          </div>
-                          <div className="agenda-description">
-                            <span className="event-type">
-                              <i />
-                              {event.kind === "corrective"
-                                ? "REPARO AGENDADO · QUEBRADO"
-                                : "PREVENTIVA PREVISTA"}
-                            </span>
-                            <strong>{event.name}</strong>
-                            <span className="mono">{event.patrimony}</span>
-                            <small>
-                              {event.sector || "Setor não informado"}
-                            </small>
-                          </div>
-                          <ChevronRight size={14} />
-                        </button>
-                      ))
-                    ) : (
-                      <div className="empty-agenda">
-                        <CalendarDays size={27} />
-                        <strong>Nenhuma manutenção por aqui</strong>
-                        <span>
-                          {selection
-                            ? "Escolha outro dia ou veja todo o mês."
-                            : "Cadastre e revise um equipamento para ver as próximas datas."}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </aside>
-              </div>
-            </section>
-          ) : view === "contracts" ? (
-            <ContractsPage
-              contracts={contracts}
-              assets={assets}
-              query={query}
-              onQuery={setQuery}
-              onOpen={openContract}
-              onChanged={(updated) => {
-                setContracts((current) =>
-                  current.some((contract) => contract.id === updated.id)
-                    ? current.map((contract) =>
-                        contract.id === updated.id ? updated : contract,
-                      )
-                    : [updated, ...current],
-                );
-              }}
-            />
-          ) : (
-            <EquipmentPage
-              key={equipmentListRevision}
-              initialFilter={equipmentInitialFilter}
-              assets={filteredAssets}
-              query={query}
-              onQuery={setQuery}
-              today={today}
-              onView={setViewingAsset}
-              onAssign={setAssigningMaintenance}
-              onBreakdown={openBreakdown}
-              onCreate={() => setEditing(null)}
-            />
-          )}
+                    }}
+                  />
+                }
+              />
+              <Route
+                path={routePaths.assets}
+                element={
+                  <EquipmentPage
+                    key={equipmentListRevision}
+                    initialFilter={equipmentInitialFilter}
+                    assets={filteredAssets}
+                    query={query}
+                    onQuery={setQuery}
+                    today={today}
+                    onView={setViewingAsset}
+                    onAssign={setAssigningMaintenance}
+                    onBreakdown={openBreakdown}
+                    onCreate={() => setEditing(null)}
+                  />
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <Navigate to={legacyDestination(location.hash)} replace />
+                }
+              />
+              <Route
+                path="*"
+                element={<Navigate to={routePaths.calendar} replace />}
+              />
+            </Routes>
+          </Suspense>
           {view !== "calendar" && (
             <footer className="page-footer">
               <span>

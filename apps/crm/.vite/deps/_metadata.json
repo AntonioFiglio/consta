@@ -1,35 +1,65 @@
 {
-  "hash": "f4871585",
-  "configHash": "4798734e",
-  "lockfileHash": "59f87bc7",
-  "browserHash": "1b4c51aa",
+  "hash": "bf276128",
+  "configHash": "26e72ec4",
+  "lockfileHash": "dde7f641",
+  "browserHash": "24fe25ac",
   "optimized": {
-    "react/jsx-dev-runtime": {
-      "src": "../../../../node_modules/react/jsx-dev-runtime.js",
-      "file": "react_jsx-dev-runtime.js",
-      "fileHash": "00b3300e",
-      "needsInterop": true
-    },
     "react": {
       "src": "../../../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "664e3e58",
+      "fileHash": "152866f9",
       "needsInterop": true
     },
-    "react-dom/client": {
-      "src": "../../../../node_modules/react-dom/client.js",
-      "file": "react-dom_client.js",
-      "fileHash": "ad2790af",
+    "react-dom": {
+      "src": "../../../../node_modules/react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "98e50162",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "ace5edd5",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../../../node_modules/react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "fa3682ad",
       "needsInterop": true
     },
     "lucide-react": {
       "src": "../../../../node_modules/lucide-react/dist/esm/lucide-react.js",
       "file": "lucide-react.js",
-      "fileHash": "f4aa1b54",
+      "fileHash": "dd9bda49",
+      "needsInterop": false
+    },
+    "@floating-ui/react": {
+      "src": "../../../../node_modules/@floating-ui/react/dist/floating-ui.react.mjs",
+      "file": "@floating-ui_react.js",
+      "fileHash": "46868f04",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "6516aaf9",
+      "needsInterop": true
+    },
+    "react-router": {
+      "src": "../../../../node_modules/react-router/dist/development/index.mjs",
+      "file": "react-router.js",
+      "fileHash": "4db21297",
       "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-DZCPW7IG": {
+      "file": "chunk-DZCPW7IG.js"
+    },
+    "chunk-A5YL4R2B": {
+      "file": "chunk-A5YL4R2B.js"
+    },
     "chunk-IFCQQGM4": {
       "file": "chunk-IFCQQGM4.js"
     }

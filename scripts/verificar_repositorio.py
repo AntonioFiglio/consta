@@ -35,7 +35,9 @@ def local_link_error(root, source, target):
     if parsed.scheme or parsed.netloc or not parsed.path:
         return None
     path = unquote(parsed.path)
-    destination = (root / path.lstrip('/') if path.startswith('/') else source.parent / path).resolve()
+    # A entrada HTML do Vite usa a raiz da aplicação, inclusive em URLs aninhadas.
+    web_root = source.parent if source.suffix == '.html' and (source.parent / 'vite.config.ts').is_file() else root
+    destination = (web_root / path.lstrip('/') if path.startswith('/') else source.parent / path).resolve()
     if not destination.is_relative_to(root.resolve()):
         return f'destino fora do repositório: {target}'
     if not destination.exists():

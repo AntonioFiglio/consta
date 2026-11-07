@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter } from "react-router";
 import { createRoot } from "react-dom/client";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
@@ -13,6 +14,10 @@ import { App } from "./App";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <DialogProvider><App /></DialogProvider>
+    <BrowserRouter>
+      <DialogProvider>
+        <App />
+      </DialogProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 );
