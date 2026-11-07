@@ -1,6 +1,6 @@
 # Fala principal — três minutos
 
-Roteiro anterior à reestruturação comercial, alinhado às dezessete telas visíveis. A capa é de espera. Logo formado pela bolinha e fluxo da IA automáticos no mesmo slide; agenda preservada. Celular, custoR$75mil e logo isolado fora da sequência. Extração demonstrativa simulada, interface real. Ensaiar com a caneta antes do palco.
+Roteiro anterior à reestruturação comercial, alinhado às dezesseis telas visíveis. A capa é de espera. Logo formado pela bolinha e fluxo da IA automáticos no mesmo slide; agenda preservada. Celular, custoR$75mil e logo isolado fora da sequência. Extração demonstrativa simulada, interface real. Ensaiar com a caneta antes do palco.
 
 ## Tela 1 · capa · antes da fala
 
@@ -50,37 +50,32 @@ Roteiro anterior à reestruturação comercial, alinhado às dezessete telas vis
 
 > No próprio HC, a FMUSP acertou o setor em cem por cento dos testes: noventa medições, com trinta etiquetas. É resultado do estudo.
 
-## Tela 13 · impacto no atendimento · 12 s
+## Tela 13 · atendimento e economia potencial · 22 s
 
-> Mais equipamentos disponíveis criam condições para atender. Como referência de escala, o Hospital da Brasilândia realiza até dois mil procedimentos de endoscopia por mês. É produção daquele serviço, não pacientes recuperados pelo Consta.
+> O objetivo é manter a capacidade de atender e evitar custos extras. Como referência, o Hospital da Brasilândia realiza até dois mil atendimentos de endoscopia por mês. E dispensar uma locação adicional de tomógrafo por doze meses representaria aproximadamente quinhentos mil reais brutos de economia. São referências para dimensionar o problema; o ganho do Consta será medido no piloto.
 
-## Tela 14 · economia potencial · 15 s
-
-> Se a gestão permitir dispensar uma locação adicional por doze meses, essa referência representa aproximadamente quinhentos mil reais brutos de economia potencial. Reduzir despesa libera orçamento. Ainda precisamos medir esse ganho e descontar os custos do Consta.
-
-## Tela 15 · equipe e convite · 9 s
+## Tela 14 · equipe e convite · 9 s
 
 > Somos Matheus, Pedro, Antonio e Nicolas. Buscamos um piloto com a Engenharia Clínica para medir cadastro, busca, disponibilidade e custos. Menos redigitação, mais gestão. Consta.
 
-## Tela 16 · CTA · QR do sistema
+## Tela 15 · CTA · QR do sistema
 
 > Conheça o Consta em consta ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
 
 **Acesso:** verificar o deploy antes do palco. Na checagem local, o endereço retornou451/DEPLOYMENT_DISABLED. Não anunciar sistema acessível enquanto isso persistir.
 
-## Tela 17 · modelo de negócio · apoio após o CTA
+## Tela 16 · modelo de negócio · apoio após o CTA
 
-> O Plano Business é uma licença anual por unidade hospitalar e faixa do parque: seis mil reais para até cem equipamentos, doze mil para até quinhentos e vinte e quatro mil para até dois mil. Tags, receptores e implantação são vendidos à parte. São preços propostos para validação comercial.
+> O Plano Business é uma licença anual por unidade hospitalar e faixa do parque: vinte mil reais para até cem equipamentos, sessenta mil para até quinhentos e cento e oitenta mil para até dois mil. A contratação inicial inclui vinte tags. Tags adicionais, receptores e implantação são vendidos à parte. São preços propostos para validação comercial.
 
 **Uso no palco:** esta tela fica depois do CTA, conforme pedido. Pode ser usada na discussão com a banca; para encerramento principal, permaneça no QR.
 
 ## Precisão para a banca
 
 - ≈R$500mil/ano é equivalência de12mensalidades deR$41.190,95 em Suzano, não economia comprovada. Natal é outro caso; não somar.
-- HC-UFG:13→34aparelhos disponíveis, parque42. Resultado da manutenção daquela instituição.
-- HMB/IMED: cerca70exames/dia e até2milprocedimentos/mês, em outro hospital. Não são pacientes únicos nem conversão dos aparelhos do HC-UFG.
+- HMB/IMED: cerca70exames/dia e até2milprocedimentos/mês, em outro hospital. Atendimentos significa procedimentos, não pacientes únicos ou pacientes adicionais recuperados pelo Consta. Não há conversão dos aparelhos do HC-UFG.
 - FMUSP:100%por setor nos testes externos,90medições com30etiquetas. Não valida rastreamento do Consta ou precisão por sala.
 - A demo usa cenário sintético completo, extração preparada e interface real. API exercitada não comprova IA externa, OCR físico ou BLE.
-- Especialidades: Matheus Godoi, engenheiro biomédico; Pedro Morais, engenheiro de software; Antonio Figlio, engenheiro de produto; Nicolas Braga, engenheiro de dados.
+- Especialidades: Matheus Godoi, engenheiro biomédico; Pedro Morais, engenheiro de software; Antonio Figlio, engenheiro de produto; Nicolas Braga, engenheiro de software.
 
 [Fontes e critérios](metodo.html) · [Apoio técnico BLE](apoio-tecnico.html).
