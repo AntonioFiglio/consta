@@ -1,6 +1,6 @@
 # Requisitos do produto
 
-Requisitos de construção, ainda não capacidades implementadas. A prioridade e a sequência estão no [backlog](../desenvolvimento/backlog.md).
+Requisitos do produto completo. A implementação local parcial da [fase 1](fase-1-cadastro-e-calendario.md) não representa cumprimento de todos eles; consulte o [estado atual](../estado-atual.md). A prioridade e a sequência estão no [backlog](../desenvolvimento/backlog.md).
 
 ## Gestão, documentos e manutenção
 

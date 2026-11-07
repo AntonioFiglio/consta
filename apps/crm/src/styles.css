@@ -5491,6 +5491,7 @@ label > small {
   border-radius: var(--consta-radius-md);
 }
 .application-sidebar nav a[aria-current="page"],
+.sidebar-upload-control,
 .sidebar-upload-action,
 .sidebar-upload-action:hover,
 .sidebar-upload-action:active {
@@ -5846,7 +5847,9 @@ label > small {
   min-width: 0;
 }
 .sidebar-upload-action {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
+  padding-right: var(--consta-space-1);
   border: 0;
   text-align: left;
 }
@@ -5854,13 +5857,17 @@ label > small {
   min-width: 0;
   overflow-wrap: anywhere;
 }
-.sidebar-upload-help {
+.sidebar-upload-control {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--consta-space-2);
-  margin-top: var(--consta-space-2);
-  padding-left: var(--consta-space-1);
-  color: var(--consta-text-secondary);
-  font-size: var(--consta-text-xs);
+  padding-right: var(--consta-space-1);
+  border-radius: var(--consta-radius-md);
+}
+.sidebar-upload-control > .status-help-trigger {
+  color: inherit;
+}
+.sidebar-upload-control > .status-help-trigger:hover,
+.sidebar-upload-control > .status-help-trigger:focus-visible {
+  color: inherit;
+  background: #ffe1c8;
 }

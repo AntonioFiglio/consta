@@ -34,7 +34,7 @@ Uma entrega de pesquisa/documentação também usa `feature/<tema>`. Integraçã
 1. Faça fetch, confira `git status` e as branches remotas. Parta da `develop` atualizada e crie `feature/<tema>`. Preserve alterações e branches pendentes de outros integrantes; não faça stash, reset ou rebase de trabalho alheio.
 2. Faça uma entrega delimitada. Combine mudanças de contrato antes de outros integrantes dependerem delas.
 3. Inclua documentação e verificações compatíveis com a mudança. Regras de prazo, autorização, persistência e ordenação de eventos precisam de testes de comportamento quando implementadas.
-4. Execute os comandos realmente disponíveis. Nesta etapa, o verificador documental é o único check automatizado do projeto; o CRM ainda não tem build nem suíte.
+4. Execute os comandos realmente disponíveis: `python3 scripts/verificar_repositorio.py` para documentação e `npm test`/`npm run build` para o CRM. Registre testes não executados ou marcados como `skip`, incluindo limites do ambiente e ausência de integração com provedor real.
 5. Abra um pull request para `develop` explicando problema, comportamento resultante, validação e limitações. Peça revisão de outro integrante, especialmente nas fronteiras compartilhadas.
 6. Integre sem apagar trabalho alheio, reescrever histórico compartilhado ou enviar credenciais. Deploy é uma ação separada da integração do código.
 

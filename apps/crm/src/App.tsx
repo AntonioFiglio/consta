@@ -374,7 +374,7 @@ export function App() {
                 <PanelLeftClose size={17} />
               </button>
             </div>
-            <section className="sidebar-add-card" aria-label="Envio de contrato">
+            <section className="sidebar-add-card sidebar-upload-control" aria-label="Envio de contrato">
               <button
                 type="button"
                 className="sidebar-upload-action"
@@ -386,13 +386,10 @@ export function App() {
                 <Upload size={19} aria-hidden="true" />
                 <span>Enviar contrato</span>
               </button>
-              <div className="sidebar-upload-help">
-                <span>PDF ou TXT</span>
-                <ContextHelp
-                  label="Como funciona o envio de contrato"
-                  text="Envie o contrato para cadastrar os equipamentos que ele inclui. Você confere e completa os dados antes de salvar."
-                />
-              </div>
+              <ContextHelp
+                label="Como funciona o envio de contrato"
+                text="Envie um contrato em PDF ou TXT para cadastrar seus equipamentos. Confira os dados antes de salvar."
+              />
             </section>
           </div>
           <div className="sidebar-main">

@@ -2,6 +2,10 @@
 
 Backlog de entregas, não lista de funcionalidades concluídas. O [estado atual](../estado-atual.md) registra o que existe. Responsáveis e datas serão combinados pela equipe; este documento não atribui trabalho nominalmente.
 
+## Recorte atual — fase 1
+
+O [cadastro por contrato e calendário](../produto/fase-1-cadastro-e-calendario.md) tem implementação local em React 19/Vite, API/SQLite, upload, revisão manual e projeções por calendário. SDK integrado com configuração deixada ao usuário; avaliação com provedor real pendente. Abaixo permanece o backlog do produto completo: a senha local do protótipo não conclui autorização institucional, e previsões não equivalem a tarefas executadas. Consulte o [guia executável](../../apps/crm/README.md).
+
 ## Base compartilhada
 
 | Entrega | Depende de | Pronta quando |

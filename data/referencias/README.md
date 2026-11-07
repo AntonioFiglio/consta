@@ -1,5 +1,7 @@
 # Metadados públicos de pesquisa
 
+O [pacote vigente fornecido por Matheus](pacotes/README.md) está disponível via Git LFS, atualizado com nomenclatura descritiva e documentos de manutenção com série/patrimônio. Há instruções de download, manifesto de integridade e índice com caminhos atuais. As tabelas abaixo preservam a auditoria anterior e seus identificadores, sem alterar o contrato dos casos de avaliação existentes.
+
 Esta pasta reúne referências auditadas, distintas dos [cenários financeiros fictícios](../CONSTA_CENARIOS_SIMULADOS.csv). Ela não contém inventário operacional do HC, documentos internos, dados de pacientes ou resultados do Consta.
 
 | Arquivo | Uso e limite |

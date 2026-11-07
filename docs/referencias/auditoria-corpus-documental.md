@@ -1,5 +1,7 @@
 # Auditoria do corpus documental hospitalar
 
+**Adendo de distribuição, 07/11/2026:** o [pacote atualizado](../../data/referencias/pacotes/README.md) inclui documentos adicionais de manutenção com série/patrimônio, conferidos por extração textual dos trechos de identificação. A afirmação abaixo de ausência de inventário serializado se refere ao corpus anterior: os novos documentos oferecem exemplos de identificadores públicos, mas continuam sem constituir inventário operacional do HCFMUSP. As contagens e a auditoria de cláusulas abaixo permanecem históricas; nomes atuais e equivalências por hash estão no manifesto da nova distribuição.
+
 Auditoria em 06/11/2026 do pacote local `consta-pesquisas`. Os materiais agregam exemplos reais de obrigações documentais para o CRM: manutenção, garantia, instalação, treinamento, assistência e comprovantes. **Não demonstram operação do Consta, compras integralmente concluídas, equipamentos perdidos ou falhas do hospital.** Não sustentam validação de BLE, instalação hospitalar ou segurança clínica.
 
 O [inventário auditado](../../data/referencias/corpus-documental-auditado.csv) relaciona cada linha aos arquivos, SHA-256, URLs oficiais, páginas consultadas, estágio documental e ressalvas. Ele contém metadados públicos; não incorpora PDFs, assinaturas, CPFs ou contatos pessoais. Identificadores `FZ-*` são chaves do pacote, não números oficiais de processo.

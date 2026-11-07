@@ -2,13 +2,15 @@
 
 Modelo conceitual, ainda sem esquema de banco implementado. O [glossário](../../GLOSSARY.md) define os termos e os [fluxos](../produto/fluxos.md) definem o comportamento esperado.
 
+A implementação local do CRM armazena nome, marca (`brand`) e modelo separadamente no ativo. A marca é opcional para compatibilidade com registros/documentos anteriores; dados ausentes ou conflitantes não são inferidos. O restante deste documento descreve o modelo conceitual do produto completo.
+
 ## Entidades e relações
 
 | Entidade | Identidade e relações essenciais |
 | --- | --- |
 | Instituição | Limite de acesso de usuários, setores, ativos, documentos e eventos |
 | Setor/local | Pertence à instituição; pode compor hierarquia; distingue local cadastrado e observado |
-| Ativo | Unidade física; instituição, patrimônio/série quando disponíveis, modelo, setor e responsáveis |
+| Ativo | Unidade física; instituição, patrimônio/série quando disponíveis, marca, modelo, setor e responsáveis |
 | Documento/versão | Arquivo privado, hash, origem, versão e vínculos com ativos ou contratos |
 | Contrato | Fornecedor, vigência, condições e cobertura; vínculo explícito com cada ativo abrangido |
 | Extração/campo | Valor, unidade, encontrado/ausente/conflitante, documento/versão, página, trecho e revisão |
@@ -51,3 +53,15 @@ Valores precisam de moeda, natureza, período e documento de origem. Separar gas
 ## Ainda a decidir
 
 Tipos e índices do banco, chaves de idempotência por operação, política de retenção, exclusão lógica, migrações, papéis/permissões e regras exatas de transição. Este modelo não substitui um esquema revisado nem autoriza coletar dados de pacientes.
+
+## Implementação: ocorrências e contatos da manutenção
+
+`Asset.breakdowns[]` guarda `id`, `reportedAt`, `scheduledDate` opcional e `resolvedAt` opcional no payload SQLite. Uma ocorrência aberta por unidade; reportar não altera contrato/planos, reagendar mantém o ID e encerrar preserva o registro. `PATCH /api/assets/:id/breakdown` valida ação/data e autorização da sessão. A consulta de eventos projeta reparos abertos agendados como `kind: corrective`, com ID distinto da preventiva, sem tabela duplicada de eventos.
+
+`maintenanceCompany`, `maintenancePhone` e `maintenanceEmail` são extraídos com evidência por equipamento e persistidos no cadastro/cobertura. O histórico documental expõe os contatos da extração correspondente à unidade. Para identificação de quem atende, vale o vínculo de manutenção mais recente; contato ausente não volta ao valor de uma empresa anterior. Isso é uma regra de apresentação e contato, independente da aprovação e vigência da cobertura. O prestador não é inferido do fabricante, vendedor ou hospital. Oficina interna exige definição explícita.
+
+## Resumo persistido por arquivo — implementação local
+
+`contract_briefs` guarda a síntese do arquivo imutável, sem alterar seus vínculos ou planos. Estados: `pending`, `ready` e `failed`; origem `simulated` ou `ai`. A reserva tem token e horário; só o token ativo pode concluir a geração. Requisições concorrentes não geram duas sínteses. Falhas e reservas expiradas não são repetidas automaticamente. Resumo de simulação pode ser promovido uma vez para IA; resumo real pronto é reutilizado sem depender da configuração posterior do modelo. O hash registra o arquivo resumido. A migração aditiva para versão 5 preserva os cadastros e históricos existentes.
+
+A fonte/página de cada ponto é sugestão do modelo, não citação verificada por um parser independente. A saída estruturada não comprova correção factual nem substitui revisão humana.
