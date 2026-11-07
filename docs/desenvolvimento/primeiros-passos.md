@@ -21,7 +21,7 @@ O verificador usa apenas a biblioteca padrão do Python. Confere arquivos refere
 
 ### Marca
 
-Abra [brand/index.html](../../brand/index.html) em um navegador para consultar o kit local, ou use diretamente os SVGs e PNGs. Gerar a marca de novo não é necessário para desenvolver o CRM. Se precisar reconstruí-la, siga o [guia da marca](../../brand/README.md).
+Abra [brand/index.html](../../brand/index.html) em um navegador para consultar o kit local, ou use as wordmarks SVG atuais. A apresentação carrega fontes pelo Google Fonts e depende de internet para essa tipografia. Consulte o [guia da marca](../../brand/README.md).
 
 ### Integração sem hardware
 
@@ -31,7 +31,7 @@ Leia os [contratos propostos](../../packages/contratos/README.md). Os exemplos J
 
 1. Identifique a entrega e sua dependência no backlog; combine responsável e arquivos compartilhados.
 2. Leia os documentos da tarefa. Para uma LLM, use o [AGENTS.md](../../AGENTS.md); ele encaminha o contexto conforme o tipo de trabalho.
-3. Crie uma branch de trabalho conforme [CONTRIBUTING.md](../../CONTRIBUTING.md).
+3. Faça fetch e crie `feature/<tema>` a partir da `develop` atualizada, conforme o [Gitflow](../../CONTRIBUTING.md). Entregue por PR para `develop`; a `main` é promovida por release aprovada.
 4. Implemente uma fatia verificável e documente comandos, ambiente e estado real.
 5. Rode verificações apropriadas, revise o diff e apresente evidências no pull request.
 

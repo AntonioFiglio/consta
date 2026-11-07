@@ -27,7 +27,8 @@ Modelo conceitual, ainda sem esquema de banco implementado. O [glossário](../..
 
 - Toda leitura e escrita respeita instituição e autorização. Chaves e referências devem impedir vínculos entre instituições diferentes.
 - Um ativo representa uma unidade física. Patrimônio/série ausentes devem ser visíveis; não criar uma identidade de ativo a partir de nome de modelo.
-- Documento é versionado; hash ajuda a identificar duplicatas. Vincular o mesmo arquivo a ativos diferentes é distinto de criar arquivos duplicados.
+- Documento é versionado; hash ajuda a identificar duplicatas. Vincular o mesmo arquivo a ativos diferentes é distinto de criar arquivos duplicados. Registrar natureza e estágio: edital/TR, minuta, contrato publicado como assinado ou extrato não demonstram o mesmo fato; verificação jurídica/digital de assinatura é uma etapa distinta.
+- Relações entre processo, contrato e arquivos não são necessariamente individuais: um documento pode agrupar processos e um extrato pode listar contratos diferentes. Garantia, vigência, SLA e periodicidade têm campos e evidências próprios; regra de precedência identificada não deve ocultar conflito entre instrumentos. Veja os [casos auditados](../../data/referencias/casos-avaliacao-extracao.json).
 - Plano só fica operacional após aprovação registrada. Tarefas apontam para a versão que as originou; alterar o plano não reescreve o passado.
 - Gerar a mesma ocorrência de manutenção repetidamente não cria tarefas extras. A chave da ocorrência deve ser definida e persistida junto da primeira implementação.
 - Tarefas mantêm transições e motivos. Atraso deriva do prazo e dos registros de execução; não desaparece ao concluir.

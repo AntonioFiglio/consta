@@ -2,6 +2,10 @@
 
 Registro de pesquisa dirigida, não revisão sistemática, laudo ou verificação contínua dos fornecedores. As fontes foram consultadas durante a preparação do projeto; datas de publicação e de implantação não devem ser confundidas com estado atual de um hospital. As referências abaixo informam decisões, sem transferir resultados de terceiros ao Consta.
 
+## Pacote de pesquisas auditado
+
+O [estudo do pacote fornecido por Matheus](estudo-pacote-pesquisas.md) consolida novas evidências documentais e revisa as premissas econômicas. Consulte a [auditoria documental](auditoria-corpus-documental.md), a [auditoria de rastreabilidade](auditoria-rastreabilidade.md) e a [auditoria econômica](auditoria-economia-ociosidade.md). Os [metadados e casos de avaliação](../../data/referencias/README.md) preservam fonte e identidade, sem publicar cópias integrais dos documentos.
+
 ## Contexto do produto
 
 - [Catálogo de alegações e limites](alegacoes-e-limites.md): contexto hospitalar brasileiro, manutenção, concorrência e enquadramento. Conserva a identificação das fontes e dos recortes originais.
@@ -26,11 +30,13 @@ Registro de pesquisa dirigida, não revisão sistemática, laudo ou verificaçã
 
 As análises vigentes estão em [arquitetura BLE](../rastreamento/arquitetura-ble.md) e [segurança hospitalar](../rastreamento/seguranca-hospitalar.md). Não houve ensaio físico do Consta.
 
-## Contrato público identificado
+## Contratos públicos disponíveis
 
-Até esta consolidação, foi identificado **um registro público específico** usado como referência de contrato: [contrato nº 00020/2023 do Hospital das Clínicas da UFPE, no PNCP](https://pncp.gov.br/app/contratos/15126437000143/2023/007439). O objeto publicado descreve manutenção preventiva e corretiva de um angiógrafo identificado. HC-UFPE e HCFMUSP são instituições diferentes.
+Na pesquisa anterior, foi identificado **um registro público específico** usado como referência de contrato: [contrato nº 00020/2023 do Hospital das Clínicas da UFPE, no PNCP](https://pncp.gov.br/app/contratos/15126437000143/2023/007439). O objeto publicado descreve manutenção preventiva e corretiva de um angiógrafo identificado. HC-UFPE e HCFMUSP são instituições diferentes.
 
 O registro ilustra vínculo entre contrato e equipamento. Não é um corpus amplo de contratos, não comprova execução das manutenções nem fornece inventário ou pendências do HCFMUSP. A demo deve usar documento sintético; campos como periodicidade e marco inicial só podem ser extraídos quando estiverem no documento efetivamente consultado. Não afirmar análise integral de anexos ou cláusulas sem realizá-la.
+
+O novo pacote ampliou o material para **25 registros documentais**, com **8 PDFs adicionais de contratos publicados como assinados**, além de editais/TRs e extratos. Isso não equivale a 25 contratos ou compras concluídas. A [auditoria](auditoria-corpus-documental.md) registra os vínculos, leituras, hashes, estágios e conflitos; o contrato do HC-UFPE permanece fora desse recorte.
 
 ## Precedentes internacionais de rastreamento hospitalar
 

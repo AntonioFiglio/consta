@@ -14,6 +14,8 @@ Vocabulário do produto e da engenharia clínica. As regras de implementação f
 
 **Plano de manutenção:** conjunto revisado de obrigações, procedimentos, gatilhos e referências aplicáveis a um ativo.
 
+**Plano de Gerenciamento de Tecnologias em Saúde (PGTS):** documento institucional que define critérios e responsabilidades ao longo do ciclo de vida das tecnologias abrangidas. Um plano de manutenção de um ativo é parte do processo de gestão, não equivale ao PGTS completo.
+
 **Marco inicial:** acontecimento ou data a partir do qual se calcula uma obrigação. O envio de um documento não define esse marco.
 
 **Tarefa de manutenção:** ocorrência concreta de trabalho, com ativo, plano de origem, prazo, responsável e estado de execução.

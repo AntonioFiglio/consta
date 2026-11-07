@@ -34,7 +34,10 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 
 - [ADR 0001 — BLE e descontinuação da óptica](adr/0001-rastreamento-ble.md)
 - [ADR 0002 — Repositório único e fronteiras de desenvolvimento](adr/0002-monorepo.md)
+- [ADR 0003 — Gitflow para colaboração](adr/0003-gitflow.md)
 - [Fontes técnicas e estudos internacionais](referencias/README.md)
+- [Estudo do pacote de pesquisas fornecido por Matheus](referencias/estudo-pacote-pesquisas.md) — síntese do que agrega e do que não se pode concluir
+- Auditorias do pacote: [documentos](referencias/auditoria-corpus-documental.md), [rastreabilidade](referencias/auditoria-rastreabilidade.md) e [economia](referencias/auditoria-economia-ociosidade.md)
 - [Notícias para contextualizar o pitch](referencias/noticias-para-pitch.md) — casos, datas, respostas e limites de interpretação
 - [Contexto hospitalar e limites das alegações](referencias/alegacoes-e-limites.md)
 - [Notas de descoberta do hackathon](referencias/descoberta-hackathon.md) — material de origem, sem precedência sobre o escopo atual
@@ -42,5 +45,5 @@ Leia o [estado atual](estado-atual.md) antes de assumir que uma função já exi
 
 ## Marca e dados
 
-- [Identidade visual](../brand/README.md) e [galeria](../brand/index.html)
+- [Identidade visual](../brand/README.md) e [identidade atual](../brand/identity.html)
 - [Dados de demonstração e seus limites](../data/README.md)
