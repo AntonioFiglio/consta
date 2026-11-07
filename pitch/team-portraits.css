@@ -1,0 +1,16 @@
+/* Portrait slots ready for the team's real 4:5 photos. */
+.team-portraits .tm-grid { top: 240px; }
+.team-portraits .tm-monogram { position: relative; width: 320px; height: auto; aspect-ratio: 4 / 5; overflow: hidden; font-size: 92px; }
+.team-portraits .tm-monogram img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.team-portraits .tm-grid b { max-width: 360px; }
+
+/* Non-destructive framing: the original files remain intact. */
+.team-portraits .tm-photo img { transform:scale(var(--portrait-zoom,1)); transform-origin:var(--portrait-origin,50% 50%); }
+.team-portraits .tm-photo-nicolas { --portrait-zoom:1.75; --portrait-origin:70% 35%; }
+.team-portraits .tm-photo-antonio { --portrait-zoom:1.8; --portrait-origin:50% 63%; }
+.team-portraits .tm-photo-matheus { --portrait-zoom:1.65; --portrait-origin:45% 70%; }
+.team-portraits .tm-photo-pedro { --portrait-zoom:2.3; --portrait-origin:20% 48%; }
+
+/* Declared specialties, below the corresponding portraits. */
+.team-portraits .tm-role { display:block; max-width:380px; margin-top:10px; color:#6b655e; font:500 32px/1.25 var(--sans); letter-spacing:-.02em; }
+.team-portraits .tm-close { top:790px; }

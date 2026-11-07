@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consta · Apoio técnico BLE (perguntas)</title>
+<link rel="stylesheet" href="ble.css">
+</head>
+<body>
+<!--
+  Apresentação EXTRA para perguntas, depois do pitch principal (deck.html).
+  Palco fixo 1920×1080 escalonado por ble.js. Navegação manual, sem autoplay.
+  Cada .tela é uma ideia. Estado: conceito + geometria virtual + contratos propostos.
+  Nada aqui demonstra hardware montado, integração física, autonomia ou liberação clínica.
+-->
+<p class="sr-only" id="live" aria-live="polite"></p>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="ponta" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M1 1 L10 6 L1 11" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+</svg>
+
+<main class="stage" id="stage" aria-roledescription="apresentação" aria-label="Apoio técnico BLE do Consta">
+
+  <!-- ═════ 1 · CONCEITO E ESTADO ═════ -->
+  <section class="tela tela-estado" aria-roledescription="tela" aria-label="1 de 8: conceito e estado">
+    <p class="kicker">Apoio técnico · BLE</p>
+    <h1>Uma tag própria, com estado <em>declarado</em>.</h1>
+    <figure class="hero-tag">
+      <img src="assets/tag/consta-tag-adesiva-isolada-conceito.png" alt="Conceito atual de cápsula adesiva Consta sem berço ou cinta">
+      <figcaption><span class="badge">Imagem conceitual gerada</span> não é foto de hardware fabricado</figcaption>
+    </figure>
+    <div class="estado">
+      <div class="estado-col ok">
+        <h2>Existe hoje</h2>
+        <ul>
+          <li>Conceito adesivo atual</li>
+          <li>CAD anterior, com berço</li>
+          <li>Contratos de integração propostos</li>
+        </ul>
+      </div>
+      <div class="estado-col pend">
+        <h2>Pendente</h2>
+        <ul>
+          <li>Montar placa e firmware</li>
+          <li>Testar hardware e integração física</li>
+        </ul>
+      </div>
+    </div>
+    <p class="nota">O CAD anterior testa apenas envelopes da versão com berço. A cápsula adesiva ainda exige projeto mecânico, montagem e validação.</p>
+    <footer class="fonte"><a href="assets/tag/desenho-cotado.svg">Desenho cotado</a> · <a href="assets/tag/conceito-tag.scad">CAD paramétrico</a> · <a href="assets/tag/parametros.json">Parâmetros</a> · <a href="assets/tag/README.md">Ressalvas da geometria</a> · <a href="../docs/referencias/tag-prototipo-cr2032.md">Pesquisa CR2032</a></footer>
+  </section>
+
+  <!-- ═════ 2 · ENERGIA CR2032 ═════ -->
+  <section class="tela tela-energia" aria-roledescription="tela" aria-label="2 de 8: energia por pilha CR2032">
+    <p class="kicker">Energia</p>
+    <h1>Pilha moeda CR2032, <em>trocável</em>.</h1>
+    <p class="sub">O mesmo formato de pilha de placas-mãe e do AirTag. Sem bateria recarregável.</p>
+    <svg class="diag" viewBox="0 0 1600 470" role="img" aria-label="Rota proposta: pilha CR2032, retentor Keystone 3034 em placa própria, módulo Raytac MDBT50Q-1MV2">
+      <!-- pilha: Ø20 mm em escala 11 px/mm -->
+      <g transform="translate(150 70)">
+        <circle cx="110" cy="110" r="110" class="metal"/>
+        <circle cx="110" cy="110" r="88" class="metal-in"/>
+        <text x="110" y="104" class="t-big" text-anchor="middle">CR2032</text>
+        <text x="110" y="146" class="t-mono t-sm" text-anchor="middle">3 V primária</text>
+        <rect x="0" y="262" width="220" height="35" rx="6" class="metal"/>
+        <text x="110" y="340" class="t-mono t-dim" text-anchor="middle">Ø 20 × 3,2 mm</text>
+        <text x="110" y="384" class="t-lab" text-anchor="middle">Panasonic CR2032</text>
+      </g>
+      <path d="M430 180 H560" class="seta"/>
+      <!-- retentor sobre PCB -->
+      <g transform="translate(580 70)">
+        <rect x="0" y="40" width="300" height="180" rx="14" class="pcb"/>
+        <path d="M30 70 H270 V190 H30 Z" class="retentor"/>
+        <rect x="128" y="112" width="44" height="44" class="pad"/>
+        <text x="150" y="250" class="t-mono t-dim" text-anchor="middle">pad negativo na PCB própria</text>
+        <text x="150" y="340" class="t-mono t-dim" text-anchor="middle">retentor SMT</text>
+        <text x="150" y="384" class="t-lab" text-anchor="middle">Keystone 3034</text>
+      </g>
+      <path d="M900 180 H1030" class="seta"/>
+      <!-- módulo 15,5 × 10,5 mm em escala 11 px/mm -->
+      <g transform="translate(1060 95)">
+        <rect x="0" y="0" width="170" height="116" rx="8" class="modulo"/>
+        <rect x="128" y="0" width="42" height="116" class="antena"/>
+        <text x="64" y="66" class="t-mono t-inv t-sm" text-anchor="middle">nRF52840</text>
+        <text x="200" y="64" class="t-mono t-dim">antena na borda</text>
+        <text x="85" y="185" class="t-mono t-dim" text-anchor="middle">15,5 × 10,5 × 2,05 mm</text>
+        <text x="85" y="225" class="t-mono t-dim" text-anchor="middle">VDD 1,7–3,6 V</text>
+        <text x="85" y="359" class="t-lab" text-anchor="middle">Raytac MDBT50Q-1MV2</text>
+      </g>
+    </svg>
+    <p class="proib"><span class="dot"></span><b>Sem carregador.</b> Nunca ligar a CR2032 ao BAT/carregador LiPo da XIAO.</p>
+    <p class="nota">Rota de bancada, BOM não selecionada. PCB, firmware, RF e autonomia ainda sem validação; 225 mAh nominais não preveem meses de uso.</p>
+    <footer class="fonte"><a href="https://industrial.panasonic.com/cdbs/www-data/pdf2/AAA4000/AAA4000C496.pdf">Panasonic CR2032</a> · <a href="https://www.keyelco.com/product.cfm/product_id/798">Keystone 3034</a> · <a href="https://www.mouser.com/datasheet/3/1361/1/nRF52840_MDBT50Q_1MV2_MDBT50Q_P1MV2_Ver.L_spec.pdf">Raytac MDBT50Q-1MV2 ver. L</a></footer>
+  </section>
+
+  <!-- ═════ 3 · FIXAÇÃO REMOVÍVEL ═════ -->
+  <section class="tela tela-fixacao" aria-roledescription="tela" aria-label="3 de 8: fixação removível">
+    <p class="kicker">Fixação simplificada · proposta atual</p>
+    <h1>Adesivo no verso. <em>Sem berço externo.</em></h1>
+    <svg class="diag" viewBox="0 0 1600 570" role="img" aria-label="Cápsula adesiva proposta, com liner destacável e acesso à pilha pela frente ainda a projetar">
+      <image href="assets/tag/consta-tag-adesiva-isolada-conceito.png" x="80" y="10" width="600" height="530"/>
+      <text x="790" y="160" class="t-lab">Verso plano com adesivo.</text>
+      <text x="790" y="248" class="t-lab">Sem cinta ou suporte extra.</text>
+      <text x="790" y="336" class="t-lab">Pilha acessível pela frente.</text>
+      <text x="790" y="402" class="t-mono t-dim">Fechamento e troca ainda a projetar.</text>
+    </svg>
+    <div class="trio">
+      <p><strong>Definir:</strong> adesivo e local com Engenharia Clínica.</p>
+      <p><strong>Sem:</strong> furos, ímãs ou alimentação pelo equipamento.</p>
+      <p><strong>Validar:</strong> limpeza, retenção, remoção e troca da pilha.</p>
+    </div>
+    <footer class="fonte">Imagem conceitual, não desenho de fabricação · <a href="metodo.html#custo-tag">Custos de bancada e limites</a> · <a href="../docs/referencias/custo-ble-minimo-2026-11-07.md">Fornecedores brasileiros e contas</a></footer>
+  </section>
+
+  <!-- ═════ 4 · ARQUITETURA ═════ -->
+  <section class="tela tela-arq" aria-roledescription="tela" aria-label="4 de 8: arquitetura do sistema">
+    <p class="kicker">Arquitetura proposta</p>
+    <h1>Do anúncio BLE ao <em>comprovante</em>.</h1>
+    <ol class="fluxo">
+      <li><span class="n">01</span><b>Tag</b><span>anuncia por BLE</span></li>
+      <li><span class="n">02</span><b>Receptor fixo</b><span>ouve e registra o horário</span></li>
+      <li><span class="n">03</span><b>Serviço local</b><span>estima o setor na rede do hospital</span></li>
+      <li><span class="n">04</span><b>CRM</b><span>exibe setor, origem e horário</span></li>
+      <li><span class="n">05</span><b>Tarefa</b><span>registra a busca e o comprovante</span></li>
+    </ol>
+    <div class="separado">
+      <span class="dot"></span>
+      <p><b>Liberação técnica</b> continua decisão humana. Uma leitura BLE não libera o uso de um ativo.</p>
+    </div>
+    <div class="trio">
+      <p><strong>Sem AirTag / Find My.</strong> Tag e receptores próprios.</p>
+      <p><strong>APs ou gateways BLE compatíveis</strong> podem ser avaliados com a TI, sem trocar todos os roteadores.</p>
+      <p><strong>Rede local:</strong> requisito de projeto, o caminho essencial da localização fica dentro do hospital.</p>
+    </div>
+    <footer class="fonte"><a href="../docs/arquitetura/visao-geral.md">Arquitetura</a> · <a href="../docs/rastreamento/arquitetura-ble.md">Arquitetura BLE</a> · <a href="../docs/rastreamento/seguranca-hospitalar.md">Segurança hospitalar</a></footer>
+  </section>
+
+  <!-- ═════ 5 · INTEGRAÇÃO COM O CRM ═════ -->
+  <section class="tela tela-integ" aria-roledescription="tela" aria-label="5 de 8: integração com o CRM">
+    <p class="kicker">Integração</p>
+    <h1>O CRM já funciona. A localização <em>se encaixa</em> nele.</h1>
+    <div class="integ">
+      <div class="integ-col">
+        <h2><span class="badge badge-ok">Implementado</span></h2>
+        <ol class="trilha">
+          <li>Contrato PDF ou TXT</li>
+          <li>IA pré-preenche equipamentos e regras</li>
+          <li>Equipe confere na tabela</li>
+          <li><b>Confirmar e salvar</b></li>
+          <li>Inventário e calendário</li>
+        </ol>
+      </div>
+      <div class="integ-col prox">
+        <h2><span class="badge">Próximo · proposto</span></h2>
+        <ul class="prox-lista">
+          <li><b>Localização BLE</b> por setor na ficha do ativo, com origem e horário</li>
+          <li><b>Mapa</b> alimentado pelo serviço de localização</li>
+          <li><b>QR + câmera web</b> para fotografar etiquetas e sugerir cadastros por IA; ainda não implementado</li>
+        </ul>
+      </div>
+    </div>
+    <p class="nota">Sem localização, o CRM segue útil: o ativo aparece como “localização desconhecida”.</p>
+    <footer class="fonte">CRM: branch <code>feature/crm-fase-1</code>, commit <code>27fd27a</code>, auditoria estática do código · <a href="../apps/crm/README.md">apps/crm</a> · <a href="../docs/produto/fluxos.md">Fluxos</a></footer>
+  </section>
+
+  <!-- ═════ 6 · CONTRATO PROPOSTO ═════ -->
+  <section class="tela tela-contrato" aria-roledescription="tela" aria-label="6 de 8: contrato de dados proposto">
+    <p class="kicker">Dados</p>
+    <h1>A procedência <em>chega</em> até a tela.</h1>
+    <div class="selos"><span class="badge">Contrato proposto</span><span class="badge badge-sim">Simulado</span></div>
+    <div class="json-par">
+      <figure class="json">
+        <figcaption>Receptor → serviço · observação</figcaption>
+<pre><code>{
+  <k>"tag_id"</k>: "tag-demo-bomba",
+  <k>"receiver_id"</k>: "receptor-demo-enfermaria",
+  <k class="hl">"observed_at"</k>: "2026-11-06T14:00:00-03:00",
+  <k class="hl">"source"</k>: "simulated",
+  <k class="hl">"simulated"</k>: true,
+  <k>"measurements"</k>: { "rssi_dbm": -67 }
+}</code></pre>
+      </figure>
+      <figure class="json">
+        <figcaption>Serviço → CRM · localização estimada</figcaption>
+<pre><code>{
+  <k>"asset_id"</k>: "ativo-demo-bomba",
+  <k>"location_id"</k>: "enfermaria-demo",
+  <k class="hl">"observed_at"</k>: "2026-11-06T14:00:00-03:00",
+  <k class="hl">"received_at"</k>: "2026-11-06T14:00:01-03:00",
+  <k class="hl">"state"</k>: "current",
+  <k class="hl">"source"</k>: "simulated",
+  <k class="hl">"simulated"</k>: true
+}</code></pre>
+      </figure>
+    </div>
+    <div class="estados">
+      <span class="chip c-cur">current · atual</span>
+      <span class="chip c-stale">stale · desatualizada</span>
+      <span class="chip c-unk">unknown · desconhecida</span>
+    </div>
+    <p class="nota">Trecho dos exemplos sintéticos. Sem API implementada: HTTP, MQTT, rotas e autenticação continuam em aberto.</p>
+    <footer class="fonte"><a href="../packages/contratos/README.md">Contratos propostos</a> · <a href="../packages/contratos/exemplos/observacao-simulada.json">observacao-simulada.json</a> · <a href="../packages/contratos/exemplos/localizacao-simulada.json">localizacao-simulada.json</a></footer>
+  </section>
+
+  <!-- ═════ 7 · EVIDÊNCIA E PILOTO ═════ -->
+  <section class="tela tela-evid" aria-roledescription="tela" aria-label="7 de 8: evidência e piloto">
+    <p class="kicker">Evidência</p>
+    <h1>Setor, sim. Sala exata, <em>não prometemos</em>.</h1>
+    <div class="evid">
+      <div class="evid-num">
+        <p class="estudo">FMUSP · Barbosa, 2023</p>
+        <dl>
+          <div><dt>30</dt><dd>etiquetas Bluetooth</dd></div>
+          <div><dt>3</dt><dd>setores</dd></div>
+          <div><dt>90</dt><dd>medições com o setor correto</dd></div>
+        </dl>
+        <p class="limite">As mesmas etiquetas foram reutilizadas. Precisão de sala limitada. Não é resultado do Consta, não mediu tempo economizado, não é aprovação clínica.</p>
+      </div>
+      <div class="piloto">
+        <h2>Piloto proposto mede</h2>
+        <ul>
+          <li>Acerto contra setor conhecido por referência independente</li>
+          <li>Erros e leituras desconhecidas</li>
+          <li>Latência até o CRM</li>
+          <li>Tempo de busca do ativo</li>
+        </ul>
+        <p class="gate">Etiquetas de baixo consumo; atualização automática por receptores. Antes de implantar: avaliar compatibilidade com TI e Engenharia Clínica.</p>
+      </div>
+    </div>
+    <footer class="fonte"><a href="https://teses.usp.br/teses/disponiveis/5/5174/tde-30112023-155658/pt-br.html">Barbosa · FMUSP · 2023</a> · método pp. 24–25, resultados p. 29 · <a href="metodo.html#piloto">Método do piloto</a></footer>
+  </section>
+
+  <!-- ═════ 8 · RETORNO ═════ -->
+  <section class="tela tela-fim" aria-roledescription="tela" aria-label="8 de 8: voltar ao pitch">
+    <p class="wordmark">CONSTA</p>
+    <h1>Próximo passo: <em>montar e medir</em>.</h1>
+    <nav class="saidas" aria-label="Voltar">
+      <a class="saida" href="deck.html">Voltar ao pitch</a>
+      <a class="saida saida-sec" href="metodo.html">Método, contas e fontes</a>
+    </nav>
+  </section>
+
+  <nav class="ctl" aria-label="Navegação">
+    <button type="button" id="prev" aria-label="Tela anterior">←</button>
+    <span class="pos" id="pos" aria-hidden="true">01 / 08</span>
+    <button type="button" id="next" aria-label="Próxima tela">→</button>
+  </nav>
+  <a class="volta" href="deck.html">← pitch</a>
+</main>
+
+<script src="ble.js"></script>
+</body>
+</html>

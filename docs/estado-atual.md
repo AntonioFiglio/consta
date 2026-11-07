@@ -125,6 +125,8 @@ Testes de comportamento cobrem vários equipamentos por contrato, vencimento, re
 
 O [estudo do pacote de pesquisas](referencias/estudo-pacote-pesquisas.md) acrescentou inventário público, auditorias e casos esperados de extração. Esses casos ainda não foram avaliados com uma LLM real. O fluxo de colaboração segue [Gitflow](../CONTRIBUTING.md).
 
+A [pesquisa sobre BLE em APs e o pitch](referencias/ble-aps-e-pitch.md) verificou documentação pública de recepção/exportação BLE e limites de segurança. Acrescenta uma recomendação de avaliar infraestrutura existente antes de substituir APs; não há integração, fornecedor ou compatibilidade hospitalar validados.
+
 ## O que ainda não existe
 
 - Autorização por usuário/papel/instituição, isolamento institucional e implantação hospitalar do CRM.
@@ -217,3 +219,15 @@ Verificação: Chrome com 12 preventivas simuladas, abertura pelo número do dia
 A sidebar apresenta a navegação Calendário, Contratos e Equipamentos diretamente abaixo da marca, em ordem alfabética. Os títulos genéricos “Engenharia clínica”, “Gestão de equipamentos” e “Gestão” foram removidos. Um único box acionável “Adicionar equipamentos” explica o cadastro e oferece “Enviar contrato”, abrindo o formulário existente de upload e revisão, com preenchimento manual disponível. Reparos pendentes continuam como atalho quando existem; ajuda e saída ficam abaixo do box. Verificação: apresentação e abertura do cadastro pelo box conferidas no Chrome; build/TypeScript e validador do repositório aprovados.
 
 As pesquisas de Calendário, Equipamentos, Contratos e agendamentos do dia usam o componente compartilhado SearchField: altura de 42 px, largura de referência de 460 px nas páginas, ícone, tipografia, bordas e foco consistentes. Em telas menores e no diálogo o campo adapta a largura; todas as buscas oferecem limpar e devolvem o foco ao campo. Verificação: comparação visual das três páginas no Chrome, TypeScript, build e validador do repositório aprovados.
+
+### Correção local da captura móvel no pitch — 07/11/2026
+
+O slide de identificação usa capturas da `CapturePage` do Nicolas com CSS real do CRM, dentro de uma moldura de celular com ampliação uniforme e recorte correto da tela. Câmera, etiqueta e leitura permanecem simuladas e identificadas; não houve acesso a câmera física ou OCR real. A captura é reproduzível em `pitch/demo/camera/capture.cjs`. Validação em WebKit headless: imagens offline sem distorção, entrada/resultado, retorno/reinício e movimento reduzido em três viewports, sem erros de página; verificação documental aprovada. Alteração somente local, sem publicação.
+
+### Assinatura da marca padronizada — 07/11/2026
+
+Por pedido de Matheus, a assinatura passou a “Gestão de ativos e manutenção hospitalar.”, com apoio “Documentos, equipamentos e prazos em um só lugar.” Guia, prancha de identidade, README, capa/encerramento do pitch, rodapé do CRM e reprodução atual da demo usam a mesma mensagem. A wordmark, a paleta e as fontes permanecem as da identidade de Pedro; as frases antigas ficam registradas como histórico no guia. Não há promessa de prevenção de falhas ou disponibilidade garantida. Verificação: TypeScript, build da interface e verificador documental aprovados; WebKit offline confirmou assinatura na identidade/capa/encerramento e capa sem transbordamento horizontal em desktop, projetor e celular.
+
+### Pitch final, CTA e preços propostos —07/11/2026
+
+Apresentação local com17telas: fluxo automático do logo e da IA no mesmo slide, gaveta do gestor em looping, demo do CRM e Smart Agenda preservadas; celular e custoR$75mil retirados da navegação. Impactos em verde distinguem referência assistencial de ganho próprio e economia potencial de receita. Depois do time, CTA com QR parahttps://consta.vercel.app; Business vem após o CTA. QR gerado e decodificado; destino retornou451/DEPLOYMENT_DISABLED. Preços anuais6/12/24mil por faixas100/500/2.000ativos são propostas a validar, hardware/implantação à parte. Publicação emdevelop e main autorizada explicitamente por Matheus. Integração preparada sobre a develop remota, preservando o CRM:93testes sem skips, build/TypeScript e verificador documental aprovados, além do QA WebKit do pitch.

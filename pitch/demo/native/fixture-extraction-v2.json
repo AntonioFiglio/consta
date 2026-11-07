@@ -1,0 +1,561 @@
+{
+  "version": 2,
+  "equipments": [
+    {
+      "equipment": {
+        "value": "Autoclave 01",
+        "status": "found",
+        "page": null,
+        "quote": "Equipamento: Autoclave 01"
+      },
+      "brand": {
+        "value": "Consta Demo",
+        "status": "found",
+        "page": null,
+        "quote": "Marca: Consta Demo"
+      },
+      "model": {
+        "value": "AD-50",
+        "status": "found",
+        "page": null,
+        "quote": "Modelo: AD-50"
+      },
+      "serial": {
+        "value": "DEMO001",
+        "status": "found",
+        "page": null,
+        "quote": "Número de série: DEMO001"
+      },
+      "patrimony": {
+        "value": "CST0001",
+        "status": "found",
+        "page": null,
+        "quote": "Número de tombamento: CST0001"
+      },
+      "sector": {
+        "value": "CME demonstradora",
+        "status": "found",
+        "page": null,
+        "quote": "Setor: CME demonstradora"
+      },
+      "maintenanceCompany": {
+        "value": "Assistência Demo Ltda.",
+        "status": "found",
+        "page": null,
+        "quote": "Empresa de manutenção: Assistência Demo Ltda."
+      },
+      "maintenancePhone": {
+        "value": "(11) 4000-0000",
+        "status": "found",
+        "page": null,
+        "quote": "Telefone da manutenção: (11) 4000-0000"
+      },
+      "maintenanceEmail": {
+        "value": "assistencia@example.test",
+        "status": "found",
+        "page": null,
+        "quote": "E-mail da manutenção: assistencia@example.test"
+      },
+      "notes": {
+        "value": "DEMO-TAG001 · Uso exclusivamente demonstrativo",
+        "status": "found",
+        "page": null,
+        "quote": "Observações: DEMO-TAG001 · Uso exclusivamente demonstrativo"
+      },
+      "quantity": {
+        "value": "1",
+        "status": "found",
+        "page": null,
+        "quote": "Quantidade: 1"
+      },
+      "periodValue": {
+        "value": "90",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "periodUnit": {
+        "value": "days",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "firstDueDate": {
+        "value": "2027-02-05",
+        "status": "found",
+        "page": null,
+        "quote": "Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)"
+      },
+      "anchorType": {
+        "value": "Início do contrato",
+        "status": "found",
+        "page": null,
+        "quote": "Marco de manutenção: Início do contrato"
+      },
+      "anchorDate": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Data do marco: 07/11/2026 (2026-11-07)"
+      },
+      "validFrom": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Início da vigência: 07/11/2026 (2026-11-07)"
+      },
+      "validUntil": {
+        "value": "2027-11-06",
+        "status": "found",
+        "page": null,
+        "quote": "Fim da vigência: 06/11/2027 (2027-11-06)"
+      },
+      "warnings": []
+    },
+    {
+      "equipment": {
+        "value": "Autoclave 02",
+        "status": "found",
+        "page": null,
+        "quote": "Equipamento: Autoclave 02"
+      },
+      "brand": {
+        "value": "Consta Demo",
+        "status": "found",
+        "page": null,
+        "quote": "Marca: Consta Demo"
+      },
+      "model": {
+        "value": "AD-50",
+        "status": "found",
+        "page": null,
+        "quote": "Modelo: AD-50"
+      },
+      "serial": {
+        "value": "DEMO002",
+        "status": "found",
+        "page": null,
+        "quote": "Número de série: DEMO002"
+      },
+      "patrimony": {
+        "value": "CST0002",
+        "status": "found",
+        "page": null,
+        "quote": "Número de tombamento: CST0002"
+      },
+      "sector": {
+        "value": "CME demonstradora",
+        "status": "found",
+        "page": null,
+        "quote": "Setor: CME demonstradora"
+      },
+      "maintenanceCompany": {
+        "value": "Assistência Demo Ltda.",
+        "status": "found",
+        "page": null,
+        "quote": "Empresa de manutenção: Assistência Demo Ltda."
+      },
+      "maintenancePhone": {
+        "value": "(11) 4000-0000",
+        "status": "found",
+        "page": null,
+        "quote": "Telefone da manutenção: (11) 4000-0000"
+      },
+      "maintenanceEmail": {
+        "value": "assistencia@example.test",
+        "status": "found",
+        "page": null,
+        "quote": "E-mail da manutenção: assistencia@example.test"
+      },
+      "notes": {
+        "value": "DEMO-TAG002 · Uso exclusivamente demonstrativo",
+        "status": "found",
+        "page": null,
+        "quote": "Observações: DEMO-TAG002 · Uso exclusivamente demonstrativo"
+      },
+      "quantity": {
+        "value": "1",
+        "status": "found",
+        "page": null,
+        "quote": "Quantidade: 1"
+      },
+      "periodValue": {
+        "value": "90",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "periodUnit": {
+        "value": "days",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "firstDueDate": {
+        "value": "2027-02-05",
+        "status": "found",
+        "page": null,
+        "quote": "Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)"
+      },
+      "anchorType": {
+        "value": "Início do contrato",
+        "status": "found",
+        "page": null,
+        "quote": "Marco de manutenção: Início do contrato"
+      },
+      "anchorDate": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Data do marco: 07/11/2026 (2026-11-07)"
+      },
+      "validFrom": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Início da vigência: 07/11/2026 (2026-11-07)"
+      },
+      "validUntil": {
+        "value": "2027-11-06",
+        "status": "found",
+        "page": null,
+        "quote": "Fim da vigência: 06/11/2027 (2027-11-06)"
+      },
+      "warnings": []
+    },
+    {
+      "equipment": {
+        "value": "Autoclave 03",
+        "status": "found",
+        "page": null,
+        "quote": "Equipamento: Autoclave 03"
+      },
+      "brand": {
+        "value": "Consta Demo",
+        "status": "found",
+        "page": null,
+        "quote": "Marca: Consta Demo"
+      },
+      "model": {
+        "value": "AD-50",
+        "status": "found",
+        "page": null,
+        "quote": "Modelo: AD-50"
+      },
+      "serial": {
+        "value": "DEMO003",
+        "status": "found",
+        "page": null,
+        "quote": "Número de série: DEMO003"
+      },
+      "patrimony": {
+        "value": "CST0003",
+        "status": "found",
+        "page": null,
+        "quote": "Número de tombamento: CST0003"
+      },
+      "sector": {
+        "value": "CME demonstradora",
+        "status": "found",
+        "page": null,
+        "quote": "Setor: CME demonstradora"
+      },
+      "maintenanceCompany": {
+        "value": "Assistência Demo Ltda.",
+        "status": "found",
+        "page": null,
+        "quote": "Empresa de manutenção: Assistência Demo Ltda."
+      },
+      "maintenancePhone": {
+        "value": "(11) 4000-0000",
+        "status": "found",
+        "page": null,
+        "quote": "Telefone da manutenção: (11) 4000-0000"
+      },
+      "maintenanceEmail": {
+        "value": "assistencia@example.test",
+        "status": "found",
+        "page": null,
+        "quote": "E-mail da manutenção: assistencia@example.test"
+      },
+      "notes": {
+        "value": "DEMO-TAG003 · Uso exclusivamente demonstrativo",
+        "status": "found",
+        "page": null,
+        "quote": "Observações: DEMO-TAG003 · Uso exclusivamente demonstrativo"
+      },
+      "quantity": {
+        "value": "1",
+        "status": "found",
+        "page": null,
+        "quote": "Quantidade: 1"
+      },
+      "periodValue": {
+        "value": "90",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "periodUnit": {
+        "value": "days",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "firstDueDate": {
+        "value": "2027-02-05",
+        "status": "found",
+        "page": null,
+        "quote": "Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)"
+      },
+      "anchorType": {
+        "value": "Início do contrato",
+        "status": "found",
+        "page": null,
+        "quote": "Marco de manutenção: Início do contrato"
+      },
+      "anchorDate": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Data do marco: 07/11/2026 (2026-11-07)"
+      },
+      "validFrom": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Início da vigência: 07/11/2026 (2026-11-07)"
+      },
+      "validUntil": {
+        "value": "2027-11-06",
+        "status": "found",
+        "page": null,
+        "quote": "Fim da vigência: 06/11/2027 (2027-11-06)"
+      },
+      "warnings": []
+    },
+    {
+      "equipment": {
+        "value": "Autoclave 04",
+        "status": "found",
+        "page": null,
+        "quote": "Equipamento: Autoclave 04"
+      },
+      "brand": {
+        "value": "Consta Demo",
+        "status": "found",
+        "page": null,
+        "quote": "Marca: Consta Demo"
+      },
+      "model": {
+        "value": "AD-50",
+        "status": "found",
+        "page": null,
+        "quote": "Modelo: AD-50"
+      },
+      "serial": {
+        "value": "DEMO004",
+        "status": "found",
+        "page": null,
+        "quote": "Número de série: DEMO004"
+      },
+      "patrimony": {
+        "value": "CST0004",
+        "status": "found",
+        "page": null,
+        "quote": "Número de tombamento: CST0004"
+      },
+      "sector": {
+        "value": "CME demonstradora",
+        "status": "found",
+        "page": null,
+        "quote": "Setor: CME demonstradora"
+      },
+      "maintenanceCompany": {
+        "value": "Assistência Demo Ltda.",
+        "status": "found",
+        "page": null,
+        "quote": "Empresa de manutenção: Assistência Demo Ltda."
+      },
+      "maintenancePhone": {
+        "value": "(11) 4000-0000",
+        "status": "found",
+        "page": null,
+        "quote": "Telefone da manutenção: (11) 4000-0000"
+      },
+      "maintenanceEmail": {
+        "value": "assistencia@example.test",
+        "status": "found",
+        "page": null,
+        "quote": "E-mail da manutenção: assistencia@example.test"
+      },
+      "notes": {
+        "value": "DEMO-TAG004 · Uso exclusivamente demonstrativo",
+        "status": "found",
+        "page": null,
+        "quote": "Observações: DEMO-TAG004 · Uso exclusivamente demonstrativo"
+      },
+      "quantity": {
+        "value": "1",
+        "status": "found",
+        "page": null,
+        "quote": "Quantidade: 1"
+      },
+      "periodValue": {
+        "value": "90",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "periodUnit": {
+        "value": "days",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "firstDueDate": {
+        "value": "2027-02-05",
+        "status": "found",
+        "page": null,
+        "quote": "Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)"
+      },
+      "anchorType": {
+        "value": "Início do contrato",
+        "status": "found",
+        "page": null,
+        "quote": "Marco de manutenção: Início do contrato"
+      },
+      "anchorDate": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Data do marco: 07/11/2026 (2026-11-07)"
+      },
+      "validFrom": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Início da vigência: 07/11/2026 (2026-11-07)"
+      },
+      "validUntil": {
+        "value": "2027-11-06",
+        "status": "found",
+        "page": null,
+        "quote": "Fim da vigência: 06/11/2027 (2027-11-06)"
+      },
+      "warnings": []
+    },
+    {
+      "equipment": {
+        "value": "Autoclave 05",
+        "status": "found",
+        "page": null,
+        "quote": "Equipamento: Autoclave 05"
+      },
+      "brand": {
+        "value": "Consta Demo",
+        "status": "found",
+        "page": null,
+        "quote": "Marca: Consta Demo"
+      },
+      "model": {
+        "value": "AD-50",
+        "status": "found",
+        "page": null,
+        "quote": "Modelo: AD-50"
+      },
+      "serial": {
+        "value": "DEMO005",
+        "status": "found",
+        "page": null,
+        "quote": "Número de série: DEMO005"
+      },
+      "patrimony": {
+        "value": "CST0005",
+        "status": "found",
+        "page": null,
+        "quote": "Número de tombamento: CST0005"
+      },
+      "sector": {
+        "value": "CME demonstradora",
+        "status": "found",
+        "page": null,
+        "quote": "Setor: CME demonstradora"
+      },
+      "maintenanceCompany": {
+        "value": "Assistência Demo Ltda.",
+        "status": "found",
+        "page": null,
+        "quote": "Empresa de manutenção: Assistência Demo Ltda."
+      },
+      "maintenancePhone": {
+        "value": "(11) 4000-0000",
+        "status": "found",
+        "page": null,
+        "quote": "Telefone da manutenção: (11) 4000-0000"
+      },
+      "maintenanceEmail": {
+        "value": "assistencia@example.test",
+        "status": "found",
+        "page": null,
+        "quote": "E-mail da manutenção: assistencia@example.test"
+      },
+      "notes": {
+        "value": "DEMO-TAG005 · Uso exclusivamente demonstrativo",
+        "status": "found",
+        "page": null,
+        "quote": "Observações: DEMO-TAG005 · Uso exclusivamente demonstrativo"
+      },
+      "quantity": {
+        "value": "1",
+        "status": "found",
+        "page": null,
+        "quote": "Quantidade: 1"
+      },
+      "periodValue": {
+        "value": "90",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "periodUnit": {
+        "value": "days",
+        "status": "found",
+        "page": null,
+        "quote": "Periodicidade preventiva: 90 dias (periodValue: 90; periodUnit: days)"
+      },
+      "firstDueDate": {
+        "value": "2027-02-05",
+        "status": "found",
+        "page": null,
+        "quote": "Primeiro vencimento preventivo: 05/02/2027 (2027-02-05)"
+      },
+      "anchorType": {
+        "value": "Início do contrato",
+        "status": "found",
+        "page": null,
+        "quote": "Marco de manutenção: Início do contrato"
+      },
+      "anchorDate": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Data do marco: 07/11/2026 (2026-11-07)"
+      },
+      "validFrom": {
+        "value": "2026-11-07",
+        "status": "found",
+        "page": null,
+        "quote": "Início da vigência: 07/11/2026 (2026-11-07)"
+      },
+      "validUntil": {
+        "value": "2027-11-06",
+        "status": "found",
+        "page": null,
+        "quote": "Fim da vigência: 06/11/2027 (2027-11-06)"
+      },
+      "warnings": []
+    }
+  ],
+  "warnings": []
+}

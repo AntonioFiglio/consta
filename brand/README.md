@@ -2,6 +2,18 @@
 
 A marca usa o nome em caixa alta **CONSTA** com um ponto final que muda de cor conforme o estado do equipamento. Fonte DM Mono weight 500. Sem símbolo — wordmark pura.
 
+## Assinatura e mensagem do produto
+
+**Assinatura padrão:** Gestão de ativos e manutenção hospitalar.
+
+**Texto de apoio:** Documentos, equipamentos e prazos em um só lugar.
+
+Use a assinatura na capa do pitch, no encerramento e no rodapé do CRM. O texto de apoio explica a proposta sem competir com a assinatura. Preserve a wordmark **CONSTA.**, as fontes e a paleta; a assinatura usa Inter, não a tipografia do logotipo.
+
+A comunicação descreve cadastro, contratos e acompanhamento da manutenção. Ao falar de IA, explicite a conferência humana; ao falar de localização BLE, distinga a proposta e a demonstração simulada da integração física ainda não validada. Não prometa equipamentos sempre operacionais, previsão de falhas ou manutenção que se ativa sozinha.
+
+A identidade original de Pedro usava “Seus equipamentos, sempre constando positivo.” Essa frase e suas alternativas foram substituídas nesta revisão de mensagem, a pedido de Matheus. “Clareza para cuidar do que importa”, usado no CRM, e “Ativos, documentos e manutenção”, usado na capa, deixam de ser assinaturas concorrentes.
+
 ## Paleta
 
 | Cor       | Hex       | Aplicação                                   |

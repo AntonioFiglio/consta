@@ -1,0 +1,49 @@
+Tela 1 · capa · antes da fala
+
+Tela 2 · notícias e consequências · 10 s
+Quando um equipamento para, o paciente continua precisando do exame. Em casos brasileiros, pacientes precisaram de outros serviços. A rotina do hospital não espera.
+
+Tela 3 · paciente e gestor · 12 s
+A pane é só o que aparece. O paciente enfrenta adiamentos. O gestor precisa encontrar o ativo, acionar a manutenção e conferir a cobertura, enquanto o atendimento continua. A pressão chega à pessoa e à operação.
+
+Tela 4 · gaveta do gestor · 8 s
+A informação existe, mas está na gaveta do gestor. Ele precisa juntar documentos, equipamentos e prazos para fazer a manutenção acontecer. É esse esforço que queremos reduzir.
+
+Tela 5 · CONSTA e fluxo automático · 12 s
+O Consta transforma o contrato em uma base para gerir. A IA lê e preenche, retirando o trabalho de localizar e redigitar dados. A equipe confirma e acompanha inventário, agenda e pendências.
+
+Tela 6 · demo: documento · 9 s
+Esta é a interface real. Neste cenário sintético completo, um contrato reúne cinco equipamentos. Enviamos o arquivo, sem cadastrar uma unidade por vez.
+
+Tela 7 · demo: dados prontos · 9 s
+A extração desta demonstração é simulada. Identidade, patrimônio, contrato e manutenção aparecem preenchidos. Com poucos cliques, a equipe confirma.
+
+Tela 8 · demo: inventário e previsões · 9 s
+O sistema real salvou cinco equipamentos e gerou cinco previsões de manutenção. O cadastro vira uma base para gerir.
+
+Tela 9 · Smart Agenda e visão do dia · 13 s
+Neste contrato de exemplo, vinte equipamentos têm preventiva no mesmo dia. A Smart Agenda propõe quatro por dia, dentro da janela autorizada e da capacidade da equipe. A Engenharia Clínica confirma.
+
+Tela 10 · etiqueta BLE · 8 s
+Uma etiqueta BLE no equipamento. Receptores fixos permitem registrar o último setor detectado. O mapa mostra essa proposta em uma simulação.
+
+Tela 11 · mapa e atualização · 6 s
+Os receptores poderão atualizar o último setor automaticamente, sem registrar cada movimentação à mão. Aqui, mapa e rastreamento são simulados.
+
+Tela 12 · evidência do HC · 10 s
+No próprio HC, a FMUSP acertou o setor em cem por cento dos testes: noventa medições, com trinta etiquetas. É resultado do estudo.
+
+Tela 13 · impacto no atendimento · 12 s
+Mais equipamentos disponíveis criam condições para atender. Como referência de escala, o Hospital da Brasilândia realiza até dois mil procedimentos de endoscopia por mês. É produção daquele serviço, não pacientes recuperados pelo Consta.
+
+Tela 14 · economia potencial · 15 s
+Se a gestão permitir dispensar uma locação adicional por doze meses, essa referência representa aproximadamente quinhentos mil reais brutos de economia potencial. Reduzir despesa libera orçamento. Ainda precisamos medir esse ganho e descontar os custos do Consta.
+
+Tela 15 · equipe e convite · 9 s
+Somos Matheus, Pedro, Antonio e Nicolas. Buscamos um piloto com a Engenharia Clínica para medir cadastro, busca, disponibilidade e custos. Menos redigitação, mais gestão. Consta.
+
+Tela 16 · CTA · QR do sistema
+Conheça o Consta em consta ponto vercel ponto app. Vamos validar esse próximo passo com a Engenharia Clínica?
+
+Tela 17 · modelo de negócio · apoio após o CTA
+O Plano Business é uma licença anual por unidade hospitalar e faixa do parque: seis mil reais para até cem equipamentos, doze mil para até quinhentos e vinte e quatro mil para até dois mil. Tags, receptores e implantação são vendidos à parte. São preços propostos para validação comercial.

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1060" viewBox="0 0 1600 1060" role="img" aria-labelledby="title desc">
+<title id="title">Tag Consta: estudo nominal com CR2032</title><desc id="desc">Corpo nominal 52 por 36 por 12 milímetros, reservas virtuais para pilha com retentor e módulo BLE. Não liberado para fabricação.</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M7 0 0 3.5 7 7" fill="none" stroke="#78716c"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#0a0a0a}.label{font-size:27px}.note{font-size:24px;fill:#57534e}.dim{stroke:#78716c;stroke-width:1.5;marker-start:url(#arrow);marker-end:url(#arrow)}.line{stroke:#0a0a0a;stroke-width:.2;fill:none}</style>
+<rect width="1600" height="1060" fill="#FAFAF9"/>
+<text x="70" y="65" font-size="39" font-weight="700">CONSTA. / estudo de envelope com CR2032</text>
+<text x="70" y="108" class="note">Unidades em mm · corpo sem berço · conceito virtual, não liberado para fabricação</text>
+<g transform="translate(120 205)">
+<text y="-35" class="label" font-weight="700">VISTA SUPERIOR</text>
+<g transform="scale(10)">
+<rect class="line" width="52" height="36" rx="6" stroke-width=".2"/>
+<rect x="1.5" y="1.5" width="49" height="33" rx="4.5" fill="none" stroke="#a8a29e" stroke-dasharray=".6 .6" stroke-width=".15"/>
+<rect x="3" y="6" width="26" height="24" rx=".5" fill="#e7e5e4" stroke="#78716c" stroke-width=".15"/>
+<circle cx="16" cy="18" r="10" fill="none" stroke="#a8a29e" stroke-width=".15"/>
+<rect x="31" y="12.5" width="16" height="11" rx=".3" fill="#fff7ed" stroke="#f97316" stroke-width=".2"/>
+</g>
+<text x="55" y="155" class="label">CR2032</text><text x="55" y="193" class="note">+ retentor</text>
+<text x="322" y="174" class="label">Módulo</text><text x="322" y="210" class="note">BLE</text>
+<path d="M0 398H520" class="dim"/><text x="242" y="437" class="label">52</text>
+<path d="M565 0V360" class="dim"/><text x="583" y="190" class="label">36</text>
+</g>
+<g transform="translate(870 205)">
+<text y="-35" class="label" font-weight="700">SEÇÃO LONGITUDINAL / RESERVAS</text>
+<g transform="scale(10)">
+<rect class="line" width="52" height="12" rx="1.5" stroke-width=".2"/>
+<path d="M1.5 1.5H50.5V10.5H1.5Z" fill="none" stroke="#a8a29e" stroke-dasharray=".6 .6" stroke-width=".15"/>
+<rect x="3" y="4.5" width="26" height="5" fill="#e7e5e4" stroke="#78716c" stroke-width=".15"/>
+<rect x="31" y="5.5" width="16" height="3.5" fill="#fff7ed" stroke="#f97316" stroke-width=".2"/>
+</g>
+<path d="M565 0V120" class="dim"/><text x="583" y="72" class="label">12</text>
+<text y="179" class="note">Parede nominal: 1,5</text>
+<text y="219" class="note">Interior ideal: 49 × 33 × 9</text>
+<text y="259" class="note">Reserva pilha + retentor: 26 × 24 × 5</text>
+<text y="299" class="note">Reserva módulo: 16 × 11 × 3,5</text>
+<text y="339" class="note">Separação longitudinal: 2</text>
+<text y="389" class="note">PCB própria ainda a projetar.</text>
+<text y="429" class="note">Berço não modelado neste desenho.</text>
+</g>
+<path d="M70 705H1530" stroke="#d6d3d1"/>
+<text x="70" y="758" font-size="31" font-weight="700">Verificação virtual: reservas contidas, sem interseção entre si.</text>
+<text x="70" y="805" class="label">Controles negativos detectam colisão e protrusão. Encaixe físico não verificado.</text>
+<text x="70" y="853" class="note">Faltam: PCB completa, tolerâncias, curso da pilha, tampa, fixadores, berço e validação RF.</text>
+<text x="70" y="899" class="note">Folga geométrica não é tolerância de fabricação nem afastamento RF aprovado.</text>
+<text x="70" y="945" class="note">Referências: Panasonic CR2032, Keystone 3034, Raytac MDBT50Q-1MV2. Fontes: parametros.json.</text>
+<text x="70" y="991" class="note">Dimensões propostas e contas SciMath documentadas · sem fabricação ou ensaio hospitalar.</text>
+</svg>
